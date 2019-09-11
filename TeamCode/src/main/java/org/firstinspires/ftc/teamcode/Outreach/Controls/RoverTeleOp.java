@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.Outreach.DriveTrains.RoverDrive;
 //methods
 
         public void drive() {
-            if(gamepad1.dpad_up) {      // code that works
+//            if(gamepad1.dpad_up) {      // code that works
 
                 if (gamepad1.left_stick_y > .1) {
                     myRover.driveForward(gamepad1.left_stick_y);
@@ -41,8 +41,8 @@ import org.firstinspires.ftc.teamcode.Outreach.DriveTrains.RoverDrive;
                 } else {
                     myRover.stopMotors();
                 }
-            }
-            else if (gamepad1.dpad_down) {              // experimental code
+//            }
+//            else if (gamepad1.dpad_down) {              // experimental code
                 if (gamepad1.left_stick_y > .1) {
                     myRover.driveForward(gamepad1.left_stick_y);
                 } else if (gamepad1.left_stick_y < -.1) {
@@ -55,7 +55,7 @@ import org.firstinspires.ftc.teamcode.Outreach.DriveTrains.RoverDrive;
                     myRover.stopMotors();
                 }
             }
-        }
+//        }
 
         public void telemetry () {
 
