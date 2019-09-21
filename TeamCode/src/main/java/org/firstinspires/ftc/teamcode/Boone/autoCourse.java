@@ -27,11 +27,11 @@ public class autoCourse extends LinearOpMode {
 
 
             MechDrive.driveForward(1, 3);
-            sleep(10000);
+            sleep(1000);
             MechDrive.stopMotors();
 
             MechDrive.rotateRight(1);
-            sleep(10000);
+            sleep(1000);
             MechDrive.stopMotors();
 
 
