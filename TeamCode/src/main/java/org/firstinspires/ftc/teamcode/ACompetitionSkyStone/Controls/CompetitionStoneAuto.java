@@ -35,7 +35,6 @@ public class CompetitionStoneAuto extends LinearOpMode {
             sleep(1000);
             mechDrive.stopMotors();
 
-            intakeSpin
 
 
 
