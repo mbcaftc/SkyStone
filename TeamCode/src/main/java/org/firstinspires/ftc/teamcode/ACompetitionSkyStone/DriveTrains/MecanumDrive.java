@@ -125,6 +125,27 @@ import com.qualcomm.robotcore.hardware.DcMotor;
             stopMotors();
 
         }
+        public void rotateLeft ( double speed, double rotations){
+            double ticks = rotations * TICKS_PER_ROTATION;
+            setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            while (frontLeftMotor.getCurrentPosition() < ticks) {
+                rotateLeft(speed);
+            }
+            stopMotors();
+        }
+        public void rotateRight ( double speed, double rotations){
+            double ticks = rotations * TICKS_PER_ROTATION;
+            setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            while (frontLeftMotor.getCurrentPosition() < ticks) {
+                rotateRight(speed);
+            }
+            stopMotors();
+        }
+
 
         public void strafeLeft ( double speed, double rotations){
             double ticks = rotations * TICKS_PER_ROTATION;
