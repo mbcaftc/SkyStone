@@ -25,6 +25,10 @@ public class SkyStoneAuto {
     final long sleepTime = 200;
 
 
+
+
+
+
     public void sampleSkyStone () {
 
         mechDrive.driveForward(1, 2.5);             // drive forward toward skystones
