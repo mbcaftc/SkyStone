@@ -24,26 +24,26 @@ public class CompSkyStoneAutoVuforia extends LinearOpMode {
             myAuto.sampleSkyStone();
             sleep(sleepTime);
 
-            myAuto.dropOffMineral();
-            sleep(sleepTime);
-
-            myAuto.adjustBuildPlate();
-            sleep(sleepTime);
-
-            myAuto.goToSkyStones();
-            sleep(sleepTime);
-
-            myAuto.goToSkyStones();
-            sleep(sleepTime);
-
-            myAuto.sampleSkyStone();
-            sleep(sleepTime);
-
-            myAuto.dropOffMineral();
-            sleep(sleepTime);
-
-            myAuto.parkOnLine();
-            sleep(sleepTime);
+            //myAuto.dropOffMineral();
+//            sleep(sleepTime);
+//
+//            myAuto.adjustBuildPlate();
+//            sleep(sleepTime);
+//
+//            myAuto.goToSkyStones();
+//            sleep(sleepTime);
+//
+//            myAuto.goToSkyStones();
+//            sleep(sleepTime);
+//
+//            myAuto.sampleSkyStone();
+//            sleep(sleepTime);
+//
+//            myAuto.dropOffMineral();
+//            sleep(sleepTime);
+//
+//            myAuto.parkOnLine();
+//            sleep(sleepTime);
 
 
         }

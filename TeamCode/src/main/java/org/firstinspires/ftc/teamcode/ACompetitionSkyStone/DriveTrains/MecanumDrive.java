@@ -109,7 +109,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
             setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
             while (frontLeftMotor.getCurrentPosition() < ticks) {
-                driveForward(speed);
+//                driveForward(speed);
             }
             stopMotors();
         }

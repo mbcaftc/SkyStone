@@ -19,6 +19,7 @@ public class CompSkyStoneAuto extends LinearOpMode {
         mechDrive.setLinearOp(this);
 
         SkyStoneAuto myAuto = new SkyStoneAuto();
+        myAuto.setLinearOp(this);
 
         waitForStart();
         idle();
@@ -27,27 +28,27 @@ public class CompSkyStoneAuto extends LinearOpMode {
 
             myAuto.sampleSkyStone();
             sleep(sleepTime);
-
-            myAuto.dropOffMineral();
-            sleep(sleepTime);
-
-            myAuto.adjustBuildPlate();
-            sleep(sleepTime);
-
-            myAuto.goToSkyStones();
-            sleep(sleepTime);
-
-            myAuto.goToSkyStones();
-            sleep(sleepTime);
-
-            myAuto.sampleSkyStone();
-            sleep(sleepTime);
-
-            myAuto.dropOffMineral();
-            sleep(sleepTime);
-
-            myAuto.parkOnLine();
-            sleep(sleepTime);
+//
+//            myAuto.dropOffMineral();
+//            sleep(sleepTime);
+//
+//            myAuto.adjustBuildPlate();
+//            sleep(sleepTime);
+//
+//            myAuto.goToSkyStones();
+//            sleep(sleepTime);
+//
+//            myAuto.goToSkyStones();
+//            sleep(sleepTime);
+//
+//            myAuto.sampleSkyStone();
+//            sleep(sleepTime);
+//
+//            myAuto.dropOffMineral();
+//            sleep(sleepTime);
+//
+//            myAuto.parkOnLine();
+//            sleep(sleepTime);
 
 
 
