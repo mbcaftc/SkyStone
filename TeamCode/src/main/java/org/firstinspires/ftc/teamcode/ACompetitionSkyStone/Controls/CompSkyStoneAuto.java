@@ -8,10 +8,11 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.DriveTrains.MecanumDr
 @Autonomous (name = "Skystone Auto")
 public class CompSkyStoneAuto extends LinearOpMode {
 
-    @Override
+
 
     final long  sleepTime = 200;
 
+    @Override
     public void runOpMode() throws InterruptedException {
 
         MecanumDrive mechDrive = new MecanumDrive(hardwareMap.dcMotor.get("front_left_motor"), hardwareMap.dcMotor.get("front_right_motor"), hardwareMap.dcMotor.get("rear_left_motor"), hardwareMap.dcMotor.get("rear_right_motor"));
@@ -45,7 +46,8 @@ public class CompSkyStoneAuto extends LinearOpMode {
             myAuto.dropOffMineral();
             sleep(sleepTime);
 
-            myAuto.
+            myAuto.parkOnLine();
+            sleep(sleepTime);
 
 
 
