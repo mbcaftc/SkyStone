@@ -29,21 +29,23 @@ public class SkyStoneAuto {
 
 
 
-    public void sampleSkyStone () {
+    public void sampleSkyStone (MecanumDrive mechDrive) {
 
-        mechDrive.driveForward(1, 2.5);             // drive forward toward skystones
+
+        mechDrive.driveForward(1, 4);
         linearOp.sleep(sleepTime);
-
         //sample another sky stone
 
-        mechDrive.driveBackward(1, 2);              // drive backward with stone
+        mechDrive.driveBackward(1, 3);              // drive backward with stone
         linearOp.sleep(sleepTime);
+        linearOp.telemetry.addData("drive backward", mechDrive.frontLeftMotor.getCurrentPosition());
+        linearOp.telemetry.update();
 
     }
 
-    public void dropOffMineral () {
+    public void dropOffMineral (MecanumDrive mechDrive) {
 
-        mechDrive.rotateRight(1, .5);               // rotate toward build site with stone
+        mechDrive.rotateRight(1, 2.5);               // rotate toward build site with stone
         linearOp.sleep(sleepTime);
 
 

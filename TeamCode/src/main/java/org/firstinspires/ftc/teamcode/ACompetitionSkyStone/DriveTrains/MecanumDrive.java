@@ -2,9 +2,10 @@ package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.DriveTrains;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
-    public class MecanumDrive {
+public class MecanumDrive {
 
         public DcMotor frontLeftMotor;
         public DcMotor frontRightMotor;
@@ -23,10 +24,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
             rearLeftMotor = rl;
             rearRightMotor = rr;
 
-            frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);     //Forward and reverse depends on builder and manufacture
-            rearLeftMotor.setDirection(DcMotor.Direction.REVERSE);
-            frontRightMotor.setDirection(DcMotor.Direction.FORWARD);
-            rearRightMotor.setDirection(DcMotor.Direction.FORWARD);
+            frontLeftMotor.setDirection(DcMotor.Direction.FORWARD);     //Forward and reverse depends on builder and manufacture
+            rearLeftMotor.setDirection(DcMotor.Direction.FORWARD);
+            frontRightMotor.setDirection(DcMotor.Direction.REVERSE);
+            rearRightMotor.setDirection(DcMotor.Direction.REVERSE);
 
             setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);   //memorize
             setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // MUST HAVE RUN MODE
@@ -98,8 +99,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
         public void rotateRight (double speed) {
             frontLeftMotor.setPower(speed);
             frontRightMotor.setPower(-speed);
-            rearLeftMotor.setPower(-speed);
-            rearRightMotor.setPower(speed);
+            rearLeftMotor.setPower(speed);
+            rearRightMotor.setPower(-speed);
         }
 
         public void driveForward( double speed, double rotations) {
@@ -108,29 +109,35 @@ import com.qualcomm.robotcore.hardware.DcMotor;
             setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-            while (frontLeftMotor.getCurrentPosition() < ticks) {
-//                driveForward(speed);
+            while (frontLeftMotor.getCurrentPosition() < ticks && LinearOp.opModeIsActive()) {
+                driveForward(speed);
+                LinearOp.telemetry.addData("DRIVING FORWARD", frontLeftMotor.getCurrentPosition());
+                LinearOp.telemetry.update();
             }
             stopMotors();
         }
+
 
         public void driveBackward ( double speed, double rotations){
             double ticks = rotations * (-1) * TICKS_PER_ROTATION;
             setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-            while (frontLeftMotor.getCurrentPosition() < ticks) {
+            while (frontLeftMotor.getCurrentPosition() > ticks && LinearOp.opModeIsActive()) {
                 driveBackward(speed);
+                LinearOp.telemetry.addData("DRIVING BACK", frontLeftMotor.getCurrentPosition());
+                LinearOp.telemetry.update();
             }
             stopMotors();
 
         }
+
         public void rotateLeft ( double speed, double rotations){
             double ticks = rotations * TICKS_PER_ROTATION;
             setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-            while (frontLeftMotor.getCurrentPosition() < ticks) {
+            while (frontLeftMotor.getCurrentPosition() < ticks && LinearOp.opModeIsActive()) {
                 rotateLeft(speed);
             }
             stopMotors();
@@ -140,7 +147,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
             setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-            while (frontLeftMotor.getCurrentPosition() < ticks) {
+            while (frontLeftMotor.getCurrentPosition() < ticks && LinearOp.opModeIsActive()) {
                 rotateRight(speed);
             }
             stopMotors();
@@ -152,7 +159,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
             setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-            while (frontLeftMotor.getCurrentPosition() < ticks) {
+            while (frontLeftMotor.getCurrentPosition() > ticks && LinearOp.opModeIsActive()) {
                 strafeLeft(speed);
             }
             stopMotors();
@@ -162,7 +169,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
             setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-            while (frontLeftMotor.getCurrentPosition() < ticks) {
+            while (frontLeftMotor.getCurrentPosition() < ticks && LinearOp.opModeIsActive()) {
                 strafeRight(speed);
             }
             stopMotors();

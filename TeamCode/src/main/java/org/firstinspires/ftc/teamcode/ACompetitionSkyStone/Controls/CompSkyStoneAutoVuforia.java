@@ -21,7 +21,7 @@ public class CompSkyStoneAutoVuforia extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            myAuto.sampleSkyStone();
+            myAuto.sampleSkyStone(mechDrive);
             sleep(sleepTime);
 
             //myAuto.dropOffMineral();

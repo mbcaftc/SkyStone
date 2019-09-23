@@ -26,11 +26,11 @@ public class CompSkyStoneAuto extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            myAuto.sampleSkyStone();
+            myAuto.sampleSkyStone(mechDrive);
             sleep(sleepTime);
-//
-//            myAuto.dropOffMineral();
-//            sleep(sleepTime);
+
+            myAuto.dropOffMineral(mechDrive);
+            sleep(sleepTime);
 //
 //            myAuto.adjustBuildPlate();
 //            sleep(sleepTime);
@@ -55,14 +55,8 @@ public class CompSkyStoneAuto extends LinearOpMode {
 
 
 
-
-
+            requestOpModeStop();
         }
-
+        idle();
     }
-
-
-
-
-
 }
