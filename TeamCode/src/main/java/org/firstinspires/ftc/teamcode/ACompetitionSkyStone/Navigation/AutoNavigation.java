@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 
 
-public class AutoNavigation {
+abstract public class AutoNavigation extends LinearOpMode {
 
     public AckerBot Bot = new AckerBot();
 

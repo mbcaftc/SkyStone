@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 public class AckerBotAutoNav extends LinearOpMode {
 
     public AckerBot Bot = new AckerBot();
-    public AutoNavigation Nav = new AutoNavigation();
+    //public AutoNavigation Nav = new AutoNavigation();
 
     final long  sleepTime = 200;
     final double maxSpeed = 1;
@@ -26,7 +26,7 @@ public class AckerBotAutoNav extends LinearOpMode {
         Bot.initRobot(hardwareMap);
 
         Bot.setLinearOp(this);
-        Nav.setLinearOp(this);
+        //Nav.setLinearOp(this);
 
         waitForStart();
 
@@ -34,26 +34,26 @@ public class AckerBotAutoNav extends LinearOpMode {
 
             telemetry.addLine("Sample Skystone");
             telemetry.update();
-            Nav.sampleSkyStone();
+            //Nav.sampleSkyStone();
             sleep(sleepTime);
 
             telemetry.addLine("Drop off Stone");
-            Nav.dropOffStone();
+            //Nav.dropOffStone();
             sleep(sleepTime);
 
             telemetry.addLine("Align with Build Plate");
             telemetry.update();
-            Nav.alignWithBuildPlate();
+            //Nav.alignWithBuildPlate();
             sleep(sleepTime);
 
             telemetry.addLine("Re-orient Build Plate");
             telemetry.update();
-            Nav.reorientBuildPlate ();
+           // Nav.reorientBuildPlate ();
             sleep(sleepTime);
 
             telemetry.addLine("Go to Sky Stones");
             telemetry.update();
-            Nav.goToSkyStones();
+            //Nav.goToSkyStones();
             sleep(sleepTime);
 
 

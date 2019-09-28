@@ -38,8 +38,8 @@ public class AckerBotAuto extends LinearOpMode {
             reorientBuildPlate ();
             sleep(sleepTime);
 //
-            goToSkyStones();
-            sleep(sleepTime);
+            //goToSkyStones();
+            //sleep(sleepTime);
 //
 //            myAuto.goToSkyStones();
 //            sleep(sleepTime);
@@ -100,36 +100,43 @@ public class AckerBotAuto extends LinearOpMode {
     public void alignWithBuildPlate () {
 
         telemetry.addLine("Align with Build Plate");
-        Bot.strafeRight(highSpeed, 3.6);
+
+        Bot.strafeRight(highSpeed, 3.4);
         sleep(sleepTime);
 
-        Bot.gyroCorrection(lowSpeed, 85);
-        sleep(sleepTime);
+//        Bot.gyroCorrection(lowSpeed, 85);
+//        sleep(sleepTime);
 
-        Bot.driveBackward(lowSpeed, 1);
+        Bot.driveBackward(lowSpeed, 1.5);
         sleep(sleepTime);
     }
 
     public void reorientBuildPlate() {
 
         //grab build plate
+        Bot.HookGrab(.9,.9);
+
         telemetry.addLine("Re-orient Build Plate");
+
+        Bot.driveForward(lowSpeed, .3);
         Bot.rotateRight (midSpeed, 1.5);               // strafe between the wall and the build plate
         sleep(sleepTime);
 
         Bot.gyroCorrection(lowSpeed, 40);
         sleep(sleepTime);
 
-        Bot.driveBackward(midSpeed, 2);
+        Bot.driveBackward(midSpeed, 1.5);
         sleep(sleepTime);
 
         //release build plate
+        Bot.HookRelease(.9,.9);
 
     }
 
     public void goToSkyStones() {
 
         telemetry.addLine("Go back to Sky Stones");
+
 
         Bot.driveForward(highSpeed, 1);
         sleep(sleepTime);
@@ -139,6 +146,8 @@ public class AckerBotAuto extends LinearOpMode {
 
         Bot.gyroCorrection(lowSpeed, 82);
         sleep(sleepTime);
+
+        Bot.strafeLeft(midSpeed, 1);
 
         Bot.driveForward(highSpeed, 8.5);             // strafe out (away from the wall and build site towards the skystones)
         sleep(sleepTime);
