@@ -6,12 +6,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Navigation.AutoNavigation;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 
-@Autonomous (name = "AckerBot Auto Navigation")
-public class AckerBotAutoNav extends LinearOpMode {
+@Autonomous (name = "AckerBot Auto Path Red")
+public class AckerBotAutoPathRed extends AutoNavigation {
 
     public AckerBot Bot = new AckerBot();
-    public AutoNavigation Nav = new AutoNavigation();
-
     final long  sleepTime = 200;
 
     @Override
@@ -19,34 +17,24 @@ public class AckerBotAutoNav extends LinearOpMode {
 
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
-        Nav.setLinearOp(this);
 
         waitForStart();
 
         while (opModeIsActive()) {
 
-            telemetry.addLine("Sample Skystone");
-            telemetry.update();
-            Nav.sampleSkyStone();
+            sampleSkyStone();
             sleep(sleepTime);
 
-            telemetry.addLine("Drop off Stone");
-            Nav.dropOffStone();
+            dropOffStone();
             sleep(sleepTime);
 
-            telemetry.addLine("Align with Build Plate");
-            telemetry.update();
-            Nav.alignWithBuildPlate();
+            alignWithBuildPlate();
             sleep(sleepTime);
 
-            telemetry.addLine("Re-orient Build Plate");
-            telemetry.update();
-            Nav.reorientBuildPlate ();
+            reorientBuildPlate ();
             sleep(sleepTime);
 
-            telemetry.addLine("Go to Sky Stones");
-            telemetry.update();
-            Nav.goToSkyStones();
+            goToSkyStones();
             sleep(sleepTime);
 
 

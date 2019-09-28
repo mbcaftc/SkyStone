@@ -2,13 +2,10 @@ package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Navigation;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.AckerBotAuto;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.DriveTrains.MecanumDrive;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 
 
-public class AutoNavigation {
+public abstract class AutoNavigation extends LinearOpMode {
 
 
     public final long  sleepTime = 200;
@@ -34,6 +31,8 @@ public class AutoNavigation {
 
     public void sampleSkyStone () {
 
+        telemetry.addLine("Sample Skystone");
+        telemetry.update();
         Bot.driveForward(highSpeed, 3.4);
         linearOp.sleep(sleepTime);
 
@@ -45,7 +44,8 @@ public class AutoNavigation {
 
     public void dropOffStone () {
 
-
+        telemetry.addLine("Drop off Stone");
+        telemetry.update();
         Bot.rotateLeft(highSpeed, 2.5);               // rotate toward build site with stone
         linearOp.sleep(sleepTime);
 
@@ -60,6 +60,8 @@ public class AutoNavigation {
 
     public void alignWithBuildPlate () {
 
+        telemetry.addLine("Align with Build Plate");
+        telemetry.update();
         Bot.strafeRight(highSpeed, 3.6);
         linearOp.sleep(sleepTime);
 
@@ -72,6 +74,8 @@ public class AutoNavigation {
 
     public void reorientBuildPlate() {
 
+        telemetry.addLine("Re-orient Build Plate");
+        telemetry.update();
         //grab build plate
         Bot.rotateRight (midSpeed, 1.5);               // strafe between the wall and the build plate
         linearOp.sleep(sleepTime);
@@ -88,6 +92,8 @@ public class AutoNavigation {
 
     public void goToSkyStones() {
 
+        telemetry.addLine("Go to Sky Stones");
+        telemetry.update();
         Bot.driveForward(highSpeed, 1);
         linearOp.sleep(sleepTime);
 
