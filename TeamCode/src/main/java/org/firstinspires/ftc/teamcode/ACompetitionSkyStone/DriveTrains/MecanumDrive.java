@@ -17,8 +17,8 @@ public class MecanumDrive  {
     public DcMotor rearLeftMotor;
     public static final double TICKS_PER_ROTATION = 386.3;   // GoBilda Motor TICKS
 
-    //FTC SDK Requirement
     public LinearOpMode linearOp = null;
+
     public void setLinearOp(LinearOpMode linearOp) {
 
         this.linearOp = linearOp;

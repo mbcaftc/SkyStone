@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Navigation;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.AckerBotAuto;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.DriveTrains.MecanumDrive;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 
@@ -10,23 +11,24 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 public class AutoNavigation {
 
 
-    final long  sleepTime = 200;
-    final double maxSpeed = 1;
-    final double highSpeed = .6;
-    final double midSpeed = .5;
-    final double lowSpeed = .3;
+    public final long  sleepTime = 200;
+    public final double maxSpeed = 1;
+    public final double highSpeed = .6;
+    public final double midSpeed = .5;
+    public final double lowSpeed = .3;
+
+    public AckerBot Bot = new AckerBot();
+    public LinearOpMode linearOp = null;
+
 
     public AutoNavigation() {
 
     }
 
 
-    public AckerBot Bot = new AckerBot();
-    public LinearOpMode linearOp = null;
+    public void setLinearOp(LinearOpMode Op) {
 
-    public void setLinearOp(LinearOpMode linearOp) {
-
-        this.linearOp = linearOp;
+        linearOp = Op;
     }
 
 

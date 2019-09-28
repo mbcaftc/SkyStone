@@ -13,11 +13,6 @@ public class AckerBotAutoNav extends LinearOpMode {
     public AutoNavigation Nav = new AutoNavigation();
 
     final long  sleepTime = 200;
-    final double maxSpeed = 1;
-    final double highSpeed = .6;
-    final double midSpeed = .5;
-    final double lowSpeed = .3;
-
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -25,7 +20,6 @@ public class AckerBotAutoNav extends LinearOpMode {
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
         Nav.setLinearOp(this);
-
 
         waitForStart();
 
