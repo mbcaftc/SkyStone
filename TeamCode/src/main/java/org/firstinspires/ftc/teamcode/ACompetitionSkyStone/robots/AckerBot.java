@@ -44,8 +44,8 @@ public class AckerBot extends MecanumDrive  {
 
     //Color Sensor Variables & Constants
     public float hsvValues[] = {0F, 0F, 0F};
-    public int thresholdNothing = 0;       // Original was 180, adjusted for red hue
-    public int threshholdColor= 7;          // Original was 270
+    public int thresholdNothing = 350;       // Original was 180, adjusted for red hue
+    public int threshholdColor= 150;          // Original was 270
     public final double SCALE_FACTOR = 255;
 
 
@@ -149,6 +149,7 @@ public class AckerBot extends MecanumDrive  {
 
         if (hsvValues[0] >= thresholdNothing && hsvValues[0] <  threshholdColor) {
 
+            stopMotors();
             return true;
 
         }
