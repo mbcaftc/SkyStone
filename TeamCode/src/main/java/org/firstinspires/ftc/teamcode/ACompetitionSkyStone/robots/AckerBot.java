@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -23,8 +22,8 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.DriveTrains.MecanumDr
 
 
 public class AckerBot extends MecanumDrive  {
-    //Robot Hardware Constructors
 
+    //Robot Hardware Constructors
     public HardwareMap hwBot  =  null;
     public Servo HookLeft = null;
     public Servo HookRight = null;
@@ -35,7 +34,7 @@ public class AckerBot extends MecanumDrive  {
     public RevBlinkinLedDriver blinkinLedDriver;
     public RevBlinkinLedDriver.BlinkinPattern pattern;
 
-    //GyroTester Objects and Variables
+    //Gyro Objects and Variables
     public BNO055IMU imu;
     public Orientation angles;
     public Acceleration gravity;
@@ -43,7 +42,7 @@ public class AckerBot extends MecanumDrive  {
     public final double TOLERANCE = .4;
 
 
-    //Color Sensor Varaibles & Constants
+    //Color Sensor Variables & Constants
     public float hsvValues[] = {0F, 0F, 0F};
     public int thresholdNothing = 0;       // Original was 180, adjusted for red hue
     public int threshholdColor= 7;          // Original was 270
@@ -51,7 +50,7 @@ public class AckerBot extends MecanumDrive  {
 
 
 
-    //LabBot Constructor
+    //AckerBot Constructor
 
     public AckerBot() {
 

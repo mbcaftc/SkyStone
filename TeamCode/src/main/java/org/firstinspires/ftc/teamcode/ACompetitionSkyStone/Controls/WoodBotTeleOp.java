@@ -39,7 +39,6 @@ public class WoodBotTeleOp extends OpMode {
     @Override
     public void init() {
 
-        //Hardware Initialization from Robot and Camera Classes
             Bot.initRobot(hardwareMap);
     }
 

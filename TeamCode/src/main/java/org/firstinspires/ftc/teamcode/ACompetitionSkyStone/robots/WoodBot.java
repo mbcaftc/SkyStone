@@ -21,7 +21,7 @@ public class WoodBot extends MecanumDrive {
 
     public HardwareMap hwBot  =  null;
 
-    //GyroTester Objects and Variables
+    //Gyro Objects and Variables
     public BNO055IMU imu;
     public Orientation angles;
     public Acceleration gravity;
@@ -29,14 +29,7 @@ public class WoodBot extends MecanumDrive {
     public final double TOLERANCE = .4;
 
 
-    //FTC SDK Requirement
-    public LinearOpMode linearOp = null;
-    public void setLinearOp (LinearOpMode Op) {
-        linearOp = Op;
-    }
-
-
-    //LabBot Constructor
+    //WoodBot Constructor
 
     public WoodBot() {
 

@@ -23,6 +23,7 @@ public class AutoNavigation {
 
     public AckerBot Bot = new AckerBot();
     public LinearOpMode linearOp = null;
+
     public void setLinearOp(LinearOpMode linearOp) {
 
         this.linearOp = linearOp;

@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 @Autonomous (name = "AckerBot Auto Navigation")
 public class AckerBotAutoNav extends LinearOpMode {
 
-    public AckerBot Bot;
-    public AutoNavigation Nav;
+    public AckerBot Bot = new AckerBot();
+    public AutoNavigation Nav = new AutoNavigation();
 
     final long  sleepTime = 200;
     final double maxSpeed = 1;
@@ -22,13 +22,10 @@ public class AckerBotAutoNav extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Bot = new AckerBot();
+        Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
-
-        Nav  = new AutoNavigation();
         Nav.setLinearOp(this);
 
-        Bot.initRobot(hardwareMap);
 
         waitForStart();
 

@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.DriveTrains.MecanumDrive;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 
 @Autonomous (name = "AckerBot Auto")
@@ -22,7 +20,6 @@ public class AckerBotAuto extends LinearOpMode {
 
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
-
 
         waitForStart();
 
