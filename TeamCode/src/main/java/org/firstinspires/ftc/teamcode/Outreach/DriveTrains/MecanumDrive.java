@@ -76,7 +76,7 @@ public class MecanumDrive {
 
     }
 
-    public void strafeRight(double speed) {
+    public void rotateLeft(double speed) {
         frontLeftMotor.setPower(speed);
         frontRightMotor.setPower(-speed);
         rearLeftMotor.setPower(speed);
@@ -84,7 +84,7 @@ public class MecanumDrive {
 
     }
 
-    public void strafeLeft(double speed) {
+    public void rotateRight(double speed) {
         frontLeftMotor.setPower(-speed);
         frontRightMotor.setPower(speed);
         rearLeftMotor.setPower(-speed);
@@ -92,7 +92,7 @@ public class MecanumDrive {
 
     }
 
-    public void rotateLeft(double speed) {
+    public void strafeLeft(double speed) {
         frontLeftMotor.setPower(-speed);
         frontRightMotor.setPower(speed);
         rearLeftMotor.setPower(speed);
@@ -100,7 +100,7 @@ public class MecanumDrive {
 
     }
 
-    public void rotateRight(double speed) {
+    public void strafeRight(double speed) {
         frontLeftMotor.setPower(speed);
         frontRightMotor.setPower(-speed);
         rearLeftMotor.setPower(-speed);
