@@ -107,7 +107,7 @@ public class AckerBotAuto extends LinearOpMode {
 //        Bot.gyroCorrection(lowSpeed, 85);
 //        sleep(sleepTime);
 
-        Bot.driveBackward(lowSpeed, 1.5);
+        Bot.driveBackward(lowSpeed, 1);
         sleep(sleepTime);
     }
 
@@ -115,21 +115,23 @@ public class AckerBotAuto extends LinearOpMode {
 
         //grab build plate
         Bot.HookGrab(.9,.9);
+        sleep(1000);
 
         telemetry.addLine("Re-orient Build Plate");
 
-        Bot.driveForward(lowSpeed, .3);
+        Bot.driveForward(lowSpeed, .8);
         Bot.rotateRight (midSpeed, 1.5);               // strafe between the wall and the build plate
         sleep(sleepTime);
 
         Bot.gyroCorrection(lowSpeed, 40);
         sleep(sleepTime);
 
-        Bot.driveBackward(midSpeed, 1.5);
+        Bot.driveBackward(midSpeed, 2);
         sleep(sleepTime);
 
         //release build plate
-        Bot.HookRelease(.9,.9);
+        Bot.HookRelease(.1,.1);
+        sleep(1000);
 
     }
 

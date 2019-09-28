@@ -90,7 +90,7 @@ public class AckerBot extends MecanumDrive  {
         HookRight = hwBot.get(Servo.class, "hook_right");
         HookRight.setDirection(Servo.Direction.FORWARD);
 
-        //HookRelease(0.0, 0.0);
+        HookRelease(0.0, 0.0);
 
         //Define & Initialize Color Sensor
         sensorColor = hwBot.get(ColorSensor.class, "sensor_color_distance");
