@@ -7,16 +7,9 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Navigation.AutoNaviga
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 
 @Autonomous (name = "AckerBot Auto Navigation")
-public class AckerBotAutoNav extends LinearOpMode {
+public class AckerBotAutoNav extends AutoNavigation {
 
     public AckerBot Bot = new AckerBot();
-    //public AutoNavigation Nav = new AutoNavigation();
-
-    final long  sleepTime = 200;
-    final double maxSpeed = 1;
-    final double highSpeed = .6;
-    final double midSpeed = .5;
-    final double lowSpeed = .3;
 
 
     @Override
@@ -24,9 +17,8 @@ public class AckerBotAutoNav extends LinearOpMode {
 
 
         Bot.initRobot(hardwareMap);
-
         Bot.setLinearOp(this);
-        //Nav.setLinearOp(this);
+        setLinearOp(this);
 
         waitForStart();
 
@@ -34,28 +26,27 @@ public class AckerBotAutoNav extends LinearOpMode {
 
             telemetry.addLine("Sample Skystone");
             telemetry.update();
-            //Nav.sampleSkyStone();
-            sleep(sleepTime);
+            sampleSkyStone();
+            sleep(1000);
 
             telemetry.addLine("Drop off Stone");
             //Nav.dropOffStone();
-            sleep(sleepTime);
+            sleep(1000);
 
             telemetry.addLine("Align with Build Plate");
             telemetry.update();
-            //Nav.alignWithBuildPlate();
-            sleep(sleepTime);
+            alignWithBuildPlate();
+            sleep(1000);
 
             telemetry.addLine("Re-orient Build Plate");
             telemetry.update();
-           // Nav.reorientBuildPlate ();
-            sleep(sleepTime);
+            reorientBuildPlate ();
+            sleep(1000);
 
             telemetry.addLine("Go to Sky Stones");
             telemetry.update();
-            //Nav.goToSkyStones();
-            sleep(sleepTime);
-
+            goToSkyStones();
+            sleep(1000);
 
             idle();
 

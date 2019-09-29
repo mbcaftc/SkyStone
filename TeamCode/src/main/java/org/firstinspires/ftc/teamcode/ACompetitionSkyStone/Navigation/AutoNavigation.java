@@ -2,10 +2,11 @@ package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Navigation;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 
 
-abstract public class AutoNavigation extends LinearOpMode {
+public abstract class AutoNavigation extends LinearOpMode {
 
     public AckerBot Bot = new AckerBot();
 
@@ -17,14 +18,18 @@ abstract public class AutoNavigation extends LinearOpMode {
 
 
     public LinearOpMode linearOp = null;
-    public void setLinearOp(LinearOpMode linearOp) {
 
-        this.linearOp = linearOp;
-    }
 
     public AutoNavigation() {
 
     }
+
+    public void setLinearOp(LinearOpMode Op) {
+
+        linearOp = Op;
+    }
+
+    public void initRobot (HardwareMap hwMap) {};
 
 
     public void sampleSkyStone () {

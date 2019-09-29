@@ -149,7 +149,6 @@ public class AckerBot extends MecanumDrive  {
 
         if (hsvValues[0] >= thresholdNothing && hsvValues[0] <  threshholdColor) {
 
-            stopMotors();
             return true;
 
         }

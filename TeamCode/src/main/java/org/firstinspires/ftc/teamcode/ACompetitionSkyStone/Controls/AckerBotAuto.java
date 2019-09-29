@@ -184,7 +184,9 @@ public class AckerBotAuto extends LinearOpMode {
     //152
     public void parkSensor () {
 
-        Bot.checkColor(150,350);
+        if (Bot.checkColor(150,350) == false) {
+            Bot.stopMotors();
+        }
 
     }
 
