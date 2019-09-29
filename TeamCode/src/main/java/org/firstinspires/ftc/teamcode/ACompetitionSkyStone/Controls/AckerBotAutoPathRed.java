@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Navigation.AutoNavigation;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 
-@Autonomous (name = "AckerBot Auto Path Red")
+@Autonomous (name = "AckerBot Auto Path Red Test")
 public class AckerBotAutoPathRed extends AutoNavigation {
 
     public AckerBot Bot = new AckerBot();

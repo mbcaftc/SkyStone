@@ -29,6 +29,7 @@ public abstract class AutoNavigation extends LinearOpMode {
         linearOp = Op;
     }
 
+    // making this required
     public void initRobot (HardwareMap hwMap) {};
 
 

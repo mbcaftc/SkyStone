@@ -182,6 +182,8 @@ public class AckerBotAuto extends LinearOpMode {
 
     // 358
     //152
+
+    //need to verify this method
     public void parkSensor () {
 
         if (Bot.checkColor(150,350) == false) {
