@@ -64,6 +64,7 @@ public class WoodBotTeleOp extends OpMode {
 
 
         Bot.angles   = Bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        controlHook();
         drive();
         telemetryOutput();
         controlResetEncoders ();
@@ -178,6 +179,16 @@ public class WoodBotTeleOp extends OpMode {
             Bot.strafeRight(.5,.5);
             encoders += .5;
         }
+    }
+
+    public void controlHook() {
+        if (gamepad1.y) {
+            Bot.HookGrab(.9,.9);
+        }
+        else if (gamepad1.a) {
+            Bot.HookRelease(0.1,0.1);
+        }
+
     }
 
 

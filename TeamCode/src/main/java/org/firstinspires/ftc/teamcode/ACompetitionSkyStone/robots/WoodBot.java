@@ -6,6 +6,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -20,6 +21,9 @@ public class WoodBot extends MecanumDrive {
     //Robot Hardware Constructors
 
     public HardwareMap hwBot  =  null;
+    public Servo HookLeft = null;
+    public Servo HookRight = null;
+
 
     //Gyro Objects and Variables
     public BNO055IMU imu;
@@ -61,6 +65,17 @@ public class WoodBot extends MecanumDrive {
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+
+        // Define & Initialize Servos
+        HookLeft = hwBot.get(Servo.class, "hook_left");
+        HookLeft.setDirection(Servo.Direction.FORWARD);
+
+        HookRight = hwBot.get(Servo.class, "hook_right");
+        HookRight.setDirection(Servo.Direction.FORWARD);
+
+        HookRelease(0.0, 0.0);
+
+
         //Define and Initialize Gyro
 
         BNO055IMU.Parameters parametersimu = new BNO055IMU.Parameters();
@@ -77,6 +92,21 @@ public class WoodBot extends MecanumDrive {
 
     }
 
+
+    // Robot Servo Methods
+
+    public void HookRelease (double leftPosition, double rightPosition) {
+
+        HookLeft.setPosition(leftPosition);
+        HookRight.setPosition(rightPosition);
+    }
+
+
+    public void HookGrab (double leftPosition, double rightPosition) {
+
+        HookLeft.setPosition(leftPosition);
+        HookRight.setPosition(rightPosition);
+    }
 
     // Robot Gyro
 
