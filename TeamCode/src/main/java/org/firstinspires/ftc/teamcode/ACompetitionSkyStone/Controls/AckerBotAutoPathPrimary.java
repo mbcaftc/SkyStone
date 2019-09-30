@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Navigation.AutoNavigation;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 
-@Autonomous (name = "AckerBot Auto Navigation Test")
-public class AckerBotAutoNav extends AutoNavigation {
+@Autonomous (name = "AckerBot Auto Primary Path Test")
+public class AckerBotAutoPathPrimary extends AutoNavigation {
 
     public AckerBot Bot = new AckerBot();
 
@@ -27,26 +27,26 @@ public class AckerBotAutoNav extends AutoNavigation {
             telemetry.addLine("Sample Skystone");
             telemetry.update();
             sampleSkyStone();
-            sleep(1000);
+            //sleep(1000);
 
-            telemetry.addLine("Drop off Stone");
+            //telemetry.addLine("Drop off Stone");
             //Nav.dropOffStone();
-            sleep(1000);
+            //sleep(1000);
 
-            telemetry.addLine("Align with Build Plate");
-            telemetry.update();
-            alignWithBuildPlate();
-            sleep(1000);
+            //telemetry.addLine("Align with Build Plate");
+            //telemetry.update();
+            //alignWithBuildPlate();
+            //sleep(1000);
 
-            telemetry.addLine("Re-orient Build Plate");
-            telemetry.update();
-            reorientBuildPlate ();
-            sleep(1000);
+            //telemetry.addLine("Re-orient Build Plate");
+            //telemetry.update();
+            //reorientBuildPlate ();
+            //sleep(1000);
 
-            telemetry.addLine("Go to Sky Stones");
-            telemetry.update();
-            goToSkyStones();
-            sleep(1000);
+            //telemetry.addLine("Go to Sky Stones");
+            //telemetry.update();
+            //goToSkyStones();
+            //sleep(1000);
 
             idle();
 
