@@ -183,10 +183,10 @@ public class WoodBotTeleOp extends OpMode {
 
     public void controlHook() {
         if (gamepad1.y) {
-            Bot.HookGrab(.9,.9);
+            Bot.HookGrab(.5,.5);
         }
         else if (gamepad1.a) {
-            Bot.HookRelease(0.1,0.1);
+            Bot.HookRelease(0.0,0.0);
         }
 
     }
