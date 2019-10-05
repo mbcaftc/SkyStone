@@ -30,6 +30,8 @@ public class AckerBot extends MecanumDrive  {
     public ColorSensor sensorColor;
     public DistanceSensor sensorDistance;
 
+
+
     // LEDTester Objects
     public RevBlinkinLedDriver blinkinLedDriver;
     public RevBlinkinLedDriver.BlinkinPattern pattern;
@@ -149,7 +151,6 @@ public class AckerBot extends MecanumDrive  {
 
         if (hsvValues[0] >= thresholdNothing && hsvValues[0] <  threshholdColor) {
 
-            stopMotors();
             return true;
 
         }
@@ -159,6 +160,7 @@ public class AckerBot extends MecanumDrive  {
         }
 
     }
+
 
     // Robot Gyro
 

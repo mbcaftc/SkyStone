@@ -1,5 +1,7 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems;
+package org.firstinspires.ftc.teamcode.MrAcker;
 
+
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -10,11 +12,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
@@ -22,8 +23,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 
-
-public class VuforiaWebcam {
+public class Vuforia {
 
     public static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     public static final boolean PHONE_IS_PORTRAIT = false  ;
@@ -77,6 +77,11 @@ public class VuforiaWebcam {
     public double targetPitch;
     public double targetHeading;
 
+    public double targetRange;
+    public double targetBearing;
+    public double relativeBearing;
+
+
 
     public void initCamera(HardwareMap hwMap) {
 
@@ -99,16 +104,6 @@ public class VuforiaWebcam {
 
         VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
         stoneTarget.setName("Stone Target");
-//        VuforiaTrackable blueRearBridge = targetsSkyStone.get(1);
-//        blueRearBridge.setName("Blue Rear Bridge");
-//        VuforiaTrackable redRearBridge = targetsSkyStone.get(2);
-//        redRearBridge.setName("Red Rear Bridge");
-//        VuforiaTrackable redFrontBridge = targetsSkyStone.get(3);
-//        redFrontBridge.setName("Red Front Bridge");
-//        VuforiaTrackable blueFrontBridge = targetsSkyStone.get(4);
-//        blueFrontBridge.setName("Blue Front Bridge");
-//        VuforiaTrackable red1 = targetsSkyStone.get(5);
-
 
         // For convenience, gather together all the trackable objects in one easily-iterable collection */
         allTrackables.addAll(targetsSkyStone);
@@ -118,22 +113,6 @@ public class VuforiaWebcam {
                 .translation(0, 0, stoneZ)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
-        //Set the position of the bridge support targets with relation to origin (center of field)
-//        blueFrontBridge.setLocation(OpenGLMatrix
-//                .translation(-bridgeX, bridgeY, bridgeZ)
-//                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 0, bridgeRotY, bridgeRotZ)));
-//
-//        blueRearBridge.setLocation(OpenGLMatrix
-//                .translation(-bridgeX, bridgeY, bridgeZ)
-//                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 0, -bridgeRotY, bridgeRotZ)));
-//
-//        redFrontBridge.setLocation(OpenGLMatrix
-//                .translation(-bridgeX, -bridgeY, bridgeZ)
-//                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 0, -bridgeRotY, 0)));
-//
-//        redRearBridge.setLocation(OpenGLMatrix
-//                .translation(bridgeX, -bridgeY, bridgeZ)
-//                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 0, bridgeRotY, 0)));
 
 
         // We need to rotate the camera around it's long axis to bring the correct camera forward.
@@ -151,7 +130,7 @@ public class VuforiaWebcam {
         // Next, translate the camera lens to where it is on the robot.
         // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
         final float CAMERA_FORWARD_DISPLACEMENT = 4.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot-center
-        final float CAMERA_VERTICAL_DISPLACEMENT = 8.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
+        final float CAMERA_VERTICAL_DISPLACEMENT = 3.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
         final float CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the robot's center line
 
         OpenGLMatrix robotFromCamera = OpenGLMatrix
@@ -210,11 +189,32 @@ public class VuforiaWebcam {
             targetPitch = rotation.secondAngle;
             targetHeading = rotation.thirdAngle;
 
+            targetRange = Math.hypot(targetX, targetY);
+            targetBearing = Math.toDegrees(-Math.asin(targetY / targetRange));
+            relativeBearing = targetBearing - targetBearing;
+
         }
         else {
             targetName = "none";
         }
     }
 
+
+    public VectorF navOffStone(VectorF translation, double robotAngle, VectorF offStone) {
+
+        return new VectorF((float) (translation.get(0) - offStone.get(0) * Math.sin(Math.toRadians(robotAngle)) - offStone.get(2) * Math.cos(Math.toRadians(robotAngle))), translation.get(1), (float) (translation.get(2) + offStone.get(0) * Math.cos(Math.toRadians(robotAngle)) - offStone.get(2) * Math.sin(Math.toRadians(robotAngle))));
+
+    }
+
+    public VectorF anglesFromTarget(VuforiaTrackableDefaultListener image) {
+
+        float [] data = image.getVuforiaCameraFromTarget().getData();
+        float [] [] rotation = {{data[0], data[1]}, {data[4], data[5], data[6]}, {data[8], data[9], data[10]}};
+        double thetaX = Math.atan2(rotation[2][1], rotation[2][2]);
+        double thetaY = Math.atan2(-rotation[2][0], Math.sqrt(rotation[2][1] * rotation[2][1] + rotation[2][2] * rotation[2][2]));
+        double thetaZ = Math.atan2(rotation[1][0], rotation[0][0]);
+        return new VectorF((float)thetaX, (float)thetaY, (float)thetaZ);
+
+    }
 
 }

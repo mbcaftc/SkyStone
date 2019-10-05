@@ -1,18 +1,22 @@
 package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
-@Autonomous (name = "AckerBot Auto")
-public class AckerBotAuto extends LinearOpMode {
+@Autonomous (name = "AckerBot Auto Loading Red")
+public class AckerBotLoadingCenterRedAuto extends LinearOpMode {
 
     public AckerBot Bot = new AckerBot();
-    final long  sleepTime = 100;
+    public VuforiaWebcam Cam = new VuforiaWebcam();
+    final long sleepTime = 100;
     final double maxSpeed = 1;
     final double highSpeed = .6;
     final double midSpeed = .5;
     final double lowSpeed = .3;
+    int skyStonePosition;
 
 
     @Override
@@ -21,10 +25,20 @@ public class AckerBotAuto extends LinearOpMode {
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
 
+        Cam.initCamera(hardwareMap);
+        Cam.activateTracking();
+
         waitForStart();
 
         while (opModeIsActive()) {
+
+
+            telemetry.addLine("before vuforia SkyStone");
 //
+            vuforiaDetecting();
+            sleep(sleepTime);
+
+            telemetry.addLine("after vuforia SkyStone");
 
             sampleSkyStone();
             sleep(sleepTime);
@@ -35,7 +49,7 @@ public class AckerBotAuto extends LinearOpMode {
             alignWithBuildPlate();
             sleep(sleepTime);
 
-            reorientBuildPlate ();
+            reorientBuildPlate();
             sleep(sleepTime);
 //
             goToSkyStones();
@@ -49,7 +63,6 @@ public class AckerBotAuto extends LinearOpMode {
             sleep(sleepTime);
 
 
-
             idle();
 
             requestOpModeStop();
@@ -61,17 +74,48 @@ public class AckerBotAuto extends LinearOpMode {
     }
 
 
-
-
     // **** methods for autonomous *****
+
+
+    public void vuforiaDetecting () {
+
+
+        Cam.trackObjects();
+        sleep(1000);
+
+        if (Cam.targetY > 1 && Cam.targetVisible) {
+            Bot.strafeRight(midSpeed, 1);
+            Bot.driveForward(highSpeed, 4);
+            sleep(sleepTime);
+            Bot.pattern =  RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_OCEAN_PALETTE;
+            Bot.blinkinLedDriver.setPattern(Bot.pattern);
+            telemetry.addLine("strafe right so... position 3");
+            telemetry.update();
+        }
+        else if (Cam.targetY < 1 && Cam.targetVisible) {
+            Bot.driveForward(midSpeed, 4);
+            Bot.pattern =  RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_OCEAN_PALETTE;
+            Bot.blinkinLedDriver.setPattern(Bot.pattern);
+            telemetry.addLine(" drive forward... position 2");
+            telemetry.update();
+        }
+        else {
+            Bot.strafeLeft(midSpeed, 1);
+            Bot.driveForward(highSpeed, 4);
+            Bot.pattern =  RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_OCEAN_PALETTE;
+            Bot.blinkinLedDriver.setPattern(Bot.pattern);
+            telemetry.addLine(" strafe left... position 1");
+            telemetry.update();
+        }
+
+    }
+
+
 
 
     public void sampleSkyStone () {
 
         telemetry.addLine("Sample Skystone");
-        Bot.driveForward(highSpeed, 3.4);
-        sleep(sleepTime);
-
         //sample a sky stone
 
         Bot.driveBackward(highSpeed, .5);              // drive backward with stone
@@ -182,9 +226,13 @@ public class AckerBotAuto extends LinearOpMode {
 
     // 358
     //152
+
+    //need to verify this method
     public void parkSensor () {
 
-        Bot.checkColor(150,350);
+        if (Bot.checkColor(150,350) == false) {
+            Bot.stopMotors();
+        }
 
     }
 
