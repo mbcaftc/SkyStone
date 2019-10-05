@@ -3,13 +3,13 @@ package org.firstinspires.ftc.teamcode.MrAcker;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
+import org.firstinspires.ftc.teamcode.MrAcker.Vuforia;
 
-@Autonomous (name = "AckerBot Auto Primary Path Test")
+@Autonomous (name = "AckerBot Auto Test")
 public class AckerBotAutoPath extends AutoNavigation {
 
     public AckerBot Bot = new AckerBot();
-    public VuforiaWebcam Cam = new VuforiaWebcam();
+    public Vuforia Cam = new Vuforia();
 
     @Override
     public void runOpMode() throws InterruptedException {

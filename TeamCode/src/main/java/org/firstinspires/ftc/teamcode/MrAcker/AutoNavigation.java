@@ -35,7 +35,7 @@ public abstract class AutoNavigation extends LinearOpMode {
         sleep(sleepTime);
     }
 
-    public void camTest (AckerBot Bot, VuforiaWebcam Cam) {
+    public void camTest (AckerBot Bot, Vuforia Cam) {
 
         Bot.driveForward(highSpeed, 3.4);
         sleep(sleepTime);
@@ -76,5 +76,7 @@ public abstract class AutoNavigation extends LinearOpMode {
 
 
     }
+
+
 
 }
