@@ -35,13 +35,46 @@ public abstract class AutoNavigation extends LinearOpMode {
         sleep(sleepTime);
     }
 
-    public void sampleSkyStone (AckerBot Bot, VuforiaWebcam Cam) {
+    public void camTest (AckerBot Bot, VuforiaWebcam Cam) {
 
         Bot.driveForward(highSpeed, 3.4);
         sleep(sleepTime);
 
         Bot.driveBackward(highSpeed, 0.5);              // drive backward with stone
         sleep(sleepTime);
+    }
+
+    public void camDrive (AckerBot Bot, VuforiaWebcam Cam) {
+
+        Cam.trackObjects();
+
+        if (Cam.targetVisible){
+
+            if (Cam.targetY < 0) {
+                while (Cam.targetY < 0 && Cam.targetVisible && opModeIsActive()) {
+                    Bot.strafeLeft(midSpeed);
+                }
+                Bot.stopMotors();
+                Bot.gyroCorrection(lowSpeed, 0);
+                Bot.stopMotors();
+
+            }
+            else if (Cam.targetY > 0) {
+                while (Cam.targetY > 0 && Cam.targetVisible && opModeIsActive()) {
+                    Bot.strafeRight(midSpeed);
+                }
+                Bot.stopMotors();
+                Bot.gyroCorrection(lowSpeed, 0);
+                Bot.stopMotors();
+            }
+
+        }
+        Bot.driveForward(highSpeed, 3.4);
+        Bot.stopMotors();
+        Bot.gyroCorrection(lowSpeed, 0);
+        Bot.stopMotors();
+
+
     }
 
 }

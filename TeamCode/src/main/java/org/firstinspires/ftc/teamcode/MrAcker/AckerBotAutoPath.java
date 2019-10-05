@@ -25,14 +25,19 @@ public class AckerBotAutoPath extends AutoNavigation {
 
         while (opModeIsActive()) {
 
+            Cam.activateTracking();
+
             telemetry.addLine("Drive Test");
             telemetry.update();
             driveTest(Bot);
 
-            telemetry.addLine("Sample Skystone");
+            telemetry.addLine("Cam Test");
             telemetry.update();
-            sampleSkyStone(Bot, Cam);
+            camTest(Bot, Cam);
 
+            telemetry.addLine("Cam Drive");
+            telemetry.update();
+            camTest(Bot, Cam);
 
             idle();
 
