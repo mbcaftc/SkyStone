@@ -26,31 +26,32 @@ public class TestBotAuto extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            Bot.driveForward(1, 9);
+            //Bot.driveForward(highSpeed, 9);
             sleep(1000);
             Bot.stopMotors();
 
-            Bot.rotateRight(1);
+            Bot.gyroCorrection(highSpeed,90);
+            sleep(500);
+            Bot.stopMotors();
+            telemetryOutput();
+
+            //Bot.driveForward(highSpeed, 15);
             sleep(500);
             Bot.stopMotors();
 
-            Bot.driveForward(1, 15);
+            //Bot.gyroCorrection(midSpeed,90);
             sleep(500);
             Bot.stopMotors();
 
-            Bot.rotateRight(1);
-            sleep(500);
-            Bot.stopMotors();
-
-            Bot.driveForward(1, 9);
+            //Bot.driveForward(highSpeed, 9);
             sleep(1000);
             Bot.stopMotors();
 
-            Bot.rotateRight(1);
+            //Bot.gyroCorrection(midSpeed, 90);
             sleep(500);
             Bot.stopMotors();
 
-            Bot.driveForward(1, 13);
+            //Bot.driveForward(highSpeed,13);
             sleep(1000);
             Bot.stopMotors();
 
@@ -162,6 +163,15 @@ public class TestBotAuto extends LinearOpMode {
         sleep(sleepTime);
 
         // drop off skystone with intake
+    }
+
+    public void telemetryOutput() {
+
+        telemetry.addData("Gyro Heading", Bot.angles.firstAngle);
+       // telemetry.addData("Gyro Roll", Bot.angles.secondAngle);
+       // telemetry.addData("Gyro Pitch", Bot.angles.thirdAngle);
+        telemetry.update();
+
     }
 
 }

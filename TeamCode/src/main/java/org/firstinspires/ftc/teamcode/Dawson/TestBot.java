@@ -74,6 +74,7 @@ public class TestBot extends TestBotMecanumDrive {
 
         imu = hwBot.get(BNO055IMU.class, "imu");
         imu.initialize(parametersimu);
+        gyroReset();
 
 
     }
