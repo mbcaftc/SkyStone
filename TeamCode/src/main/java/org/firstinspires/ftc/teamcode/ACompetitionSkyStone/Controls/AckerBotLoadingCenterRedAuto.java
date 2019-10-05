@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
@@ -10,14 +11,12 @@ public class AckerBotLoadingCenterRedAuto extends LinearOpMode {
 
     public AckerBot Bot = new AckerBot();
     public VuforiaWebcam Cam = new VuforiaWebcam();
-    final long  sleepTime = 100;
+    final long sleepTime = 100;
     final double maxSpeed = 1;
     final double highSpeed = .6;
     final double midSpeed = .5;
     final double lowSpeed = .3;
     int skyStonePosition;
-
-
 
 
     @Override
@@ -32,8 +31,14 @@ public class AckerBotLoadingCenterRedAuto extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+
+
+            telemetry.addLine("before vuforia SkyStone");
 //
-            vuforiaSkystone ();
+            vuforiaDetecting();
+            sleep(sleepTime);
+
+            telemetry.addLine("after vuforia SkyStone");
 
             sampleSkyStone();
             sleep(sleepTime);
@@ -44,7 +49,7 @@ public class AckerBotLoadingCenterRedAuto extends LinearOpMode {
             alignWithBuildPlate();
             sleep(sleepTime);
 
-            reorientBuildPlate ();
+            reorientBuildPlate();
             sleep(sleepTime);
 //
             goToSkyStones();
@@ -58,7 +63,6 @@ public class AckerBotLoadingCenterRedAuto extends LinearOpMode {
             sleep(sleepTime);
 
 
-
             idle();
 
             requestOpModeStop();
@@ -70,40 +74,45 @@ public class AckerBotLoadingCenterRedAuto extends LinearOpMode {
     }
 
 
-
-
     // **** methods for autonomous *****
 
 
-    public void vuforiaSkystone () {
-        // maybe drive forward
-        if (Cam.targetVisible){
+    public void vuforiaDetecting () {
 
-            if (Cam.targetY < 0) {
-                while (Cam.targetY < 0 && Cam.targetVisible && opModeIsActive()) {
-                    Bot.strafeLeft(midSpeed);
-                }
-                Bot.stopMotors();
-                Bot.gyroCorrection(lowSpeed, 0);
-                Bot.stopMotors();
 
-            }
-            else if (Cam.targetY > 0) {
-                while (Cam.targetY > 0 && Cam.targetVisible && opModeIsActive()) {
-                    Bot.strafeRight(midSpeed);
-                }
-                Bot.stopMotors();
-                Bot.gyroCorrection(lowSpeed, 0);
-                Bot.stopMotors();
-            }
+        Cam.trackObjects();
+        sleep(1000);
 
+        if (Cam.targetY > 1 && Cam.targetVisible) {
+            Bot.strafeRight(midSpeed, 1);
+            Bot.driveForward(highSpeed, 4);
+            sleep(sleepTime);
+            Bot.pattern =  RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_OCEAN_PALETTE;
+            Bot.blinkinLedDriver.setPattern(Bot.pattern);
+            telemetry.addLine("strafe right so... position 3");
+            telemetry.update();
         }
-        Bot.driveForward(highSpeed, 3.4);
-        Bot.stopMotors();
-        Bot.gyroCorrection(lowSpeed, 0);
-        Bot.stopMotors();
+        else if (Cam.targetY < 1 && Cam.targetVisible) {
+            Bot.driveForward(midSpeed, 4);
+            Bot.pattern =  RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_OCEAN_PALETTE;
+            Bot.blinkinLedDriver.setPattern(Bot.pattern);
+            telemetry.addLine(" drive forward... position 2");
+            telemetry.update();
+        }
+        else {
+            Bot.strafeLeft(midSpeed, 1);
+            Bot.driveForward(highSpeed, 4);
+            Bot.pattern =  RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_OCEAN_PALETTE;
+            Bot.blinkinLedDriver.setPattern(Bot.pattern);
+            telemetry.addLine(" strafe left... position 1");
+            telemetry.update();
+        }
 
     }
+
+
+
+
     public void sampleSkyStone () {
 
         telemetry.addLine("Sample Skystone");
