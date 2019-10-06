@@ -3,13 +3,12 @@ package org.firstinspires.ftc.teamcode.MrAcker;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
-import org.firstinspires.ftc.teamcode.MrAcker.Vuforia;
 
-@Autonomous (name = "AckerBot Auto Test")
-public class AckerBotAutoPath extends AutoNavigation {
+@Autonomous (name = "TestAckerBot Auto Test")
+public class TestAckerBotAutoPath extends TestAutoNavigation {
 
-    public AckerBot Bot = new AckerBot();
-    public Vuforia Cam = new Vuforia();
+    public TestAckerBot Bot = new TestAckerBot();
+    public TestVuforia Cam = new TestVuforia();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -35,9 +34,6 @@ public class AckerBotAutoPath extends AutoNavigation {
             telemetry.update();
             camTest(Bot, Cam);
 
-            telemetry.addLine("Cam Drive");
-            telemetry.update();
-            camTest(Bot, Cam);
 
             idle();
 

@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
 
-public abstract class AutoNavigation extends LinearOpMode {
+public abstract class TestAutoNavigation extends LinearOpMode {
 
     public LinearOpMode linearOp = null;
 
@@ -17,7 +17,7 @@ public abstract class AutoNavigation extends LinearOpMode {
     public final double lowSpeed = .3;
 
 
-    public AutoNavigation() {
+    public TestAutoNavigation() {
 
     }
 
@@ -26,7 +26,7 @@ public abstract class AutoNavigation extends LinearOpMode {
         linearOp = Op;
     }
 
-    public void driveTest (AckerBot Bot) {
+    public void driveTest (TestAckerBot Bot) {
 
         Bot.driveForward(highSpeed, 3.4);
         sleep(sleepTime);
@@ -35,7 +35,7 @@ public abstract class AutoNavigation extends LinearOpMode {
         sleep(sleepTime);
     }
 
-    public void camTest (AckerBot Bot, Vuforia Cam) {
+    public void camTest (TestAckerBot Bot, TestVuforia Cam) {
 
         Bot.driveForward(highSpeed, 3.4);
         sleep(sleepTime);
@@ -44,7 +44,7 @@ public abstract class AutoNavigation extends LinearOpMode {
         sleep(sleepTime);
     }
 
-    public void camDrive (AckerBot Bot, VuforiaWebcam Cam) {
+    public void camDrive (TestAckerBot Bot, VuforiaWebcam Cam) {
 
         Cam.trackObjects();
 

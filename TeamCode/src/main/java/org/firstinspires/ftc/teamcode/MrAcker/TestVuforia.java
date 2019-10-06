@@ -23,7 +23,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 
-public class Vuforia {
+public class TestVuforia {
 
     public static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     public static final boolean PHONE_IS_PORTRAIT = false  ;
