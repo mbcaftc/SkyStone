@@ -12,7 +12,7 @@ public class RoverDrive {
     public DcMotor rearLeftMotor;
     public DcMotor rearRightMotor;
 
-    public LinearOpMode linearOp = null;                // this is done to make the MecanumDrive class aware of the linearOp
+    public LinearOpMode linearOp = null;                // this is done to make the TestMecanumDrive class aware of the linearOp
     //class which is used by Mecanum Drvie parents class
 
 

@@ -156,27 +156,27 @@ public class WoodBotTeleOp extends OpMode {
     public void SimulateAuto () {
 
         if (gamepad1.dpad_left) {
-            Bot.rotateLeft(.5, .5);
+            Bot.rotateLeft(.5, .5, "TeleOp");
             encoders += .5;
         }
         else if (gamepad1.dpad_right) {
-            Bot.rotateRight(.5, .5);
+            Bot.rotateRight(.5, .5,"TeleOp");
             encoders += .5;
         }
         else if (gamepad1.dpad_up) {
-            Bot.driveForward(.5, .5);
+            Bot.driveForward(.5, .5,"TeleOp");
             encoders += .5;
         }
         else if (gamepad1.dpad_down) {
-            Bot.driveBackward(.5, .5);
+            Bot.driveBackward(.5, .5,"TeleOp");
             encoders += .5;
         }
         else if (gamepad1.left_bumper) {
-            Bot.strafeLeft(.5,.5);
+            Bot.strafeLeft(.5,.5, "TeleOp");
             encoders += .5;
         }
         else if (gamepad1.right_bumper) {
-            Bot.strafeRight(.5,.5);
+            Bot.strafeRight(.5,.5, "TeleOp");
             encoders += .5;
         }
     }

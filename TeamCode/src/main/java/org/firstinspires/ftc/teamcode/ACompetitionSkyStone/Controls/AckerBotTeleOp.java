@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -22,18 +23,19 @@ public class AckerBotTeleOp extends OpMode {
     public AckerBot Bot = new AckerBot();
     public VuforiaWebcam Cam = new VuforiaWebcam();
 
+
     // Variables & Constants specific to TeleLabBot
-    double leftStickYVal;
-    double leftStickXVal;
-    double rightStickXVal;
+    public double leftStickYVal;
+    public double leftStickXVal;
+    public double rightStickXVal;
 
-    double frontLeftSpeed;
-    double frontRightSpeed;
-    double rearLeftSpeed;
-    double rearRightSpeed;
+    public double frontLeftSpeed;
+    public double frontRightSpeed;
+    public double rearLeftSpeed;
+    public double rearRightSpeed;
 
-    double powerThreshold = 0;
-    double encoders;
+    public double powerThreshold = 0;
+    public double encoders;
 
 
 
@@ -175,27 +177,27 @@ public class AckerBotTeleOp extends OpMode {
     public void SimulateAuto () {
 
         if (gamepad1.dpad_left) {
-            Bot.rotateLeft(.5, .5);
+            Bot.rotateLeft(.5, .5,"TeleOp");
             encoders += .5;
         }
         else if (gamepad1.dpad_right) {
-            Bot.rotateRight(.5, .5);
+            Bot.rotateRight(.5, .5,"TeleOp");
             encoders += .5;
         }
         else if (gamepad1.dpad_up) {
-            Bot.driveForward(.5, .5);
+            Bot.driveForward(.5, .5,"TeleOp");
             encoders += .5;
         }
         else if (gamepad1.dpad_down) {
-            Bot.driveBackward(.5, .5);
+            Bot.driveBackward(.5, .5,"TeleOp");
             encoders += .5;
         }
         else if (gamepad1.left_bumper) {
-            Bot.strafeLeft(.5,.5);
+            Bot.strafeLeft(.5,.5,"TeleOp");
             encoders += .5;
         }
         else if (gamepad1.right_bumper) {
-            Bot.strafeRight(.5,.5);
+            Bot.strafeRight(.5,.5,"TeleOp");
             encoders += .5;
         }
     }

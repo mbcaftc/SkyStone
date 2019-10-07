@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.DriveTrains;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
@@ -19,11 +20,11 @@ public class MecanumDrive  {
 
     public LinearOpMode linearOp = null;
 
+
     public void setLinearOp(LinearOpMode linearOp) {
 
         this.linearOp = linearOp;
     }
-
 
 
     public MecanumDrive() {
@@ -161,7 +162,7 @@ public class MecanumDrive  {
             setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-            while (frontLeftMotor.getCurrentPosition() < ticks && linearOp.opModeIsActive()) {
+            while (frontLeftMotor.getCurrentPosition() < ticks && linearOp.opModeIsActive() ) {
                 rotateRight(speed);
             }
             stopMotors();
@@ -198,6 +199,96 @@ public class MecanumDrive  {
             stopMotors();
         }
     }
+
+
+    //****
+    //
+    // Overloaded Methods for Powering Motors with Encoder Counts for TeleOp OpMode... TeleOp
+    //
+    // ***
+
+
+    public void driveForward( double speed, double rotations, String Mode) {
+
+
+        double ticks = rotations * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while (frontLeftMotor.getCurrentPosition() < ticks) {
+            driveForward(speed);
+        }
+        stopMotors();
+
+    }
+
+
+    public void driveBackward ( double speed, double rotations, String Mode){
+
+        double ticks = rotations * (-1) * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while (frontLeftMotor.getCurrentPosition() > ticks) {
+            driveBackward(speed);
+        }
+        stopMotors();
+
+    }
+
+
+    public void rotateLeft (double speed, double rotations, String Mode) {
+
+        double ticks = Math.abs(rotations) * (-1) * TICKS_PER_ROTATION; //strafing left moves encoder towards positive infinity
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while (frontLeftMotor.getCurrentPosition() > ticks) {
+            rotateLeft(speed);
+        }
+        stopMotors();
+
+    }
+
+    public void rotateRight (double speed, double rotations, String Mode) {
+
+
+        double ticks = Math.abs(rotations) * TICKS_PER_ROTATION; //strafing right moves encoder towards -infinity
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while (frontLeftMotor.getCurrentPosition() < ticks ) {
+            rotateRight(speed);
+        }
+        stopMotors();
+    }
+
+
+    public void strafeRight (double speed, double rotations, String Mode) {
+
+        double ticks = Math.abs(rotations) * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while (frontLeftMotor.getCurrentPosition() < ticks ) {
+            strafeRight(speed);
+        }
+        stopMotors();
+
+    }
+
+    public void strafeLeft (double speed, double rotations, String Mode) {
+
+        double ticks = Math.abs(rotations) * (-1) * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while (frontLeftMotor.getCurrentPosition() > ticks ) {
+            strafeLeft(speed);
+        }
+        stopMotors();
+    }
+
 
 
 
