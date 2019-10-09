@@ -69,6 +69,7 @@ public class WoodBotTeleOp extends OpMode {
         telemetryOutput();
         controlResetEncoders ();
         controlResetGyro();
+        controlStoneServo();    //emma
         SimulateAuto ();
 
     }
@@ -189,6 +190,16 @@ public class WoodBotTeleOp extends OpMode {
             Bot.HookRelease(0.0,0.0);
         }
 
+    }
+
+    //emma
+    public void controlStoneServo() {
+        if (gamepad1.left_bumper) {
+            Bot.grabStone(.5);
+        }
+        else if (gamepad1.right_bumper) {
+            Bot.grabStone(0);
+        }
     }
 
 

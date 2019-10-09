@@ -24,6 +24,8 @@ public class WoodBot extends MecanumDrive {
     public Servo HookLeft = null;
     public Servo HookRight = null;
 
+    //emma
+    public Servo stoneServo = null;
 
     //Gyro Objects and Variables
     public BNO055IMU imu;
@@ -73,6 +75,10 @@ public class WoodBot extends MecanumDrive {
         HookRight = hwBot.get(Servo.class, "hook_right");
         HookRight.setDirection(Servo.Direction.FORWARD);
 
+        //emma
+        stoneServo = hwBot.get(Servo.class, "stone_servo");
+        stoneServo.setDirection(Servo.Direction.FORWARD);
+
         HookRelease(0.0, 0.0);
 
 
@@ -107,6 +113,12 @@ public class WoodBot extends MecanumDrive {
         HookLeft.setPosition(leftPosition);
         HookRight.setPosition(rightPosition);
     }
+
+    //emma
+    public void grabStone (double position) {
+        stoneServo.setPosition(position);
+    }
+    public void dropStone(double position) {stoneServo.setPosition(position);}
 
     // Robot Gyro
 
