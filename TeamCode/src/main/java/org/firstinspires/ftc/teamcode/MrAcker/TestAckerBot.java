@@ -26,6 +26,7 @@ public class TestAckerBot extends TestMecanumDrive  {
     public HardwareMap hwBot  =  null;
     public Servo HookLeft = null;
     public Servo HookRight = null;
+    public Servo Grabber = null;
     public ColorSensor sensorColor;
     public DistanceSensor sensorDistance;
 
@@ -91,7 +92,11 @@ public class TestAckerBot extends TestMecanumDrive  {
         HookRight = hwBot.get(Servo.class, "hook_right");
         HookRight.setDirection(Servo.Direction.FORWARD);
 
+        Grabber = hwBot.get(Servo.class, "grabber");
+        Grabber.setDirection(Servo.Direction.REVERSE);
+
         HookRelease(0.0, 0.0);
+        StoneRelease();
 
         //Define & Initialize Color Sensor
         sensorColor = hwBot.get(ColorSensor.class, "sensor_color_distance");
@@ -124,6 +129,18 @@ public class TestAckerBot extends TestMecanumDrive  {
 
         HookLeft.setPosition(leftPosition);
         HookRight.setPosition(rightPosition);
+    }
+
+
+    public void StoneGrab () {
+
+        Grabber.setPosition(.85);
+    }
+
+    public void StoneRelease () {
+
+        Grabber.setPosition(0.3);
+
     }
 
 

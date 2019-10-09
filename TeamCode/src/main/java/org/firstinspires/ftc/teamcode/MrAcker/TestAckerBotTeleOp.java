@@ -69,6 +69,7 @@ public class TestAckerBotTeleOp extends OpMode {
     public void loop() {
 
         controlHook();
+        controlGrabber();
         Bot.angles   = Bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         drive();
         Cam.trackObjects();
@@ -150,6 +151,15 @@ public class TestAckerBotTeleOp extends OpMode {
             Bot.HookRelease(0.1,0.1);
         }
 
+    }
+
+    public void controlGrabber() {
+        if (gamepad1.left_trigger > 0.1) {
+            Bot.StoneGrab();
+        }
+        else if (gamepad1.right_trigger > 0.1) {
+            Bot.StoneRelease();
+        }
     }
 
 
