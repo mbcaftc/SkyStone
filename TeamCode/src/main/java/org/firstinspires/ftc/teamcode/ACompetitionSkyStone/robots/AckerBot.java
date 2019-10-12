@@ -141,12 +141,12 @@ public class AckerBot extends MecanumDrive  {
     }
 
 
-    public void StoneGrab () {
+    public void StoneRelease () {
 
         Grabber.setPosition(.85);
     }
 
-    public void StoneRelease () {
+    public void StoneGrab () {
 
         Grabber.setPosition(0.3);
 
