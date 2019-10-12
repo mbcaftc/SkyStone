@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.Outreach.Controls;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Outreach.DriveTrains.RoverDrive;
 
 
-    @TeleOp(name = "Rover Drive")
+    @TeleOp(name = "Rover Drive", group = "Outreach")
+    @Disabled
     public class RoverTeleOp extends OpMode {
 
         RoverDrive myRover;
