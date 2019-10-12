@@ -49,7 +49,6 @@ public abstract class TestAutoMainRed extends TestAutoMain {
     }
 
 
-
     public void removeSkyStone(TestAckerBot Bot, double rotations) {
 
         Bot.strafeLeft(midSpeed, rotations);

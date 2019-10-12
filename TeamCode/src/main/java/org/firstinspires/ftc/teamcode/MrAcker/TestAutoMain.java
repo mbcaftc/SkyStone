@@ -33,7 +33,7 @@ public abstract class TestAutoMain extends LinearOpMode {
 
 
 
-    public void camDrive (TestAckerBot Bot, TestVuforia Cam) {
+    public void camDrive (TestAckerBot Bot, TestVuforia Cam, String Alliance) {
 
         Cam.trackObjects();
         sleep(1000);
@@ -45,9 +45,15 @@ public abstract class TestAutoMain extends LinearOpMode {
 
             while (Cam.targetY > 1 && Cam.targetVisible && opModeIsActive()) {
 
-                Bot.driveBackward(midSpeed);
+                if (Alliance == "Red") {
+                    Bot.driveBackward(midSpeed);
+                }
+                else if (Alliance == "Blue") {
+                    Bot.driveForward(midSpeed);
+                }
+
             }
-            Bot.stopMotors();                                                        // if servos are on left side... drive forward
+            Bot.stopMotors();                                   // if servos are on left side... drive forward
             sleep(sleepTime);
             telemetry.addLine("targetY > 1... position 3");
 
@@ -56,7 +62,12 @@ public abstract class TestAutoMain extends LinearOpMode {
 
             while (Cam.targetY > 1 && Cam.targetVisible && opModeIsActive()) {
 
-                Bot.driveForward(midSpeed);
+                if (Alliance == "Red") {
+                    Bot.driveForward(midSpeed);
+                }
+                else if (Alliance == "Blue") {
+                    Bot.driveBackward (midSpeed);
+                }
             }
             Bot.stopMotors();
             sleep(sleepTime);
@@ -64,7 +75,14 @@ public abstract class TestAutoMain extends LinearOpMode {
             telemetry.update();
         }
         else {                                                  // position 1
-            Bot.driveForward(midSpeed, 1);              // if servos are on left side... driveBackwards
+
+            if (Alliance == "Red") {
+                Bot.driveForward(midSpeed, 1);
+            }
+            else if (Alliance == "Blue") {
+                Bot.driveBackward (midSpeed, 1);
+            }
+
             Bot.stopMotors();
             telemetry.addLine(" target is on the far left... position 1");
             telemetry.update();
@@ -72,7 +90,13 @@ public abstract class TestAutoMain extends LinearOpMode {
 
         while (Cam.targetX < 0 && Cam.targetVisible && opModeIsActive()) {
 
-            Bot.strafeRight(midSpeed);
+            if (Alliance == "Red") {
+                Bot.strafeRight(midSpeed);
+            }
+            else if (Alliance == "Blue") {
+                Bot.strafeLeft(midSpeed);
+            }
+
         }
     }
 

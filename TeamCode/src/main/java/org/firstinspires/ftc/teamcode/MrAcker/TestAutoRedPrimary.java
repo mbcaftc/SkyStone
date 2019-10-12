@@ -27,7 +27,7 @@ public class TestAutoRedPrimary extends TestAutoMainRed {
         while (opModeIsActive()) {
 
             //Find & Deliver First Skystone
-            camDrive(Bot, Cam);
+            camDrive(Bot, Cam, "Red");
             grabSkyStone(Bot);
             removeSkyStone(Bot, 0.5);
             dropSkyStone(Bot, 6.8);
@@ -36,12 +36,13 @@ public class TestAutoRedPrimary extends TestAutoMainRed {
             returnBacktoSkyStones(Bot, 6.8);
 
             //Find & Deliver Second Skystone
-            camDrive(Bot, Cam);
+            camDrive(Bot, Cam, "Red");
             grabSkyStone(Bot);
             removeSkyStone(Bot, 0.5);
             dropSkyStone(Bot, 6.8);
 
             // Move Build Plate
+
             //alignBuildPlate (Bot);
             //placeBuildPlate (Bot);
             //releaseBuildPlate (Bot);
