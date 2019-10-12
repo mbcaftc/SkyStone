@@ -1,16 +1,10 @@
 package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots;
 
 
-import android.graphics.Color;
-
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-
-import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -21,21 +15,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.DriveTrains.MecanumDrive;
 
 
-public class AckerBot extends MecanumDrive  {
+public class MetalBot extends MecanumDrive {
 
     //Robot Hardware Constructors
+
     public HardwareMap hwBot  =  null;
-    public Servo HookLeft = null;
-    public Servo HookRight = null;
-    public Servo Grabber = null;
-    public ColorSensor sensorColor;
-    public DistanceSensor sensorDistance;
+//    public Servo HookLeft = null;
+//    public Servo HookRight = null;
 
-
-
-    // LEDTester Objects
-    public RevBlinkinLedDriver blinkinLedDriver;
-    public RevBlinkinLedDriver.BlinkinPattern pattern;
 
     //Gyro Objects and Variables
     public BNO055IMU imu;
@@ -45,20 +32,11 @@ public class AckerBot extends MecanumDrive  {
     public final double TOLERANCE = .4;
 
 
-    //Color Sensor Variables & Constants
-    public float hsvValues[] = {0F, 0F, 0F};
-    public int thresholdNothing = 350;       // Original was 180, adjusted for red hue
-    public int threshholdColor= 150;          // Original was 270
-    public final double SCALE_FACTOR = 255;
+    //WoodBot Constructor
 
-
-
-    //AckerBot Constructor
-
-    public AckerBot() {
+    public MetalBot() {
 
     }
-
 
     public void initRobot (HardwareMap hwMap) {
 
@@ -86,28 +64,20 @@ public class AckerBot extends MecanumDrive  {
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+
         // Define & Initialize Servos
-        HookLeft = hwBot.get(Servo.class, "hook_left");
-        HookLeft.setDirection(Servo.Direction.FORWARD);
+//        HookLeft = hwBot.get(Servo.class, "hook_left");
+//        HookLeft.setDirection(Servo.Direction.FORWARD);
+//
+//        HookRight = hwBot.get(Servo.class, "hook_right");
+//        HookRight.setDirection(Servo.Direction.FORWARD);
+//
+//        //emma
+//        stoneServo = hwBot.get(Servo.class, "stone_servo");
+//        stoneServo.setDirection(Servo.Direction.FORWARD);
 
-        HookRight = hwBot.get(Servo.class, "hook_right");
-        HookRight.setDirection(Servo.Direction.FORWARD);
+//        HookRelease(0.0, 0.0);
 
-        Grabber = hwBot.get(Servo.class, "grabber");
-        Grabber.setDirection(Servo.Direction.REVERSE);
-
-        StoneRelease();
-
-        HookRelease(0.0, 0.0);
-
-        //Define & Initialize Color Sensor
-        sensorColor = hwBot.get(ColorSensor.class, "sensor_color_distance");
-        sensorDistance = hwBot.get(DistanceSensor.class, "sensor_color_distance");
-
-        //Define & Initialize LEDTester Lights
-        blinkinLedDriver = hwBot.get(RevBlinkinLedDriver.class, "led_strip");
-        pattern = RevBlinkinLedDriver.BlinkinPattern.COLOR_WAVES_LAVA_PALETTE;
-        blinkinLedDriver.setPattern(pattern);
 
         //Define and Initialize Gyro
 
@@ -125,60 +95,27 @@ public class AckerBot extends MecanumDrive  {
 
     }
 
+
     // Robot Servo Methods
 
-    public void HookRelease (double leftPosition, double rightPosition) {
+//    public void HookRelease (double leftPosition, double rightPosition) {
+//
+//        HookLeft.setPosition(leftPosition);
+//        HookRight.setPosition(rightPosition);
+//    }
 
-        HookLeft.setPosition(leftPosition);
-        HookRight.setPosition(rightPosition);
-    }
+//
+//    public void HookGrab (double leftPosition, double rightPosition) {
+//
+//        HookLeft.setPosition(leftPosition);
+//        HookRight.setPosition(rightPosition);
+//    }
 
-
-    public void HookGrab (double leftPosition, double rightPosition) {
-
-        HookLeft.setPosition(leftPosition);
-        HookRight.setPosition(rightPosition);
-    }
-
-
-    public void StoneGrab () {
-
-        Grabber.setPosition(.85);
-    }
-
-    public void StoneRelease () {
-
-        Grabber.setPosition(0.3);
-
-    }
-
-
-    // Robot Color Sensor Methods
-
-    public boolean checkColor(int threshNothing, int threshColor) {
-
-        thresholdNothing = threshNothing;
-        threshholdColor= threshColor;
-
-
-        Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
-                (int) (sensorColor.green() * SCALE_FACTOR),
-                (int) (sensorColor.blue() * SCALE_FACTOR),
-                hsvValues);
-
-
-        if (hsvValues[0] >= thresholdNothing && hsvValues[0] <  threshholdColor) {
-
-            return true;
-
-        }
-        else {
-
-            return false;
-        }
-
-    }
-
+    //emma
+//    public void grabStone (double position) {
+//        stoneServo.setPosition(position);
+//    }
+//    public void dropStone(double position) {stoneServo.setPosition(position);}
 
     // Robot Gyro
 
@@ -187,13 +124,13 @@ public class AckerBot extends MecanumDrive  {
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         if (angles.firstAngle >= angle + TOLERANCE) {
-            while (angles.firstAngle >=  angle + TOLERANCE && linearOp.opModeIsActive()) {
+            while (angles.firstAngle >=  angle + TOLERANCE) {
                 rotateRight(speed);
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             }
         }
         else if (angles.firstAngle <= angle - TOLERANCE) {
-            while (angles.firstAngle <= angle - TOLERANCE && linearOp.opModeIsActive()) {
+            while (angles.firstAngle <= angle - TOLERANCE) {
                 rotateLeft(speed);
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             }

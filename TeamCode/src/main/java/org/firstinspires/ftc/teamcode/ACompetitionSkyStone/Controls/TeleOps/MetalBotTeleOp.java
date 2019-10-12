@@ -1,6 +1,5 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.TeleOps;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,32 +9,29 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
-
-@TeleOp (name = "AckerBot TeleOp")
-public class AckerBotTeleOp extends OpMode {
+@TeleOp (name = "MetalBot TeleOp")
+public class MetalBotTeleOp extends OpMode {
 
 
     public ElapsedTime TeleOpTime = new ElapsedTime();
-    public AckerBot Bot = new AckerBot();
-    public VuforiaWebcam Cam = new VuforiaWebcam();
-
+    public MetalBot Bot = new MetalBot();
 
     // Variables & Constants specific to TeleLabBot
-    public double leftStickYVal;
-    public double leftStickXVal;
-    public double rightStickXVal;
+    double leftStickYVal;
+    double leftStickXVal;
+    double rightStickXVal;
 
-    public double frontLeftSpeed;
-    public double frontRightSpeed;
-    public double rearLeftSpeed;
-    public double rearRightSpeed;
+    double frontLeftSpeed;
+    double frontRightSpeed;
+    double rearLeftSpeed;
+    double rearRightSpeed;
 
-    public double powerThreshold = 0;
-    public double encoders;
+    double powerThreshold = 0;
+    double encoders;
 
 
 
@@ -44,9 +40,8 @@ public class AckerBotTeleOp extends OpMode {
     @Override
     public void init() {
 
-        //Hardware Initialization from Robot and Camera Classes
-        Cam.initCamera(hardwareMap);
-        Bot.initRobot(hardwareMap);
+            Bot.initRobot(hardwareMap);
+
     }
 
 
@@ -61,7 +56,6 @@ public class AckerBotTeleOp extends OpMode {
     @Override
     public void start() {
 
-        Cam.activateTracking();
         Bot.gyroReset();
     }
 
@@ -70,13 +64,14 @@ public class AckerBotTeleOp extends OpMode {
     @Override
     public void loop() {
 
-        controlHook();
+
         Bot.angles   = Bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        //controlHook();
         drive();
-        Cam.trackObjects();
         telemetryOutput();
         controlResetEncoders ();
         controlResetGyro();
+        //controlStoneServo();    //emma
         SimulateAuto ();
 
     }
@@ -85,7 +80,6 @@ public class AckerBotTeleOp extends OpMode {
     @Override
     public void stop() {
 
-        Cam.deActivateTracking();
 
     }
 
@@ -144,18 +138,6 @@ public class AckerBotTeleOp extends OpMode {
     }
 
 
-    public void controlHook() {
-        if (gamepad1.y) {
-            Bot.HookGrab(.9,.9);
-        }
-        else if (gamepad1.a) {
-            Bot.HookRelease(0.1,0.1);
-        }
-
-    }
-
-
-
 
     public void controlResetEncoders () {
         if (gamepad1.b) {
@@ -177,7 +159,7 @@ public class AckerBotTeleOp extends OpMode {
     public void SimulateAuto () {
 
         if (gamepad1.dpad_left) {
-            Bot.rotateLeft(.5, .5,"TeleOp");
+            Bot.rotateLeft(.5, .5, "TeleOp");
             encoders += .5;
         }
         else if (gamepad1.dpad_right) {
@@ -193,15 +175,35 @@ public class AckerBotTeleOp extends OpMode {
             encoders += .5;
         }
         else if (gamepad1.left_bumper) {
-            Bot.strafeLeft(.5,.5,"TeleOp");
+            Bot.strafeLeft(.5,.5, "TeleOp");
             encoders += .5;
         }
         else if (gamepad1.right_bumper) {
-            Bot.strafeRight(.5,.5,"TeleOp");
+            Bot.strafeRight(.5,.5, "TeleOp");
             encoders += .5;
         }
     }
 
+//    public void controlHook() {
+//        if (gamepad1.y) {
+//            Bot.HookGrab(.5,.5);
+//        }
+//        else if (gamepad1.a) {
+//            Bot.HookRelease(0.0,0.0);
+//        }
+//
+//    }
+
+    //emma
+//    public void controlStoneServo() {
+//        if (gamepad1.left_bumper) {
+//            Bot.grabStone(.5);
+//        }
+//        else if (gamepad1.right_bumper) {
+//            Bot.grabStone(0);
+//        }
+//    }
+//
 
     public void telemetryOutput() {
 
@@ -216,20 +218,6 @@ public class AckerBotTeleOp extends OpMode {
         telemetry.addData("Motor ", "Front Right: " + frontRightSpeed);
         telemetry.addData("Motor ", "Rear Left: " + rearLeftSpeed);
         telemetry.addData("Motor ", "Rear Right: " + rearRightSpeed);
-
-
-
-        telemetry.addData("Color Check", Bot.checkColor(0,7));
-        telemetry.addData("Color Alpha", Bot.sensorColor.alpha());
-        telemetry.addData("Color Red  ", Bot.sensorColor.red());
-        telemetry.addData("Color Green", Bot.sensorColor.green());
-        telemetry.addData("Color Blue ", Bot.sensorColor.blue());
-        telemetry.addData("Color Hue", Bot.hsvValues[0]);
-
-
-        telemetry.addData("Camera Visible Target", Cam.targetName);
-        telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);
-        telemetry.addData("Camera Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", Cam.targetRoll, Cam.targetPitch, Cam.targetHeading);
 
 
         telemetry.update();

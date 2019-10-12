@@ -1,53 +1,22 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous;
 
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous.AutoMain;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
-@Autonomous(name = "Wood Auto Loading Red")
-public class WoodLoadingCenterRedAuto extends LinearOpMode {
+public abstract class AutoMainRed extends AutoMain {
+    public final long  sleepTime = 1000;
+    public final double maxSpeed = 1;
+    public final double highSpeed = .6;
+    public final double midSpeed = .5;
+    public final double lowSpeed = .3;
 
 
-    public WoodBot Bot = new WoodBot();
-    public VuforiaWebcam Cam = new VuforiaWebcam();
 
 
-    final long sleepTime = 100;
-    final double maxSpeed = 1;
-    final double highSpeed = .6;
-    final double midSpeed = .5;
-    final double lowSpeed = .3;
 
-
-    @Override
-    public void runOpMode() throws InterruptedException {
-
-        Bot.initRobot(hardwareMap);
-        Bot.setLinearOp(this);
-
-        Cam.initCamera(hardwareMap);
-        Cam.activateTracking();
-
-        waitForStart();
-
-        while (opModeIsActive()) {
-            vuforiaStone();
-            grabSkyStone();
-            alignBuildPlate ();
-            placeBuildPlate ();
-            releaseBuildPlate ();
-
-        }
-
-    }
-
-
-    // methods
-
-    public void vuforiaStone() {
+// Loading Center Red Auto
+    public void vuforiaStone( AckerBot Bot, VuforiaWebcam Cam) {
 
         Cam.trackObjects();
         sleep(1000);
@@ -76,21 +45,19 @@ public class WoodLoadingCenterRedAuto extends LinearOpMode {
         }
     }
 
-    public void grabSkyStone() {
-        Bot.grabStone(.5);
-    }
 
-    public void dropSkyStone() {
+
+    public void dropSkyStone(AckerBot Bot) {
         Bot.strafeRight(midSpeed, .5);
         sleep(sleepTime);
 
         Bot.driveForward(highSpeed, 6.8);
         sleep(sleepTime);
 
-        Bot.dropStone(0);
+        Bot.StoneRelease();
     }
 
-    public void alignBuildPlate () {
+    public void alignBuildPlate (AckerBot Bot) {
         Bot.rotateRight(highSpeed, 2.5);
         sleep(sleepTime);
 
@@ -102,7 +69,7 @@ public class WoodLoadingCenterRedAuto extends LinearOpMode {
         sleep(sleepTime);
     }
 
-    public void placeBuildPlate () {
+    public void placeBuildPlate ( AckerBot Bot) {
         Bot.HookRelease(.1, .1);
         sleep(sleepTime);
 
@@ -123,7 +90,7 @@ public class WoodLoadingCenterRedAuto extends LinearOpMode {
 
     }
 
-    public void releaseBuildPlate () {
+    public void releaseBuildPlate (AckerBot Bot) {
         Bot.strafeRight(highSpeed, 1);
 
         Bot.rotateLeft(highSpeed, 2);
@@ -132,8 +99,6 @@ public class WoodLoadingCenterRedAuto extends LinearOpMode {
     public void park() {
         //rev color sensor
     }
-
-
 
 
 }
