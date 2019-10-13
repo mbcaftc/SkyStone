@@ -2,11 +2,8 @@ package org.firstinspires.ftc.teamcode.MrAcker;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
-
 @Autonomous (name = "Auto:Test Path:Test")
-public class TestAutoRedPrimary extends TestAutoMainRed {
+public class TestAutoRedSecondary extends TestAutoMainRed {
 
     public TestAckerBot Bot = new TestAckerBot();
     public TestVuforia Cam = new TestVuforia();
@@ -32,7 +29,7 @@ public class TestAutoRedPrimary extends TestAutoMainRed {
             grabSkyStone(Bot);
 
             // Deliver First Skystone
-            removeSkyStoneInnerPath(Bot,Alliance);
+            removeSkyStoneOuterPath(Bot,Alliance);
             dropSkyStone(Bot, Alliance);
 
             // Return Back to Skystone Area
@@ -43,7 +40,7 @@ public class TestAutoRedPrimary extends TestAutoMainRed {
             grabSkyStone(Bot);
 
             // Deliver Second Skystone
-            removeSkyStoneInnerPath(Bot, Alliance);
+            removeSkyStoneOuterPath(Bot, Alliance);
             dropSkyStone(Bot,Alliance);
 
             // Move Build Plate
