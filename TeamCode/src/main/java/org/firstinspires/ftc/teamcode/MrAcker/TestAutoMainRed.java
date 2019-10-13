@@ -14,41 +14,6 @@ public abstract class TestAutoMainRed extends TestAutoMain {
 
 
 
-    public void vuforiaStone( TestAckerBot Bot, TestVuforia Cam) {
-
-        Cam.trackObjects();
-        sleep(1000);
-
-        telemetry.addData("Target Y:", Cam.targetY);
-        telemetry.update();
-
-        if (Cam.targetY > 1 && Cam.targetVisible) {             //position 3
-            Bot.driveBackward(midSpeed, 1);                                 // if servos are on left side... drive forward
-            Bot.strafeRight(highSpeed, 4);                                  // if servos are on left side... strafeLeft
-            sleep(sleepTime);
-
-            telemetry.addLine("targetY > 1... position 3");
-
-        }
-        else if (Cam.targetY < 1 && Cam.targetVisible) {        //position 2
-            Bot.strafeRight(midSpeed, 4);                                   // if servos are on the left side... strafeLeft
-            sleep(sleepTime);
-
-            telemetry.addLine(" targetY < 1 ... position 2");
-            telemetry.update();
-
-        }
-        else {                                                  // position 1
-            Bot.driveForward(midSpeed, 1);                                  // if servos are on left side... driveBackwards
-            Bot.strafeRight(highSpeed, 4);                                  // if servos are on the left side... strafeLeft
-
-            telemetry.addLine(" target is on the far left... position 1");
-            telemetry.update();
-
-        }
-    }
-
-
     public void removeSkyStoneInnerPath(TestAckerBot Bot, String Alliance) {
 
         if (Alliance == "Red") {
