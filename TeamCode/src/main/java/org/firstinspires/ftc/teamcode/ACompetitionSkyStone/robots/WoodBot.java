@@ -23,8 +23,6 @@ public class WoodBot extends MecanumDrive {
     public HardwareMap hwBot  =  null;
     public Servo HookLeft = null;
     public Servo HookRight = null;
-
-    //emma
     public Servo stoneServo = null;
 
     //Gyro Objects and Variables

@@ -39,11 +39,12 @@ public abstract class TestAutoMain extends LinearOpMode {
         sleep(1000);
 
         telemetry.addData("Target Y:", Cam.targetY);
+        telemetry.addData("Target X:", Cam.targetX);
         telemetry.update();
 
-        if (Cam.targetY > 1 && Cam.targetVisible) {    //position 3
+        if (Cam.targetY > 0.5 && Cam.targetVisible) {    //position 3
 
-            while (Cam.targetY > 1 && Cam.targetVisible && opModeIsActive()) {
+            while (Cam.targetY > 0.5 && Cam.targetVisible && opModeIsActive()) {
 
                 if (Alliance == "Red") {
                     Bot.driveBackward(midSpeed);
@@ -58,9 +59,9 @@ public abstract class TestAutoMain extends LinearOpMode {
             telemetry.addLine("targetY > 1... position 3");
 
         }
-        else if (Cam.targetY < 1 && Cam.targetVisible) {        //position 2
+        else if (Cam.targetY < 0.5 && Cam.targetVisible) {        //position 2
 
-            while (Cam.targetY > 1 && Cam.targetVisible && opModeIsActive()) {
+            while (Cam.targetY > 0.5 && Cam.targetVisible && opModeIsActive()) {
 
                 if (Alliance == "Red") {
                     Bot.driveForward(midSpeed);
@@ -98,6 +99,9 @@ public abstract class TestAutoMain extends LinearOpMode {
             }
 
         }
+        Bot.stopMotors();
+        sleep(sleepTime);
+
     }
 
 

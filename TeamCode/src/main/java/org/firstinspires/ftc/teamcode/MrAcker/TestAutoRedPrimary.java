@@ -32,24 +32,24 @@ public class TestAutoRedPrimary extends TestAutoMainRed {
             grabSkyStone(Bot);
 
             // Deliver First Skystone
-            removeSkyStoneInnerPath(Bot,Alliance);
-            dropSkyStone(Bot, Alliance);
+            //removeSkyStoneInnerPath(Bot,Alliance);
+            //dropSkyStone(Bot, Alliance);
 
             // Return Back to Skystone Area
-            returnBacktoSkyStones(Bot, Alliance);
+            //returnBacktoSkyStones(Bot, Alliance);
 
             //Find & Grab Second Skystone
-            camDrive(Bot, Cam, Alliance);
-            grabSkyStone(Bot);
+            //camDrive(Bot, Cam, Alliance);
+            //grabSkyStone(Bot);
 
             // Deliver Second Skystone
-            removeSkyStoneInnerPath(Bot, Alliance);
-            dropSkyStone(Bot,Alliance);
+            //removeSkyStoneInnerPath(Bot, Alliance);
+            //dropSkyStone(Bot,Alliance);
 
             // Move Build Plate
 
             //alignBuildPlate (Bot);
-            placeBuildPlate (Bot,Alliance);
+            //placeBuildPlate (Bot,Alliance);
             //releaseBuildPlate (Bot);
 
             idle();
