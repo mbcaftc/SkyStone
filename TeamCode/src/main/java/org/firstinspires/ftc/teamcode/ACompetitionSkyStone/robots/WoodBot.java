@@ -78,6 +78,7 @@ public class WoodBot extends MecanumDrive {
         stoneServo.setDirection(Servo.Direction.FORWARD);
 
         HookRelease(0.0, 0.0);
+        grabStone(.35);
 
 
         //Define and Initialize Gyro
@@ -116,7 +117,9 @@ public class WoodBot extends MecanumDrive {
     public void grabStone (double position) {
         stoneServo.setPosition(position);
     }
-    public void dropStone(double position) {stoneServo.setPosition(position);}
+    public void dropStone(double position) {
+        stoneServo.setPosition(position);
+    }
 
     // Robot Gyro
 

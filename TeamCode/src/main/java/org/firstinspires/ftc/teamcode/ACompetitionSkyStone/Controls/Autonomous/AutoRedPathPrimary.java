@@ -2,12 +2,13 @@ package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
 @Autonomous(name = "Auto:Red Path:Primary")
-public class AutoRedPathPrimary extends AutoMainRed {
+public class AutoRedPathPrimary extends AutoMain {
 
-    public AckerBot Bot = new AckerBot();
+    public WoodBot Bot = new WoodBot();
     public VuforiaWebcam Cam = new VuforiaWebcam();
 
     @Override
@@ -24,8 +25,10 @@ public class AutoRedPathPrimary extends AutoMainRed {
 
         while (opModeIsActive()) {
 
+            Bot.strafeLeft(midSpeed, 1);
+
             vuforiaStone(Bot, Cam);
-            grabSkyStone(Bot);
+            removeSkyStoneOuterPath(Bot,"Red");
             //alignBuildPlate (Bot);
             //placeBuildPlate (Bot);
             //releaseBuildPlate (Bot);
