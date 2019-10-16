@@ -77,7 +77,7 @@ public class WoodBot extends MecanumDrive {
         stoneServo = hwBot.get(Servo.class, "stone_servo");
         stoneServo.setDirection(Servo.Direction.FORWARD);
 
-        HookRelease(0.0, 0.0);
+        HookRelease(0.11, 0.0);
         grabStone(.35);
 
 
