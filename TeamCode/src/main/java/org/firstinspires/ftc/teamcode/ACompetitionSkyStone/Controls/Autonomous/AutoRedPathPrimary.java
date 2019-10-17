@@ -21,14 +21,20 @@ public class AutoRedPathPrimary extends AutoMain {
         Cam.activateTracking();
         setLinearOp(this);
 
+
+
         waitForStart();
 
         while (opModeIsActive()) {
+            //Cam.trackObjects();
+            //sleep(sleepTime);
 
             Bot.strafeLeft(midSpeed, 1);
 
-            vuforiaStone(Bot, Cam);
-            removeSkyStoneOuterPath(Bot,"Red");
+            //vuforiaStone(Bot, Cam);
+            hardCodeVuforia(Bot);
+            removeSkyStoneInnerPath(Bot,"Red");
+            dropSkyStone(Bot, "Red");
             //alignBuildPlate (Bot);
             //placeBuildPlate (Bot);
             //releaseBuildPlate (Bot);

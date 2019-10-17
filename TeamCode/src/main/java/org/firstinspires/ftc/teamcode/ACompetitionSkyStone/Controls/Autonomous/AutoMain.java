@@ -15,6 +15,7 @@ public abstract class AutoMain extends LinearOpMode {
     public LinearOpMode linearOp = null;
 
 
+    public int skystonePos = 3;
     public void setLinearOp(LinearOpMode Op) {
 
         linearOp = Op;
@@ -36,6 +37,7 @@ public abstract class AutoMain extends LinearOpMode {
         telemetry.update();
 
         if (Cam.targetY > 1 && Cam.targetVisible) {             //position 3
+            //Bot.rotateRight(highSpeed, 1);
             Bot.driveBackward(midSpeed, 1);                                 // if servos are on left side... drive forward
             Bot.strafeLeft(highSpeed, 4);                                  // if servos are on left side... strafeLeft
             sleep(sleepTime);
@@ -44,6 +46,7 @@ public abstract class AutoMain extends LinearOpMode {
 
         }
         else if (Cam.targetY < 1 && Cam.targetVisible) {        //position 2
+
             Bot.strafeLeft(midSpeed, 4);                                   // if servos are on the left side... strafeLeft
             sleep(sleepTime);
 
@@ -52,6 +55,7 @@ public abstract class AutoMain extends LinearOpMode {
 
         }
         else {                                                  // position 1
+            //Bot.rotateLeft(highSpeed, 1);
             Bot.driveForward(midSpeed, 1);                                  // if servos are on left side... driveBackwards
             Bot.strafeLeft(highSpeed, 4);                                  // if servos are on the left side... strafeLeft
 
@@ -59,6 +63,35 @@ public abstract class AutoMain extends LinearOpMode {
             telemetry.update();
 
         }
+
+        Bot.grabStone(.77);
+    }
+
+    public void hardCodeVuforia ( WoodBot Bot) {
+        if (skystonePos == 1){
+            Bot.driveBackward(midSpeed, 1);                                 // if servos are on left side... drive forward
+            sleep(sleepTime);
+            Bot.strafeLeft(midSpeed, 3);
+            skystonePos = 1;
+
+        }
+        else if (skystonePos == 2) {
+            Bot.strafeLeft(midSpeed, 3);
+            sleep(sleepTime);
+            skystonePos  = 2;
+
+        }
+        else {
+            Bot.driveForward(midSpeed, 1);
+            sleep(sleepTime);
+            Bot.strafeLeft(midSpeed, 3);
+            sleep(sleepTime);
+            skystonePos = 3;
+
+        }
+        Bot.grabStone(.77);
+        Bot.stopMotors();
+
     }
 
 
@@ -78,10 +111,10 @@ public abstract class AutoMain extends LinearOpMode {
     public void removeSkyStoneInnerPath (WoodBot Bot,String Alliance) {
 
         if (Alliance == "Red") {
-            Bot.strafeLeft(midSpeed, .5);
+            Bot.strafeRight(midSpeed, 1.2);
         }
         else if (Alliance == "Blue") {
-            Bot.strafeRight(midSpeed, .5);
+            Bot.strafeLeft(midSpeed, 1.2);
         }
         sleep(sleepTime);
 
@@ -91,15 +124,29 @@ public abstract class AutoMain extends LinearOpMode {
     public void dropSkyStone(WoodBot Bot, String Alliance) {
 
         if (Alliance == "Red") {
-            Bot.driveForward(highSpeed, 6.5);
+            switch (skystonePos) {
+                case 1:
+                    Bot.driveForward(highSpeed, 7);
+                case 2:
+                    Bot.driveForward(highSpeed, 6.5);
+                case 3:
+                    Bot.driveForward(highSpeed, 6);
 
-        }
-        else if (Alliance == "Blue") {
-            Bot.driveBackward(highSpeed, 6.5);
-        }
+            }
 
-        sleep(sleepTime);
-        Bot.dropStone(.9);
+        } else if (Alliance == "Blue") {
+            switch (skystonePos) {
+                case 1:
+                    Bot.driveBackward(highSpeed, 7);
+                case 2:
+                    Bot.driveBackward(highSpeed, 6.5);
+                case 3:
+                    Bot.driveBackward(highSpeed, 6);
+            }
+
+            sleep(sleepTime);
+            Bot.dropStone(.9);
+        }
     }
 
     public void RotateTowardPlate (WoodBot Bot, String Alliance) {
