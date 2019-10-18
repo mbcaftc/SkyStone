@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
 
 @TeleOp (name = "WoodBot TeleOp")
@@ -18,6 +19,8 @@ public class WoodBotTeleOp extends OpMode {
 
     public ElapsedTime TeleOpTime = new ElapsedTime();
     public WoodBot Bot = new WoodBot();
+    public VuforiaWebcam Cam = new VuforiaWebcam();
+
 
     // Variables & Constants specific to TeleLabBot
     double leftStickYVal;
@@ -38,8 +41,8 @@ public class WoodBotTeleOp extends OpMode {
     // Runs ONCE when driver presses INIT
     @Override
     public void init() {
-
-            Bot.initRobot(hardwareMap);
+        Cam.initCamera(hardwareMap);
+        Bot.initRobot(hardwareMap);
 
     }
 
@@ -54,7 +57,7 @@ public class WoodBotTeleOp extends OpMode {
     // Runs ONCE when driver presses PLAY
     @Override
     public void start() {
-
+        Cam.activateTracking();
         Bot.gyroReset();
     }
 
@@ -67,6 +70,7 @@ public class WoodBotTeleOp extends OpMode {
         Bot.angles   = Bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         controlHook();
         drive();
+        Cam.trackObjects();
         telemetryOutput();
         controlResetEncoders ();
         controlResetGyro();
@@ -226,7 +230,11 @@ public class WoodBotTeleOp extends OpMode {
         telemetry.addData("Right Hook Servo: ", Bot.HookRight);
         telemetry.addData("Stone Grab Servo: ", Bot.stoneServo);
 
-//        telemetry.update();
+        telemetry.addData("Camera Visible Target", Cam.targetName);
+        telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);
+        telemetry.addData("Camera Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", Cam.targetRoll, Cam.targetPitch, Cam.targetHeading);
+
+        telemetry.update();
 
     }
 
