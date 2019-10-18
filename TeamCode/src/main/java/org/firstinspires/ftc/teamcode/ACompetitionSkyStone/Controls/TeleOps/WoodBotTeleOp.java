@@ -41,16 +41,15 @@ public class WoodBotTeleOp extends OpMode {
     // Runs ONCE when driver presses INIT
     @Override
     public void init() {
-        Cam.initCamera(hardwareMap);
         Bot.initRobot(hardwareMap);
-
+        Cam.initCamera(hardwareMap);
     }
 
 
     // Runs Repeatedly when driver presses INIT but before pressing PLAY
     @Override
     public void init_loop() {
-
+        Cam.activateTracking();
     }
 
 
