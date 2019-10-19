@@ -90,6 +90,7 @@ public abstract class AutoMain extends LinearOpMode {
 
         }
         Bot.grabStone(.77);
+        sleep(1000);
         Bot.stopMotors();
 
     }
