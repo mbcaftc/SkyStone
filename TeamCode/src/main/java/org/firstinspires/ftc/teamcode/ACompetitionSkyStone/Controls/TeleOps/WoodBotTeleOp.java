@@ -42,21 +42,21 @@ public class WoodBotTeleOp extends OpMode {
     @Override
     public void init() {
         Bot.initRobot(hardwareMap);
-        Cam.initCamera(hardwareMap);
+        //Cam.initCamera(hardwareMap);
     }
 
 
     // Runs Repeatedly when driver presses INIT but before pressing PLAY
     @Override
     public void init_loop() {
-        Cam.activateTracking();
+        //Cam.activateTracking();
     }
 
 
     // Runs ONCE when driver presses PLAY
     @Override
     public void start() {
-        Cam.activateTracking();
+        //Cam.activateTracking();
         Bot.gyroReset();
     }
 
@@ -69,7 +69,7 @@ public class WoodBotTeleOp extends OpMode {
         Bot.angles   = Bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         controlHook();
         drive();
-        Cam.trackObjects();
+        //Cam.trackObjects();
         telemetryOutput();
         controlResetEncoders ();
         controlResetGyro();
@@ -188,12 +188,12 @@ public class WoodBotTeleOp extends OpMode {
 
     public void controlHook() {
         if (gamepad1.y) {
-            Bot.HookGrab(.87,.73);
+            Bot.HookGrab();
             telemetry.addLine("in Stone grab");
             telemetry.update();
         }
         else if (gamepad1.a) {
-            Bot.HookRelease(0.11,0.0);
+            Bot.HookRelease();
             telemetry.addLine("in Stone grab");
             telemetry.update();
         }
@@ -203,10 +203,10 @@ public class WoodBotTeleOp extends OpMode {
     //emma
     public void controlStoneServo() {
         if (gamepad1.left_trigger > 0.1) {
-            Bot.dropStone(.35);      //was .5
+            Bot.dropStone();      //was .5
         }
         else if (gamepad1.right_trigger > 0.1) {
-            Bot.grabStone(.77);      // was .8
+            Bot.grabStone();      // was .8
         }
     }
 
@@ -229,9 +229,9 @@ public class WoodBotTeleOp extends OpMode {
         telemetry.addData("Right Hook Servo: ", Bot.HookRight);
         telemetry.addData("Stone Grab Servo: ", Bot.stoneServo);
 
-        telemetry.addData("Camera Visible Target", Cam.targetName);
-        telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);
-        telemetry.addData("Camera Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", Cam.targetRoll, Cam.targetPitch, Cam.targetHeading);
+        //telemetry.addData("Camera Visible Target", Cam.targetName);
+        //telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);
+        //telemetry.addData("Camera Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", Cam.targetRoll, Cam.targetPitch, Cam.targetHeading);
 
         telemetry.update();
 
