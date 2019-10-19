@@ -3,20 +3,32 @@ package org.firstinspires.ftc.teamcode.Dawson;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.DriveTrains.MecanumDrive;
 
 
-public class TestBot extends TestBotMecanumDrive {
+public class WoodBotTest extends MecanumDrive {
 
     //Robot Hardware Constructors
+
     public HardwareMap hwBot  =  null;
+    public Servo HookLeft = null;
+    public Servo HookRight = null;
+    public Servo stoneServo = null;
+    public Servo intakeLeftArm = null;
+    public Servo intakeRightArm = null;
+    public Servo intakePusher = null;
+    public CRServo intakeLSpinner = null;
+    public CRServo intakeRSpinner = null;
 
     //Gyro Objects and Variables
     public BNO055IMU imu;
@@ -26,13 +38,11 @@ public class TestBot extends TestBotMecanumDrive {
     public final double TOLERANCE = .4;
 
 
+    //WoodBot Constructor
 
-    //AckerBot Constructor
-
-    public TestBot() {
+    public WoodBotTest() {
 
     }
-
 
     public void initRobot (HardwareMap hwMap) {
 
@@ -60,7 +70,29 @@ public class TestBot extends TestBotMecanumDrive {
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+
         // Define & Initialize Servos
+        HookLeft = hwBot.get(Servo.class, "hook_left");
+        HookLeft.setDirection(Servo.Direction.FORWARD);
+
+        HookRight = hwBot.get(Servo.class, "hook_right");
+        HookRight.setDirection(Servo.Direction.FORWARD);
+
+        //emma
+        stoneServo = hwBot.get(Servo.class, "stone_servo");
+        stoneServo.setDirection(Servo.Direction.FORWARD);
+
+        HookRelease(0.11, 0.0);
+        grabStone(.35);
+
+        //intake Servos
+        intakeLeftArm = hwBot.get(Servo.class, "intakeLeftArm");
+        intakeRightArm = hwBot.get(Servo.class, "intakeRightArm");
+        intakePusher = hwBot.get(Servo.class, "intakePusher");
+        intakeLSpinner = hwBot.get(CRServo.class, "intakeLSpinner");
+        intakeRSpinner = hwBot.get(CRServo.class, "intakeRSpinner");
+
+
 
         //Define and Initialize Gyro
 
@@ -74,9 +106,32 @@ public class TestBot extends TestBotMecanumDrive {
 
         imu = hwBot.get(BNO055IMU.class, "imu");
         imu.initialize(parametersimu);
-        gyroReset();
 
 
+    }
+
+
+    // Robot Servo Methods
+
+    public void HookRelease (double leftPosition, double rightPosition) {
+
+        HookLeft.setPosition(leftPosition);
+        HookRight.setPosition(rightPosition);
+    }
+
+
+    public void HookGrab (double leftPosition, double rightPosition) {
+
+        HookLeft.setPosition(leftPosition);
+        HookRight.setPosition(rightPosition);
+    }
+
+    //emma
+    public void grabStone (double position) {
+        stoneServo.setPosition(position);
+    }
+    public void dropStone(double position) {
+        stoneServo.setPosition(position);
     }
 
 
@@ -85,40 +140,20 @@ public class TestBot extends TestBotMecanumDrive {
     public void gyroCorrection (double speed, double angle) {
 
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        linearOp.telemetry.addData ("first angle ", angles.firstAngle);
-        linearOp.telemetry.addData("second angle", angles.secondAngle);
-        linearOp.telemetry.addData("third angle", angles.thirdAngle);
-        linearOp.telemetry.addLine("BEFORE TURN");
-        linearOp.telemetry.update();
-        linearOp.sleep(1000);
+
         if (angles.firstAngle >= angle + TOLERANCE) {
-            while (angles.firstAngle >=  angle + TOLERANCE && linearOp.opModeIsActive()) {
+            while (angles.firstAngle >=  angle + TOLERANCE) {
                 rotateRight(speed);
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                linearOp.telemetry.addLine("FIRST WHILE");
-                linearOp.telemetry.addData ("first angle ", angles.firstAngle);
-                linearOp.telemetry.addData("second angle", angles.secondAngle);
-                linearOp.telemetry.addData("third angle", angles.thirdAngle);
-                linearOp.telemetry.update();
             }
-            stopMotors();
-            linearOp.sleep(1000);
         }
         else if (angles.firstAngle <= angle - TOLERANCE) {
-            while (angles.firstAngle <= angle - TOLERANCE && linearOp.opModeIsActive()) {
+            while (angles.firstAngle <= angle - TOLERANCE) {
                 rotateLeft(speed);
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                linearOp.telemetry.addLine("SECOND WHILE");
-                linearOp.telemetry.addData ("first angle ", angles.firstAngle);
-                linearOp.telemetry.addData("second angle", angles.secondAngle);
-                linearOp.telemetry.addData("third angle", angles.thirdAngle);
-                linearOp.telemetry.update();
             }
-            stopMotors();
         }
         stopMotors();
-        linearOp.sleep(2000);
-
 
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
     }

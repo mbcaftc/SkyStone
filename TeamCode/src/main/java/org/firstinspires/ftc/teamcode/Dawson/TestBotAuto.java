@@ -21,21 +21,23 @@ public class TestBotAuto extends LinearOpMode {
 
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
+        Bot.gyroReset();
 
         waitForStart();
 
         while (opModeIsActive()) {
 
-            //Bot.driveForward(highSpeed, 9);
+            Bot.driveForward(highSpeed, 9);
             sleep(1000);
             Bot.stopMotors();
 
-            Bot.gyroCorrection(highSpeed,90);
-            sleep(500);
+            Bot.gyroReset();
+            Bot.gyroCorrection(midSpeed,-90);
+            sleep(200);
             Bot.stopMotors();
             telemetryOutput();
 
-            //Bot.driveForward(highSpeed, 15);
+            Bot.driveForward(highSpeed, 3);
             sleep(500);
             Bot.stopMotors();
 
