@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Dawson;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWeb
 
 
 @TeleOp (name = "WoodBot TeleOp")
+@Disabled
 public class WoodBotTeleOpTestD extends OpMode {
 
 

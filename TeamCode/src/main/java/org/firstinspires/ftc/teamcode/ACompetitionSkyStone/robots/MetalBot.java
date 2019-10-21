@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -23,6 +24,11 @@ public class MetalBot extends MecanumDrive {
     public Servo HookLeft = null;
     public Servo HookRight = null;
     public Servo stoneServo = null;
+//    public Servo intakeLeftArm = null;
+//    public Servo intakeRightArm = null;
+//    public Servo intakePusher = null;
+//    public CRServo intakeLSpinner = null;
+//    public CRServo intakeRSpinner = null;
 
     //Gyro Objects and Variables
     public BNO055IMU imu;
@@ -80,6 +86,11 @@ public class MetalBot extends MecanumDrive {
         grabStone(.35);
 
 //
+//        intakeLeftArm = hwBot.get(Servo.class, "intake_left_arm");
+//        intakeRightArm = hwBot.get(Servo.class, "intake_right_arm");
+//        intakePusher = hwBot.get(Servo.class, "intake_pusher");
+//        intakeLSpinner = hwBot.get(CRServo.class, "intake_l_spinner");
+//        intakeRSpinner = hwBot.get(CRServo.class, "intake_r_spinner");
         //Define and Initialize Gyro
 
         BNO055IMU.Parameters parametersimu = new BNO055IMU.Parameters();
@@ -119,6 +130,51 @@ public class MetalBot extends MecanumDrive {
     public void dropStone(double position) {
         stoneServo.setPosition(position);
     }
+
+//    public void intakeSpinInward () {
+//
+//        intakeLSpinner.setPower(1);
+//        intakeRSpinner.setPower(1);
+//    }
+//    public void intakeSpinOutward () {
+//
+//        intakeLSpinner.setPower(-1);
+//        intakeRSpinner.setPower(-1);
+//    }
+//    public void intakeSpinOff () {
+//
+//        intakeLSpinner.setPower(0);
+//        intakeRSpinner.setPower(0);
+//    }
+//
+//    public void intakeArmHold() {
+//
+//        intakeLeftArm.setPosition(1);
+//        intakeRightArm.setPosition(1);
+//
+//    }
+//
+//    public void intakeArmRelease() {
+//
+//        intakeLeftArm.setPosition(0);
+//        intakeRightArm.setPosition(0);
+//
+//    }
+//
+//    public void intakePushBlock() {
+//
+//        intakePusher.setPosition(-1);
+//
+//    }
+//
+//    public void intakePushReset() {
+//
+//        intakePusher.setPosition(0);
+//
+//    }
+
+
+
 
     // Robot Gyro
 
