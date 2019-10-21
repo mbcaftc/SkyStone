@@ -134,6 +134,26 @@ public class WoodBotTest extends MecanumDrive {
         stoneServo.setPosition(position);
     }
 
+//3 methods off intake outtake (create method that calls in the variables)
+
+    public void intakeSpinInward () {
+
+        intakeLSpinner.setPower(1);
+        intakeRSpinner.setPower(1);
+    }
+    public void intakeSpinOutward () {
+
+        intakeLSpinner.setPower(-1);
+        intakeRSpinner.setPower(-1);
+    }
+    public void intakeSpinOff () {
+
+        intakeLSpinner.setPower(0);
+        intakeRSpinner.setPower(0);
+    }
+
+
+
 
     // Robot Gyro
 
