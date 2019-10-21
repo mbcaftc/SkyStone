@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Dawson;
+package org.firstinspires.ftc.teamcode.Boone;
 
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -16,7 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.DriveTrains.MecanumDrive;
 
 
-public class WoodBotTest extends MecanumDrive {
+public class WoodBotTestB extends MecanumDrive {
 
     //Robot Hardware Constructors
 
@@ -40,7 +40,7 @@ public class WoodBotTest extends MecanumDrive {
 
     //WoodBot Constructor
 
-    public WoodBotTest() {
+    public WoodBotTestB() {
 
     }
 
@@ -82,8 +82,8 @@ public class WoodBotTest extends MecanumDrive {
         stoneServo = hwBot.get(Servo.class, "stone_servo");
         stoneServo.setDirection(Servo.Direction.FORWARD);
 
-        HookRelease(0.11, 0.0);
-        grabStone(.35);
+        HookRelease();
+        grabStone();
 
         //intake Servos
         intakeLeftArm = hwBot.get(Servo.class, "intakeLeftArm");
@@ -113,46 +113,52 @@ public class WoodBotTest extends MecanumDrive {
 
     // Robot Servo Methods
 
-    public void HookRelease (double leftPosition, double rightPosition) {
+    public void HookRelease () {
 
-        HookLeft.setPosition(leftPosition);
-        HookRight.setPosition(rightPosition);
+        HookLeft.setPosition(0);
+        HookRight.setPosition(0);
     }
 
 
-    public void HookGrab (double leftPosition, double rightPosition) {
+    public void HookGrab () {
 
-        HookLeft.setPosition(leftPosition);
-        HookRight.setPosition(rightPosition);
+        HookLeft.setPosition(1);
+        HookRight.setPosition(1);
     }
 
     //emma
-    public void grabStone (double position) {
-        stoneServo.setPosition(position);
+    public void grabStone () {
+        stoneServo.setPosition(1);
     }
-    public void dropStone(double position) {
-        stoneServo.setPosition(position);
-    }
-
-//3 methods off intake outtake (create method that calls in the variables)
-
-    public void intakeSpinInward () {
-
-        intakeLSpinner.setPower(1);
-        intakeRSpinner.setPower(1);
-    }
-    public void intakeSpinOutward () {
-
-        intakeLSpinner.setPower(-1);
-        intakeRSpinner.setPower(-1);
-    }
-    public void intakeSpinOff () {
-
-        intakeLSpinner.setPower(0);
-        intakeRSpinner.setPower(0);
+    public void dropStone() {
+        stoneServo.setPosition(0);
     }
 
+    public void intakeArmHold() {
 
+        intakeLeftArm.setPosition(1);
+        intakeRightArm.setPosition(1);
+
+    }
+
+    public void intakeArmRelease() {
+
+        intakeLeftArm.setPosition(0);
+        intakeRightArm.setPosition(0);
+
+    }
+
+    public void intakePushBlock() {
+
+        intakePusher.setPosition(-1);
+
+    }
+
+    public void intakePushReset() {
+
+        intakePusher.setPosition(0);
+
+    }
 
 
     // Robot Gyro
@@ -183,6 +189,10 @@ public class WoodBotTest extends MecanumDrive {
         BNO055IMU.Parameters parametersimu = new BNO055IMU.Parameters();
         imu.initialize(parametersimu);
     }
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 
