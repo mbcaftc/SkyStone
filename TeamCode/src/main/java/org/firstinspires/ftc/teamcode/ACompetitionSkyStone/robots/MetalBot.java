@@ -20,9 +20,9 @@ public class MetalBot extends MecanumDrive {
     //Robot Hardware Constructors
 
     public HardwareMap hwBot  =  null;
-//    public Servo HookLeft = null;
-//    public Servo HookRight = null;
-
+    public Servo HookLeft = null;
+    public Servo HookRight = null;
+    public Servo stoneServo = null;
 
     //Gyro Objects and Variables
     public BNO055IMU imu;
@@ -66,17 +66,18 @@ public class MetalBot extends MecanumDrive {
 
 
         // Define & Initialize Servos
-//        HookLeft = hwBot.get(Servo.class, "hook_left");
-//        HookLeft.setDirection(Servo.Direction.FORWARD);
-//
-//        HookRight = hwBot.get(Servo.class, "hook_right");
-//        HookRight.setDirection(Servo.Direction.FORWARD);
-//
-//        //emma
-//        stoneServo = hwBot.get(Servo.class, "stone_servo");
-//        stoneServo.setDirection(Servo.Direction.FORWARD);
+        HookLeft = hwBot.get(Servo.class, "hook_left");
+        HookLeft.setDirection(Servo.Direction.FORWARD);
 
-//        HookRelease(0.0, 0.0);
+        HookRight = hwBot.get(Servo.class, "hook_right");
+        HookRight.setDirection(Servo.Direction.FORWARD);
+
+        //emma
+        stoneServo = hwBot.get(Servo.class, "stone_servo");
+        stoneServo.setDirection(Servo.Direction.FORWARD);
+
+        HookRelease(0.11, 0.0);
+        grabStone(.35);
 
 
         //Define and Initialize Gyro
@@ -98,24 +99,26 @@ public class MetalBot extends MecanumDrive {
 
     // Robot Servo Methods
 
-//    public void HookRelease (double leftPosition, double rightPosition) {
-//
-//        HookLeft.setPosition(leftPosition);
-//        HookRight.setPosition(rightPosition);
-//    }
+    public void HookRelease (double leftPosition, double rightPosition) {
 
-//
-//    public void HookGrab (double leftPosition, double rightPosition) {
-//
-//        HookLeft.setPosition(leftPosition);
-//        HookRight.setPosition(rightPosition);
-//    }
+        HookLeft.setPosition(leftPosition);
+        HookRight.setPosition(rightPosition);
+    }
+
+
+    public void HookGrab (double leftPosition, double rightPosition) {
+
+        HookLeft.setPosition(leftPosition);
+        HookRight.setPosition(rightPosition);
+    }
 
     //emma
-//    public void grabStone (double position) {
-//        stoneServo.setPosition(position);
-//    }
-//    public void dropStone(double position) {stoneServo.setPosition(position);}
+    public void grabStone (double position) {
+        stoneServo.setPosition(position);
+    }
+    public void dropStone(double position) {
+        stoneServo.setPosition(position);
+    }
 
     // Robot Gyro
 

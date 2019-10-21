@@ -3,8 +3,7 @@ package org.firstinspires.ftc.teamcode.Boone;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
-import org.firstinspires.ftc.teamcode.Outreach.DriveTrains.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Boone.MecanumDrive;
 
 @Autonomous (name = "auto Course")
 
@@ -26,33 +25,33 @@ public class autoCourse extends LinearOpMode {
             //-------------------------------------Power---------------------------------
 
 
-            MechDrive.driveForward(1, 3);
+            MechDrive.driveForward(1, 6);
             sleep(1000);
             MechDrive.stopMotors();
 
-            MechDrive.rotateRight(1);
-            sleep(1000);
+            MechDrive.rotateLeft(1,.5);
             MechDrive.stopMotors();
 
 
             //------------------------------------------Encoders--------------------------
 
 
-         /*   MechDrive.driveForward(1, 5);
+           // MechDrive.driveForward(1, 5);
+
+           // MechDrive.rotateRight(1);
+
+           /* MechDrive.driveForward(1, 1);
 
             MechDrive.rotateRight(1);
 
-            MechDrive.driveForward(1, 1);
-
-            MechDrive.rotateRight(1);
-
-            MechDrive.driveForward(1, 6);
+            MechDrive.driveForward(1, 6);*/
 
 
             MechDrive.stopMotors();
+
             requestOpModeStop();
 
-*/
+
         }
 
         idle();
@@ -60,5 +59,6 @@ public class autoCourse extends LinearOpMode {
     }
 
 }
+
 
 

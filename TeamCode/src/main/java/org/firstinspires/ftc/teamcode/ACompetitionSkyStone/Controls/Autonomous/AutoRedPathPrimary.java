@@ -35,13 +35,18 @@ public class AutoRedPathPrimary extends AutoMain {
             hardCodeVuforia(Bot);
             removeSkyStoneInnerPath(Bot,"Red");
             dropSkyStone(Bot, "Red");
-            //alignBuildPlate (Bot);
-            //placeBuildPlate (Bot);
-            //releaseBuildPlate (Bot);
+            alignGrabBuildPlateInner(Bot, "Red");
 
+            orientBuildPlate(Bot, "Red");
+
+            pushBuildPlate(Bot, "Red");
+
+            park(Bot, "Red");
+
+            idle();
             requestOpModeStop();
-
         }
+        idle();
 
     }
 }

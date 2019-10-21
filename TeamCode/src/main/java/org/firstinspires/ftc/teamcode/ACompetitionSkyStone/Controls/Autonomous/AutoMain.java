@@ -15,7 +15,7 @@ public abstract class AutoMain extends LinearOpMode {
     public LinearOpMode linearOp = null;
 
 
-    public int skystonePos = 3;
+    public int skystonePos = 1;
     public void setLinearOp(LinearOpMode Op) {
 
         linearOp = Op;
@@ -64,34 +64,41 @@ public abstract class AutoMain extends LinearOpMode {
 
         }
 
-        Bot.grabStone(.77);
+        Bot.grabStone();
     }
 
     public void hardCodeVuforia ( WoodBot Bot) {
         if (skystonePos == 1){
-            Bot.driveBackward(midSpeed, 1);                                 // if servos are on left side... drive forward
+            Bot.driveBackward(midSpeed, .5);                                 //  was 7 if servos are on left side... drive forward
             sleep(sleepTime);
-            Bot.strafeLeft(midSpeed, 3);
+            Bot.strafeLeft(midSpeed, 2);
+            sleep(sleepTime);
+            Bot.strafeLeft(lowSpeed, .7 );
             skystonePos = 1;
 
         }
         else if (skystonePos == 2) {
-            Bot.strafeLeft(midSpeed, 3);
+            Bot.driveForward(lowSpeed, .5);
+            Bot.strafeLeft(midSpeed, 2);
+            sleep(sleepTime);
+            Bot.strafeLeft(lowSpeed, .5);
             sleep(sleepTime);
             skystonePos  = 2;
 
         }
         else {
-            Bot.driveForward(midSpeed, 1);
+            Bot.driveForward(midSpeed, .75);
             sleep(sleepTime);
-            Bot.strafeLeft(midSpeed, 3);
+            Bot.strafeLeft(midSpeed, 2);
+            Bot.strafeLeft(lowSpeed, .5);
             sleep(sleepTime);
             skystonePos = 3;
 
         }
-        Bot.grabStone(.77);
+        Bot.grabStone();
         sleep(1000);
         Bot.stopMotors();
+        Bot.driveForward(lowSpeed, .3);
 
     }
 
@@ -112,10 +119,18 @@ public abstract class AutoMain extends LinearOpMode {
     public void removeSkyStoneInnerPath (WoodBot Bot,String Alliance) {
 
         if (Alliance == "Red") {
-            Bot.strafeRight(midSpeed, 1.2);
+            Bot.strafeRight(midSpeed, 1.4);
+            sleep(sleepTime);
+            Bot.rotateRight(midSpeed, 2.5);
+            sleep(sleepTime);
+            Bot.gyroCorrection(lowSpeed, -92);
         }
         else if (Alliance == "Blue") {
-            Bot.strafeLeft(midSpeed, 1.2);
+            Bot.strafeLeft(midSpeed, 1.4);
+            sleep(sleepTime);
+            Bot.rotateLeft(midSpeed, 2.5);
+            sleep(sleepTime);
+            Bot.gyroCorrection(lowSpeed, 90);
         }
         sleep(sleepTime);
 
@@ -127,11 +142,20 @@ public abstract class AutoMain extends LinearOpMode {
         if (Alliance == "Red") {
             switch (skystonePos) {
                 case 1:
-                    Bot.driveForward(highSpeed, 7);
+                    Bot.strafeLeft(highSpeed, 4.25);
+//                    Bot.gyroCorrection(lowSpeed, -92);
+                    Bot.strafeLeft(highSpeed, 4.25);
+                    break;
                 case 2:
-                    Bot.driveForward(highSpeed, 6.5);
+                    Bot.strafeLeft(highSpeed, 3.45);
+                    //Bot.gyroCorrection(lowSpeed, -92);
+                    Bot.strafeLeft(highSpeed, 3.45);
+                    break;
                 case 3:
-                    Bot.driveForward(highSpeed, 6);
+                    Bot.strafeLeft(highSpeed, 3.3);
+                    //Bot.gyroCorrection(lowSpeed, -92);
+                    Bot.strafeLeft(highSpeed, 3.3);
+                    break;
 
             }
 
@@ -139,63 +163,70 @@ public abstract class AutoMain extends LinearOpMode {
             switch (skystonePos) {
                 case 1:
                     Bot.driveBackward(highSpeed, 7);
+                    break;
                 case 2:
                     Bot.driveBackward(highSpeed, 6.5);
+                    break;
                 case 3:
-                    Bot.driveBackward(highSpeed, 6);
+                    Bot.driveBackward(highSpeed, 7);
+                    break;
             }
 
-            sleep(sleepTime);
-            Bot.dropStone(.9);
         }
+        sleep(sleepTime);
+        Bot.dropStone();
     }
 
-    public void RotateTowardPlate (WoodBot Bot, String Alliance) {
-
-        if (Alliance == "Red") {
-            Bot.rotateLeft(highSpeed, 2.5);
-            Bot.gyroCorrection(lowSpeed, 90);       // not sure abt angles
-
-        }
-        else if (Alliance == "Blue") {
-            Bot.rotateRight(highSpeed, 2.5);
-            Bot.gyroCorrection(lowSpeed, 90);       // not sure abt angles
-        }
-
-    }
 
     public void alignBuildPlateOuter (WoodBot Bot, String Alliance) {
         if (Alliance == "Red") {
             Bot.driveForward(highSpeed, 1.2);
+
         }
         else if (Alliance == "Blue") {
             Bot.driveBackward(highSpeed, 1.2);
         }
 
     }
-    public void alignBuildPlateInner (WoodBot Bot, String Alliance) {
+    public void alignGrabBuildPlateInner (WoodBot Bot, String Alliance) {
         if (Alliance == "Red") {
-            Bot.driveForward(highSpeed, 2.5);
+            Bot.driveBackward(highSpeed, 1.8);
+            sleep(sleepTime);
+            Bot.strafeLeft(midSpeed, 1.5);
+            sleep(sleepTime);
         }
         else if (Alliance == "Blue") {
-            Bot.driveBackward(highSpeed, 2.5);
+            Bot.driveForward(highSpeed, 2.5);
         }
+        Bot.HookGrab();
+        sleep(1000);
     }
+
+
 
     public void orientBuildPlate (WoodBot Bot, String Alliance) {
         if (Alliance == "Red") {
-            Bot.rotateRight(highSpeed, 2);
+            Bot.strafeRight(midSpeed, .5);
+            Bot.rotateRight(midSpeed, 2.5);
+            Bot.gyroCorrection(lowSpeed, -155);
         }
         else if (Alliance == "Blue") {
             Bot.rotateLeft(highSpeed, 2);
             Bot.gyroCorrection(lowSpeed, 138);
         }
+
     }
 
     public void pushBuildPlate (WoodBot Bot, String Alliance) {
-        Bot.driveForward(midSpeed, 2.5);
+        Bot.strafeLeft(midSpeed, 4.5);
 
-        Bot.HookRelease(0,0 );
+        Bot.HookRelease();
+    }
+
+    public void park (WoodBot Bot, String ALliance) {
+        Bot.driveForward(highSpeed, 3.5);
+        sleep(sleepTime);
+
     }
 
 

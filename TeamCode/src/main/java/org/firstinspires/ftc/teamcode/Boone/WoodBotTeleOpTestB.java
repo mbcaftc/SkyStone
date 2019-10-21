@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.TeleOps;
+package org.firstinspires.ftc.teamcode.Boone;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -14,11 +14,11 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWeb
 
 
 @TeleOp (name = "WoodBot TeleOp")
-public class WoodBotTeleOp extends OpMode {
+public class WoodBotTeleOpTestB extends OpMode {
 
 
     public ElapsedTime TeleOpTime = new ElapsedTime();
-    public WoodBot Bot = new WoodBot();
+    public WoodBotTestB Bot = new WoodBotTestB();
     public VuforiaWebcam Cam = new VuforiaWebcam();
 
 
@@ -235,6 +235,24 @@ public class WoodBotTeleOp extends OpMode {
 
         telemetry.update();
 
+    }
+
+    public void controlIntakeArmHold() {
+        if (gamepad2.left_stick_y > 0.1) {
+            Bot.intakeArmHold();
+        }
+        else if (gamepad2.left_stick_x > 0.1) {
+            Bot.intakeArmRelease();
+        }
+    }
+
+    public void controlIntakePush() {
+        if (gamepad2.right_stick_y > 0.1) {
+            Bot.intakePushBlock();
+        }
+        else if (gamepad2.right_stick_x > 0.1) {
+            Bot.intakePushReset();
+        }
     }
 
 
