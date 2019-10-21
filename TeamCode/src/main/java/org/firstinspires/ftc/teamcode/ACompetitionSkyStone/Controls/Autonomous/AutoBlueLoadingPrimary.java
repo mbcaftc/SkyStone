@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
+
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
-@Autonomous(name = "Auto:Red Path:Primary")
-public class AutoRedPathPrimary extends AutoMain {
+@Autonomous(name = "Auto:Blue Loading:Primary")
+public class AutoBlueLoadingPrimary extends AutoMain {
 
     public WoodBot Bot = new WoodBot();
     public VuforiaWebcam Cam = new VuforiaWebcam();
@@ -33,15 +33,15 @@ public class AutoRedPathPrimary extends AutoMain {
 
             //vuforiaStone(Bot, Cam);
             hardCodeVuforia(Bot);
-            removeSkyStoneInnerPath(Bot,"Red");
-            dropSkyStone(Bot, "Red");
-            alignGrabBuildPlateInner(Bot, "Red");
+            removeSkyStoneInnerPath(Bot,"Blue");
+            dropSkyStone(Bot, "Blue");
+            alignGrabBuildPlateInner(Bot, "Blue");
 
-            orientBuildPlate(Bot, "Red");
+            orientBuildPlate(Bot, "Blue");
 
-            pushBuildPlate(Bot, "Red");
+            pushBuildPlate(Bot, "Blue");
 
-            park(Bot, "Red");
+            park(Bot, "Blue");
 
             idle();
             requestOpModeStop();
