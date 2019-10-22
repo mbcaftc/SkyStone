@@ -82,8 +82,9 @@ public class MetalBot extends MecanumDrive {
         stoneServo = hwBot.get(Servo.class, "stone_servo");
         stoneServo.setDirection(Servo.Direction.FORWARD);
 
-        HookRelease(0.11, 0.0);
-        grabStone(.35);
+//        HookRelease(0.11, 0.0); Servos got swapped
+        HookRelease();
+        dropStone();
 
 //
 //        intakeLeftArm = hwBot.get(Servo.class, "intake_left_arm");
@@ -110,25 +111,24 @@ public class MetalBot extends MecanumDrive {
 
     // Robot Servo Methods
 
-    public void HookRelease (double leftPosition, double rightPosition) {
+    public void HookRelease () {
 
-        HookLeft.setPosition(leftPosition);
-        HookRight.setPosition(rightPosition);
+        HookLeft.setPosition(.12);
+        HookRight.setPosition(0.0);
     }
 
+    public void HookGrab () {
 
-    public void HookGrab (double leftPosition, double rightPosition) {
-
-        HookLeft.setPosition(leftPosition);
-        HookRight.setPosition(rightPosition);
+        HookLeft.setPosition(.75);
+        HookRight.setPosition(.75);
     }
 
     //emma
-    public void grabStone (double position) {
-        stoneServo.setPosition(position);
+    public void grabStone () {
+        stoneServo.setPosition(.74);
     }
-    public void dropStone(double position) {
-        stoneServo.setPosition(position);
+    public void dropStone() {
+        stoneServo.setPosition(.30);
     }
 
 //    public void intakeSpinInward () {

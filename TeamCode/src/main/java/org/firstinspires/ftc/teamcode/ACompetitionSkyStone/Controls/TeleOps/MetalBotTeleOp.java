@@ -75,7 +75,7 @@ public class MetalBotTeleOp extends OpMode {
         controlResetEncoders ();
         controlResetGyro();
         controlStoneServo();    //emma
-        SimulateAuto ();
+        SimulateAuto ();  // causing loop isssues
 
     }
 
@@ -189,12 +189,12 @@ public class MetalBotTeleOp extends OpMode {
 
     public void controlHook() {
         if (gamepad1.y) {
-            Bot.HookGrab(.87,.73);
-            telemetry.addLine("in Stone grab");
+            Bot.HookRelease();
+            telemetry.addLine("in Stone release");
             telemetry.update();
         }
         else if (gamepad1.a) {
-            Bot.HookRelease(0.11,0.0);
+            Bot.HookGrab();
             telemetry.addLine("in Stone grab");
             telemetry.update();
         }
@@ -204,10 +204,10 @@ public class MetalBotTeleOp extends OpMode {
     //emma
     public void controlStoneServo() {
         if (gamepad1.left_trigger > 0.1) {
-            Bot.dropStone(.35);      //was .5
+            Bot.dropStone();      //was .5
         }
         else if (gamepad1.right_trigger > 0.1) {
-            Bot.grabStone(.67);      // was .77 but too low
+            Bot.grabStone();      // was .77 but too low
         }
     }
 
