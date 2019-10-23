@@ -187,12 +187,12 @@ public class WoodBotTeleOp extends OpMode {
     }
 
     public void controlHook() {
-        if (gamepad1.y) {
+        if (gamepad2.y) {
             Bot.HookGrab();
             telemetry.addLine("in Stone grab");
             telemetry.update();
         }
-        else if (gamepad1.a) {
+        else if (gamepad2.a) {
             Bot.HookRelease();
             telemetry.addLine("in Stone grab");
             telemetry.update();
@@ -202,10 +202,10 @@ public class WoodBotTeleOp extends OpMode {
 
     //emma
     public void controlStoneServo() {
-        if (gamepad1.left_trigger > 0.1) {
+        if (gamepad2.left_trigger > 0.1) {
             Bot.dropStone();      //was .5
         }
-        else if (gamepad1.right_trigger > 0.1) {
+        else if (gamepad2.right_trigger > 0.1) {
             Bot.grabStone();      // was .8
         }
     }

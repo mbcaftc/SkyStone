@@ -33,7 +33,7 @@ public class AutoRedLoadingPrimary extends AutoMain {
             Bot.strafeLeft(midSpeed, 1);
 
             //vuforiaStone(Bot, Cam);
-            hardCodeVuforia(Bot);
+            hardCodeVuforia(Bot, "Red");
 
             removeSkyStoneInnerPath(Bot,"Red");
 
@@ -50,6 +50,6 @@ public class AutoRedLoadingPrimary extends AutoMain {
             idle();
             requestOpModeStop();
         }
-//        idle();
+        idle();
     }
 }

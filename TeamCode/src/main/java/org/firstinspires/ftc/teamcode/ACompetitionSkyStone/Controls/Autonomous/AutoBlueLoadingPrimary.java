@@ -33,7 +33,7 @@ public class AutoBlueLoadingPrimary extends AutoMain {
             Bot.strafeLeft(midSpeed, 1);
 
             //vuforiaStone(Bot, Cam);
-            hardCodeVuforia(Bot);
+            hardCodeVuforia(Bot, "Blue");
             removeSkyStoneInnerPath(Bot,"Blue");
             dropSkyStone(Bot, "Blue");
             alignGrabBuildPlateInner(Bot, "Blue");

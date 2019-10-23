@@ -17,7 +17,7 @@ public abstract class AutoMain extends LinearOpMode {
     public final double gyroSPD = .15;
 
 
-    public int skystonePos = 1;
+    public int skystonePos = 2;
     public void setLinearOp(LinearOpMode Op) {
 
         linearOp = Op;
@@ -69,7 +69,7 @@ public abstract class AutoMain extends LinearOpMode {
         Bot.grabStone();
     }
 
-    public void hardCodeVuforia ( MetalBot Bot) {
+    public void hardCodeVuforia ( MetalBot Bot, String Alliance) {
         if (skystonePos == 1){
             Bot.driveBackward(midSpeed, .6);                                 //  was 7 if servos are on left side... drive forward
             sleep(sleepTime);
@@ -100,7 +100,12 @@ public abstract class AutoMain extends LinearOpMode {
         Bot.grabStone();
         sleep(1000);
         Bot.stopMotors();
-        Bot.driveForward(lowSpeed, .2);
+        if (Alliance == "Red") {
+            Bot.driveForward(lowSpeed, .4);
+        }
+        else if (Alliance == "Blue") {
+            Bot.driveBackward(lowSpeed, .4);
+        }
 
     }
 
@@ -128,11 +133,11 @@ public abstract class AutoMain extends LinearOpMode {
             Bot.gyroCorrection(gyroSPD, -90);
         }
         else if (Alliance == "Blue") {
-            Bot.strafeRight(midSpeed, 1.4);
+            Bot.strafeRight(midSpeed, .8);
             sleep(sleepTime);
-            Bot.rotateLeft(midSpeed, 2.5);
+            Bot.rotateLeft(midSpeed, 2);
             sleep(sleepTime);
-            Bot.gyroCorrection(gyroSPD, 92);
+            Bot.gyroCorrection(gyroSPD, 90);
         }
         sleep(sleepTime);
 
@@ -154,7 +159,7 @@ public abstract class AutoMain extends LinearOpMode {
                     //Bot.gyroCorrection(lowSpeed, -92);
                     break;
                 case 3:
-                    Bot.strafeLeft(highSpeed, 5.8);
+                    Bot.strafeLeft(highSpeed, 5.5);
                     Bot.gyroCorrection(gyroSPD, -91);
                     //Bot.gyroCorrection(lowSpeed, -92);
                     break;
@@ -164,13 +169,16 @@ public abstract class AutoMain extends LinearOpMode {
         } else if (Alliance == "Blue") {
             switch (skystonePos) {
                 case 1: // left
-                    Bot.strafeLeft(highSpeed, 8.5);
+                    Bot.strafeLeft(highSpeed, 6);
+                    Bot.gyroCorrection(gyroSPD, 92);
                     break;
                 case 2: // right
-                    Bot.strafeLeft(highSpeed, 6.9);
+                    Bot.strafeLeft(highSpeed, 6.6);
+                    Bot.gyroCorrection(gyroSPD, 91);
                     break;
                 case 3: //middle
-                    Bot.strafeLeft(highSpeed, 6.6);
+                    Bot.strafeLeft(highSpeed, 7.8);
+                    Bot.gyroCorrection(gyroSPD, 91);
                     break;
             }
 
@@ -186,7 +194,7 @@ public abstract class AutoMain extends LinearOpMode {
 
         }
         else if (Alliance == "Blue") {
-            Bot.driveForward(highSpeed, 1.2);
+            Bot.driveForward(highSpeed, 1.8);
         }
 
     }
@@ -198,9 +206,9 @@ public abstract class AutoMain extends LinearOpMode {
             sleep(sleepTime);
         }
         else if (Alliance == "Blue") {
-            Bot.driveForward(highSpeed, 1.8);
+            Bot.driveForward(highSpeed, 2.7);
             sleep(sleepTime);
-            Bot.strafeLeft(midSpeed, 1.5);
+            Bot.strafeLeft(midSpeed, 2);
             sleep(sleepTime);
         }
         Bot.HookGrab();
@@ -216,7 +224,7 @@ public abstract class AutoMain extends LinearOpMode {
             Bot.gyroCorrection(.3, -155);
         }
         else if (Alliance == "Blue") {
-            Bot.strafeRight(midSpeed, .5);
+            Bot.strafeRight(midSpeed, .8);
             Bot.rotateLeft(midSpeed, 2.5);
             Bot.gyroCorrection(gyroSPD, 155);
         }
@@ -237,15 +245,15 @@ public abstract class AutoMain extends LinearOpMode {
     public void park (MetalBot Bot, String Alliance) {
         if (Alliance  == "Red") {
             Bot.driveForward(.8, 1.5);
-            Bot.strafeRight(lowSpeed, .5);
-            Bot.driveForward(.8, 1.5);
+            Bot.strafeRight(lowSpeed, .8);
+            Bot.rotateLeft(lowSpeed, .5);
+            Bot.driveForward(.8, 1.9);
             sleep(sleepTime);
         }
         else if (Alliance == "Blue" ) {
 
             Bot.driveBackward(highSpeed, 1.5);
-            Bot.rotateLeft(gyroSPD, -135);
-            Bot.driveBackward(highSpeed, 1.5);
+            Bot.driveBackward(highSpeed, 1.5);          // was 1.5
             sleep(sleepTime);
         }
 

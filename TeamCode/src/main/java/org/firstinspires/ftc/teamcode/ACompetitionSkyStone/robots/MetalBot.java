@@ -183,13 +183,13 @@ public class MetalBot extends MecanumDrive {
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         if (angles.firstAngle >= angle + TOLERANCE) {
-            while (angles.firstAngle >=  angle + TOLERANCE) {
+            while (angles.firstAngle >=  angle + TOLERANCE && linearOp.opModeIsActive()) {
                 rotateRight(speed);
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             }
         }
         else if (angles.firstAngle <= angle - TOLERANCE) {
-            while (angles.firstAngle <= angle - TOLERANCE) {
+            while (angles.firstAngle <= angle - TOLERANCE && linearOp.opModeIsActive()) {
                 rotateLeft(speed);
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             }
