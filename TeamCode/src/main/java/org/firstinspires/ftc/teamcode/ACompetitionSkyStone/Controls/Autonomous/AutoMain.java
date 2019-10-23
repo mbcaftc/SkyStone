@@ -165,7 +165,7 @@ public abstract class AutoMain extends LinearOpMode {
                     break;
 
             }
-
+//
         } else if (Alliance == "Blue") {
             switch (skystonePos) {
                 case 1: // left
