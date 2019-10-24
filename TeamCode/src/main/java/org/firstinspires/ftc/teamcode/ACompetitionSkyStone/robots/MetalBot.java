@@ -29,6 +29,7 @@ public class MetalBot extends MecanumDrive {
 //    public Servo intakePusher = null;
 //    public CRServo intakeLSpinner = null;
 //    public CRServo intakeRSpinner = null;
+public Servo capstoneDropper = null;
 
     //Gyro Objects and Variables
     public BNO055IMU imu;
@@ -82,10 +83,14 @@ public class MetalBot extends MecanumDrive {
         stoneServo = hwBot.get(Servo.class, "stone_servo");
         stoneServo.setDirection(Servo.Direction.FORWARD);
 
+
+        capstoneDropper = hwBot.get(Servo.class, "capstone_dropper");
+        capstoneDropper.setDirection(Servo.Direction.FORWARD);
+
 //        HookRelease(0.11, 0.0); Servos got swapped
         HookRelease();
         dropStone();
-
+        raiseCapstone();
 //
 //        intakeLeftArm = hwBot.get(Servo.class, "intake_left_arm");
 //        intakeRightArm = hwBot.get(Servo.class, "intake_right_arm");
@@ -125,10 +130,19 @@ public class MetalBot extends MecanumDrive {
 
     //emma
     public void grabStone () {
-        stoneServo.setPosition(.74);
+        stoneServo.setPosition(.7);
     }
     public void dropStone() {
         stoneServo.setPosition(.30);
+    }
+
+
+    public void dropCapstone() {
+        capstoneDropper.setPosition(.77);
+    }
+
+    public void raiseCapstone() {
+        capstoneDropper.setPosition(0);
     }
 
 //    public void intakeSpinInward () {

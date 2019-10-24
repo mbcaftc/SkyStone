@@ -75,6 +75,7 @@ public class WoodBotTeleOp extends OpMode {
         controlResetGyro();
         controlStoneServo();    //emma
         SimulateAuto ();
+        controlCapstone();
 
     }
 
@@ -187,12 +188,12 @@ public class WoodBotTeleOp extends OpMode {
     }
 
     public void controlHook() {
-        if (gamepad2.y) {
+        if (gamepad2.a) {
             Bot.HookGrab();
             telemetry.addLine("in Stone grab");
             telemetry.update();
         }
-        else if (gamepad2.a) {
+        else if (gamepad2.y) {
             Bot.HookRelease();
             telemetry.addLine("in Stone grab");
             telemetry.update();
@@ -207,6 +208,16 @@ public class WoodBotTeleOp extends OpMode {
         }
         else if (gamepad2.right_trigger > 0.1) {
             Bot.grabStone();      // was .8
+        }
+    }
+
+    public void controlCapstone() {
+        if (gamepad2.left_bumper ) {
+            Bot.raiseCapstone();
+        }
+
+        else if (gamepad2.right_bumper) {
+            Bot.dropCapstone();
         }
     }
 

@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
 @Autonomous(name = "Auto:Red Loading:Primary")
-public class AutoRedLoadingPrimaryLoading extends AutoMainLoading {
+public class AutoRedLoadingPrimary extends AutoMainLoading {
 
     public MetalBot Bot = new MetalBot();
     public VuforiaWebcam Cam = new VuforiaWebcam();
@@ -46,7 +46,6 @@ public class AutoRedLoadingPrimaryLoading extends AutoMainLoading {
 
             park(Bot, "Red");
 
-            idle();
             requestOpModeStop();
         }
         idle();

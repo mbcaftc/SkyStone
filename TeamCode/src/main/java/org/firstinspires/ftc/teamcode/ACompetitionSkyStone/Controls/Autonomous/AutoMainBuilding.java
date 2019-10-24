@@ -16,7 +16,7 @@ public abstract class AutoMainBuilding extends LinearOpMode {
     public final double gyroSPD = .15;
 
 
-    public int skystonePos = 2;
+    public int skystonePos = 3;
     public void setLinearOp(LinearOpMode Op) {
 
         linearOp = Op;
@@ -71,24 +71,47 @@ public abstract class AutoMainBuilding extends LinearOpMode {
 
 
     public void alignBuildPlate (MetalBot Bot, String Alliance) {
-        Bot.strafeLeft(highSpeed, 1.5);
+        Bot.strafeLeft(highSpeed, 3);
+        Bot.driveForward(midSpeed, 1);
+        Bot.strafeLeft(lowSpeed, .5);
 
         Bot.HookGrab();
         sleep(1000);
 
-        Bot.strafeRight(1.5);
+        Bot.strafeRight(midSpeed, 4.5);
+
+        Bot.HookRelease();
 
     }
 
     //outer path - removing skystone
     public void goToSkystones(MetalBot Bot, String Alliance) {
+        if (Alliance == "Red") {
+            Bot.driveBackward(highSpeed, 5.5);
+
+            Bot.gyroCorrection(gyroSPD, 0);
+
+            Bot.strafeLeft(highSpeed, 2.5);
+            sleep(sleepTime);
+
+            Bot.gyroCorrection(gyroSPD, 0);
+
+            Bot.driveBackward(highSpeed, 3.9);
+            sleep(sleepTime);
+
+            Bot.gyroCorrection(gyroSPD, 0);
+
+            Bot.strafeRight(highSpeed, 1.2);
+            sleep(sleepTime);
+
+        }
             
 
     }
 
     public void hardCodeVuforia ( MetalBot Bot, String Alliance) {
         if (skystonePos == 1){
-            Bot.driveBackward(midSpeed, .6);                                 //  was 7 if servos are on left side... drive forward
+            Bot.driveBackward(midSpeed, .5);                                 //  was 7 if servos are on left side... drive forward
             sleep(sleepTime);
             Bot.strafeLeft(midSpeed, 1.8);
             sleep(sleepTime);
@@ -97,19 +120,19 @@ public abstract class AutoMainBuilding extends LinearOpMode {
 
         }
         else if (skystonePos == 2) {
-            Bot.driveForward(lowSpeed, .35);
+            Bot.driveForward(lowSpeed, .2);
             Bot.strafeLeft(midSpeed, 1.8);
             sleep(sleepTime);
-            Bot.strafeLeft(lowSpeed, .4);
+            Bot.strafeLeft(lowSpeed, .6);
             sleep(sleepTime);
             skystonePos  = 2;
 
         }
         else {
-            Bot.driveForward(midSpeed, .7);
+            Bot.driveForward(midSpeed, 1);
             sleep(sleepTime);
             Bot.strafeLeft(midSpeed, 1.8);
-            Bot.strafeLeft(lowSpeed, .4);
+            Bot.strafeLeft(lowSpeed, .5);
             sleep(sleepTime);
             skystonePos = 3;
 
@@ -127,30 +150,47 @@ public abstract class AutoMainBuilding extends LinearOpMode {
     }
 
     // inner plath
-    public void grabSkystone (MetalBot Bot,String Alliance) {
+
+    public void orientToDropStone(MetalBot Bot, String Alliance) {
+        if (Alliance == "Red") {
+            Bot.strafeRight(midSpeed, 1.4);             //
+            sleep(sleepTime);
+            Bot.rotateRight(midSpeed, 2);
+            sleep(sleepTime);
+            Bot.gyroCorrection(gyroSPD, -90);
+        }
+        else if (Alliance == "Blue") {
+            Bot.strafeRight(midSpeed, .8);
+            sleep(sleepTime);
+            Bot.rotateLeft(midSpeed, 2);
+            sleep(sleepTime);
+            Bot.gyroCorrection(gyroSPD, 90);
+        }
+        sleep(sleepTime);
+
+    }
+
+    public void dropStone (MetalBot Bot) {
+
+            Bot.strafeLeft(highSpeed, 8.8);
+            Bot.dropStone();
 
 
     }
 
-    public void dropSkyStone(MetalBot Bot, String Alliance) {
 
+    public void park (MetalBot Bot) {
+        switch (skystonePos) {
+            case 1:
+                Bot.strafeRight(highSpeed, .2);
 
-    }
+            case 2:
+                Bot.strafeRight(highSpeed, .7);
 
+            case 3:
+                Bot.strafeRight(highSpeed, 2.0);
 
-
-
-
-
-    public void orientBuildPlate (MetalBot Bot, String Alliance) {
-
-    }
-
-    public void pushBuildPlate (MetalBot Bot, String Alliance) {
-    }
-
-    public void park (MetalBot Bot, String Alliance) {
-
+        }
 
     }
 
