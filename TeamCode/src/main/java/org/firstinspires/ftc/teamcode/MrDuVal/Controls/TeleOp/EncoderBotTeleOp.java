@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.MrDuVal.Controls.TeleOp;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,7 +14,8 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.MrDuVal.EncoderBot.EncoderBot;
 
 
-@TeleOp (name = "EncoderBot: TeleOp", group = "Testing")
+@TeleOp (name = "EncoderBot: TeleOp", group = "Lab")
+@Disabled
 public class EncoderBotTeleOp extends OpMode {
 
 
@@ -35,6 +37,8 @@ public class EncoderBotTeleOp extends OpMode {
     double powerThreshold = 0;
     double encoders = 0;
     double targetEncoders = 0;
+
+    double PIDcoefficient = 0;
 
 
 
@@ -67,7 +71,8 @@ public class EncoderBotTeleOp extends OpMode {
     public void loop() {
         Bot.angles   = Bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         controlHook();
-        drive();
+//        drive();
+        adjustEncoders();
         //Cam.trackObjects();
         controlResetEncoders ();
         controlResetGyro();
@@ -88,14 +93,6 @@ public class EncoderBotTeleOp extends OpMode {
 
     public void drive () {
 
-        if (gamepad1.left_stick_y > .1) {
-            targetEncoders += gamepad1.left_stick_y;
-        }
-        else if (gamepad1.left_stick_y < -.1) {
-            targetEncoders -= gamepad1.left_stick_y;
-        }
-
-        /*
         leftStickYVal = -gamepad1.left_stick_y;
         leftStickYVal = Range.clip(leftStickYVal, -1, 1);
         leftStickXVal = gamepad1.left_stick_x;
@@ -143,7 +140,6 @@ public class EncoderBotTeleOp extends OpMode {
         } else {
             Bot.rearRightMotor.setPower(rearRightSpeed);
         }
-*/
     }
 
 
@@ -163,7 +159,11 @@ public class EncoderBotTeleOp extends OpMode {
         }
     }
 
-
+    public void adjustEncoders () {
+        if ((gamepad1.left_stick_y < .1) || (gamepad1.left_stick_y > .1)) {
+            targetEncoders -= gamepad1.left_stick_y*10;
+        }
+    }
 
     public void SimulateAuto () {
 
@@ -244,6 +244,11 @@ public class EncoderBotTeleOp extends OpMode {
 //        telemetry.update();
 
     }
-
+    /*
+    public void getPID (double PID) {
+        telemetry.addData("PID: ", PID);
+        telemetry.update();
+    }
+*/
 
 }

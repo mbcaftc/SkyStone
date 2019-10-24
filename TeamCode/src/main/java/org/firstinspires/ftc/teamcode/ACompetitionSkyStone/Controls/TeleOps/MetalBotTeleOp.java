@@ -71,11 +71,13 @@ public class MetalBotTeleOp extends OpMode {
         controlHook();
         drive();
         //Cam.trackObjects();
-        telemetryOutput();
         controlResetEncoders ();
         controlResetGyro();
         controlStoneServo();    //emma
-        SimulateAuto ();  // causing loop isssues
+//        SimulateAuto ();  // causing loop isssues
+        controlCapstone ();
+        telemetryOutput();
+
 
     }
 
@@ -209,6 +211,10 @@ public class MetalBotTeleOp extends OpMode {
         else if (gamepad1.right_trigger > 0.1) {
             Bot.grabStone();      // was .77 but too low
         }
+    }
+
+    public void controlCapstone () {
+
     }
 
 
