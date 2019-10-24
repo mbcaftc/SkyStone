@@ -1,13 +1,12 @@
 package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
+
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
 @Autonomous(name = "Auto:Red Loading:Primary")
-public class AutoRedLoadingPrimary extends AutoMain {
+public class AutoRedLoadingPrimaryLoading extends AutoMainLoading {
 
     public MetalBot Bot = new MetalBot();
     public VuforiaWebcam Cam = new VuforiaWebcam();

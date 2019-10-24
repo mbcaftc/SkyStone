@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
-public abstract class AutoMainRed extends AutoMain {
+public abstract class AutoMainLoadingRed extends AutoMainLoading {
 
 
 

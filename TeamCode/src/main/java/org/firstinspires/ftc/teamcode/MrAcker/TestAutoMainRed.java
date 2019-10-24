@@ -1,14 +1,6 @@
 package org.firstinspires.ftc.teamcode.MrAcker;
 
 
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous.AutoMain;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
-
-
 public abstract class TestAutoMainRed extends TestAutoMain {
 
 

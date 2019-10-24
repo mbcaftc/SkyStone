@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
-public abstract class AutoMain extends LinearOpMode {
+public abstract class AutoMainLoading extends LinearOpMode {
     public final long  sleepTime = 20;
     public final double maxSpeed = 1;
     public final double highSpeed = .5;
