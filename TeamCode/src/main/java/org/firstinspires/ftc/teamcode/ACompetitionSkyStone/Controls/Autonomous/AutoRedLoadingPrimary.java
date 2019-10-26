@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWeb
 public class AutoRedLoadingPrimary extends AutoMainLoading {
 
     public MetalBot Bot = new MetalBot();
-    public VuforiaWebcam Cam = new VuforiaWebcam();
+    //public VuforiaWebcam Cam = new VuforiaWebcam();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -17,8 +17,8 @@ public class AutoRedLoadingPrimary extends AutoMainLoading {
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
 
-        Cam.initCamera(hardwareMap);
-        Cam.activateTracking();
+        //Cam.initCamera(hardwareMap);
+        //Cam.activateTracking();
         setLinearOp(this);
 
 
@@ -26,7 +26,7 @@ public class AutoRedLoadingPrimary extends AutoMainLoading {
         waitForStart();
 
         while (opModeIsActive()) {
-            Cam.trackObjects();
+            //Cam.trackObjects();
             sleep(sleepTime);
 
             Bot.strafeLeft(midSpeed, 1);

@@ -16,7 +16,7 @@ public abstract class AutoMainBuilding extends LinearOpMode {
     public final double gyroSPD = .15;
 
 
-    public int skystonePos = 3;
+    public int skystonePos = 2;
     public void setLinearOp(LinearOpMode Op) {
 
         linearOp = Op;

@@ -17,7 +17,7 @@ public abstract class AutoMainLoading extends LinearOpMode {
     public final double gyroSPD = .2;
 
 
-    public int skystonePos = 1;
+    public int skystonePos = 2;
     public void setLinearOp(LinearOpMode Op) {
 
         linearOp = Op;
@@ -170,17 +170,17 @@ public abstract class AutoMainLoading extends LinearOpMode {
         if (Alliance == "Red") {
             switch (skystonePos) {
                 case 1:
-                    Bot.strafeLeft(highSpeed, 7.7);
+                    Bot.strafeLeft(highSpeed, 7.4);
                     Bot.gyroCorrection(gyroSPD, -92);
 //                    Bot.gyroCorrection(lowSpeed, -92);
                     break;
                 case 2:
-                    Bot.strafeLeft(highSpeed, 6.2);
+                    Bot.strafeLeft(highSpeed, 5.7);
                     Bot.gyroCorrection(gyroSPD, -91);
                     //Bot.gyroCorrection(lowSpeed, -92);
                     break;
                 case 3:
-                    Bot.strafeLeft(highSpeed, 5.5);
+                    Bot.strafeLeft(highSpeed, 5.1);
                     Bot.gyroCorrection(gyroSPD, -91);
                     //Bot.gyroCorrection(lowSpeed, -92);
                     break;
@@ -215,7 +215,7 @@ public abstract class AutoMainLoading extends LinearOpMode {
 
         }
         else if (Alliance == "Blue") {
-            Bot.driveForward(highSpeed, 1.8);
+            Bot.driveForward(highSpeed, 2.3);
         }
 
     }
