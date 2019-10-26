@@ -24,12 +24,12 @@ public class MetalBot extends MecanumDrive {
     public Servo HookLeft = null;
     public Servo HookRight = null;
     public Servo stoneServo = null;
-//    public Servo intakeLeftArm = null;
-//    public Servo intakeRightArm = null;
-//    public Servo intakePusher = null;
-//    public CRServo intakeLSpinner = null;
-//    public CRServo intakeRSpinner = null;
-public Servo capstoneDropper = null;
+    public Servo intakeLeftArm = null;
+    public Servo intakeRightArm = null;
+    public Servo intakePusher = null;
+    public CRServo intakeLSpinner = null;
+    public CRServo intakeRSpinner = null;
+    public Servo capstoneDropper = null;
 
     //Gyro Objects and Variables
     public BNO055IMU imu;
@@ -91,13 +91,20 @@ public Servo capstoneDropper = null;
         HookRelease();
         dropStone();
         raiseCapstone();
-//
-//        intakeLeftArm = hwBot.get(Servo.class, "intake_left_arm");
-//        intakeRightArm = hwBot.get(Servo.class, "intake_right_arm");
-//        intakePusher = hwBot.get(Servo.class, "intake_pusher");
-//        intakeLSpinner = hwBot.get(CRServo.class, "intake_l_spinner");
-//        intakeRSpinner = hwBot.get(CRServo.class, "intake_r_spinner");
+
+        intakeLeftArm = hwBot.get(Servo.class, "intake_left_arm");
+        intakeLeftArm.setDirection(Servo.Direction.REVERSE);
+
+
+        intakeRightArm = hwBot.get(Servo.class, "intake_right_arm");
+        intakePusher = hwBot.get(Servo.class, "intake_pusher");
+        intakeLSpinner = hwBot.get(CRServo.class, "intake_l_spinner");
+
+        intakeRSpinner = hwBot.get(CRServo.class, "intake_r_spinner");
+        intakeRSpinner.setDirection(CRServo.Direction.REVERSE);
+
         //Define and Initialize Gyro
+
 
         BNO055IMU.Parameters parametersimu = new BNO055IMU.Parameters();
         parametersimu.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -138,54 +145,54 @@ public Servo capstoneDropper = null;
 
 
     public void dropCapstone() {
-        capstoneDropper.setPosition(.77);
+        capstoneDropper.setPosition(.55);
     }
 
     public void raiseCapstone() {
         capstoneDropper.setPosition(0);
     }
 
-//    public void intakeSpinInward () {
-//
-//        intakeLSpinner.setPower(1);
-//        intakeRSpinner.setPower(1);
-//    }
-//    public void intakeSpinOutward () {
-//
-//        intakeLSpinner.setPower(-1);
-//        intakeRSpinner.setPower(-1);
-//    }
-//    public void intakeSpinOff () {
-//
-//        intakeLSpinner.setPower(0);
-//        intakeRSpinner.setPower(0);
-//    }
-//
-//    public void intakeArmHold() {
-//
-//        intakeLeftArm.setPosition(1);
-//        intakeRightArm.setPosition(1);
-//
-//    }
-//
-//    public void intakeArmRelease() {
-//
-//        intakeLeftArm.setPosition(0);
-//        intakeRightArm.setPosition(0);
-//
-//    }
-//
-//    public void intakePushBlock() {
-//
-//        intakePusher.setPosition(-1);
-//
-//    }
-//
-//    public void intakePushReset() {
-//
-//        intakePusher.setPosition(0);
-//
-//    }
+    public void intakeSpinInward () {
+
+        intakeLSpinner.setPower(1);
+        intakeRSpinner.setPower(1);
+    }
+    public void intakeSpinOutward () {
+
+        intakeLSpinner.setPower(-1);
+        intakeRSpinner.setPower(-1);
+    }
+    public void intakeSpinOff () {
+
+        intakeLSpinner.setPower(0);
+        intakeRSpinner.setPower(0);
+    }
+
+    public void intakeArmHold() {
+
+        intakeLeftArm.setPosition(0);
+        intakeRightArm.setPosition(0);
+
+    }
+
+    public void intakeArmRelease() {
+
+        intakeLeftArm.setPosition(.6);
+        intakeRightArm.setPosition(.6);
+
+    }
+
+    public void intakePushBlock() {
+
+        intakePusher.setPosition(-1);
+
+    }
+
+    public void intakePushReset() {
+
+        intakePusher.setPosition(0);
+
+    }
 
 
 

@@ -71,14 +71,24 @@ public abstract class AutoMainBuilding extends LinearOpMode {
 
 
     public void alignBuildPlate (MetalBot Bot, String Alliance) {
+
+
         Bot.strafeLeft(highSpeed, 3);
-        Bot.driveForward(midSpeed, 1);
+
+        if (Alliance == "Red") {
+            Bot.driveForward(midSpeed, 1);
+        }
+        else if (Alliance == "Blue") {
+            Bot.driveBackward(midSpeed, 1);
+            Bot.strafeLeft(lowSpeed, .4);
+        }
+
         Bot.strafeLeft(lowSpeed, .5);
 
         Bot.HookGrab();
         sleep(1000);
 
-        Bot.strafeRight(midSpeed, 4.5);
+        Bot.strafeRight(midSpeed, 4.8);
 
         Bot.HookRelease();
 
@@ -105,13 +115,43 @@ public abstract class AutoMainBuilding extends LinearOpMode {
             sleep(sleepTime);
 
         }
+
+        else if (Alliance == "Blue") {
+
+            Bot.gyroCorrection(lowSpeed, -1);
+
+            Bot.driveForward(highSpeed, 5.5);
+
+            Bot.gyroCorrection(gyroSPD, 0);
+
+            Bot.strafeLeft(highSpeed, 2.5);
+            sleep(sleepTime);
+
+            Bot.gyroCorrection(gyroSPD, 0);
+
+            Bot.driveForward(highSpeed, 3.9);
+            sleep(sleepTime);
+
+            Bot.gyroCorrection(gyroSPD, 0);
+
+            Bot.strafeRight(highSpeed, 1.2);
+            sleep(sleepTime);
+        }
+
             
 
     }
 
     public void hardCodeVuforia ( MetalBot Bot, String Alliance) {
         if (skystonePos == 1){
-            Bot.driveBackward(midSpeed, .5);                                 //  was 7 if servos are on left side... drive forward
+
+            if (Alliance == "Red") {
+                Bot.driveBackward(midSpeed, .5);
+            }
+            else if (Alliance == "Blue") {
+                Bot.driveForward(midSpeed, .5);
+            }
+                                //  was 7 if servos are on left side... drive forward
             sleep(sleepTime);
             Bot.strafeLeft(midSpeed, 1.8);
             sleep(sleepTime);
@@ -120,7 +160,13 @@ public abstract class AutoMainBuilding extends LinearOpMode {
 
         }
         else if (skystonePos == 2) {
-            Bot.driveForward(lowSpeed, .2);
+
+            if (Alliance == "Red") {
+                Bot.driveForward(midSpeed, .2);
+            }
+            else if (Alliance == "Blue") {
+                Bot.driveBackward(midSpeed, .2);
+            }
             Bot.strafeLeft(midSpeed, 1.8);
             sleep(sleepTime);
             Bot.strafeLeft(lowSpeed, .6);
@@ -129,7 +175,13 @@ public abstract class AutoMainBuilding extends LinearOpMode {
 
         }
         else {
-            Bot.driveForward(midSpeed, 1);
+
+            if (Alliance == "Red") {
+                Bot.driveForward(midSpeed, 1);
+            }
+            else if (Alliance == "Blue") {
+                Bot.driveBackward(midSpeed, 1);
+            }
             sleep(sleepTime);
             Bot.strafeLeft(midSpeed, 1.8);
             Bot.strafeLeft(lowSpeed, .5);
@@ -160,7 +212,7 @@ public abstract class AutoMainBuilding extends LinearOpMode {
             Bot.gyroCorrection(gyroSPD, -90);
         }
         else if (Alliance == "Blue") {
-            Bot.strafeRight(midSpeed, .8);
+            Bot.strafeRight(midSpeed, 1);
             sleep(sleepTime);
             Bot.rotateLeft(midSpeed, 2);
             sleep(sleepTime);

@@ -32,6 +32,7 @@ public class AutoRedPrimaryBuilding extends AutoMainBuilding {
             goToSkystones(Bot, "Red");
 
             hardCodeVuforia(Bot, "Red");
+            //vuforiaStone(Bot, Cam);
 
             orientToDropStone(Bot, "Red");
 

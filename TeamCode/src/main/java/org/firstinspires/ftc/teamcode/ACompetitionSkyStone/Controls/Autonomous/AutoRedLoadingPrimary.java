@@ -26,12 +26,12 @@ public class AutoRedLoadingPrimary extends AutoMainLoading {
         waitForStart();
 
         while (opModeIsActive()) {
-            //Cam.trackObjects();
-            //sleep(sleepTime);
+            Cam.trackObjects();
+            sleep(sleepTime);
 
             Bot.strafeLeft(midSpeed, 1);
 
-            //vuforiaStone(Bot, Cam);
+            //vuforiaStone(Bot, Cam, "Red");
             hardCodeVuforia(Bot, "Red");
 
             removeSkyStoneInnerPath(Bot,"Red");

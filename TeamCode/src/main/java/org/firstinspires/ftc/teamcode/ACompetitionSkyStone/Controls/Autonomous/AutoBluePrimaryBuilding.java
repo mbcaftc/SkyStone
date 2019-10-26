@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
-@Autonomous(name = "Auto:Blue Loading:Primary")
-public class AutoBlueLoadingPrimary extends AutoMainLoading {
+@Autonomous(name = "Auto:Blue Building:Primary")
+public class AutoBluePrimaryBuilding extends AutoMainBuilding {
 
     public MetalBot Bot = new MetalBot();
     public VuforiaWebcam Cam = new VuforiaWebcam();
@@ -26,26 +26,19 @@ public class AutoBlueLoadingPrimary extends AutoMainLoading {
         waitForStart();
 
         while (opModeIsActive()) {
-            Cam.trackObjects();
-            telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);
-            telemetry.update();
-            sleep(sleepTime);
 
-            Bot.strafeLeft(midSpeed, 1);
-            sleep(1000);
+            alignBuildPlate(Bot, "Blue");
 
-            //vuforiaStone(Bot, Cam, "Blue");
+            goToSkystones(Bot, "Blue");
+
             hardCodeVuforia(Bot, "Blue");
+            //vuforiaStone(Bot, Cam);
 
-            removeSkyStoneInnerPath(Bot,"Blue");
-            dropSkyStone(Bot, "Blue");
-            alignGrabBuildPlateInner(Bot, "Blue");
+            orientToDropStone(Bot, "Blue");
 
-            orientBuildPlate(Bot, "Blue");
+            dropStone(Bot);
 
-            pushBuildPlate(Bot, "Blue");
-
-            park(Bot, "Blue");
+            park(Bot);
 
             requestOpModeStop();
         }

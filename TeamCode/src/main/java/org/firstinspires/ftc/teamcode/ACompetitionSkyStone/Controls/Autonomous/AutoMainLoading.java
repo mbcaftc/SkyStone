@@ -30,43 +30,64 @@ public abstract class AutoMainLoading extends LinearOpMode {
 
 
     //  detecting the skystone
-    public void vuforiaStone(MetalBot Bot, VuforiaWebcam Cam) {
+    public void vuforiaStone(MetalBot Bot, VuforiaWebcam Cam, String Alliance) {
 
-        Cam.trackObjects();
-        sleep(1000);
+        //Cam.trackObjects();
+        //sleep(2000);
 
         telemetry.addData("Target Y:", Cam.targetY);
         telemetry.update();
 
-        if (Cam.targetY > 1 && Cam.targetVisible) {             //position 3
+        if (Cam.targetY > 1 && Cam.targetVisible) {             //position 1
             //Bot.rotateRight(highSpeed, 1);
-            Bot.driveBackward(midSpeed, 1);                                 // if servos are on left side... drive forward
-            Bot.strafeLeft(highSpeed, 4);                                  // if servos are on left side... strafeLeft
-            sleep(sleepTime);
 
-            telemetry.addLine("targetY > 1... position 3");
+            //Bot.rotateLeft(highSpeed, 1);
+            //Bot.driveForward(midSpeed, .6);                                  // if servos are on left side... driveBackwards
+            Bot.strafeLeft(midSpeed, 1.8);
+            sleep(sleepTime);
+            Bot.strafeLeft(lowSpeed, .6 );  // if servos are on the left side... strafeLeft
+
+            skystonePos = 1;
 
         }
         else if (Cam.targetY < 1 && Cam.targetVisible) {        //position 2
 
-            Bot.strafeLeft(midSpeed, 4);                                   // if servos are on the left side... strafeLeft
+            Bot.driveForward(lowSpeed, .45);
+            Bot.strafeLeft(midSpeed, 1.8);
             sleep(sleepTime);
+            Bot.strafeLeft(lowSpeed, .4);
+            sleep(sleepTime);
+
+            skystonePos = 2;
 
             telemetry.addLine(" targetY < 1 ... position 2");
             telemetry.update();
 
         }
-        else {                                                  // position 1
-            //Bot.rotateLeft(highSpeed, 1);
-            Bot.driveForward(midSpeed, 1);                                  // if servos are on left side... driveBackwards
-            Bot.strafeLeft(highSpeed, 4);                                  // if servos are on the left side... strafeLeft
+        else {                                                  // position 3
 
+            Bot.driveForward(midSpeed, .7);
+            sleep(sleepTime);
+            Bot.strafeLeft(midSpeed, 1.8);
+            Bot.strafeLeft(lowSpeed, .4);
+            sleep(sleepTime);
+            skystonePos = 3;
+
+            telemetry.addLine("targetY > 1... position 3");
             telemetry.addLine(" target is on the far left... position 1");
             telemetry.update();
 
         }
 
         Bot.grabStone();
+        sleep(1000);
+        Bot.stopMotors();
+        if (Alliance == "Red") {
+            Bot.driveForward(lowSpeed, .4);
+        }
+        else if (Alliance == "Blue") {
+            Bot.driveBackward(lowSpeed, .4);
+        }
     }
 
     public void hardCodeVuforia ( MetalBot Bot, String Alliance) {
