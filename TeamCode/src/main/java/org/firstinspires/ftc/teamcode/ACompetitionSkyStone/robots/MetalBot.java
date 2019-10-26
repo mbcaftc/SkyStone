@@ -140,7 +140,7 @@ public class MetalBot extends MecanumDrive {
         stoneServo.setPosition(.7);
     }
     public void dropStone() {
-        stoneServo.setPosition(.30);
+        stoneServo.setPosition(.10); // was .3
     }
 
 

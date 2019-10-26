@@ -241,13 +241,13 @@ public abstract class AutoMainLoading extends LinearOpMode {
     public void orientBuildPlate (MetalBot Bot, String Alliance) {
         if (Alliance == "Red") {
             Bot.strafeRight(midSpeed, .8);
-            Bot.rotateRight(midSpeed, 2.5);
-            Bot.gyroCorrection(.3, -155);
+            Bot.rotateRight(midSpeed, 2);
+            Bot.gyroCorrection(.3, -145);
         }
         else if (Alliance == "Blue") {
             Bot.strafeRight(midSpeed, .8);
             Bot.rotateLeft(midSpeed, 2.5);
-            Bot.gyroCorrection(gyroSPD, 155);
+            Bot.gyroCorrection(gyroSPD, 145);
         }
 
     }
@@ -267,7 +267,7 @@ public abstract class AutoMainLoading extends LinearOpMode {
         if (Alliance  == "Red") {
             Bot.driveForward(.8, 1.5);
             Bot.strafeRight(lowSpeed, .8);
-            Bot.rotateLeft(lowSpeed, .5);
+            Bot.rotateRight(lowSpeed,.8 );
             Bot.driveForward(.8, 1.9);
             sleep(sleepTime);
         }
