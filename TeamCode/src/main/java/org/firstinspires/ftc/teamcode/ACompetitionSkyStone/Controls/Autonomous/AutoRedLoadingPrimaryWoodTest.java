@@ -3,12 +3,12 @@ package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Auto:Red Loading:Primary")
-public class AutoRedLoadingPrimary extends AutoMainLoading {
+@Autonomous(name = "Auto:Red Loading:Primary: Color Sensor: test")
+public class AutoRedLoadingPrimaryWoodTest extends AutoMainLoadingWood {
 
-    public MetalBot Bot = new MetalBot();
+    public WoodBot Bot = new WoodBot();
     //public VuforiaWebcam Cam = new VuforiaWebcam();
 
     @Override
@@ -33,20 +33,7 @@ public class AutoRedLoadingPrimary extends AutoMainLoading {
 
             Bot.strafeLeft(midSpeed, 1);
 
-            //vuforiaStone(Bot, Cam, "Red");
-            hardCodeVuforia(Bot, "Red");
-
-            removeSkyStoneInnerPath(Bot,"Red");
-
-            dropSkyStone(Bot, "Red");
-
-            alignGrabBuildPlateInner(Bot, "Red");
-
-            orientBuildPlate(Bot, "Red");
-
-            pushBuildPlate(Bot, "Red");
-
-            park(Bot, "Red");
+            detectSkystone(Bot, "Red");
 
             requestOpModeStop();
         }

@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots;
 
 
+import android.graphics.Color;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -8,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorREVColorDistance;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -31,6 +34,7 @@ public class MetalBot extends MecanumDrive {
     public CRServo intakeRSpinner = null;
     public Servo capstoneDropper = null;
 
+
     //Gyro Objects and Variables
     public BNO055IMU imu;
     public Orientation angles;
@@ -39,7 +43,8 @@ public class MetalBot extends MecanumDrive {
     public final double TOLERANCE = .4;
 
 
-    //WoodBot Constructor
+
+    //MetalBot Constructor
 
     public MetalBot() {
 
@@ -103,7 +108,6 @@ public class MetalBot extends MecanumDrive {
         intakeRSpinner = hwBot.get(CRServo.class, "intake_r_spinner");
         intakeRSpinner.setDirection(CRServo.Direction.REVERSE);
 
-        //Define and Initialize Gyro
 
 
         BNO055IMU.Parameters parametersimu = new BNO055IMU.Parameters();

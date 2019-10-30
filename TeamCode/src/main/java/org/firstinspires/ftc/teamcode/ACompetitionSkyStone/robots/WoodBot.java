@@ -1,13 +1,18 @@
 package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots;
 
 
+import android.graphics.Color;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorREVColorDistance;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -32,6 +37,14 @@ public class WoodBot extends MecanumDrive {
     public Acceleration gravity;
     public final double SPEED = .3;
     public final double TOLERANCE = .4;
+    public ColorSensor sensorColor;
+    public DistanceSensor sensorDistance;
+
+    public float hsvValues[] = {0F, 0F, 0F};
+    public int thresholdNothing = 350;       // Original was 180, adjusted for red hue
+    public int threshholdColor= 150;          // Original was 270
+    public final double SCALE_FACTOR = 255;
+
 
 
     //WoodBot Constructor
@@ -80,6 +93,11 @@ public class WoodBot extends MecanumDrive {
 
         capstoneDropper = hwBot.get(Servo.class, "capstone_dropper");
         capstoneDropper.setDirection(Servo.Direction.FORWARD);
+
+        sensorColor = hwBot.get(ColorSensor.class, "sensor_color_distance");
+        sensorDistance = hwBot.get(DistanceSensor.class, "sensor_color_distance");
+
+
         HookRelease();
         dropStone();
         raiseCapstone();
@@ -161,7 +179,32 @@ public class WoodBot extends MecanumDrive {
         imu.initialize(parametersimu);
     }
 
+    public float checkColor() {
 
+
+
+
+        Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
+                (int) (sensorColor.green() * SCALE_FACTOR),
+                (int) (sensorColor.blue() * SCALE_FACTOR),
+                hsvValues);
+
+        return hsvValues[0];
+
+        /*
+        if (hsvValues[0] >= thresholdNothing && hsvValues[0] <  threshholdColor) {
+
+            return true;
+
+        }
+        else {
+
+            return false;
+        }
+
+         */
+
+    }
 
 }
 
