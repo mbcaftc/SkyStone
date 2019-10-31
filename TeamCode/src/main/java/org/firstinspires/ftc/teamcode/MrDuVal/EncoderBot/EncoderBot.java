@@ -12,10 +12,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.MrDuVal.MecanumDrive.MecanumDrive;
+import org.firstinspires.ftc.teamcode.MrDuVal.MecanumDrive.MecanumDriveEncoder;
 
 
-public class EncoderBot extends MecanumDrive {
+public class EncoderBot extends MecanumDriveEncoder {
 
     //Robot Hardware Constructors
 
@@ -36,8 +36,11 @@ public class EncoderBot extends MecanumDrive {
     public final double SPEED = .3;
     public final double TOLERANCE = .4;
 
+    public double minStraightSpeed = .2 , minStrafeSpeed = .1, minTurnSpeed = .2;
+    public double maxStraightSpeed = .6, maxStrafeSpeed = .6, maxTurnSpeed = .6;
+//    public double PIDcoefficient = 0;
 
-    //WoodBot Constructor
+    //Bot Constructor
 
     public EncoderBot() {
 
@@ -198,6 +201,35 @@ public class EncoderBot extends MecanumDrive {
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
     }
 
+    public void gyroCorrectionPID (double angle) {
+        double PIDcoefficient = 0;
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        if (angles.firstAngle >= angle + TOLERANCE) {
+            while (angles.firstAngle >=  angle + TOLERANCE && linearOp.opModeIsActive()) {
+                PIDcoefficient = PIDcalculator("gyro", angle);
+                rotateRight(PIDcoefficient);
+                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                linearOp.telemetry.addData("PID Coefficient: ", PIDcoefficient);
+                linearOp.telemetry.addData("Current Position: ", angles.firstAngle);
+                linearOp.telemetry.addData("Target Position:", angle);
+                linearOp.telemetry.update();
+            }
+        }
+        else if (angles.firstAngle <= angle - TOLERANCE) {
+            while (angles.firstAngle <= angle - TOLERANCE && linearOp.opModeIsActive()) {
+                PIDcoefficient = PIDcalculator("gyro", angle);
+                rotateLeft(PIDcoefficient);
+                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                linearOp.telemetry.addData("PID Coefficient: ", PIDcoefficient);
+                linearOp.telemetry.addData("Current Position: ", angles.firstAngle);
+                linearOp.telemetry.addData("Target Position:", angle);
+                linearOp.telemetry.update();
+            }
+        }
+        stopMotors();
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+    }
+
 
     public void gyroReset () {
         BNO055IMU.Parameters parametersimu = new BNO055IMU.Parameters();
@@ -205,6 +237,23 @@ public class EncoderBot extends MecanumDrive {
     }
 
 
+    public double PIDcalculator (String moveType, Double value) {
+        double PIDcoefficient = 0;
+        if (moveType == "gyro") {
+            PIDcoefficient = (angles.firstAngle / (value / 2));
+//            If get past half of distance, need to get "distance to"
+            if (PIDcoefficient > 1) {
+                PIDcoefficient = 2-PIDcoefficient;
+            }
+            // will reduce max speed from 1.0 to a factor of maxStraightSpeed
+            PIDcoefficient *= maxTurnSpeed;
+//            makes sure motors don't stall out by going below minStraightSpeed
+            if (PIDcoefficient <= minTurnSpeed) {
+                PIDcoefficient = minTurnSpeed;
+            }
+        }
+        return PIDcoefficient;
+    }
 
 }
 

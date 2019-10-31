@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.MrDuVal.EncoderBot.EncoderBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 import org.firstinspires.ftc.teamcode.MrDuVal.EncoderBot.EncoderBot;
 
-public abstract class AutoMain extends LinearOpMode {
+public abstract class AutoMainEncoder extends LinearOpMode {
     public final long  sleepTime = 20;
     public final double maxSpeed = 1;
     public final double highSpeed = .5;
@@ -18,12 +18,31 @@ public abstract class AutoMain extends LinearOpMode {
     public LinearOpMode linearOp = null;
     public final double gyroSPD = .15;
 
-    public double targetEncoders = 0;
+    public double targetEncoders, targetAngle = 0;
 
     public int skystonePos = 2;
-    public void setLinearOp(LinearOpMode Op) {
 
+    public void setLinearOp(LinearOpMode Op) {
         linearOp = Op;
+    }
+
+
+    public void adjustDrive () {
+        if ((gamepad1.left_stick_y < .1) || (gamepad1.left_stick_y > .1)) {
+            targetEncoders -= gamepad1.left_stick_y*0.1;
+            linearOp.telemetry.addData("Target Encoders: ", targetEncoders);
+            telemetry.update();
+        }
+        if (gamepad1.left_stick_x < .1) {
+            targetAngle = 45;
+            linearOp.telemetry.addData("Target Angle: ", targetAngle);
+            telemetry.update();
+        }
+        if (gamepad1.left_stick_x > .1) {
+            targetAngle = 90;
+            linearOp.telemetry.addData("Target Angle: ", targetAngle);
+            telemetry.update();
+        }
     }
 
 
@@ -263,13 +282,7 @@ public abstract class AutoMain extends LinearOpMode {
 
     }
 
-    public void adjustEncoders () {
-        if ((gamepad1.left_stick_y < .1) || (gamepad1.left_stick_y > .1)) {
-            targetEncoders -= gamepad1.left_stick_y*0.25;
-            linearOp.telemetry.addData("Target Encoders: ", targetEncoders);
-            telemetry.update();
-        }
-    }
+
 
 //    public void driveRobot () {
 //        if (gamepad1.dpad_up) {

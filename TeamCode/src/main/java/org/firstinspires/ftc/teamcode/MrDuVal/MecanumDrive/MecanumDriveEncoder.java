@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.MrDuVal.Controls.TeleOp.EncoderBotTeleOp;
 
 
-public class MecanumDrive {
+public class MecanumDriveEncoder {
 
 
     // Instance Variables & Constants
@@ -18,9 +18,9 @@ public class MecanumDrive {
     public DcMotor rearLeftMotor = null;
     public static final double TICKS_PER_ROTATION = 386.3;   // GoBilda Motor TICKS
 
-    public double minStraightSpeed = .2 , minStrafeSpeed = .1, minTurnSpeed = .1;
-    public double maxStraightSpeed = .6, maxStrafeSpeed = .6, maxTurnSpeed = .6;
-    public double PIDcoefficient = 0;
+    public final double minStraightSpeed = .2 , minStrafeSpeed = .1, minTurnSpeed = .1;
+    public final double maxStraightSpeed = .6, maxStrafeSpeed = .6, maxTurnSpeed = .6;
+//    public double PIDcoefficient = 0;
 
     public LinearOpMode linearOp = null;
 
@@ -31,7 +31,7 @@ public class MecanumDrive {
     }
 
 
-    public MecanumDrive() {
+    public MecanumDriveEncoder() {
 
     }
 
@@ -295,26 +295,16 @@ public class MecanumDrive {
     }
 
     public void driveForwardPID (double targetEncoders) {
+        double PIDcoefficient = 0;
         double ticks = targetEncoders * TICKS_PER_ROTATION;
         setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
         while (frontLeftMotor.getCurrentPosition() < targetEncoders && linearOp.opModeIsActive()) {
             //Not sure if this PID equation works - DuVal
             //            PIDcoefficient = (((ticks/2)-(ticks/2) - (frontLeftMotor.getCurrentPosition()/2)));
             // Commented out the ticks for now - multiplying by "TICKS_PER_ROTATION" made testing not work. -DuVal
             //            PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (ticks / 2))*maxStraightSpeed;
-            PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (targetEncoders / 2));
-//            If get past half of distance, need to get "distance to"
-            if (PIDcoefficient > 1) {
-                PIDcoefficient = 2-PIDcoefficient;
-            }
-            // will reduce max speed from 1.0 to a factor of maxStraightSpeed
-            PIDcoefficient *= maxStraightSpeed;
-//            makes sure motors don't stall out by going below minStraightSpeed
-            if (PIDcoefficient <= minStraightSpeed) {
-                PIDcoefficient = minStraightSpeed;
-            }
+            PIDcoefficient = PIDcalculator("straightEncoder", targetEncoders);
 //            DRIVE!
             linearOp.telemetry.addData("PID Coefficient: ", PIDcoefficient);
             linearOp.telemetry.addData("Current Position: ", frontLeftMotor.getCurrentPosition());
@@ -325,7 +315,45 @@ public class MecanumDrive {
         stopMotors();
     }
 
+    public void driveBackwardPID (double targetEncoders) {
+        double PIDcoefficient = 0;
+        double ticks = targetEncoders * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        while (frontLeftMotor.getCurrentPosition() < targetEncoders && linearOp.opModeIsActive()) {
+            //Not sure if this PID equation works - DuVal
+            //            PIDcoefficient = (((ticks/2)-(ticks/2) - (frontLeftMotor.getCurrentPosition()/2)));
+            // Commented out the ticks for now - multiplying by "TICKS_PER_ROTATION" made testing not work. -DuVal
+            //            PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (ticks / 2))*maxStraightSpeed;
+            PIDcoefficient = PIDcalculator("straightEncoder", targetEncoders);
+//            DRIVE!
+            linearOp.telemetry.addData("PID Coefficient: ", PIDcoefficient);
+            linearOp.telemetry.addData("Current Position: ", frontLeftMotor.getCurrentPosition());
+            linearOp.telemetry.addData("Target Position:", targetEncoders);
+            linearOp.telemetry.update();
+            driveBackward(PIDcoefficient);
+        }
+        stopMotors();
+    }
 
-
+    public double PIDcalculator (String moveType, Double value) {
+        double PIDcoefficient = 0;
+        //Not sure if this PID equation works - DuVal
+        //            PIDcoefficient = (((ticks/2)-(ticks/2) - (frontLeftMotor.getCurrentPosition()/2)));
+        // Commented out the ticks for now - multiplying by "TICKS_PER_ROTATION" made testing not work. -DuVal
+        //            PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (ticks / 2))*maxStraightSpeed;
+        PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (value / 2));
+//            If get past half of distance, need to get "distance to"
+        if (PIDcoefficient > 1) {
+            PIDcoefficient = 2-PIDcoefficient;
+        }
+        // will reduce max speed from 1.0 to a factor of maxStraightSpeed
+        PIDcoefficient *= maxStraightSpeed;
+//            makes sure motors don't stall out by going below minStraightSpeed
+        if (PIDcoefficient <= minStraightSpeed) {
+            PIDcoefficient = minStraightSpeed;
+        }
+        return PIDcoefficient;
+    }
 
 }

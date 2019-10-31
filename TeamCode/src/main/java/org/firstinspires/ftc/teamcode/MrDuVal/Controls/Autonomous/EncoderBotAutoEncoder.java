@@ -1,15 +1,13 @@
 package org.firstinspires.ftc.teamcode.MrDuVal.Controls.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 import org.firstinspires.ftc.teamcode.MrDuVal.EncoderBot.EncoderBot;
 
 @Autonomous(name = "EncoderBot", group = "Lab")
 //@Disabled
-public class AutoRedLoadingPrimary extends AutoMain {
+public class EncoderBotAutoEncoder extends AutoMainEncoder {
 
     public EncoderBot Bot = new EncoderBot();
     public VuforiaWebcam Cam = new VuforiaWebcam();
@@ -31,7 +29,7 @@ public class AutoRedLoadingPrimary extends AutoMain {
         while (opModeIsActive()) {
             //Cam.trackObjects();
             //sleep(sleepTime);
-            adjustEncoders();
+            adjustDrive();
             driveRobot();
 //            Bot.strafeLeft(midSpeed, 1);
 
@@ -49,6 +47,8 @@ public class AutoRedLoadingPrimary extends AutoMain {
 //            pushBuildPlate(Bot, "Red");
 
 //            park(Bot, "Red");
+
+            telemetryData();
         }
         idle();
     }
@@ -56,7 +56,22 @@ public class AutoRedLoadingPrimary extends AutoMain {
     public void driveRobot () {
         if (gamepad1.dpad_up) {
             Bot.driveForwardPID (targetEncoders);
-//            encoders += .5;
         }
+        if (gamepad1.dpad_down) {
+            Bot.driveBackwardPID (targetEncoders);
+        }
+        if (gamepad1.dpad_right) {
+            Bot.gyroCorrectionPID (targetAngle);
+        }
+        if (gamepad1.b) {
+            targetAngle = 0;
+            targetEncoders = 0;
+            Bot.gyroReset();
+        }
+    }
+
+    public void telemetryData () {
+        telemetry.addData("Current Angle runOpMode: ", Bot.angles.firstAngle);
+        telemetry.update();
     }
 }
