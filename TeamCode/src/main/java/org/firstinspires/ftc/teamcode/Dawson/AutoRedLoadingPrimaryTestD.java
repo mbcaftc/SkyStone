@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Dawson;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous.AutoMainLoading;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous.MetalBotAuto.AutoMainLoading;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 
 @Autonomous(name = "Auto:Red Loading:Primary: TestD")

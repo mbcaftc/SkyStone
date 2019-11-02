@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous.MetalBotAuto;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 

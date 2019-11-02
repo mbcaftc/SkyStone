@@ -33,16 +33,38 @@ public class AutoRedLoadingPrimaryWoodTest extends AutoMainLoadingWood {
 
 //            Bot.strafeLeft(midSpeed, 1);
 
-            detectStone(Bot, "Red"); //drives forward to find any stone
+            detectStoneDistance(Bot); //drives forward to find any stone
             sleep(sleepTime);
+
+
+//            telemetry.addData("Current encoder - 1 ", Bot.frontLeftMotor.getCurrentPosition());
+//            telemetry.update();
+//            sleep(3000);
+
 
             detectSkyStone (Bot, "Red"); //drive back until detects SKyStone
             sleep(sleepTime);
 
+
+//            telemetry.addData("Current encoder - 2 ", Bot.frontLeftMotor.getCurrentPosition());
+//            telemetry.update();
+//            sleep (3000);
+
+
             manipulateStone(Bot, "grab"); //Grabs skystone
             sleep(sleepTime);
 
-            idle();
+            removeSkyStoneInner(Bot, "Red");
+            sleep(sleepTime);
+
+            adjustToDropSkyStone(Bot, "Red");
+            sleep(sleepTime);
+
+            goToFirstLocation(Bot, "Red");
+            sleep(sleepTime);
+
+            dropSkyStone(Bot, "Red");
+
             requestOpModeStop();
         }
         idle();

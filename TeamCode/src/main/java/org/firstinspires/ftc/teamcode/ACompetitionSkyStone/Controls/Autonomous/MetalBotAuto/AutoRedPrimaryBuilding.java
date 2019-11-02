@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous.MetalBotAuto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous.MetalBotAuto.AutoMainBuilding;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
 @Autonomous(name = "Auto:Red Building:Primary")
 public class AutoRedPrimaryBuilding extends AutoMainBuilding {

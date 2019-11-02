@@ -115,7 +115,7 @@ public class ColorSensorTest extends LinearOpMode {
 
             // send the info back to driver station using telemetry function.
             telemetry.addData("Distance (cm)",
-                    String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
+                    String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.INCH)));
             telemetry.addData("Alpha", sensorColor.alpha());
             telemetry.addData("Red  ", sensorColor.red());
             telemetry.addData("Green", sensorColor.green());
