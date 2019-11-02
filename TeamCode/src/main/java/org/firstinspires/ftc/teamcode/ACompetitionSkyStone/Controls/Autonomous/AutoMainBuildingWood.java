@@ -127,7 +127,7 @@ public abstract class AutoMainBuildingWood extends LinearOpMode {
 
 
         }
-
+//
         else if (Alliance == "Blue") {
 
             Bot.gyroCorrection(lowSpeed, -1);
