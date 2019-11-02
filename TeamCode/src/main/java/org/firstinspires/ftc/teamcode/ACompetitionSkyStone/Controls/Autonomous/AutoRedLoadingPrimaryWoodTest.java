@@ -35,11 +35,13 @@ public class AutoRedLoadingPrimaryWoodTest extends AutoMainLoadingWood {
 
             detectStone(Bot, "Red"); //drives forward to find any stone
             sleep(sleepTime);
+
             detectSkyStone (Bot, "Red"); //drive back until detects SKyStone
             sleep(sleepTime);
 
             manipulateStone(Bot, "grab"); //Grabs skystone
             sleep(sleepTime);
+
             idle();
             requestOpModeStop();
         }
