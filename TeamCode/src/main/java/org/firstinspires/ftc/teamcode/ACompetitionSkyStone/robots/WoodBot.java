@@ -43,7 +43,7 @@ public class WoodBot extends MecanumDrive {
     public float hsvValues[] = {0F, 0F, 0F};
     public int thresholdNothing = 350;       // Original was 180, adjusted for red hue
     public int threshholdColor= 150;          // Original was 270
-    public final double SCALE_FACTOR = 255;
+    public final double SCALE_FACTOR = 1;
 
 
 
@@ -180,17 +180,13 @@ public class WoodBot extends MecanumDrive {
     }
 
     public float checkColor() {
-
-
-
-
         Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
                 (int) (sensorColor.green() * SCALE_FACTOR),
                 (int) (sensorColor.blue() * SCALE_FACTOR),
                 hsvValues);
 
-        return hsvValues[0];
-
+//        return hsvValues[0];
+        return sensorColor.red();
         /*
         if (hsvValues[0] >= thresholdNothing && hsvValues[0] <  threshholdColor) {
 

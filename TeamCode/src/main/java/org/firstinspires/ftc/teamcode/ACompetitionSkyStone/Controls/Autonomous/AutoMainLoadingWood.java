@@ -11,12 +11,12 @@ public abstract class AutoMainLoadingWood extends LinearOpMode {
     public final long  sleepTime = 20;
     public final double maxSpeed = 1;
     public final double highSpeed = .5;
-    public final double midSpeed = .5;
-    public final double lowSpeed = .3;
+    public final double midSpeed = .4;
+    public final double lowSpeed = .2;
     public LinearOpMode linearOp = null;
     public final double gyroSPD = .2;
-    public final int colorImage = 40;
-    public final int colorYellow = 20;
+    public final int colorImage = 15;
+    public final int colorYellow = 40;
     public final int colorNoBackground = 60;
 
 
@@ -74,18 +74,56 @@ public abstract class AutoMainLoadingWood extends LinearOpMode {
 
     }
 
-    public void detectSkystone (WoodBot Bot, String Alliance) {
-        while (Bot.checkColor() > colorNoBackground || Bot.checkColor() < colorYellow ){
+    public void detectStone (WoodBot Bot, String Alliance) {
+        while ((Bot.checkColor() > colorImage && Bot.checkColor() < colorYellow) && linearOp.opModeIsActive()){
             if (Alliance == "Red") {
-                Bot.strafeRight(midSpeed);
+                Bot.strafeLeft(lowSpeed);
             }
             else if (Alliance == "Blue") {
-                Bot.strafeLeft(midSpeed);
+                Bot.strafeRight(lowSpeed);
             }
+            linearOp.telemetry.addData("Color Sensor Red Value: ", Bot.checkColor());
+            linearOp.telemetry.addLine("Drive Towards Block!");
+            linearOp.telemetry.update();
         }
         Bot.stopMotors();
-        sleep(100);
-        Bot.HookGrab();
+        idle();
+        Bot.gyroCorrection(gyroSPD, 0);
+        idle();
+//        sleep(100);
+//        Bot.HookGrab();
+    }
+
+    public void detectSkyStone (WoodBot Bot, String Alliance) {
+        while ((Bot.checkColor() > colorImage) && linearOp.opModeIsActive()){
+            if (Alliance == "Red") {
+                Bot.driveBackward(lowSpeed);
+            }
+            else if (Alliance == "Blue") {
+                Bot.driveBackward(lowSpeed);
+            }
+            linearOp.telemetry.addData("Color Sensor Red Value: ", Bot.checkColor());
+            linearOp.telemetry.addLine("Finding SkyStone!");
+            linearOp.telemetry.update();
+        }
+        Bot.stopMotors();
+        idle();
+        Bot.strafeRight(.1,lowSpeed);
+        idle();
+        Bot.gyroCorrection(gyroSPD, 0);
+        idle();
+//        sleep(100);
+//        Bot.HookGrab();  //moved to own function
+    }
+
+    public void manipulateStone (WoodBot Bot, String manipulate) {
+        if (manipulate == "grab") {
+            Bot.grabStone();
+        }
+        if (manipulate == "release") {
+            Bot.dropStone();
+        }
+        idle();
     }
 
 
