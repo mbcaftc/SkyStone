@@ -1,11 +1,14 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous.MetalBotAuto;
+package org.firstinspires.ftc.teamcode.Emma.AutoPathsHardCoded;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 
-@Autonomous(name = "Auto:Blue Building:Primary")
-public class AutoBluePrimaryBuilding extends AutoMainBuilding {
+@Autonomous(name = "Auto:Red Building:Primary")
+@Disabled
+
+public class AutoRedBuildingHardCodedPrimaryHardCoded extends AutoBuildingHardCodedHardCoded {
 
     public MetalBot Bot = new MetalBot();
     //public VuforiaWebcam Cam = new VuforiaWebcam();
@@ -26,14 +29,14 @@ public class AutoBluePrimaryBuilding extends AutoMainBuilding {
 
         while (opModeIsActive()) {
 
-            alignBuildPlate(Bot, "Blue");
+            alignBuildPlate(Bot, "Red");
 
-            goToSkystones(Bot, "Blue");
+            goToSkystones(Bot, "Red");
 
-            hardCodeVuforia(Bot, "Blue");
+            hardCodeVuforia(Bot, "Red");
             //vuforiaStone(Bot, Cam);
 
-            orientToDropStone(Bot, "Blue");
+            orientToDropStone(Bot, "Red");
 
             dropStone(Bot);
 

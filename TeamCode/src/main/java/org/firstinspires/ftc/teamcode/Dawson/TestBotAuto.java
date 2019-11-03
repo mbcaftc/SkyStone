@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.Dawson;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
-
 @Autonomous (name = "Dawson TestBot Auto")
 public class TestBotAuto extends LinearOpMode {
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.TeleOps;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -9,18 +9,17 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
 
-@TeleOp (name = "MetalBot: TeleOp")
-public class MetalBotTeleOp extends OpMode {
+@TeleOp (name = "WoodBot TeleOp")
+public class TeleOpWoodBot extends OpMode {
 
 
     public ElapsedTime TeleOpTime = new ElapsedTime();
-    public MetalBot Bot = new MetalBot();
-    //public VuforiaWebcam Cam = new VuforiaWebcam();
+    public WoodBot Bot = new WoodBot();
+    public VuforiaWebcam Cam = new VuforiaWebcam();
 
 
     // Variables & Constants specific to TeleLabBot
@@ -58,7 +57,7 @@ public class MetalBotTeleOp extends OpMode {
     @Override
     public void start() {
         //Cam.activateTracking();
-        //Bot.gyroReset();
+        Bot.gyroReset();
     }
 
 
@@ -67,20 +66,16 @@ public class MetalBotTeleOp extends OpMode {
     public void loop() {
 
 
-        //Bot.angles   = Bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        Bot.angles   = Bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         controlHook();
         drive();
         //Cam.trackObjects();
-//        controlResetEncoders ();
-//        controlResetGyro();
+        telemetryOutput();
+        controlResetEncoders ();
+        controlResetGyro();
         controlStoneServo();    //emma
-//        SimulateAuto ();  // causing loop isssues
-        controlCapstone ();
-        //telemetryOutput();
-        controlIntakeArmHold();
-        controlIntakePush();
-        controlSpinners();
-
+        SimulateAuto ();
+        controlCapstone();
 
     }
 
@@ -164,8 +159,6 @@ public class MetalBotTeleOp extends OpMode {
 
 
 
-
-
     public void SimulateAuto () {
 
         if (gamepad1.dpad_left) {
@@ -195,13 +188,13 @@ public class MetalBotTeleOp extends OpMode {
     }
 
     public void controlHook() {
-        if (gamepad2.y) {
-            Bot.HookRelease();
-            telemetry.addLine("in Stone release");
+        if (gamepad2.a) {
+            Bot.HookGrab();
+            telemetry.addLine("in Stone grab");
             telemetry.update();
         }
-        else if (gamepad2.a) {
-            Bot.HookGrab();
+        else if (gamepad2.y) {
+            Bot.HookRelease();
             telemetry.addLine("in Stone grab");
             telemetry.update();
         }
@@ -210,15 +203,15 @@ public class MetalBotTeleOp extends OpMode {
 
     //emma
     public void controlStoneServo() {
-        if (gamepad2.left_stick_y > 0.1) {
+        if (gamepad2.left_trigger > 0.1) {
             Bot.dropStone();      //was .5
         }
-        else if (gamepad2.left_stick_y <  -.1) {
-            Bot.grabStone();      // was .77 but too low
+        else if (gamepad2.right_trigger > 0.1) {
+            Bot.grabStone();      // was .8
         }
     }
 
-    public void controlCapstone () {
+    public void controlCapstone() {
         if (gamepad2.left_bumper ) {
             Bot.raiseCapstone();
         }
@@ -228,41 +221,8 @@ public class MetalBotTeleOp extends OpMode {
         }
     }
 
-    public void controlIntakeArmHold() {
-        if (gamepad2.dpad_up ) {
-            Bot.intakeArmHold();
-        }
-        else if (gamepad2.dpad_down) {
-            Bot.intakeArmRelease();
-        }
-    }
 
-    public void controlIntakePush() {
-        if (gamepad2.x ) {
-            Bot.intakePushBlock();
-        }
-        else if (gamepad2.b ) {
-            Bot.intakePushReset();
-        }
-    }
-
-    public void controlSpinners() {
-        if (gamepad2.left_trigger > 0.1) {
-            Bot.intakeSpinInward();
-        } else if (gamepad2.right_trigger > 0.1) {
-            Bot.intakeSpinOutward();
-        } else {
-            Bot.intakeSpinOff();
-        }
-    }
-
-
-
-
-
-
-
-        public void telemetryOutput() {
+    public void telemetryOutput() {
 
         telemetry.addData("Gyro Heading", Bot.angles.firstAngle);
         telemetry.addData("Gyro Roll", Bot.angles.secondAngle);
@@ -280,9 +240,9 @@ public class MetalBotTeleOp extends OpMode {
         telemetry.addData("Right Hook Servo: ", Bot.HookRight);
         telemetry.addData("Stone Grab Servo: ", Bot.stoneServo);
 
-//        telemetry.addData("Camera Visible Target", Cam.targetName);
-//        telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);
-//        telemetry.addData("Camera Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", Cam.targetRoll, Cam.targetPitch, Cam.targetHeading);
+        //telemetry.addData("Camera Visible Target", Cam.targetName);
+        //telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);
+        //telemetry.addData("Camera Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", Cam.targetRoll, Cam.targetPitch, Cam.targetHeading);
 
         telemetry.update();
 

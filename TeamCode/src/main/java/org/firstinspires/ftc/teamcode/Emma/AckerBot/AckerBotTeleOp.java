@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.TeleOps;
+package org.firstinspires.ftc.teamcode.Emma.AckerBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -9,31 +9,31 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
+
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
 
-@TeleOp (name = "WoodBot TeleOp")
-public class WoodBotTeleOp extends OpMode {
+@TeleOp (name = "AckerBot TeleOp")
+public class AckerBotTeleOp extends OpMode {
 
 
     public ElapsedTime TeleOpTime = new ElapsedTime();
-    public WoodBot Bot = new WoodBot();
+    public AckerBot Bot = new AckerBot();
     public VuforiaWebcam Cam = new VuforiaWebcam();
 
 
     // Variables & Constants specific to TeleLabBot
-    double leftStickYVal;
-    double leftStickXVal;
-    double rightStickXVal;
+    public double leftStickYVal;
+    public double leftStickXVal;
+    public double rightStickXVal;
 
-    double frontLeftSpeed;
-    double frontRightSpeed;
-    double rearLeftSpeed;
-    double rearRightSpeed;
+    public double frontLeftSpeed;
+    public double frontRightSpeed;
+    public double rearLeftSpeed;
+    public double rearRightSpeed;
 
-    double powerThreshold = 0;
-    double encoders;
+    public double powerThreshold = 0;
+    public double encoders;
 
 
 
@@ -41,22 +41,25 @@ public class WoodBotTeleOp extends OpMode {
     // Runs ONCE when driver presses INIT
     @Override
     public void init() {
+
+        //Hardware Initialization from Robot and Camera Classes
+        Cam.initCamera(hardwareMap);
         Bot.initRobot(hardwareMap);
-        //Cam.initCamera(hardwareMap);
     }
 
 
     // Runs Repeatedly when driver presses INIT but before pressing PLAY
     @Override
     public void init_loop() {
-        //Cam.activateTracking();
+
     }
 
 
     // Runs ONCE when driver presses PLAY
     @Override
     public void start() {
-        //Cam.activateTracking();
+
+        Cam.activateTracking();
         Bot.gyroReset();
     }
 
@@ -65,17 +68,15 @@ public class WoodBotTeleOp extends OpMode {
     @Override
     public void loop() {
 
-
-        Bot.angles   = Bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         controlHook();
+        controlGrabber();
+        Bot.angles   = Bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         drive();
-        //Cam.trackObjects();
+        Cam.trackObjects();
         telemetryOutput();
         controlResetEncoders ();
         controlResetGyro();
-        controlStoneServo();    //emma
         SimulateAuto ();
-        controlCapstone();
 
     }
 
@@ -83,6 +84,7 @@ public class WoodBotTeleOp extends OpMode {
     @Override
     public void stop() {
 
+        Cam.deActivateTracking();
 
     }
 
@@ -141,6 +143,27 @@ public class WoodBotTeleOp extends OpMode {
     }
 
 
+    public void controlHook() {
+        if (gamepad1.y) {
+            Bot.HookGrab(.9,.9);
+        }
+        else if (gamepad1.a) {
+            Bot.HookRelease(0.1,0.1);
+        }
+
+    }
+
+    public void controlGrabber() {
+        if (gamepad1.left_trigger > 0.1) {
+            Bot.StoneGrab();
+        }
+        else if (gamepad1.right_trigger > 0.1) {
+            Bot.StoneRelease();
+        }
+    }
+
+
+
 
     public void controlResetEncoders () {
         if (gamepad1.b) {
@@ -162,7 +185,7 @@ public class WoodBotTeleOp extends OpMode {
     public void SimulateAuto () {
 
         if (gamepad1.dpad_left) {
-            Bot.rotateLeft(.5, .5, "TeleOp");
+            Bot.rotateLeft(.5, .5,"TeleOp");
             encoders += .5;
         }
         else if (gamepad1.dpad_right) {
@@ -178,46 +201,12 @@ public class WoodBotTeleOp extends OpMode {
             encoders += .5;
         }
         else if (gamepad1.left_bumper) {
-            Bot.strafeLeft(.5,.5, "TeleOp");
+            Bot.strafeLeft(.5,.5,"TeleOp");
             encoders += .5;
         }
         else if (gamepad1.right_bumper) {
-            Bot.strafeRight(.5,.5, "TeleOp");
+            Bot.strafeRight(.5,.5,"TeleOp");
             encoders += .5;
-        }
-    }
-
-    public void controlHook() {
-        if (gamepad2.a) {
-            Bot.HookGrab();
-            telemetry.addLine("in Stone grab");
-            telemetry.update();
-        }
-        else if (gamepad2.y) {
-            Bot.HookRelease();
-            telemetry.addLine("in Stone grab");
-            telemetry.update();
-        }
-
-    }
-
-    //emma
-    public void controlStoneServo() {
-        if (gamepad2.left_trigger > 0.1) {
-            Bot.dropStone();      //was .5
-        }
-        else if (gamepad2.right_trigger > 0.1) {
-            Bot.grabStone();      // was .8
-        }
-    }
-
-    public void controlCapstone() {
-        if (gamepad2.left_bumper ) {
-            Bot.raiseCapstone();
-        }
-
-        else if (gamepad2.right_bumper) {
-            Bot.dropCapstone();
         }
     }
 
@@ -236,13 +225,20 @@ public class WoodBotTeleOp extends OpMode {
         telemetry.addData("Motor ", "Rear Left: " + rearLeftSpeed);
         telemetry.addData("Motor ", "Rear Right: " + rearRightSpeed);
 
-        telemetry.addData("Left Hook Servo: ", Bot.HookLeft);
-        telemetry.addData("Right Hook Servo: ", Bot.HookRight);
-        telemetry.addData("Stone Grab Servo: ", Bot.stoneServo);
 
-        //telemetry.addData("Camera Visible Target", Cam.targetName);
-        //telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);
-        //telemetry.addData("Camera Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", Cam.targetRoll, Cam.targetPitch, Cam.targetHeading);
+
+        telemetry.addData("Color Check", Bot.checkColor(0,7));
+        telemetry.addData("Color Alpha", Bot.sensorColor.alpha());
+        telemetry.addData("Color Red  ", Bot.sensorColor.red());
+        telemetry.addData("Color Green", Bot.sensorColor.green());
+        telemetry.addData("Color Blue ", Bot.sensorColor.blue());
+        telemetry.addData("Color Hue", Bot.hsvValues[0]);
+
+
+        telemetry.addData("Camera Visible Target", Cam.targetName);
+        telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);
+        telemetry.addData("Camera Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", Cam.targetRoll, Cam.targetPitch, Cam.targetHeading);
+
 
         telemetry.update();
 

@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.Emma;
 
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous.MetalBotAuto.AutoMainLoading;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
+import org.firstinspires.ftc.teamcode.Emma.AutoPathsHardCoded.AutoLoadingHardCodedHardCoded;
+import org.firstinspires.ftc.teamcode.Emma.AckerBot.AckerBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
-public abstract class AutoMainLoadingRed extends AutoMainLoading {
+public abstract class AutoLoadingHardCodedRedHardCoded extends AutoLoadingHardCodedHardCoded {
 
 
 

@@ -2,9 +2,6 @@ package org.firstinspires.ftc.teamcode.MrAcker;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
-
 @Autonomous (name = "Auto:Test Path:Test")
 public class TestAutoRedPrimary extends TestAutoMainRed {
 

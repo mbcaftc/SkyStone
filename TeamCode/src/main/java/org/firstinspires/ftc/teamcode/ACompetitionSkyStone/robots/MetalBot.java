@@ -6,7 +6,9 @@ import android.graphics.Color;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -15,6 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.DriveTrains.MecanumDrive;
 
@@ -41,6 +44,12 @@ public class MetalBot extends MecanumDrive {
     public Acceleration gravity;
     public final double SPEED = .3;
     public final double TOLERANCE = .4;
+
+    public ColorSensor sensorColor;
+    public DistanceSensor sensorDistance;
+
+    public float hsvValues[] = {0F, 0F, 0F};
+    public final double SCALE_FACTOR = 1;
 
 
 
@@ -228,6 +237,33 @@ public class MetalBot extends MecanumDrive {
     public void gyroReset () {
         BNO055IMU.Parameters parametersimu = new BNO055IMU.Parameters();
         imu.initialize(parametersimu);
+    }
+
+    public float checkColor() {
+        Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
+                (int) (sensorColor.green() * SCALE_FACTOR),
+                (int) (sensorColor.blue() * SCALE_FACTOR),
+                hsvValues);
+
+//        return hsvValues[0];
+        return sensorColor.red();
+        /*
+        if (hsvValues[0] >= thresholdNothing && hsvValues[0] <  threshholdColor) {
+
+            return true;
+
+        }
+        else {
+
+            return false;
+        }
+
+         */
+
+    }
+
+    public double checkDistance () {
+        return sensorDistance.getDistance(DistanceUnit.INCH);
     }
 
 

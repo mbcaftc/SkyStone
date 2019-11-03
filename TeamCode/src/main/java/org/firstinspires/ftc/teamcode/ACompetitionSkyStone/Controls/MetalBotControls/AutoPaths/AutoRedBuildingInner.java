@@ -1,16 +1,16 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.Autonomous.MetalBotAuto.AutoMainBuilding;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoBuilding;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls.AutoBuildingWood;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Auto:Red Building:Primary: Wood: Color sensor :Test ")
-public class AutoRedPrimaryBuildingWood extends AutoMainBuildingWood {
+@Autonomous(name = "Auto:Red Building:Inner")
+public class AutoRedBuildingInner extends AutoBuilding {
 
-    public WoodBot Bot = new WoodBot();
-    //public VuforiaWebcam Cam = new VuforiaWebcam();
+    public MetalBot Bot = new MetalBot();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -18,8 +18,6 @@ public class AutoRedPrimaryBuildingWood extends AutoMainBuildingWood {
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
 
-        //Cam.initCamera(hardwareMap);
-        //Cam.activateTracking();
         setLinearOp(this);
 
 
@@ -34,15 +32,15 @@ public class AutoRedPrimaryBuildingWood extends AutoMainBuildingWood {
             goToSkystones(Bot, "Red");
             sleep(sleepTime);
 
+            detectStoneDistance(Bot);
+
             detectSkyStone (Bot, "Red");
             sleep(sleepTime);
 
-            manipulateSkyStone(Bot, "grab");
+            manipulateStone(Bot, "grab");
             sleep(sleepTime);
 
             removeSkyStoneInner(Bot, "Red");
-
-
 
             requestOpModeStop();
         }

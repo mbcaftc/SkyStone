@@ -2,12 +2,9 @@ package org.firstinspires.ftc.teamcode.MrDuVal.Controls.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
-import org.firstinspires.ftc.teamcode.MrDuVal.EncoderBot.EncoderBot;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
-import org.firstinspires.ftc.teamcode.MrDuVal.EncoderBot.EncoderBot;
 
 public abstract class AutoMainEncoder extends LinearOpMode {
     public final long  sleepTime = 20;
