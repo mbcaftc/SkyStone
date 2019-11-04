@@ -24,11 +24,13 @@ public class WoodBotTestB extends MecanumDrive {
     public Servo HookLeft = null;
     public Servo HookRight = null;
     public Servo stoneServo = null;
+    public DcMotor intakeLeft;
+    public DcMotor intakeRight;
     public Servo intakeLeftArm = null;
     public Servo intakeRightArm = null;
-    public Servo intakePusher = null;
-    public CRServo intakeLSpinner = null;
-    public CRServo intakeRSpinner = null;
+  //  public Servo intakePusher = null;
+  //  public CRServo intakeLSpinner = null;
+  //  public CRServo intakeRSpinner = null;
 
     //Gyro Objects and Variables
     public BNO055IMU imu;
@@ -53,13 +55,18 @@ public class WoodBotTestB extends MecanumDrive {
         frontRightMotor = hwBot.dcMotor.get("front_right_motor");
         rearLeftMotor = hwBot.dcMotor.get("rear_left_motor");
         rearRightMotor = hwBot.dcMotor.get("rear_right_motor");
+        intakeLeft = hwBot.dcMotor.get("intake_left");
+        intakeRight = hwBot.dcMotor.get("intake_right");
+
+
 
 
         frontLeftMotor.setDirection(DcMotor.Direction.FORWARD);
         rearLeftMotor.setDirection(DcMotor.Direction.FORWARD);
         frontRightMotor.setDirection(DcMotor.Direction.REVERSE);
         rearRightMotor.setDirection(DcMotor.Direction.REVERSE);
-
+        //intakeLeft.setDirection(DcMotor.Direction.);
+        //intakeRight.setDirection(DcMotor.Direction.);
 
         //Initialize Motor Run Mode for Robot
         setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -69,6 +76,8 @@ public class WoodBotTestB extends MecanumDrive {
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intakeLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intakeRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         // Define & Initialize Servos
@@ -86,11 +95,11 @@ public class WoodBotTestB extends MecanumDrive {
         grabStone();
 
         //intake Servos
-        intakeLeftArm = hwBot.get(Servo.class, "intakeLeftArm");
+     /*   intakeLeftArm = hwBot.get(Servo.class, "intakeLeftArm");
         intakeRightArm = hwBot.get(Servo.class, "intakeRightArm");
         intakePusher = hwBot.get(Servo.class, "intakePusher");
         intakeLSpinner = hwBot.get(CRServo.class, "intakeLSpinner");
-        intakeRSpinner = hwBot.get(CRServo.class, "intakeRSpinner");
+        intakeRSpinner = hwBot.get(CRServo.class, "intakeRSpinner");*/
 
 
 
@@ -136,27 +145,27 @@ public class WoodBotTestB extends MecanumDrive {
 
     public void intakeArmHold() {
 
-        intakeLeftArm.setPosition(1);
-        intakeRightArm.setPosition(1);
+          intakeLeftArm.setPosition(1);
+          intakeRightArm.setPosition(1);
 
     }
 
     public void intakeArmRelease() {
 
-        intakeLeftArm.setPosition(0);
-        intakeRightArm.setPosition(0);
+      intakeLeftArm.setPosition(0);
+      intakeRightArm.setPosition(0);
 
     }
 
     public void intakePushBlock() {
 
-        intakePusher.setPosition(-1);
+       // intakePusher.setPosition(-1);
 
     }
 
     public void intakePushReset() {
 
-        intakePusher.setPosition(0);
+//        intakePusher.setPosition(0);
 
     }
 
