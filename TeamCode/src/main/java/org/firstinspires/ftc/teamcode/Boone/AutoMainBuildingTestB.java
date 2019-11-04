@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Boone;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
+//import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.AckerBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
@@ -24,9 +24,9 @@ public abstract class AutoMainBuildingTestB extends LinearOpMode {
     }
 
 
-    public void grabSkyStone( AckerBot Bot) {
+   /* public void grabSkyStone( AckerBot Bot) {
         Bot.StoneGrab();
-    }
+    }*/
 
 
     //  detecting the skystone

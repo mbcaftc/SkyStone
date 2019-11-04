@@ -5,6 +5,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -24,10 +25,14 @@ public class WoodBotTestB extends MecanumDrive {
     public Servo HookLeft = null;
     public Servo HookRight = null;
     public Servo stoneServo = null;
-    public DcMotor intakeLeft;
-    public DcMotor intakeRight;
+    public DcMotor intakeLSpinner;
+    public DcMotor intakeRSpinner;
     public Servo intakeLeftArm = null;
     public Servo intakeRightArm = null;
+    public Servo stoneGrabberFourBar = null;
+    public DcMotor fourBar;
+
+
   //  public Servo intakePusher = null;
   //  public CRServo intakeLSpinner = null;
   //  public CRServo intakeRSpinner = null;
@@ -50,13 +55,11 @@ public class WoodBotTestB extends MecanumDrive {
 
         hwBot = hwMap;
 
-        // Define Motors for Robot
+        // Define  Drive Train Motors for Robot
         frontLeftMotor =  hwBot.dcMotor.get("front_left_motor");
         frontRightMotor = hwBot.dcMotor.get("front_right_motor");
         rearLeftMotor = hwBot.dcMotor.get("rear_left_motor");
         rearRightMotor = hwBot.dcMotor.get("rear_right_motor");
-        intakeLeft = hwBot.dcMotor.get("intake_left");
-        intakeRight = hwBot.dcMotor.get("intake_right");
 
 
 
@@ -76,8 +79,6 @@ public class WoodBotTestB extends MecanumDrive {
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intakeLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intakeRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         // Define & Initialize Servos
@@ -93,6 +94,39 @@ public class WoodBotTestB extends MecanumDrive {
 
         HookRelease();
         grabStone();
+
+
+
+        //---------------INTAKE
+
+
+        intakeLSpinner = hwBot.dcMotor.get("intake_left");
+        intakeRSpinner = hwBot.dcMotor.get("intake_right");
+
+
+        intakeLSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intakeRSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        //------Grabber
+
+        stoneGrabberFourBar = hwBot.servo.get("four_bar_grabber");
+        fourBar = hwBot.dcMotor.get("four_bar");
+
+        fourBar.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+
+
+        //---------------------------------------------------------------------------------------------
+
+       // intakeRSpinner.setDirection(DcMotor.Direction.FORWARD);
+       // intakeLSpinner.setDirection(DcMotor.Direction.REVERSE);
+
+        //---------------------------------------------------------------------------------------------
+
+
+
+
 
         //intake Servos
      /*   intakeLeftArm = hwBot.get(Servo.class, "intakeLeftArm");
@@ -166,6 +200,31 @@ public class WoodBotTestB extends MecanumDrive {
     public void intakePushReset() {
 
 //        intakePusher.setPosition(0);
+
+    }
+
+    public void fourBarGrab() {
+
+        stoneGrabberFourBar.setPosition(1); //for now, dont know it because i cant test it yet
+
+    }
+
+    public void fourBarRelease() {
+
+        stoneGrabberFourBar.setPosition(0); //for now
+
+    }
+
+    public void fourBarUp() {
+
+        fourBar.setPower(1);
+
+
+    }
+
+    public void fourBarDown() {
+
+        fourBar.setPower(0);
 
     }
 
