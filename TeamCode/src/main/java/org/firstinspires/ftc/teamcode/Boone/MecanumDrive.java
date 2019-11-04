@@ -9,6 +9,13 @@ public class MecanumDrive {
     public DcMotor frontRightMotor;
     public DcMotor rearLeftMotor;
     public DcMotor rearRightMotor;
+    public DcMotor intakeLeft;
+    public DcMotor intakeRight;
+    //public DcMotor intakePusher;
+    //public DcMotor intakeLSpinner;
+    //public DcMotor intakeRSpinner;
+
+
 
     public LinearOpMode LinearOp = null;    //memorize
 
@@ -27,6 +34,8 @@ public class MecanumDrive {
         frontRightMotor.setDirection(DcMotor.Direction.FORWARD);
         rearRightMotor.setDirection(DcMotor.Direction.FORWARD);
 
+
+
         setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);   //memorize
         setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // MUST HAVE RUN MODE
 
@@ -34,6 +43,8 @@ public class MecanumDrive {
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      //  intakeLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      //  intakeRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
     }
