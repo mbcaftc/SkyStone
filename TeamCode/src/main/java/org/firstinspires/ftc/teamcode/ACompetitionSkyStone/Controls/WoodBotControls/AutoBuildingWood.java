@@ -51,7 +51,7 @@ public abstract class AutoBuildingWood extends AutoMainWood {
 
             Bot.gyroCorrection(gyroSPD, 0);
 
-            Bot.driveBackward(highSpeed, .5);
+            Bot.driveBackward(highSpeed, .8);
             sleep(sleepTime);
 
             Bot.gyroCorrection(gyroSPD, 0);
@@ -87,27 +87,48 @@ public abstract class AutoBuildingWood extends AutoMainWood {
 
     }
 
+    public void goToSkystonesOuter(WoodBot Bot, String Alliance) {
+        if (Alliance == "Red") {
+            Bot.gyroCorrection(gyroSPD, -1);
+
+            Bot.driveBackward(highSpeed, 5.5);
+
+            Bot.gyroCorrection(gyroSPD, 0);
+
+
+        }
+
+        else if (Alliance == "Blue") {
+
+            Bot.gyroCorrection(lowSpeed, -1);
+
+            Bot.driveForward(highSpeed, 5.5);
+
+            Bot.gyroCorrection(gyroSPD, 0);
+
+        }
+
+//
+
+    }
+
     public void dropStone (WoodBot Bot) {
 
-            Bot.strafeLeft(highSpeed, 8.8);
+            Bot.strafeLeft(highSpeed, 3);
             Bot.dropStone();
 
 
     }
 
 
-    public void park (WoodBot Bot) {
-        switch (skystonePos) {
-            case 1:
-                Bot.strafeRight(highSpeed, .2);
-
-            case 2:
-                Bot.strafeRight(highSpeed, .7);
-
-            case 3:
-                Bot.strafeRight(highSpeed, 2.0);
+    public void park (WoodBot Bot, String Alliance) {
+            if (Alliance == "Red") {
+                Bot.driveForward(midSpeed, 1.5);
 
         }
+            else if (Alliance == "Blue") {
+                Bot.driveBackward(midSpeed, 1.5);
+            }
 
     }
 

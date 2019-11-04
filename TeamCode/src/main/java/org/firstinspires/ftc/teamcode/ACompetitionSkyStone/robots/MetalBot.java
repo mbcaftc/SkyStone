@@ -34,6 +34,7 @@ public class MetalBot extends MecanumDrive {
     public Servo intakeRightArm = null;
     public Servo intakePusher = null;
     public CRServo intakeLSpinner = null;
+
     public CRServo intakeRSpinner = null;
     public Servo capstoneDropper = null;
 

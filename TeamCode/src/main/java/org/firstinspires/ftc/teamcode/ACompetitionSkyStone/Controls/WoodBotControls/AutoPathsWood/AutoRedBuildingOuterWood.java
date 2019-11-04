@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotCont
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls.AutoLoadingWood;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls.AutoBuildingWood;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Bot:Wood Auto:Red Loading:Inner")
-public class AutoRedLoadingInnerWood extends AutoLoadingWood {
+@Autonomous(name = "Bot:Wood Auto:Red Building:Outer")
+public class AutoRedBuildingOuterWood extends AutoBuildingWood {
 
     public WoodBot Bot = new WoodBot();
 
@@ -19,34 +19,36 @@ public class AutoRedLoadingInnerWood extends AutoLoadingWood {
         setLinearOp(this);
 
 
+
         waitForStart();
 
         while (opModeIsActive()) {
 
-            idle();
-
-            detectStoneDistance(Bot); //drives forward to find any stone
+            alignBuildPlate(Bot, "Red");
             sleep(sleepTime);
 
-            detectSkyStone (Bot, "Red"); //drive back until detects SKyStone
+            goToSkystones(Bot, "Red");
             sleep(sleepTime);
 
-            manipulateStone(Bot, "grab"); //Grabs skystone
+            detectStoneDistance(Bot);
+
+            detectSkyStone (Bot, "Red");
             sleep(sleepTime);
 
-            removeSkyStoneInner(Bot, "Red");
+            manipulateStone(Bot, "grab");
             sleep(sleepTime);
+
+            removeSkyStoneOuter(Bot, "Red");
 
             adjustToDropSkyStone(Bot, "Red");
-            sleep(sleepTime);
 
-            goToFirstLocation(Bot, "Red");
-            sleep(sleepTime);
+            dropStone(Bot);
 
-            dropSkyStone(Bot, "Red");
+            park(Bot, "Red");
 
             requestOpModeStop();
         }
         idle();
+
     }
 }

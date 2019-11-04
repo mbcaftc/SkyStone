@@ -28,10 +28,8 @@ public class WoodBotTest extends MecanumDrive {
     public Servo intakeLeftArm = null;
     public Servo intakeRightArm = null;
     public Servo intakePusher = null;
-    public DcMotor intakeLSpinner = null;
-    public DcMotor intakeRSpinner = null;
-    public DcMotor intakeLeft = null;
-    public DcMotor intakeRight = null;
+    public DcMotor intakeLSpinner;
+    public DcMotor intakeRSpinner;
 
 
     //Gyro Objects and Variables
@@ -52,13 +50,12 @@ public class WoodBotTest extends MecanumDrive {
 
         hwBot = hwMap;
 
-        // Define Motors for Robot
+        // Define Drive Train Motors for Robot
         frontLeftMotor =  hwBot.dcMotor.get("front_left_motor");
         frontRightMotor = hwBot.dcMotor.get("front_right_motor");
         rearLeftMotor = hwBot.dcMotor.get("rear_left_motor");
         rearRightMotor = hwBot.dcMotor.get("rear_right_motor");
-        intakeRight = hwBot.dcMotor.get("intake_right");
-        intakeLeft = hwBot.dcMotor.get("intake_left");
+
 
 
         frontLeftMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -77,10 +74,7 @@ public class WoodBotTest extends MecanumDrive {
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intakeLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intakeRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intakeLSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intakeRSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
 
         // Define & Initialize Servos
@@ -90,19 +84,29 @@ public class WoodBotTest extends MecanumDrive {
         HookRight = hwBot.get(Servo.class, "hook_right");
         HookRight.setDirection(Servo.Direction.FORWARD);
 
-        //emma
         stoneServo = hwBot.get(Servo.class, "stone_servo");
         stoneServo.setDirection(Servo.Direction.FORWARD);
 
         HookRelease(0.11, 0.0);
         grabStone(.35);
 
-        //intake Servos/Motor
+        //-------INTAKE HARDWARE MAPPING--------//
+
+        //intake motors
+        intakeRSpinner = hwBot.dcMotor.get("intake_right_spinner");
+        intakeLSpinner = hwBot.dcMotor.get("intake_left_spinner");
+
+        intakeRSpinner.setDirection(DcMotor.Direction.FORWARD);
+        intakeLSpinner.setDirection(DcMotor.Direction.FORWARD);
+
+        intakeLSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intakeRSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+        //intake Servos
         intakeLeftArm = hwBot.get(Servo.class, "intakeLeftArm");
         intakeRightArm = hwBot.get(Servo.class, "intakeRightArm");
         //intakePusher = hwBot.get(Servo.class, "intakePusher");
-        intakeLSpinner = hwBot.get(DcMotor.class, "intakeLSpinner");
-        intakeRSpinner = hwBot.get(DcMotor.class, "intakeRSpinner");
 
 
 
