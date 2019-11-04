@@ -40,6 +40,12 @@ public class AutoRedBuildingInnerWood extends AutoBuildingWood {
 
             removeSkyStoneInner(Bot, "Red");
 
+            adjustToDropSkyStone(Bot, "Red");
+
+            dropStone(Bot);
+
+            park (Bot, "Blue");
+
             requestOpModeStop();
         }
         idle();
