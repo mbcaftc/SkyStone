@@ -114,7 +114,7 @@ public abstract class AutoBuildingWood extends AutoMainWood {
 
     public void dropStone (WoodBot Bot) {
 
-            Bot.strafeLeft(highSpeed, 3);
+            Bot.strafeLeft(highSpeed, 6);
             Bot.dropStone();
 
 
@@ -123,7 +123,7 @@ public abstract class AutoBuildingWood extends AutoMainWood {
 
     public void park (WoodBot Bot, String Alliance) {
             if (Alliance == "Red") {
-                Bot.driveForward(midSpeed, 1.5);
+                Bot.strafeRight(midSpeed, 2.5);
 
         }
             else if (Alliance == "Blue") {

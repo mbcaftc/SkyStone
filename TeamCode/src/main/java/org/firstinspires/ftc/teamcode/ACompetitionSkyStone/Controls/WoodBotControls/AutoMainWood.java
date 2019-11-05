@@ -14,8 +14,8 @@ public abstract class AutoMainWood extends LinearOpMode {
 
     public final long  sleepTime = 20;
     public final double maxSpeed = 1;
-    public final double highSpeed = .4;
-    public final double midSpeed = .3;
+    public final double highSpeed = .5;
+    public final double midSpeed = .4;
     public final double lowSpeed = .2;
     public LinearOpMode linearOp = null;
     public final double gyroSPD = .15;

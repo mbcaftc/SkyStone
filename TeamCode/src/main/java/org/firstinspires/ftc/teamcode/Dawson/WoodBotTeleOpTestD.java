@@ -234,7 +234,7 @@ public class WoodBotTeleOpTestD extends OpMode {
         } else if (gamepad2.right_trigger > 0.1) {
             Bot.intakeSpinOutward();
         } else {
-            Bot.intakeSpinOff();
+            //Bot.intakeSpinOff();
         }
 
 

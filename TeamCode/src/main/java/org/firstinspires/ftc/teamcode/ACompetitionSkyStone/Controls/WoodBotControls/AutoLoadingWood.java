@@ -32,12 +32,19 @@ public abstract class AutoLoadingWood extends AutoMainWood {
 
     public void alignBuildPlateOuter (WoodBot Bot, String Alliance) {
         if (Alliance == "Red") {
-            Bot.driveBackward(highSpeed, 1.8);
+            Bot.driveBackward(highSpeed, 3.7);
+            Bot.strafeLeft(midSpeed, 2);
+            sleep(sleepTime);
 
         }
         else if (Alliance == "Blue") {
             Bot.driveForward(highSpeed, 2.3);
+            Bot.strafeLeft(midSpeed, 2);
+            sleep(sleepTime);
+
         }
+        Bot.HookGrab();
+        sleep(1000);
 
     }
     public void alignGrabBuildPlateInner (WoodBot Bot, String Alliance) {
@@ -64,12 +71,14 @@ public abstract class AutoLoadingWood extends AutoMainWood {
             Bot.strafeRight(midSpeed, .8);
             Bot.rotateRight(midSpeed, 2);
             Bot.gyroCorrection(.3, -145);
+
         }
         else if (Alliance == "Blue") {
             Bot.strafeRight(midSpeed, .8);
             Bot.rotateLeft(midSpeed, 2.5);
             Bot.gyroCorrection(gyroSPD, 145);
         }
+
 
     }
 
@@ -84,12 +93,33 @@ public abstract class AutoLoadingWood extends AutoMainWood {
         Bot.HookRelease();
     }
 
-    public void park (WoodBot Bot, String Alliance) {
+    public void parkInner (WoodBot Bot, String Alliance) {
         if (Alliance  == "Red") {
-            Bot.driveForward(.8, 1.5);
-            Bot.strafeRight(lowSpeed, .8);
+            Bot.driveForward(.8, 1.7);
+            Bot.strafeLeft(lowSpeed, .8);
             Bot.rotateRight(lowSpeed,.8 );
             Bot.driveForward(.8, 1.9);
+            sleep(sleepTime);
+        }
+        else if (Alliance == "Blue" ) {
+
+            Bot.driveBackward(highSpeed, 1.5);
+            Bot.driveBackward(highSpeed, 1.5);          // was 1.5
+            sleep(sleepTime);
+        }
+
+
+    }
+
+    public void parkOuter (WoodBot Bot, String Alliance) {
+        if (Alliance  == "Red") {
+            Bot.driveForward(.8, 1.7);
+            Bot.strafeLeft(lowSpeed, .8);
+            Bot.driveForward(.8, 1);
+            Bot.rotateRight(lowSpeed,.8 );
+            Bot.strafeLeft(lowSpeed, .8);
+            Bot.driveForward(.8, 1);
+
             sleep(sleepTime);
         }
         else if (Alliance == "Blue" ) {

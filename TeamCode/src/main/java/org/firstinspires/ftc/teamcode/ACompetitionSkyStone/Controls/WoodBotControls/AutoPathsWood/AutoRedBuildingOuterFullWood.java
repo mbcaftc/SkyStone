@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls.AutoBuildingWood;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Bot:Wood Auto:Red Building:Inner")
-public class AutoRedBuildingInnerWood extends AutoBuildingWood {
+@Autonomous(name = "Bot:Wood Auto:Red Building:Outer: Full")
+public class AutoRedBuildingOuterFullWood extends AutoBuildingWood {
 
     public WoodBot Bot = new WoodBot();
 
@@ -30,21 +30,25 @@ public class AutoRedBuildingInnerWood extends AutoBuildingWood {
             goToSkystones(Bot, "Red");
             sleep(sleepTime);
 
-            detectStoneDistance(Bot);
+            Bot.driveForward(midSpeed, .5);
+
+
 
             detectSkyStone (Bot, "Red");
             sleep(sleepTime);
 
+            detectStoneDistance(Bot);
+
             manipulateStone(Bot, "grab");
             sleep(sleepTime);
 
-            removeSkyStoneInner(Bot, "Red");
+            removeSkyStoneOuter(Bot, "Red");
 
             adjustToDropSkyStone(Bot, "Red");
 
             dropStone(Bot);
 
-            park (Bot, "Blue");
+            park(Bot, "Red");
 
             requestOpModeStop();
         }
