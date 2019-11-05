@@ -257,5 +257,23 @@ public class WoodBotTeleOpTestB extends OpMode {
         }
     }
 
+    public void fourGrab() {
+        if (gamepad2.x) {
+            Bot.fourBarGrab();
+        }
+        else if (gamepad2.b) {
+            Bot.fourBarRelease();
+        }
+    }
+
+    public void fourMove() {
+        if (gamepad2.right_bumper) {
+            Bot.fourBarUp();
+        }
+        else if (gamepad2.left_bumper) {
+            Bot.fourBarDown();
+        }
+    }
+
 
 }
