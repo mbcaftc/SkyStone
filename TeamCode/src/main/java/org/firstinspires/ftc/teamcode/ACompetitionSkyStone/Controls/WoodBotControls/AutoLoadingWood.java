@@ -21,7 +21,7 @@ public abstract class AutoLoadingWood extends AutoMainWood {
 //
         } else if (Alliance == "Blue") {
 
-                    Bot.strafeLeft(highSpeed, 5.5);
+                    Bot.strafeLeft(highSpeed, 5.7);
                     Bot.gyroCorrection(gyroSPD, 91);
 
         }
@@ -38,7 +38,7 @@ public abstract class AutoLoadingWood extends AutoMainWood {
 
         }
         else if (Alliance == "Blue") {
-            Bot.driveForward(highSpeed, 2.3);
+            Bot.driveForward(highSpeed, 3.7);
             Bot.strafeLeft(midSpeed, 2);
             sleep(sleepTime);
 
@@ -55,7 +55,7 @@ public abstract class AutoLoadingWood extends AutoMainWood {
             sleep(sleepTime);
         }
         else if (Alliance == "Blue") {
-            Bot.driveForward(highSpeed, 2.7);
+            Bot.driveForward(highSpeed, 2.5);
             sleep(sleepTime);
             Bot.strafeLeft(midSpeed, 2);
             sleep(sleepTime);
@@ -70,13 +70,13 @@ public abstract class AutoLoadingWood extends AutoMainWood {
         if (Alliance == "Red") {
             Bot.strafeRight(midSpeed, .8);
             Bot.rotateRight(midSpeed, 2);
-            Bot.gyroCorrection(.3, -145);
+            Bot.gyroCorrection(.3, -135);
 
         }
         else if (Alliance == "Blue") {
             Bot.strafeRight(midSpeed, .8);
-            Bot.rotateLeft(midSpeed, 2.5);
-            Bot.gyroCorrection(gyroSPD, 145);
+            Bot.rotateLeft(midSpeed, 2);
+            Bot.gyroCorrection(gyroSPD, 135);
         }
 
 
@@ -103,8 +103,10 @@ public abstract class AutoLoadingWood extends AutoMainWood {
         }
         else if (Alliance == "Blue" ) {
 
-            Bot.driveBackward(highSpeed, 1.5);
-            Bot.driveBackward(highSpeed, 1.5);          // was 1.5
+            Bot.driveBackward(.8, 1.7);
+            Bot.strafeLeft(lowSpeed, .8);
+            Bot.rotateLeft(lowSpeed,.8 );
+            Bot.driveBackward(.8, 1.9);
             sleep(sleepTime);
         }
 
@@ -124,11 +126,26 @@ public abstract class AutoLoadingWood extends AutoMainWood {
         }
         else if (Alliance == "Blue" ) {
 
-            Bot.driveBackward(highSpeed, 1.5);
-            Bot.driveBackward(highSpeed, 1.5);          // was 1.5
-            sleep(sleepTime);
+            Bot.driveBackward(.8, 1.7);
+            Bot.strafeLeft(lowSpeed, .8);
+            Bot.driveBackward(.8, 1);
+            Bot.rotateLeft(lowSpeed,.8 );
+            Bot.strafeLeft(lowSpeed, .8);
+            Bot.driveBackward(.8, 1);
         }
 
+
+    }
+
+    public void parkSkyStone (WoodBot Bot) {
+
+            Bot.strafeLeft(midSpeed, 5);
+            sleep(sleepTime);
+
+            Bot.dropStone();
+            sleep(1000);
+
+            Bot.strafeRight(midSpeed, 2);
 
     }
 

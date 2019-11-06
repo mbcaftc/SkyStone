@@ -78,7 +78,7 @@ public class TeleOpMetalBot extends OpMode {
         controlCapstone ();
         //telemetryOutput();
         controlIntakeArmHold();
-        controlIntakePush();
+        //controlIntakePush();
         controlSpinners();
 
 
@@ -229,22 +229,15 @@ public class TeleOpMetalBot extends OpMode {
     }
 
     public void controlIntakeArmHold() {
-        if (gamepad2.dpad_up ) {
+        if (gamepad2.left_stick_y > 0.1) {
             Bot.intakeArmHold();
         }
-        else if (gamepad2.dpad_down) {
+        else if (gamepad2.left_stick_x > 0.1) {
             Bot.intakeArmRelease();
         }
     }
 
-    public void controlIntakePush() {
-        if (gamepad2.x ) {
-            Bot.intakePushBlock();
-        }
-        else if (gamepad2.b ) {
-            Bot.intakePushReset();
-        }
-    }
+
 
     public void controlSpinners() {
         if (gamepad2.left_trigger > 0.1) {
@@ -254,6 +247,26 @@ public class TeleOpMetalBot extends OpMode {
         } else {
             Bot.intakeSpinOff();
         }
+
+
+    }
+
+    public void fourGrab() {
+        if (gamepad2.x) {
+            Bot.fourBarGrab();
+        }
+        else if (gamepad2.b) {
+            Bot.fourBarRelease();
+        }
+    }
+
+    public void fourMove() {
+        if (gamepad2.right_bumper) {
+            Bot.fourBarUp();
+        }
+        else if (gamepad2.left_bumper) {
+            Bot.fourBarDown();
+        }
     }
 
 
@@ -262,7 +275,8 @@ public class TeleOpMetalBot extends OpMode {
 
 
 
-        public void telemetryOutput() {
+
+    public void telemetryOutput() {
 
         telemetry.addData("Gyro Heading", Bot.angles.firstAngle);
         telemetry.addData("Gyro Roll", Bot.angles.secondAngle);

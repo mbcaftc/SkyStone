@@ -20,7 +20,7 @@ public abstract class AutoMainWood extends LinearOpMode {
     public LinearOpMode linearOp = null;
     public final double gyroSPD = .15;
 
-    public final int colorImage = 22;       // was 15 ... color of image is 18
+    public final int colorImage = 27;       // was 15 ... color of image is 18
     public final int colorYellow = 40;
     public final int colorNoBackground = 60;
     public double tracker = 0;
@@ -89,6 +89,16 @@ public abstract class AutoMainWood extends LinearOpMode {
 
     }
 
+    public void parkPlateOnly( WoodBot Bot , String Alliance) {
+        if (Alliance == "Red") {
+            Bot.driveBackward(midSpeed, 4);
+
+        }
+        else if (Alliance == "Blue") {
+            Bot.driveForward(midSpeed, 4);
+        }
+    }
+
     public void detectStoneDistance (WoodBot Bot) {
 
         while (!(Bot.checkDistance() < 5) && linearOp.opModeIsActive() )  {
@@ -115,7 +125,7 @@ public abstract class AutoMainWood extends LinearOpMode {
 
             }
             else if (Alliance == "Blue") {
-                Bot.driveBackward(lowSpeed);
+                Bot.driveForward(lowSpeed);
             }
             linearOp.telemetry.addData("Color Sensor Red Value: ", Bot.checkColor());
             linearOp.telemetry.addLine("Finding SkyStone!");

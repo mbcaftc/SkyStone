@@ -30,12 +30,9 @@ public class MetalBot extends MecanumDrive {
     public Servo HookLeft = null;
     public Servo HookRight = null;
     public Servo stoneServo = null;
-    public Servo intakeLeftArm = null;
-    public Servo intakeRightArm = null;
-    public Servo intakePusher = null;
-    public CRServo intakeLSpinner = null;
 
-    public CRServo intakeRSpinner = null;
+    //public Servo intakePusher = null;
+
     public Servo capstoneDropper = null;
 
 
@@ -51,6 +48,19 @@ public class MetalBot extends MecanumDrive {
 
     public float hsvValues[] = {0F, 0F, 0F};
     public final double SCALE_FACTOR = 1;
+
+    // emma... added motors/ servos for intake and four bar from Boone and Dawsons code
+    //*********************
+    public DcMotor intakeLSpinner;
+    public DcMotor intakeRSpinner;
+
+    public Servo intakeLeftArm = null;
+    public Servo intakeRightArm = null;
+
+    public Servo stoneGrabberFourBar = null;
+    public DcMotor fourBar;
+
+    //********************
 
 
 
@@ -107,18 +117,31 @@ public class MetalBot extends MecanumDrive {
         dropStone();
         raiseCapstone();
 
+
+
+        // ******************
+        // intake servos and motors
         intakeLeftArm = hwBot.get(Servo.class, "intake_left_arm");
         intakeLeftArm.setDirection(Servo.Direction.REVERSE);
 
-
         intakeRightArm = hwBot.get(Servo.class, "intake_right_arm");
-        intakePusher = hwBot.get(Servo.class, "intake_pusher");
-        intakeLSpinner = hwBot.get(CRServo.class, "intake_l_spinner");
-
-        intakeRSpinner = hwBot.get(CRServo.class, "intake_r_spinner");
-        intakeRSpinner.setDirection(CRServo.Direction.REVERSE);
 
 
+        intakeRSpinner = hwBot.dcMotor.get("intake_right_spinner");
+        intakeRSpinner.setDirection(DcMotor.Direction.FORWARD);
+        intakeRSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        intakeLSpinner = hwBot.dcMotor.get("intake_left_spinner");
+        intakeLSpinner.setDirection(DcMotor.Direction.FORWARD);
+        intakeLSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+        // virtual four bar linkage motor and servos
+        stoneGrabberFourBar = hwBot.servo.get("four_bar_grabber");
+        fourBar = hwBot.dcMotor.get("four_bar");
+
+        fourBar.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //*******************
 
         BNO055IMU.Parameters parametersimu = new BNO055IMU.Parameters();
         parametersimu.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -166,6 +189,9 @@ public class MetalBot extends MecanumDrive {
         capstoneDropper.setPosition(0);
     }
 
+
+
+    // intake - Boone and Dawson
     public void intakeSpinInward () {
 
         intakeLSpinner.setPower(1);
@@ -196,17 +222,33 @@ public class MetalBot extends MecanumDrive {
 
     }
 
-    public void intakePushBlock() {
 
-        intakePusher.setPosition(-1);
+
+    public void fourBarGrab() {
+
+        stoneGrabberFourBar.setPosition(1); //for now, dont know it because i cant test it yet
+
+    }
+
+    public void fourBarRelease() {
+
+        stoneGrabberFourBar.setPosition(0); //for now
 
     }
 
-    public void intakePushReset() {
+    public void fourBarUp() {
 
-        intakePusher.setPosition(0);
+        fourBar.setPower(1);
+
 
     }
+
+    public void fourBarDown() {
+
+        fourBar.setPower(0);
+
+    }
+
 
 
 

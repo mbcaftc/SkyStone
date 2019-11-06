@@ -35,6 +35,8 @@ public abstract class AutoBuildingWood extends AutoMainWood {
 
         Bot.HookRelease();
 
+        Bot.gyroCorrection(gyroSPD, 0);
+
     }
 
 
@@ -74,12 +76,12 @@ public abstract class AutoBuildingWood extends AutoMainWood {
 
             Bot.gyroCorrection(gyroSPD, 0);
 
-            Bot.driveForward(highSpeed, 3.9);
+            Bot.driveForward(highSpeed, .8);
             sleep(sleepTime);
 
             Bot.gyroCorrection(gyroSPD, 0);
 
-            Bot.strafeRight(highSpeed, 1.2);
+            Bot.strafeRight(highSpeed, .15);
             sleep(sleepTime);
         }
 
@@ -127,9 +129,11 @@ public abstract class AutoBuildingWood extends AutoMainWood {
 
         }
             else if (Alliance == "Blue") {
-                Bot.driveBackward(midSpeed, 1.5);
+                Bot.driveBackward(midSpeed, 2.5);
             }
 
     }
+
+
 
 }
