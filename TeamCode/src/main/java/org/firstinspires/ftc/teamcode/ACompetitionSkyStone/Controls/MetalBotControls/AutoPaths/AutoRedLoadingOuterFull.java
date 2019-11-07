@@ -7,8 +7,8 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotContr
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Auto:Red Loading:Inner")
-public class AutoRedLoadingInner extends AutoLoading {
+@Autonomous(name = "Red:Loading:Outer:Full")
+public class AutoRedLoadingOuterFull extends AutoLoading {
 
     public MetalBot Bot = new MetalBot();
 
@@ -21,11 +21,11 @@ public class AutoRedLoadingInner extends AutoLoading {
         setLinearOp(this);
 
 
+
         waitForStart();
 
         while (opModeIsActive()) {
 
-            idle();
 
             detectStoneDistance(Bot); //drives forward to find any stone
             sleep(sleepTime);
@@ -36,7 +36,7 @@ public class AutoRedLoadingInner extends AutoLoading {
             manipulateStone(Bot, "grab"); //Grabs skystone
             sleep(sleepTime);
 
-            removeSkyStoneInner(Bot, "Red");
+            removeSkyStoneOuter(Bot, "Red");
             sleep(sleepTime);
 
             adjustToDropSkyStone(Bot, "Red");
@@ -46,9 +46,26 @@ public class AutoRedLoadingInner extends AutoLoading {
             sleep(sleepTime);
 
             dropSkyStone(Bot, "Red");
+            sleep(sleepTime);
+
+            Bot.strafeLeft(midSpeed, .5);
+
+            alignBuildPlateOuter(Bot, "Red");
+            sleep(sleepTime);
+
+            orientBuildPlate(Bot, "Red");
+            sleep(sleepTime);
+
+            pushBuildPlate(Bot, "Red");
+            sleep(sleepTime);
+
+            parkOuter(Bot, "Red");
+            sleep(sleepTime);
+
 
             requestOpModeStop();
         }
         idle();
+
     }
 }

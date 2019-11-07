@@ -1,8 +1,7 @@
 package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls;
 
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls.AutoMainWood;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
+
 
 public abstract class AutoBuilding extends AutoMain {
 
@@ -30,6 +29,8 @@ public abstract class AutoBuilding extends AutoMain {
 
         Bot.HookRelease();
 
+        Bot.gyroCorrection(gyroSPD, 0);
+
     }
 
 
@@ -46,7 +47,7 @@ public abstract class AutoBuilding extends AutoMain {
 
             Bot.gyroCorrection(gyroSPD, 0);
 
-            Bot.driveBackward(highSpeed, .5);
+            Bot.driveBackward(highSpeed, .8);
             sleep(sleepTime);
 
             Bot.gyroCorrection(gyroSPD, 0);
@@ -69,12 +70,12 @@ public abstract class AutoBuilding extends AutoMain {
 
             Bot.gyroCorrection(gyroSPD, 0);
 
-            Bot.driveForward(highSpeed, 3.9);
+            Bot.driveForward(highSpeed, .8);
             sleep(sleepTime);
 
             Bot.gyroCorrection(gyroSPD, 0);
 
-            Bot.strafeRight(highSpeed, 1.2);
+            Bot.strafeRight(highSpeed, .15);
             sleep(sleepTime);
         }
 
@@ -82,28 +83,51 @@ public abstract class AutoBuilding extends AutoMain {
 
     }
 
+    public void goToSkystonesOuter(MetalBot Bot, String Alliance) {
+        if (Alliance == "Red") {
+            Bot.gyroCorrection(gyroSPD, -1);
+
+            Bot.driveBackward(highSpeed, 5.5);
+
+            Bot.gyroCorrection(gyroSPD, 0);
+
+
+        }
+
+        else if (Alliance == "Blue") {
+
+            Bot.gyroCorrection(lowSpeed, -1);
+
+            Bot.driveForward(highSpeed, 5.5);
+
+            Bot.gyroCorrection(gyroSPD, 0);
+
+        }
+
+//
+
+    }
+
     public void dropStone (MetalBot Bot) {
 
-            Bot.strafeLeft(highSpeed, 8.8);
+            Bot.strafeLeft(highSpeed, 6);
             Bot.dropStone();
 
 
     }
 
 
-    public void park (MetalBot Bot) {
-        switch (skystonePos) {
-            case 1:
-                Bot.strafeRight(highSpeed, .2);
-
-            case 2:
-                Bot.strafeRight(highSpeed, .7);
-
-            case 3:
-                Bot.strafeRight(highSpeed, 2.0);
+    public void park (MetalBot Bot, String Alliance) {
+            if (Alliance == "Red") {
+                Bot.strafeRight(midSpeed, 2.5);
 
         }
+            else if (Alliance == "Blue") {
+                Bot.driveBackward(midSpeed, 2.5);
+            }
 
     }
+
+
 
 }

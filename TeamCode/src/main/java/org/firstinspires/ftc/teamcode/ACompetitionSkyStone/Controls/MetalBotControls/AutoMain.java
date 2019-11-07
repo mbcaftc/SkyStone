@@ -5,22 +5,21 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
 public abstract class AutoMain extends LinearOpMode {
 
-    // Variables & Constants used for WoodBot across both Building and Loading Locations on the field
+    // Variables & Constants used for MetalBot across both Building and Loading Locations on the field
 
     public final long  sleepTime = 20;
     public final double maxSpeed = 1;
-    public final double highSpeed = .4;
-    public final double midSpeed = .3;
+    public final double highSpeed = .5;
+    public final double midSpeed = .4;
     public final double lowSpeed = .2;
     public LinearOpMode linearOp = null;
     public final double gyroSPD = .15;
 
-    public final int colorImage = 22;       // was 15 ... color of image is 18
+    public final int colorImage = 27;       // was 15 ... color of image is 18
     public final int colorYellow = 40;
     public final int colorNoBackground = 60;
     public double tracker = 0;
@@ -89,6 +88,16 @@ public abstract class AutoMain extends LinearOpMode {
 
     }
 
+    public void parkPlateOnly( MetalBot Bot , String Alliance) {
+        if (Alliance == "Red") {
+            Bot.driveBackward(midSpeed, 4);
+
+        }
+        else if (Alliance == "Blue") {
+            Bot.driveForward(midSpeed, 4);
+        }
+    }
+
     public void detectStoneDistance (MetalBot Bot) {
 
         while (!(Bot.checkDistance() < 5) && linearOp.opModeIsActive() )  {
@@ -115,7 +124,7 @@ public abstract class AutoMain extends LinearOpMode {
 
             }
             else if (Alliance == "Blue") {
-                Bot.driveBackward(lowSpeed);
+                Bot.driveForward(lowSpeed);
             }
             linearOp.telemetry.addData("Color Sensor Red Value: ", Bot.checkColor());
             linearOp.telemetry.addLine("Finding SkyStone!");

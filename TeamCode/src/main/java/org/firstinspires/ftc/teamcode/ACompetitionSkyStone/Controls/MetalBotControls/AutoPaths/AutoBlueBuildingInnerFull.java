@@ -7,8 +7,8 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotContr
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Auto:Red Building:Inner")
-public class AutoRedBuildingInner extends AutoBuilding {
+@Autonomous(name = "Blue:Building:Inner:Full")
+public class AutoBlueBuildingInnerFull extends AutoBuilding {
 
     public MetalBot Bot = new MetalBot();
 
@@ -26,21 +26,31 @@ public class AutoRedBuildingInner extends AutoBuilding {
 
         while (opModeIsActive()) {
 
-            alignBuildPlate(Bot, "Red");
+            alignBuildPlate(Bot, "Blue");
             sleep(sleepTime);
 
-            goToSkystones(Bot, "Red");
+            goToSkystones(Bot, "Blue");
+            sleep(sleepTime);
+
+            Bot.driveBackward(midSpeed, .5);
+
+            //detectStoneDistance(Bot);
+
+            detectSkyStone (Bot, "Blue");
             sleep(sleepTime);
 
             detectStoneDistance(Bot);
 
-            detectSkyStone (Bot, "Red");
-            sleep(sleepTime);
-
             manipulateStone(Bot, "grab");
             sleep(sleepTime);
 
-            removeSkyStoneInner(Bot, "Red");
+            removeSkyStoneInner(Bot, "Blue");
+
+            adjustToDropSkyStone(Bot, "Blue");
+
+            dropStone(Bot);
+
+            park (Bot, "Blue");
 
             requestOpModeStop();
         }
