@@ -43,22 +43,21 @@ public class TeleOpMetalBot extends OpMode {
     @Override
     public void init() {
         Bot.initRobot(hardwareMap);
-        //Cam.initCamera(hardwareMap);
+
     }
 
 
     // Runs Repeatedly when driver presses INIT but before pressing PLAY
     @Override
     public void init_loop() {
-        //Cam.activateTracking();
+
     }
 
 
     // Runs ONCE when driver presses PLAY
     @Override
     public void start() {
-        //Cam.activateTracking();
-        //Bot.gyroReset();
+
     }
 
 
@@ -66,21 +65,21 @@ public class TeleOpMetalBot extends OpMode {
     @Override
     public void loop() {
 
-
-        //Bot.angles   = Bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        controlHook();
         drive();
-        //Cam.trackObjects();
-//        controlResetEncoders ();
-//        controlResetGyro();
-        controlStoneServo();    //emma
-//        SimulateAuto ();  // causing loop isssues
-        controlCapstone ();
-        //telemetryOutput();
-        controlIntakeArmHold();
-        //controlIntakePush();
-        controlSpinners();
 
+        controlHook();
+
+        controlStoneServo();
+
+        controlCapstone ();
+
+        controlIntakeArms();
+
+        controlIntakeSpinners();
+
+        controlStackingArm();
+
+        controlStackingArmGrabber();
 
     }
 
@@ -91,6 +90,8 @@ public class TeleOpMetalBot extends OpMode {
 
     }
 
+
+    // Teleop Drive Control Method
 
 
     public void drive () {
@@ -145,8 +146,95 @@ public class TeleOpMetalBot extends OpMode {
 
     }
 
+    // Teleop Mechanism Control Methods
 
 
+    public void controlHook() {
+        if (gamepad2.y) {
+            Bot.HookRelease();
+        }
+        else if (gamepad2.a) {
+            Bot.HookGrab();
+        }
+
+    }
+
+
+    public void controlStoneServo() {
+        if (gamepad2.left_stick_y > 0.1) {
+            Bot.dropStone();      //was .5
+        }
+        else if (gamepad2.left_stick_y <  -.1) {
+            Bot.grabStone();      // was .77 but too low
+        }
+    }
+
+    public void controlCapstone () {
+        if (gamepad2.left_bumper ) {
+            Bot.raiseCapstone();
+        }
+
+        else if (gamepad2.right_bumper) {
+            Bot.dropCapstone();
+        }
+    }
+
+    public void controlIntakeArms() {
+        if (gamepad2.dpad_up) {
+            Bot.intakeArmHold();
+        }
+        else if (gamepad2.dpad_down) {
+            Bot.intakeArmRelease();
+        }
+    }
+
+
+    public void controlIntakeSpinners() {
+        if (gamepad2.left_trigger > 0.1) {
+            Bot.intakeSpinInward();
+        } else if (gamepad2.right_trigger > 0.1) {
+            Bot.intakeSpinOutward();
+        } else {
+            Bot.intakeSpinOff();
+        }
+
+    }
+
+    public void controlStackingArmGrabber() {
+        if (gamepad2.x) {
+            Bot.stackingArmGrabberOpen();
+        }
+        else if (gamepad2.b) {
+            Bot.stackingArmGrabberClose();
+        }
+    }
+
+    public void controlStackingArm() {
+        if (gamepad2.right_bumper) {
+            Bot.stackingArmUp();
+        }
+        else if (gamepad2.left_bumper) {
+            Bot.stackingArmDown();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //*****************************
+    // Methods for testing purposes
+    //*****************************
     public void controlResetEncoders () {
         if (gamepad1.b) {
             Bot.frontLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -161,9 +249,6 @@ public class TeleOpMetalBot extends OpMode {
             Bot.gyroReset();
         }
     }
-
-
-
 
 
     public void SimulateAuto () {
@@ -194,80 +279,7 @@ public class TeleOpMetalBot extends OpMode {
         }
     }
 
-    public void controlHook() {
-        if (gamepad2.y) {
-            Bot.HookRelease();
-            telemetry.addLine("in Stone release");
-            telemetry.update();
-        }
-        else if (gamepad2.a) {
-            Bot.HookGrab();
-            telemetry.addLine("in Stone grab");
-            telemetry.update();
-        }
 
-    }
-
-    //emma
-    public void controlStoneServo() {
-        if (gamepad2.left_stick_y > 0.1) {
-            Bot.dropStone();      //was .5
-        }
-        else if (gamepad2.left_stick_y <  -.1) {
-            Bot.grabStone();      // was .77 but too low
-        }
-    }
-
-    public void controlCapstone () {
-        if (gamepad2.left_bumper ) {
-            Bot.raiseCapstone();
-        }
-
-        else if (gamepad2.right_bumper) {
-            Bot.dropCapstone();
-        }
-    }
-
-    public void controlIntakeArmHold() {
-        if (gamepad2.left_stick_y > 0.1) {
-            Bot.intakeArmHold();
-        }
-        else if (gamepad2.left_stick_x > 0.1) {
-            Bot.intakeArmRelease();
-        }
-    }
-
-
-
-    public void controlSpinners() {
-        if (gamepad2.left_trigger > 0.1) {
-            Bot.intakeSpinInward();
-        } else if (gamepad2.right_trigger > 0.1) {
-            Bot.intakeSpinOutward();
-        } else {
-            Bot.intakeSpinOff();
-        }
-
-
-    }
-
-    public void fourGrab() {
-        if (gamepad2.x) {
-            Bot.fourBarGrab();
-        }
-        else if (gamepad2.b) {
-            Bot.fourBarRelease();
-        }
-    }
-
-    public void fourMove() {
-        if (gamepad2.right_bumper) {
-            Bot.fourBarUp();
-        }
-        else if (gamepad2.left_bumper) {
-            Bot.fourBarDown();
-        }
-    }
 
 
 
@@ -301,6 +313,29 @@ public class TeleOpMetalBot extends OpMode {
         telemetry.update();
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

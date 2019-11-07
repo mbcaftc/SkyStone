@@ -8,6 +8,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -49,7 +50,6 @@ public class MetalBot extends MecanumDrive {
     public float hsvValues[] = {0F, 0F, 0F};
     public final double SCALE_FACTOR = 1;
 
-    // emma... added motors/ servos for intake and four bar from Boone and Dawsons code
     //*********************
     public DcMotor intakeLSpinner;
     public DcMotor intakeRSpinner;
@@ -57,8 +57,8 @@ public class MetalBot extends MecanumDrive {
     public Servo intakeLeftArm = null;
     public Servo intakeRightArm = null;
 
-    public Servo stoneGrabberFourBar = null;
-    public DcMotor fourBar;
+    public Servo stackingStoneGrabber = null;
+    public DcMotor stackingArm;
 
     //********************
 
@@ -74,7 +74,7 @@ public class MetalBot extends MecanumDrive {
 
         hwBot = hwMap;
 
-        // Define Motors for Robot
+        // Define Drive Train Motors for Robot
         frontLeftMotor =  hwBot.dcMotor.get("front_left_motor");
         frontRightMotor = hwBot.dcMotor.get("front_right_motor");
         rearLeftMotor = hwBot.dcMotor.get("rear_left_motor");
@@ -97,30 +97,34 @@ public class MetalBot extends MecanumDrive {
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-        // Define & Initialize Servos
+        // Define & Initialize Servos for build plate hooks
         HookLeft = hwBot.get(Servo.class, "hook_left");
         HookLeft.setDirection(Servo.Direction.FORWARD);
 
         HookRight = hwBot.get(Servo.class, "hook_right");
         HookRight.setDirection(Servo.Direction.FORWARD);
 
-        //emma
+        HookRelease();
+
+        //Define and Intialize Color and Distance Sensor
+        sensorColor = hwBot.get(ColorSensor.class, "sensor_color_distance");
+        sensorDistance = hwBot.get(DistanceSensor.class, "sensor_color_distance");
+
+
+
+        // Define and Intialize Servo for skyStone grabber
         stoneServo = hwBot.get(Servo.class, "stone_servo");
         stoneServo.setDirection(Servo.Direction.FORWARD);
+        dropStone();
 
 
+        // Define and Intialize Servo for capstone arm
         capstoneDropper = hwBot.get(Servo.class, "capstone_dropper");
         capstoneDropper.setDirection(Servo.Direction.FORWARD);
-
-//        HookRelease(0.11, 0.0); Servos got swapped
-        HookRelease();
-        dropStone();
         raiseCapstone();
 
 
-
-        // ******************
-        // intake servos and motors
+        // Define and Initialize Servos and Motors for intake
         intakeLeftArm = hwBot.get(Servo.class, "intake_left_arm");
         intakeLeftArm.setDirection(Servo.Direction.REVERSE);
 
@@ -128,7 +132,7 @@ public class MetalBot extends MecanumDrive {
 
 
         intakeRSpinner = hwBot.dcMotor.get("intake_right_spinner");
-        intakeRSpinner.setDirection(DcMotor.Direction.FORWARD);
+        intakeRSpinner.setDirection(DcMotor.Direction.REVERSE);
         intakeRSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         intakeLSpinner = hwBot.dcMotor.get("intake_left_spinner");
@@ -136,13 +140,14 @@ public class MetalBot extends MecanumDrive {
         intakeLSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-        // virtual four bar linkage motor and servos
-        stoneGrabberFourBar = hwBot.servo.get("four_bar_grabber");
-        fourBar = hwBot.dcMotor.get("four_bar");
+        // Define and Initialize Servo and Motor for stacking arm
+        stackingStoneGrabber = hwBot.servo.get("stacking_grabber");
+        stackingArm = hwBot.dcMotor.get("stacking_arm");
+        stackingArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        fourBar.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //*******************
 
+
+        // Define and Initialize Gyro
         BNO055IMU.Parameters parametersimu = new BNO055IMU.Parameters();
         parametersimu.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parametersimu.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -158,7 +163,8 @@ public class MetalBot extends MecanumDrive {
     }
 
 
-    // Robot Servo Methods
+    // Mechanism Methods
+
 
     public void HookRelease () {
 
@@ -166,16 +172,18 @@ public class MetalBot extends MecanumDrive {
         HookRight.setPosition(0.0);
     }
 
+
     public void HookGrab () {
 
         HookLeft.setPosition(.75);
         HookRight.setPosition(.75);
     }
 
-    //emma
     public void grabStone () {
         stoneServo.setPosition(.7);
     }
+
+
     public void dropStone() {
         stoneServo.setPosition(.10); // was .3
     }
@@ -190,8 +198,6 @@ public class MetalBot extends MecanumDrive {
     }
 
 
-
-    // intake - Boone and Dawson
     public void intakeSpinInward () {
 
         intakeLSpinner.setPower(1);
@@ -224,29 +230,20 @@ public class MetalBot extends MecanumDrive {
 
 
 
-    public void fourBarGrab() {
-
-        stoneGrabberFourBar.setPosition(1); //for now, dont know it because i cant test it yet
-
+    public void stackingArmGrabberClose() {
+        stackingStoneGrabber.setPosition(1);
     }
 
-    public void fourBarRelease() {
-
-        stoneGrabberFourBar.setPosition(0); //for now
-
+    public void stackingArmGrabberOpen() {
+        stackingStoneGrabber.setPosition(0);
     }
 
-    public void fourBarUp() {
-
-        fourBar.setPower(1);
-
-
+    public void stackingArmUp() {
+        stackingArm.setPower(1);
     }
 
-    public void fourBarDown() {
-
-        fourBar.setPower(0);
-
+    public void stackingArmDown() {
+        stackingArm.setPower(0);
     }
 
 
@@ -288,20 +285,8 @@ public class MetalBot extends MecanumDrive {
                 (int) (sensorColor.blue() * SCALE_FACTOR),
                 hsvValues);
 
-//        return hsvValues[0];
         return sensorColor.red();
-        /*
-        if (hsvValues[0] >= thresholdNothing && hsvValues[0] <  threshholdColor) {
 
-            return true;
-
-        }
-        else {
-
-            return false;
-        }
-
-         */
 
     }
 
