@@ -243,9 +243,10 @@ public class MetalBot extends MecanumDrive {
     }
 
     public void stackingArmDown() {
-        stackingArm.setPower(0);
+        stackingArm.setPower(-1);
     }
 
+    public void stackingArmOff () { stackingArm.setPower(0); }
 
 
 

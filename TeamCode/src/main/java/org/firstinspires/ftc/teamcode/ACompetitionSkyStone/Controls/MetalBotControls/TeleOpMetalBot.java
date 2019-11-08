@@ -20,7 +20,6 @@ public class TeleOpMetalBot extends OpMode {
 
     public ElapsedTime TeleOpTime = new ElapsedTime();
     public MetalBot Bot = new MetalBot();
-    //public VuforiaWebcam Cam = new VuforiaWebcam();
 
 
     // Variables & Constants specific to TeleLabBot
@@ -170,11 +169,11 @@ public class TeleOpMetalBot extends OpMode {
     }
 
     public void controlCapstone () {
-        if (gamepad2.left_bumper ) {
+        if (gamepad2.right_trigger > 0.1 ) {                //was gamepad2.left_bumper
             Bot.raiseCapstone();
         }
 
-        else if (gamepad2.right_bumper) {
+        else if (gamepad2.left_trigger > 0.1) {           //was gamepad2.right_bumper
             Bot.dropCapstone();
         }
     }
@@ -190,9 +189,9 @@ public class TeleOpMetalBot extends OpMode {
 
 
     public void controlIntakeSpinners() {
-        if (gamepad2.left_trigger > 0.1) {
+        if (gamepad2.right_bumper) {                      //was gamepad2.left_trigger > 0.1
             Bot.intakeSpinInward();
-        } else if (gamepad2.right_trigger > 0.1) {
+        } else if (gamepad2.left_bumper) {              //was gamepad2.right_trigger > 0.1
             Bot.intakeSpinOutward();
         } else {
             Bot.intakeSpinOff();
@@ -216,13 +215,10 @@ public class TeleOpMetalBot extends OpMode {
         else if (gamepad2.left_bumper) {
             Bot.stackingArmDown();
         }
+        else {
+            Bot.stackingArmOff();                           //added motor stop when not pushing a button
+        }
     }
-
-
-
-
-
-
 
 
 
