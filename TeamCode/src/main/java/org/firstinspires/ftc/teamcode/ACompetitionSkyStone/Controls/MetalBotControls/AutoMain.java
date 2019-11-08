@@ -19,9 +19,9 @@ public abstract class AutoMain extends LinearOpMode {
     public LinearOpMode linearOp = null;
     public final double gyroSPD = .15;
 
-    public final int colorImage = 27;       // was 15 ... color of image is 18
-    public final int colorYellow = 40;
-    public final int colorNoBackground = 60;
+    public final int colorImage = 27;       // was 15 ... color of image is 18, 27 in MBCA BNI room
+    public final int colorYellow = 40; //40 in MBCA BNI room
+    public final int colorNoBackground = 60; //60 in MBCA BNI room
     public double tracker = 0;
 
     public double timeThreshold = 0;
