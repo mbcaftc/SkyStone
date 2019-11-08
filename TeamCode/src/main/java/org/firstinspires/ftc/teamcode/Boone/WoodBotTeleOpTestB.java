@@ -240,37 +240,37 @@ public class WoodBotTeleOpTestB extends OpMode {
     }
 
     public void controlIntakeArmHold() {
-        if (gamepad2.left_stick_y > 0.1) {
+        if (gamepad2.dpad_up) {
             Bot.intakeArmHold();
         }
-        else if (gamepad2.left_stick_x > 0.1) {
+        else if (gamepad2.dpad_down) {
             Bot.intakeArmRelease();
         }
     }
 
-    public void controlIntakePush() {
+  /*  public void controlIntakePush() {
         if (gamepad2.right_stick_y > 0.1) {
             Bot.intakePushBlock();
         }
         else if (gamepad2.right_stick_x > 0.1) {
             Bot.intakePushReset();
         }
-    }
+    }*/
 
     public void fourGrab() {
-        if (gamepad2.x) {
+        if (gamepad2.b) {
             Bot.fourBarGrab();
         }
-        else if (gamepad2.b) {
+        else if (gamepad2.x) {
             Bot.fourBarRelease();
         }
     }
 
     public void fourMove() {
-        if (gamepad2.right_bumper) {
+        if (gamepad2.left_bumper) {
             Bot.fourBarUp();
         }
-        else if (gamepad2.left_bumper) {
+        else if (gamepad2.right_bumper) {
             Bot.fourBarDown();
         }
     }
