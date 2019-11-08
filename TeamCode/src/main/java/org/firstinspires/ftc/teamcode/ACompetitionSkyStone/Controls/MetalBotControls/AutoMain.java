@@ -242,7 +242,7 @@ public abstract class AutoMain extends LinearOpMode {
 
     }
 
-    public void vuforiaStone(MetalBot Bot, VuforiaWebcam Cam) {
+  /*  public void vuforiaStone(MetalBot Bot, VuforiaWebcam Cam) {
 
         Cam.trackObjects();
         sleep(1000);
@@ -282,7 +282,7 @@ public abstract class AutoMain extends LinearOpMode {
     }
 
 
-
+*/
     public void detectStoneColor (MetalBot Bot, String Alliance) {
         while ((Bot.checkColor() > colorImage && Bot.checkColor() < colorYellow) && linearOp.opModeIsActive()){
             if (Alliance == "Red") {
