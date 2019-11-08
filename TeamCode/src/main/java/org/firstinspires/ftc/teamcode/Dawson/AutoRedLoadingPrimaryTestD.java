@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.Dawson;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Emma.AutoPathsHardCoded.AutoLoadingHardCodedHardCoded;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 
 @Autonomous(name = "Auto:Red Loading:Primary: TestD")
+@Disabled
 public class AutoRedLoadingPrimaryTestD extends AutoLoadingHardCodedHardCoded {
 
     public MetalBot Bot = new MetalBot();

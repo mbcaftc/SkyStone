@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.MrAcker;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 @Autonomous (name = "Auto:Test Path:Test")
+@Disabled
 public class TestAutoRedPrimary extends TestAutoMainRed {
 
     public TestAckerBot Bot = new TestAckerBot();

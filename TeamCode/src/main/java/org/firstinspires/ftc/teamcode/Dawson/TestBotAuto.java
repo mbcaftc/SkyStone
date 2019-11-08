@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.Dawson;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous (name = "Dawson TestBot Auto")
+@Disabled
 public class TestBotAuto extends LinearOpMode {
 
     public TestBot Bot = new TestBot();

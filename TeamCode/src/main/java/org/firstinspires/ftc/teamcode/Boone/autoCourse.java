@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.Boone;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.Boone.MecanumDrive;
 
 @Autonomous (name = "auto Course")
+@Disabled
 
 public class autoCourse extends LinearOpMode {
 

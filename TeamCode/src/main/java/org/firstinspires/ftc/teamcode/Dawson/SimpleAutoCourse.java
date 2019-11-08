@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.Dawson;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Outreach.DriveTrains.MecanumDrive;
 
 @Autonomous (name = "simple Auto Course")
-
+@Disabled
 public class SimpleAutoCourse extends LinearOpMode {
 
     @Override

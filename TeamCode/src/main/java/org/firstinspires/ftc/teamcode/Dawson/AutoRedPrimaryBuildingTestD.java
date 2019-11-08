@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.Dawson;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
 @Autonomous(name = "Auto:Red Building:PrimaryTestD")
+@Disabled
 public class AutoRedPrimaryBuildingTestD extends AutoMainBuildingTestD {
 
     public WoodBot Bot = new WoodBot();
