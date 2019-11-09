@@ -32,6 +32,8 @@ public class MetalBot extends MecanumDrive {
     public Servo HookRight = null;
     public Servo stoneServo = null;
 
+
+    public double armMultiplier = .5;
     //public Servo intakePusher = null;
 
     public Servo capstoneDropper = null;
@@ -98,6 +100,7 @@ public class MetalBot extends MecanumDrive {
 
 
         // Define & Initialize Servos for build plate hooks
+
         HookLeft = hwBot.get(Servo.class, "hook_left");
         HookLeft.setDirection(Servo.Direction.FORWARD);
 
@@ -106,6 +109,8 @@ public class MetalBot extends MecanumDrive {
 
         HookRelease();
 
+
+
         //Define and Intialize Color and Distance Sensor
         sensorColor = hwBot.get(ColorSensor.class, "sensor_color_distance");
         sensorDistance = hwBot.get(DistanceSensor.class, "sensor_color_distance");
@@ -113,22 +118,31 @@ public class MetalBot extends MecanumDrive {
 
 
         // Define and Intialize Servo for skyStone grabber
+
+
         stoneServo = hwBot.get(Servo.class, "stone_servo");
         stoneServo.setDirection(Servo.Direction.FORWARD);
         dropStone();
 
 
+
+
         // Define and Intialize Servo for capstone arm
-        capstoneDropper = hwBot.get(Servo.class, "capstone_dropper");
-        capstoneDropper.setDirection(Servo.Direction.FORWARD);
-        raiseCapstone();
+//        capstoneDropper = hwBot.get(Servo.class, "capstone_dropper");
+//        capstoneDropper.setDirection(Servo.Direction.FORWARD);
+//        raiseCapstone();
 
 
         // Define and Initialize Servos and Motors for intake
+
+
         intakeLeftArm = hwBot.get(Servo.class, "intake_left_arm");
         intakeLeftArm.setDirection(Servo.Direction.REVERSE);
 
         intakeRightArm = hwBot.get(Servo.class, "intake_right_arm");
+
+
+
 
 
         intakeRSpinner = hwBot.dcMotor.get("intake_right_spinner");
@@ -138,6 +152,7 @@ public class MetalBot extends MecanumDrive {
         intakeLSpinner = hwBot.dcMotor.get("intake_left_spinner");
         intakeLSpinner.setDirection(DcMotor.Direction.FORWARD);
         intakeLSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
 
         // Define and Initialize Servo and Motor for stacking arm
@@ -169,23 +184,28 @@ public class MetalBot extends MecanumDrive {
     public void HookRelease () {
 
         HookLeft.setPosition(.12);
-        HookRight.setPosition(0.0);
+        HookRight.setPosition(.75);
     }
 
 
     public void HookGrab () {
 
-        HookLeft.setPosition(.75);
-        HookRight.setPosition(.75);
+        HookLeft.setPosition(.6);
+        HookRight.setPosition(0.0);
     }
 
     public void grabStone () {
-        stoneServo.setPosition(.7);
+
+        stoneServo.setPosition(.75);
+//        linearOp.telemetry.addData("stone GRAB pos", stoneServo.getPosition());
+//        linearOp.telemetry.update();
     }
 
 
     public void dropStone() {
-        stoneServo.setPosition(.10); // was .3
+        stoneServo.setPosition(.20); // was .3
+//        linearOp.telemetry.addData("stone DROP pos", stoneServo.getPosition());
+//        linearOp.telemetry.update();
     }
 
 
@@ -216,34 +236,38 @@ public class MetalBot extends MecanumDrive {
 
     public void intakeArmHold() {
 
-        intakeLeftArm.setPosition(0);
-        intakeRightArm.setPosition(0);
+        intakeLeftArm.setPosition(.4);
+        intakeRightArm.setPosition(.4);
 
     }
 
     public void intakeArmRelease() {
 
-        intakeLeftArm.setPosition(.6);
-        intakeRightArm.setPosition(.6);
+        intakeLeftArm.setPosition(0);
+        intakeRightArm.setPosition(0);
 
     }
 
 
 
     public void stackingArmGrabberClose() {
-        stackingStoneGrabber.setPosition(1);
+
+        stackingStoneGrabber.setPosition(0.95);
     }
 
     public void stackingArmGrabberOpen() {
-        stackingStoneGrabber.setPosition(0);
+
+        stackingStoneGrabber.setPosition(0.85);
     }
 
     public void stackingArmUp() {
-        stackingArm.setPower(1);
+
+        stackingArm.setPower(1 * armMultiplier);
     }
 
     public void stackingArmDown() {
-        stackingArm.setPower(-1);
+
+        stackingArm.setPower(-1 * armMultiplier);
     }
 
     public void stackingArmOff () { stackingArm.setPower(0); }

@@ -1,16 +1,14 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls.AutoPathsWood;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls.AutoLoadingWood;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoLoading;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 
-@Autonomous(name = "Bot:Wood Auto:Blue Loading:Inner: Full")
-@Disabled
-public class AutoBlueLoadingInnerFullWood extends AutoLoadingWood {
+@Autonomous(name = "Blue:Loading:SkyStone")
+public class AutoBlueLoadingSkyStone extends AutoLoading {
 
-    public WoodBot Bot = new WoodBot();
+    public MetalBot Bot = new MetalBot();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -30,6 +28,9 @@ public class AutoBlueLoadingInnerFullWood extends AutoLoadingWood {
             detectStoneDistance(Bot); //drives forward to find any stone
             sleep(sleepTime);
 
+            Bot.strafeRight(lowSpeed, .1);
+
+
             detectSkyStone (Bot, "Blue"); //drive back until detects SKyStone
             sleep(sleepTime);
 
@@ -45,20 +46,8 @@ public class AutoBlueLoadingInnerFullWood extends AutoLoadingWood {
             goToFirstLocation(Bot, "Blue");
             sleep(sleepTime);
 
-            dropSkyStone(Bot, "Blue");
-            sleep(sleepTime);
+            parkSkyStone(Bot);
 
-            alignGrabBuildPlateInner(Bot, "Blue");
-            sleep(sleepTime);
-
-            orientBuildPlate(Bot, "Blue");
-            sleep(sleepTime);
-
-            pushBuildPlate(Bot, "Blue");
-            sleep(sleepTime);
-
-            parkInner(Bot, "Blue");
-            sleep(sleepTime);
 
 
             requestOpModeStop();

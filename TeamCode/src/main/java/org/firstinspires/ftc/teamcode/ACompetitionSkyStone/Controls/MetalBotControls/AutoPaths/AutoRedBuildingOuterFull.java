@@ -32,9 +32,7 @@ public class AutoRedBuildingOuterFull extends AutoBuilding {
             goToSkystones(Bot, "Red");
             sleep(sleepTime);
 
-            Bot.driveForward(midSpeed, .5);
-
-
+            //Bot.driveForward(midSpeed, .5);
 
             detectSkyStone (Bot, "Red");
             sleep(sleepTime);

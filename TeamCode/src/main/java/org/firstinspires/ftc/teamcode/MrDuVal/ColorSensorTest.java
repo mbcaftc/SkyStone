@@ -44,8 +44,8 @@ import java.util.Locale;
 
 /*
  * This is an example LinearOpMode that shows how to use
- * the REV Robotics Color-Distance Sensor.
- *
+ * the REV Robotics Coladb tcpip 5555or-Distance Sensor.
+ *adb tcpip 5555
  * It assumes the sensor is configured with the name "sensor_color_distance".
  *
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.

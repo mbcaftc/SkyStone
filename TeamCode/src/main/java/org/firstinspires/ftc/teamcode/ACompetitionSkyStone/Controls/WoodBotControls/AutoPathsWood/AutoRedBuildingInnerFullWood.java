@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls.AutoPathsWood;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls.AutoBuildingWood;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
 @Autonomous(name = "Bot:Wood Auto:Red Building:Inner: Full")
+@Disabled
 public class AutoRedBuildingInnerFullWood extends AutoBuildingWood {
 
     public WoodBot Bot = new WoodBot();

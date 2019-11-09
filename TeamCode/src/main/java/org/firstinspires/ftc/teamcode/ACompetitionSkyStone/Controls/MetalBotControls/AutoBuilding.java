@@ -42,17 +42,17 @@ public abstract class AutoBuilding extends AutoMain {
 
             Bot.gyroCorrection(gyroSPD, 0);
 
-            Bot.strafeLeft(highSpeed, 2.5);
+            Bot.strafeLeft(highSpeed, 4.5);
             sleep(sleepTime);
 
             Bot.gyroCorrection(gyroSPD, 0);
 
-            Bot.driveBackward(highSpeed, .8);
+            Bot.driveBackward(highSpeed, 1.5);
             sleep(sleepTime);
 
             Bot.gyroCorrection(gyroSPD, 0);
 
-            Bot.strafeLeft(lowSpeed, .15);
+            Bot.strafeRight(lowSpeed, .1);
 
 
         }
@@ -110,7 +110,7 @@ public abstract class AutoBuilding extends AutoMain {
 
     public void dropStone (MetalBot Bot) {
 
-            Bot.strafeLeft(highSpeed, 6);
+            Bot.strafeLeft(highSpeed, 5.5);
             Bot.dropStone();
 
 

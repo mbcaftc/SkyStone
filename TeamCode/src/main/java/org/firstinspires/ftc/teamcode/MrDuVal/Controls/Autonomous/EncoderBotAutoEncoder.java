@@ -6,7 +6,6 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWeb
 import org.firstinspires.ftc.teamcode.MrDuVal.EncoderBot.EncoderBot;
 
 @Autonomous(name = "EncoderBot", group = "Lab")
-//@Disabled
 public class EncoderBotAutoEncoder extends AutoMainEncoder {
 
     public EncoderBot Bot = new EncoderBot();

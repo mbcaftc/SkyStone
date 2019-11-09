@@ -30,6 +30,8 @@ public class AutoBlueLoadingInnerFull extends AutoLoading {
             detectStoneDistance(Bot); //drives forward to find any stone
             sleep(sleepTime);
 
+            Bot.strafeRight(lowSpeed, .1);
+
             detectSkyStone (Bot, "Blue"); //drive back until detects SKyStone
             sleep(sleepTime);
 

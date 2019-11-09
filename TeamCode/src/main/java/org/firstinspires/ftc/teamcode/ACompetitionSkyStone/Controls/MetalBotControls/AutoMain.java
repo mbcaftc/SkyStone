@@ -13,11 +13,11 @@ public abstract class AutoMain extends LinearOpMode {
 
     public final long  sleepTime = 20;
     public final double maxSpeed = 1;
-    public final double highSpeed = .5;
-    public final double midSpeed = .4;
-    public final double lowSpeed = .2;
+    public final double highSpeed = .6;
+    public final double midSpeed = .5;
+    public final double lowSpeed = .3;
     public LinearOpMode linearOp = null;
-    public final double gyroSPD = .15;
+    public final double gyroSPD = .25;
 
     public final int colorImage = 27;       // was 15 ... color of image is 18, 27 in MBCA BNI room
     public final int colorYellow = 40; //40 in MBCA BNI room
@@ -62,10 +62,10 @@ public abstract class AutoMain extends LinearOpMode {
 
     public void removeSkyStoneInner (MetalBot Bot, String Alliance) {
         if (Alliance == "Red") {
-            Bot.strafeRight(midSpeed, .5);
+            Bot.strafeRight(midSpeed, .7);
         }
         else if (Alliance == "Blue") {
-            Bot.strafeRight(midSpeed, .5);
+            Bot.strafeRight(midSpeed, .7);
         }
     }
 
@@ -79,9 +79,9 @@ public abstract class AutoMain extends LinearOpMode {
             Bot.gyroCorrection(gyroSPD, -90);
         }
         else if (Alliance == "Blue") {
-            Bot.rotateLeft(midSpeed, 2);
+            Bot.rotateLeft(lowSpeed, 2);
             sleep(sleepTime);
-            Bot.gyroCorrection(gyroSPD, 90);
+            Bot.gyroCorrection(gyroSPD, 91);
         }
         sleep(sleepTime);
 
@@ -107,10 +107,12 @@ public abstract class AutoMain extends LinearOpMode {
         linearOp.telemetry.addData("Distance Sensor (inches)", Bot.checkDistance());
         Bot.stopMotors();
 
+
     }
 
 
     public void detectSkyStone (MetalBot Bot, String Alliance) {
+
 
         skyStoneTime.reset();
         timeThreshold = 4.5;
@@ -133,8 +135,10 @@ public abstract class AutoMain extends LinearOpMode {
         Bot.stopMotors();
         tracker = Math.abs(Bot.frontLeftMotor.getCurrentPosition());
 
+
+
         idle();
-        Bot.strafeLeft(lowSpeed,.25);
+        //Bot.strafeLeft(lowSpeed,.25);
         idle();
     }
 

@@ -64,9 +64,10 @@ public class TeleOpMetalBot extends OpMode {
 
         controlHook();
 
+        //controlStoneServoButton();
         controlStoneServo();
 
-        controlCapstone ();
+        //controlCapstone ();
 
         controlIntakeArms();
 
@@ -157,9 +158,30 @@ public class TeleOpMetalBot extends OpMode {
 
     public void controlStoneServo() {
         if (gamepad2.left_stick_y > 0.1) {
+            telemetry.addLine("drop control stone servo!");
+            telemetry.addData("servo ", Bot.stoneServo.getPosition());
+            telemetry.update();
             Bot.dropStone();      //was .5
         }
         else if (gamepad2.left_stick_y <  -.1) {
+            telemetry.addLine("grab the control stone servo");
+            telemetry.addData("servo ", Bot.stoneServo.getPosition());
+            telemetry.update();
+            Bot.grabStone();      // was .77 but too low
+        }
+    }
+
+    public void controlStoneServoButton() {
+        if (gamepad1.x  == true) {
+            telemetry.addLine("drop control stone servo!");
+            telemetry.addData("servo ", Bot.stoneServo.getPosition());
+            telemetry.update();
+            Bot.dropStone();      //was .5
+        }
+        else if (gamepad1.b == true) {
+            telemetry.addLine("grab the control stone servo");
+            telemetry.addData("servo ", Bot.stoneServo.getPosition());
+            telemetry.update();
             Bot.grabStone();      // was .77 but too low
         }
     }
@@ -167,6 +189,7 @@ public class TeleOpMetalBot extends OpMode {
     public void controlCapstone () {
         if (gamepad2.right_trigger > 0.1 ) {                //was gamepad2.left_bumper
             Bot.raiseCapstone();
+
         }
 
         else if (gamepad2.left_trigger > 0.1) {           //was gamepad2.right_bumper
@@ -175,10 +198,10 @@ public class TeleOpMetalBot extends OpMode {
     }
 
     public void controlIntakeArms() {
-        if (gamepad2.dpad_up) {
+        if (gamepad2.dpad_down) {
             Bot.intakeArmHold();
         }
-        else if (gamepad2.dpad_down) {
+        else if (gamepad2.dpad_up) {
             Bot.intakeArmRelease();
         }
     }
@@ -198,17 +221,24 @@ public class TeleOpMetalBot extends OpMode {
     public void controlStackingArmGrabber() {
         if (gamepad2.x) {
             Bot.stackingArmGrabberOpen();
+            telemetry.addData("bot stack arm grabber open", Bot.stackingStoneGrabber.getPosition());
+            telemetry.update();
+
         }
         else if (gamepad2.b) {
             Bot.stackingArmGrabberClose();
+            telemetry.addData("bot stack arm grabber close", Bot.stackingStoneGrabber.getPosition());
+            telemetry.update();
         }
+
     }
 
     public void controlStackingArm() {
-        if (gamepad2.right_bumper) {
+        if (gamepad2.right_stick_y > .1) {
             Bot.stackingArmUp();
+
         }
-        else if (gamepad2.left_bumper) {
+        else if (gamepad2.right_stick_y < -.1) {
             Bot.stackingArmDown();
         }
         else {
@@ -242,6 +272,7 @@ public class TeleOpMetalBot extends OpMode {
         }
     }
 
+    /*
 
     public void SimulateAuto () {
 
@@ -274,7 +305,7 @@ public class TeleOpMetalBot extends OpMode {
 
 
 
-
+*/
 
 
 

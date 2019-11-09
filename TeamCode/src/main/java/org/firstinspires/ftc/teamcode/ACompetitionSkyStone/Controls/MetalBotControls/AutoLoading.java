@@ -94,6 +94,7 @@ public abstract class AutoLoading extends AutoMain {
             Bot.strafeLeft(lowSpeed, .8);
             Bot.rotateRight(lowSpeed,.8 );
             Bot.driveForward(.8, 1.9);
+            Bot.strafeRight(lowSpeed, .2);
             sleep(sleepTime);
         }
         else if (Alliance == "Blue" ) {
@@ -102,6 +103,7 @@ public abstract class AutoLoading extends AutoMain {
             Bot.strafeLeft(lowSpeed, .8);
             Bot.rotateLeft(lowSpeed,.8 );
             Bot.driveBackward(.8, 1.9);
+            Bot.strafeRight(lowSpeed, .2);
             sleep(sleepTime);
         }
 
@@ -115,7 +117,7 @@ public abstract class AutoLoading extends AutoMain {
             Bot.driveForward(.8, 1);
             Bot.rotateRight(lowSpeed,.8 );
             Bot.strafeLeft(lowSpeed, .8);
-            Bot.driveForward(.8, 1);
+            Bot.driveForward(1.2, 1);
 
             sleep(sleepTime);
         }
@@ -134,13 +136,13 @@ public abstract class AutoLoading extends AutoMain {
 
     public void parkSkyStone (MetalBot Bot) {
 
-            Bot.strafeLeft(midSpeed, 5);
+            Bot.strafeLeft(midSpeed, 6.5);
             sleep(sleepTime);
 
             Bot.dropStone();
             sleep(1000);
 
-            Bot.strafeRight(midSpeed, 2);
+            Bot.strafeRight(midSpeed, 2.2);
 
     }
 
