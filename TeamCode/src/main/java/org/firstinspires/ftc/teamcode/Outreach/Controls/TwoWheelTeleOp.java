@@ -8,6 +8,8 @@ import org.firstinspires.ftc.teamcode.Outreach.DriveTrains.RoverDrive;
 import org.firstinspires.ftc.teamcode.Outreach.DriveTrains.TwoWheelDrive;
 
 @TeleOp(name = "Two Wheel Drive", group = "Outreach")
+@Disabled
+
 public class TwoWheelTeleOp extends OpMode {
 
     TwoWheelDrive myTwoWheelDrive;

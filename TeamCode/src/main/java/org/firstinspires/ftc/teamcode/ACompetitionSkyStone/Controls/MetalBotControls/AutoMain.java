@@ -71,7 +71,7 @@ public abstract class AutoMain extends LinearOpMode {
 
 
 
-    public void adjustToDropSkyStone (MetalBot Bot,String Alliance) {
+    public void adjustToDropSkyStone (MetalBot Bot,String Alliance) { //could be turnToDropSkyStone
 
         if (Alliance == "Red") {
             Bot.rotateRight(lowSpeed, 2);
