@@ -43,14 +43,14 @@ public class JesusTeleOp extends OpMode {
         }
 //            }
 //            else if (gamepad1.dpad_down) {              // experimental code
-        if (gamepad1.left_stick_y > .1) {
-            Bot.driveForward(gamepad1.left_stick_y);
-        } else if (gamepad1.left_stick_y < -.1) {
-            Bot.driveBackward(gamepad1.left_stick_y);
-        } else if (gamepad1.left_stick_x > .1) {
-            Bot.rotateLeft(gamepad1.left_stick_x);
-        } else if (gamepad1.left_stick_x < -.1) {
-            Bot.rotateRight(gamepad1.left_stick_x);
+        if (gamepad1.left_stick_y > .1) {                                      //------------------------------------Drive FORWARD
+            Bot.driveForward(gamepad1.left_stick_y);                          //------------------------------------Drive FORWARD
+        } else if (gamepad1.left_stick_y < -.1) {                            //------------------------------------Drive BACKWARD
+            Bot.driveBackward(gamepad1.left_stick_y);                       //------------------------------------Drive BACKWARD
+        } else if (gamepad1.left_stick_x > .1) {                           //------------------------------------Rotate LEFT
+            Bot.rotateLeft(gamepad1.left_stick_x);                        //------------------------------------Rotate LEFT
+        } else if (gamepad1.left_stick_x < -.1) {                        //------------------------------------Rotate RIGHT
+            Bot.rotateRight(gamepad1.left_stick_x);                     //------------------------------------Rotate RIGHT
         } else {
             Bot.stopMotors();
         }

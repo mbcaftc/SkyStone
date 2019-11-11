@@ -9,6 +9,7 @@ public class JesusBot extends OutreachDrive {
 
     public HardwareMap hwBot = null;
 
+    public DcMotor JesusLift;
 
     public JesusBot() {
 
@@ -20,9 +21,15 @@ public class JesusBot extends OutreachDrive {
 
         hwBot = hwMap;
 
+
+        frontLeftMotor =  hwBot.dcMotor.get("front_left_motor");
+        frontRightMotor = hwBot.dcMotor.get("front_right_motor");
+
+
         //direction set
         frontRightMotor.setDirection(DcMotor.Direction.FORWARD);
         frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
+
 
         //runmodes
 
@@ -34,8 +41,13 @@ public class JesusBot extends OutreachDrive {
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-    }
+        //lift mechanism
 
+        JesusLift.setDirection(DcMotor.Direction.FORWARD);
+
+        JesusLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+    }
 
 
 
