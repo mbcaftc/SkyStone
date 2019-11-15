@@ -133,50 +133,6 @@ public class EncoderBot extends MecanumDriveEncoder {
         stoneServo.setPosition(.30);
     }
 
-//    public void intakeSpinInward () {
-//
-//        intakeLSpinner.setPower(1);
-//        intakeRSpinner.setPower(1);
-//    }
-//    public void intakeSpinOutward () {
-//
-//        intakeLSpinner.setPower(-1);
-//        intakeRSpinner.setPower(-1);
-//    }
-//    public void intakeSpinOff () {
-//
-//        intakeLSpinner.setPower(0);
-//        intakeRSpinner.setPower(0);
-//    }
-//
-//    public void intakeArmHold() {
-//
-//        intakeLeftArm.setPosition(1);
-//        intakeRightArm.setPosition(1);
-//
-//    }
-//
-//    public void intakeArmRelease() {
-//
-//        intakeLeftArm.setPosition(0);
-//        intakeRightArm.setPosition(0);
-//
-//    }
-//
-//    public void intakePushBlock() {
-//
-//        intakePusher.setPosition(-1);
-//
-//    }
-//
-//    public void intakePushReset() {
-//
-//        intakePusher.setPosition(0);
-//
-//    }
-
-
-
 
     // Robot Gyro
 
@@ -206,7 +162,7 @@ public class EncoderBot extends MecanumDriveEncoder {
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         if (angles.firstAngle >= angle + TOLERANCE) {
             while (angles.firstAngle >=  angle + TOLERANCE && linearOp.opModeIsActive()) {
-                PIDcoefficient = PIDcalculator("gyro", angle);
+                PIDcoefficient = PIDcalculatorGyro("gyro", angle);
                 rotateRight(PIDcoefficient);
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 linearOp.telemetry.addData("PID Coefficient: ", PIDcoefficient);
@@ -217,7 +173,7 @@ public class EncoderBot extends MecanumDriveEncoder {
         }
         else if (angles.firstAngle <= angle - TOLERANCE) {
             while (angles.firstAngle <= angle - TOLERANCE && linearOp.opModeIsActive()) {
-                PIDcoefficient = PIDcalculator("gyro", angle);
+                PIDcoefficient = PIDcalculatorGyro("gyro", angle);
                 rotateLeft(PIDcoefficient);
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 linearOp.telemetry.addData("PID Coefficient: ", PIDcoefficient);
@@ -237,7 +193,7 @@ public class EncoderBot extends MecanumDriveEncoder {
     }
 
 
-    public double PIDcalculator (String moveType, Double value) {
+    public double PIDcalculatorGyro (String moveType, Double value) {
         double PIDcoefficient = 0;
         if (moveType == "gyro") {
             PIDcoefficient = (angles.firstAngle / (value / 2));

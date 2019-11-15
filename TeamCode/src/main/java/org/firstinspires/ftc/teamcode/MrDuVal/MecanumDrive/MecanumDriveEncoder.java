@@ -18,8 +18,9 @@ public class MecanumDriveEncoder {
     public DcMotor rearLeftMotor = null;
     public static final double TICKS_PER_ROTATION = 386.3;   // GoBilda Motor TICKS
 
-    public final double minStraightSpeed = .2 , minStrafeSpeed = .1, minTurnSpeed = .1;
+    public final double minStraightSpeed = .2 , minStrafeSpeed = .2, minTurnSpeed = .1;
     public final double maxStraightSpeed = .6, maxStrafeSpeed = .6, maxTurnSpeed = .6;
+    public double moveSpeed = 0.5;
 //    public double PIDcoefficient = 0;
 
     public LinearOpMode linearOp = null;
@@ -294,6 +295,228 @@ public class MecanumDriveEncoder {
         stopMotors();
     }
 
+
+
+
+
+    public void drive (double targetEncoders, String direction, String PIDmode) {
+        int i = 0;
+        double PIDcoefficient = 0;
+        double currentEncoders = 0;
+        double ticks = targetEncoders * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //Updating to using Variable currentEncoders so we don't care about - / + of encoder counts.
+//        while (frontLeftMotor.getCurrentPosition() < targetEncoders && linearOp.opModeIsActive()) {
+        while (currentEncoders < targetEncoders && linearOp.opModeIsActive()) {
+            //Not sure if this PID equation works - DuVal
+            //            PIDcoefficient = (((ticks/2)-(ticks/2) - (frontLeftMotor.getCurrentPosition()/2)));
+            // Commented out the ticks for now - multiplying by "TICKS_PER_ROTATION" made testing not work. -DuVal
+            //            PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (ticks / 2))*maxStraightSpeed;
+            currentEncoders = Math.abs(frontLeftMotor.getCurrentPosition());
+            if (PIDmode.equals("PID")) {
+//                linearOp.telemetry.addData("confirming PID calc : ", i+=1);
+                PIDcoefficient = PIDcalculator(direction, targetEncoders, currentEncoders);
+            }
+//            DRIVE!
+            // For if PIDCalculator was a 'void' function, but it's now a 'return' function.  Kept for potential troubleshooting.
+            //            PIDcalculator("straightEncoder", targetEncoders);
+            if (PIDmode.equals("PID")) {
+                linearOp.telemetry.addData("PID Coefficient: ", PIDcoefficient);
+            }
+            else {
+                linearOp.telemetry.addData("RAW Speed: ", moveSpeed);
+            }
+            linearOp.telemetry.addData("Current Position (raw): ", frontLeftMotor.getCurrentPosition());
+            linearOp.telemetry.addData("Current Encoders (variable)", currentEncoders);
+            linearOp.telemetry.addData("Target Position:", targetEncoders);
+            linearOp.telemetry.addData("Counter for debugging: ", i+=1);
+            linearOp.telemetry.update();
+            switch (direction){
+                case "forward":
+                    linearOp.telemetry.addLine("we're in FORWARD the switch!");
+                    if (PIDmode.equals("PID")) {
+                        linearOp.telemetry.addLine("do PID things! ");
+                        driveForward(PIDcoefficient);
+                    }
+                    else {
+                        driveForward(moveSpeed);
+                    }
+                    break;
+                case "backward":
+                    linearOp.telemetry.addLine("we're in BACKWARD the switch!");
+                    if (PIDmode.equals("PID")) {
+                        driveBackward(PIDcoefficient);
+                    }
+                    else {
+                        driveBackward(moveSpeed);
+                    }
+                    break;
+                case "left":
+                    linearOp.telemetry.addLine("we're in LEFT the switch!");
+                    if (PIDmode.equals("PID")) {
+                        strafeLeft(PIDcoefficient);
+                    }
+                    else {
+                        strafeLeft(moveSpeed);
+                    }
+                    break;
+                case "right":
+                    linearOp.telemetry.addLine("we're in RIGHT the switch!");
+                    if (PIDmode.equals("PID")) {
+                        strafeRight(PIDcoefficient);
+                    }
+                    else {
+                        strafeRight(moveSpeed);
+                    }
+                    break;
+            }
+        }
+        stopMotors();
+        linearOp.telemetry.addLine("done with drivePID! ");
+        linearOp.telemetry.update();
+//        linearOp.sleep(2000);
+    }
+
+
+
+    public double PIDcalculator (String moveType, Double value, Double curEncoders) {
+        double PIDcoefficient = 0;
+//        if (PIDcoefficient == 0) {
+//            return 1;
+//
+//        }
+        //Not sure if this PID equation works - DuVal
+        //            PIDcoefficient = (((ticks/2)-(ticks/2) - (frontLeftMotor.getCurrentPosition()/2)));
+        // Commented out the ticks for now - multiplying by "TICKS_PER_ROTATION" made testing not work. -DuVal
+        //            PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (ticks / 2))*maxStraightSpeed;
+
+        // Updated to use Encoders Variable that adds absolute value of encoders - allows us to not care about + / -
+//        PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (value / 2));
+        PIDcoefficient = (curEncoders / (value / 2));
+
+//            If get past half of distance, need to get "distance to"
+        if (PIDcoefficient > 1) {
+            PIDcoefficient = 2-PIDcoefficient;
+        }
+        // will reduce max speed from 1.0 to a factor of maxStraightSpeed
+        PIDcoefficient *= maxStraightSpeed;
+//            makes sure motors don't stall out by going below minStraightSpeed
+        if ((moveType.equals("forward") || moveType.equals("backward")) && PIDcoefficient <= minStraightSpeed) {
+            linearOp.telemetry.addLine("A??");
+            PIDcoefficient = minStraightSpeed;
+        }
+        if ((moveType.equals("left") || moveType.equals("right")) && PIDcoefficient <= minStrafeSpeed) {
+            linearOp.telemetry.addLine("B??....");
+            PIDcoefficient = minStrafeSpeed;
+        }
+        linearOp.telemetry.addData("PID inside calc function: ", PIDcoefficient);
+//        linearOp.telemetry.update();
+//        linearOp.sleep(200);
+        return PIDcoefficient;
+    }
+
+
+
+    /*
+
+    LEGACY CODE
+
+     */
+
+    public void driveNoPID (double targetEncoders, String direction) {
+        double currentEncoders = 0;
+        double ticks = targetEncoders * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //Updating to using Variable currentEncoders so we don't care about - / + of encoder counts.
+//        while (frontLeftMotor.getCurrentPosition() < targetEncoders && linearOp.opModeIsActive()) {
+        while (currentEncoders < targetEncoders && linearOp.opModeIsActive()) {
+            //Not sure if this PID equation works - DuVal
+            //            PIDcoefficient = (((ticks/2)-(ticks/2) - (frontLeftMotor.getCurrentPosition()/2)));
+            // Commented out the ticks for now - multiplying by "TICKS_PER_ROTATION" made testing not work. -DuVal
+            //            PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (ticks / 2))*maxStraightSpeed;
+            currentEncoders = Math.abs(frontLeftMotor.getCurrentPosition());
+//            DRIVE!
+            // For if PIDCalculator was a 'void' function, but it's now a 'return' function.  Kept for potential troubleshooting.
+            //            PIDcalculator("straightEncoder", targetEncoders);
+            linearOp.telemetry.addData("Current Position (raw): ", frontLeftMotor.getCurrentPosition());
+            linearOp.telemetry.addData("Current Encoders (variable)", currentEncoders);
+            linearOp.telemetry.addData("Target Position:", targetEncoders);
+            linearOp.telemetry.update();
+            switch (direction){
+                case "forward":
+                    linearOp.telemetry.addLine("we're in FORWARD the switch!");
+                    driveForward(moveSpeed);
+                    break;
+                case "backward":
+                    linearOp.telemetry.addLine("we're in BACKWARD the switch!");
+                    driveBackward(moveSpeed);
+                    break;
+                case "left":
+                    linearOp.telemetry.addLine("we're in LEFT the switch!");
+                    strafeLeft(moveSpeed);
+                    break;
+                case "right":
+                    linearOp.telemetry.addLine("we're in RIGHT the switch!");
+                    strafeRight(moveSpeed);
+                    break;
+            }
+        }
+        stopMotors();
+        linearOp.telemetry.addLine("done with drivePID! ");
+        linearOp.telemetry.update();
+//        linearOp.sleep(2000);
+    }
+
+    public void drivePID (double targetEncoders, String direction) {
+        double PIDcoefficient = 0;
+        double currentEncoders = 0;
+        double ticks = targetEncoders * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //Updating to using Variable currentEncoders so we don't care about - / + of encoder counts.
+//        while (frontLeftMotor.getCurrentPosition() < targetEncoders && linearOp.opModeIsActive()) {
+        while (currentEncoders < targetEncoders && linearOp.opModeIsActive()) {
+            //Not sure if this PID equation works - DuVal
+            //            PIDcoefficient = (((ticks/2)-(ticks/2) - (frontLeftMotor.getCurrentPosition()/2)));
+            // Commented out the ticks for now - multiplying by "TICKS_PER_ROTATION" made testing not work. -DuVal
+            //            PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (ticks / 2))*maxStraightSpeed;
+            currentEncoders = Math.abs(frontLeftMotor.getCurrentPosition());
+            PIDcoefficient = PIDcalculator("straightEncoder", targetEncoders, currentEncoders);
+//            DRIVE!
+            // For if PIDCalculator was a 'void' function, but it's now a 'return' function.  Kept for potential troubleshooting.
+            //            PIDcalculator("straightEncoder", targetEncoders);
+            linearOp.telemetry.addData("PID Coefficient: ", PIDcoefficient);
+            linearOp.telemetry.addData("Current Position (raw): ", frontLeftMotor.getCurrentPosition());
+            linearOp.telemetry.addData("Current Encoders (variable)", currentEncoders);
+            linearOp.telemetry.addData("Target Position:", targetEncoders);
+            linearOp.telemetry.update();
+            switch (direction){
+                case "forward":
+                    linearOp.telemetry.addLine("we're in FORWARD the switch!");
+                    driveForward(PIDcoefficient);
+                    break;
+                case "backward":
+                    linearOp.telemetry.addLine("we're in BACKWARD the switch!");
+                    driveBackward(PIDcoefficient);
+                    break;
+                case "left":
+                    linearOp.telemetry.addLine("we're in LEFT the switch!");
+                    strafeLeft(PIDcoefficient);
+                    break;
+                case "right":
+                    linearOp.telemetry.addLine("we're in RIGHT the switch!");
+                    strafeRight(PIDcoefficient);
+                    break;
+            }
+        }
+        stopMotors();
+        linearOp.telemetry.addLine("done with drivePID! ");
+        linearOp.telemetry.update();
+//        linearOp.sleep(2000);
+    }
+
     public void driveForwardPID (double targetEncoders) {
         double PIDcoefficient = 0;
         double ticks = targetEncoders * TICKS_PER_ROTATION;
@@ -304,15 +527,20 @@ public class MecanumDriveEncoder {
             //            PIDcoefficient = (((ticks/2)-(ticks/2) - (frontLeftMotor.getCurrentPosition()/2)));
             // Commented out the ticks for now - multiplying by "TICKS_PER_ROTATION" made testing not work. -DuVal
             //            PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (ticks / 2))*maxStraightSpeed;
-            PIDcoefficient = PIDcalculator("straightEncoder", targetEncoders);
+//            PIDcoefficient = PIDcalculator("straightEncoder", targetEncoders);
 //            DRIVE!
             linearOp.telemetry.addData("PID Coefficient: ", PIDcoefficient);
             linearOp.telemetry.addData("Current Position: ", frontLeftMotor.getCurrentPosition());
             linearOp.telemetry.addData("Target Position:", targetEncoders);
             linearOp.telemetry.update();
-            driveForward(PIDcoefficient);
+//            driveForward(PIDcoefficient);
+            driveForward(1);
         }
+
         stopMotors();
+        linearOp.telemetry.addLine("done driving forward!");
+        linearOp.telemetry.update();
+        linearOp.sleep(2000);
     }
 
     public void driveBackwardPID (double targetEncoders) {
@@ -325,7 +553,7 @@ public class MecanumDriveEncoder {
             //            PIDcoefficient = (((ticks/2)-(ticks/2) - (frontLeftMotor.getCurrentPosition()/2)));
             // Commented out the ticks for now - multiplying by "TICKS_PER_ROTATION" made testing not work. -DuVal
             //            PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (ticks / 2))*maxStraightSpeed;
-            PIDcoefficient = PIDcalculator("straightEncoder", targetEncoders);
+//            PIDcoefficient = PIDcalculator("straightEncoder", targetEncoders);
 //            DRIVE!
             linearOp.telemetry.addData("PID Coefficient: ", PIDcoefficient);
             linearOp.telemetry.addData("Current Position: ", frontLeftMotor.getCurrentPosition());
@@ -336,24 +564,47 @@ public class MecanumDriveEncoder {
         stopMotors();
     }
 
-    public double PIDcalculator (String moveType, Double value) {
+    public void strafeLeftPID (double targetEncoders) {
         double PIDcoefficient = 0;
-        //Not sure if this PID equation works - DuVal
-        //            PIDcoefficient = (((ticks/2)-(ticks/2) - (frontLeftMotor.getCurrentPosition()/2)));
-        // Commented out the ticks for now - multiplying by "TICKS_PER_ROTATION" made testing not work. -DuVal
-        //            PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (ticks / 2))*maxStraightSpeed;
-        PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (value / 2));
-//            If get past half of distance, need to get "distance to"
-        if (PIDcoefficient > 1) {
-            PIDcoefficient = 2-PIDcoefficient;
+        double ticks = targetEncoders * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        while (frontLeftMotor.getCurrentPosition() < targetEncoders && linearOp.opModeIsActive()) {
+            //Not sure if this PID equation works - DuVal
+            //            PIDcoefficient = (((ticks/2)-(ticks/2) - (frontLeftMotor.getCurrentPosition()/2)));
+            // Commented out the ticks for now - multiplying by "TICKS_PER_ROTATION" made testing not work. -DuVal
+            //            PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (ticks / 2))*maxStraightSpeed;
+//            PIDcoefficient = PIDcalculator("straightEncoder", targetEncoders);
+//            DRIVE!
+            linearOp.telemetry.addData("PID Coefficient: ", PIDcoefficient);
+            linearOp.telemetry.addData("Current Position: ", frontLeftMotor.getCurrentPosition());
+            linearOp.telemetry.addData("Target Position:", targetEncoders);
+            linearOp.telemetry.update();
+            strafeLeft(PIDcoefficient);
         }
-        // will reduce max speed from 1.0 to a factor of maxStraightSpeed
-        PIDcoefficient *= maxStraightSpeed;
-//            makes sure motors don't stall out by going below minStraightSpeed
-        if (PIDcoefficient <= minStraightSpeed) {
-            PIDcoefficient = minStraightSpeed;
-        }
-        return PIDcoefficient;
+        stopMotors();
     }
+
+    public void strafeRightPID (double targetEncoders) {
+        double PIDcoefficient = 0;
+        double ticks = targetEncoders * TICKS_PER_ROTATION;
+        setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        while (frontLeftMotor.getCurrentPosition() < targetEncoders && linearOp.opModeIsActive()) {
+            //Not sure if this PID equation works - DuVal
+            //            PIDcoefficient = (((ticks/2)-(ticks/2) - (frontLeftMotor.getCurrentPosition()/2)));
+            // Commented out the ticks for now - multiplying by "TICKS_PER_ROTATION" made testing not work. -DuVal
+            //            PIDcoefficient = (frontLeftMotor.getCurrentPosition() / (ticks / 2))*maxStraightSpeed;
+//            PIDcoefficient = PIDcalculator("straightEncoder", targetEncoders);
+//            DRIVE!
+            linearOp.telemetry.addData("PID Coefficient: ", PIDcoefficient);
+            linearOp.telemetry.addData("Current Position: ", frontLeftMotor.getCurrentPosition());
+            linearOp.telemetry.addData("Target Position:", targetEncoders);
+            linearOp.telemetry.update();
+            strafeRight(PIDcoefficient);
+        }
+        stopMotors();
+    }
+
 
 }
