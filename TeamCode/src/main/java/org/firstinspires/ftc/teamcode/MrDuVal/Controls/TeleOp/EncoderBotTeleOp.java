@@ -176,7 +176,7 @@ public class EncoderBotTeleOp extends OpMode {
             encoders += .5;
         }
         else if (gamepad1.dpad_up) {
-            Bot.driveForwardPID (targetEncoders);
+//            Bot.driveForwardPID (targetEncoders);
 //            encoders += .5;
         }
         else if (gamepad1.dpad_down) {

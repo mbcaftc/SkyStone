@@ -28,18 +28,19 @@ public abstract class AutoMainEncoder extends LinearOpMode {
         if ((gamepad1.left_stick_y < .5) || (gamepad1.left_stick_y > .5)) {
             targetEncoders -= gamepad1.left_stick_y*0.1;
             linearOp.telemetry.addData("Target Encoders: ", targetEncoders);
-            telemetry.update();
+//            telemetry.update();
         }
-        if (gamepad1.left_stick_x < .5) {
+        if (gamepad1.left_stick_x < -0.5) {
             targetAngle = 45;
             linearOp.telemetry.addData("Target Angle: ", targetAngle);
-            telemetry.update();
+//            telemetry.update();
         }
         if (gamepad1.left_stick_x > .5) {
             targetAngle = 90;
             linearOp.telemetry.addData("Target Angle: ", targetAngle);
-            telemetry.update();
+//            telemetry.update();
         }
+
     }
 
 
