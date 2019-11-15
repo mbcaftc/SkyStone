@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.MrDuVal.EncoderBot.EncoderBot;
 public class EncoderBotAutoEncoder extends AutoMainEncoder {
 
     public EncoderBot Bot = new EncoderBot();
-    public VuforiaWebcam Cam = new VuforiaWebcam();
+//    public VuforiaWebcam Cam = new VuforiaWebcam();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -21,10 +21,16 @@ public class EncoderBotAutoEncoder extends AutoMainEncoder {
 //        Cam.activateTracking();
         setLinearOp(this);
 
-
+        telemetry.addLine("WAIT FOR START: ");
+        telemetry.addLine ("left stick UP and DOWN : Change encoder target");
+        telemetry.addLine ("left stick LEFT & dpad RIGHT : Change gyro target angle");
+        telemetry.addLine("dpad UP & dpad DOWN : Move forward or back");
+        telemetry.addLine("dpad LEFT & dpad RIGHT : Strafe left or right ");
+        telemetry.addLine("LB: Rotate gyro ccw; RB: Rotate gyro cw");
+        telemetry.update();
 
         waitForStart();
-
+        telemetry.clearAll();
         while (opModeIsActive()) {
             //Cam.trackObjects();
             //sleep(sleepTime);
@@ -54,13 +60,26 @@ public class EncoderBotAutoEncoder extends AutoMainEncoder {
 
     public void driveRobot () {
         if (gamepad1.dpad_up) {
-            Bot.driveForwardPID (targetEncoders);
+//            Bot.driveForwardPID (targetEncoders);
+            Bot.drivePID(targetEncoders, "forward");
         }
         if (gamepad1.dpad_down) {
             Bot.driveBackwardPID (targetEncoders);
         }
+
         if (gamepad1.dpad_right) {
+            Bot.strafeRightPID(targetEncoders);
+        }
+
+        if (gamepad1.dpad_left) {
+            Bot.strafeLeftPID(targetEncoders);
+        }
+
+        if (gamepad1.right_bumper) {
             Bot.gyroCorrectionPID (targetAngle);
+        }
+        if (gamepad1.left_bumper) {
+            Bot.gyroCorrectionPID(targetAngle);
         }
         if (gamepad1.b) {
             targetAngle = 0;
