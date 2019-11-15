@@ -27,7 +27,8 @@ public abstract class AutoLoading extends AutoMain {
 
     public void alignBuildPlateOuter (MetalBot Bot, String Alliance) {
         if (Alliance == "Red") {
-            Bot.driveBackward(highSpeed, 3.7);
+            Bot.driveBackward(highSpeed, 3.7
+            );
             Bot.strafeLeft(midSpeed, 2);
             sleep(sleepTime);
 

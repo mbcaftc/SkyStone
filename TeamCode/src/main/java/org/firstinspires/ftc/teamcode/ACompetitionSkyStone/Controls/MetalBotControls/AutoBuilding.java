@@ -25,7 +25,7 @@ public abstract class AutoBuilding extends AutoMain {
         Bot.HookGrab();
         sleep(1000);
 
-        Bot.strafeRight(midSpeed, 4.8);
+        Bot.strafeRight(midSpeed, 5);
 
         Bot.HookRelease();
 

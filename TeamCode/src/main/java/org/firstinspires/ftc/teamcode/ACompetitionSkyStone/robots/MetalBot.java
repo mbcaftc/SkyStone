@@ -33,7 +33,7 @@ public class MetalBot extends MecanumDrive {
     public Servo stoneServo = null;
 
 
-    public double armMultiplier = .5;
+    public double armMultiplier = .35;
     //public Servo intakePusher = null;
 
     public Servo capstoneDropper = null;
@@ -107,7 +107,7 @@ public class MetalBot extends MecanumDrive {
         HookRight = hwBot.get(Servo.class, "hook_right");
         HookRight.setDirection(Servo.Direction.FORWARD);
 
-        HookRelease();
+        //HookRelease();
 
 
 
@@ -122,7 +122,7 @@ public class MetalBot extends MecanumDrive {
 
         stoneServo = hwBot.get(Servo.class, "stone_servo");
         stoneServo.setDirection(Servo.Direction.FORWARD);
-        dropStone();
+        //dropStone();
 
 
 
@@ -257,7 +257,7 @@ public class MetalBot extends MecanumDrive {
 
     public void stackingArmGrabberOpen() {
 
-        stackingStoneGrabber.setPosition(0.85);
+        stackingStoneGrabber.setPosition(0.88);
     }
 
     public void stackingArmUp() {

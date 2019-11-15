@@ -52,6 +52,8 @@ public class TeleOpMetalBot extends OpMode {
     // Runs ONCE when driver presses PLAY
     @Override
     public void start() {
+        Bot.dropStone();
+        Bot.HookRelease();
 
     }
 
@@ -220,13 +222,13 @@ public class TeleOpMetalBot extends OpMode {
 
     public void controlStackingArmGrabber() {
         if (gamepad2.x) {
-            Bot.stackingArmGrabberOpen();
+            Bot.stackingArmGrabberClose();
             telemetry.addData("bot stack arm grabber open", Bot.stackingStoneGrabber.getPosition());
             telemetry.update();
 
         }
         else if (gamepad2.b) {
-            Bot.stackingArmGrabberClose();
+            Bot.stackingArmGrabberOpen();
             telemetry.addData("bot stack arm grabber close", Bot.stackingStoneGrabber.getPosition());
             telemetry.update();
         }
