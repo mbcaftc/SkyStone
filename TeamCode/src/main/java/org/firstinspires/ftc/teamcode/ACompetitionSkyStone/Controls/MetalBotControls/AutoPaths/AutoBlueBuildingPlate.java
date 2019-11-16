@@ -17,6 +17,7 @@ public class AutoBlueBuildingPlate extends AutoBuilding {
 
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
+        Bot.HookRelease();
 
         setLinearOp(this);
 
@@ -26,11 +27,12 @@ public class AutoBlueBuildingPlate extends AutoBuilding {
 
         while (opModeIsActive()) {
 
-            alignBuildPlate(Bot, "Blue");
-            sleep(sleepTime);
+            Bot.driveForward(midSpeed, 4.5);
+            orientBuildPlateBuild(Bot, "Blue");
 
+            pushBuildPlate(Bot, "Blue");
 
-            parkPlateOnly (Bot, "Blue");
+            parkBuildingPlateInner(Bot, "Blue");
 
             requestOpModeStop();
         }

@@ -19,9 +19,9 @@ public abstract class AutoMain extends LinearOpMode {
     public LinearOpMode linearOp = null;
     public final double gyroSPD = .25;
 
-    public final int colorImage = 13;       // was 15 ... color of image is 18, 27 in MBCA BNI room  15
-    public final int colorYellow = 30; //40 in MBCA BNI room b  30
-    public final int colorNoBackground = 60; //60 in MBCA BNI room
+    public final int colorImage = 22;       // was 15 ... color of image is 18, 27 in MBCA BNI room  15
+    public final int colorYellow = 40; //40 in MBCA BNI room b  30
+    public final int colorNoBackground = 35; //is 35 ... was 60 in MBCA BNI room
     public double tracker = 0;
 
     public double timeThreshold = 0;
@@ -110,6 +110,17 @@ public abstract class AutoMain extends LinearOpMode {
 
     }
 
+    public void pushBuildPlate (MetalBot Bot, String Alliance) {
+        if (Alliance == "Red") {
+            Bot.strafeLeft(midSpeed, 4.5);
+
+        }
+        else if (Alliance == "Blue"){
+            Bot.strafeLeft(midSpeed,4.5 );
+        }
+        Bot.HookRelease();
+    }
+
 
     public void detectSkyStone (MetalBot Bot, String Alliance) {
 
@@ -124,15 +135,27 @@ public abstract class AutoMain extends LinearOpMode {
                 Bot.driveBackward(.1);
 
 
+
             }
             else if (Alliance == "Blue") {
-                Bot.driveForward(lowSpeed);
+                Bot.driveForward(.1);
+
             }
             linearOp.telemetry.addData("Color Sensor Red Value: ", Bot.checkColor());
             linearOp.telemetry.addLine("Finding SkyStone!");
             linearOp.telemetry.update();
         }
         Bot.stopMotors();
+
+        if (Alliance == "Blue") {
+            Bot.gyroCorrection(lowSpeed, 0);
+        }
+
+        Bot.strafeRight(lowSpeed, .2);
+        sleep(sleepTime);
+        detectStoneDistance(Bot);
+        Bot.strafeRight(lowSpeed, .1);
+
         tracker = Math.abs(Bot.frontLeftMotor.getCurrentPosition());
 
 
@@ -153,6 +176,7 @@ public abstract class AutoMain extends LinearOpMode {
             linearOp.telemetry.update();
             if (Alliance == "Red") {
                 Bot.strafeLeft(.3);
+
             }
             else if (Alliance == "Blue") {
                 Bot.strafeLeft(.3 );

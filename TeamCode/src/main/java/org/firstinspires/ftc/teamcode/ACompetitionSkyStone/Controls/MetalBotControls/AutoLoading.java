@@ -78,16 +78,7 @@ public abstract class AutoLoading extends AutoMain {
 
     }
 
-    public void pushBuildPlate (MetalBot Bot, String Alliance) {
-        if (Alliance == "Red") {
-            Bot.strafeLeft(midSpeed, 4.5);
 
-        }
-        else if (Alliance == "Blue"){
-            Bot.strafeLeft(midSpeed,4.5 );
-        }
-        Bot.HookRelease();
-    }
 
     public void parkInner (MetalBot Bot, String Alliance) {
         if (Alliance  == "Red") {
@@ -135,15 +126,29 @@ public abstract class AutoLoading extends AutoMain {
 
     }
 
-    public void parkSkyStone (MetalBot Bot) {
+    public void parkSkyStone (MetalBot Bot, String Alliance) {
 
-            Bot.strafeLeft(midSpeed, 6.5);
+
+        if (Alliance == "Red") {
+            Bot.strafeLeft(midSpeed, 6.8);
             sleep(sleepTime);
 
             Bot.dropStone();
             sleep(1000);
 
-            Bot.strafeRight(midSpeed, 2.2);
+            Bot.strafeRight(midSpeed, 2.3);
+        }
+
+        else if (Alliance == "Blue") {
+            Bot.strafeLeft(midSpeed, 6.7);
+            sleep(sleepTime);
+
+            Bot.dropStone();
+            sleep(1000);
+
+            Bot.strafeRight(midSpeed, 2.3);
+        }
+
 
     }
 

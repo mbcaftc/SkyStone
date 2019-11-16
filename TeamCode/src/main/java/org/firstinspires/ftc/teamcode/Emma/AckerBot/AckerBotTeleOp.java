@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Emma.AckerBot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWeb
 
 
 @TeleOp (name = "AckerBot TeleOp")
+@Disabled
 public class AckerBotTeleOp extends OpMode {
 
 

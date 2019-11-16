@@ -194,6 +194,8 @@ public class MetalBot extends MecanumDrive {
         HookRight.setPosition(0.0);
     }
 
+
+
     public void grabStone () {
 
         stoneServo.setPosition(.75);
@@ -206,6 +208,10 @@ public class MetalBot extends MecanumDrive {
         stoneServo.setPosition(.20); // was .3
 //        linearOp.telemetry.addData("stone DROP pos", stoneServo.getPosition());
 //        linearOp.telemetry.update();
+    }
+
+    public void stoneGrabberUp () {
+        stoneServo.setPosition(.42);
     }
 
 

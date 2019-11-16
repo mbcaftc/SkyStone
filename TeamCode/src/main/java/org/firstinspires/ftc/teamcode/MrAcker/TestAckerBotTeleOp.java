@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.MrAcker;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWeb
 
 
 @TeleOp (name = "TestAckerBot TeleOp Test")
+@Disabled
 public class TestAckerBotTeleOp extends OpMode {
 
 

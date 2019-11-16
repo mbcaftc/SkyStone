@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.MrDuVal.Controls.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 import org.firstinspires.ftc.teamcode.MrDuVal.EncoderBot.EncoderBot;
 
 @Autonomous(name = "EncoderBot", group = "Lab")
+@Disabled
 public class EncoderBotAutoEncoder extends AutoMainEncoder {
 
     public EncoderBot Bot = new EncoderBot();

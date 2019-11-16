@@ -15,6 +15,8 @@ public class AutoBlueLoadingSkyStone extends AutoLoading {
 
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
+        Bot.HookRelease();
+        Bot.dropStone();
 
         setLinearOp(this);
 
@@ -46,7 +48,7 @@ public class AutoBlueLoadingSkyStone extends AutoLoading {
             goToFirstLocation(Bot, "Blue");
             sleep(sleepTime);
 
-            parkSkyStone(Bot);
+            parkSkyStone(Bot, "Blue");
 
 
 

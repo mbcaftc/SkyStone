@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.MrDuVal;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp (name = "VEX 393 Motor Test", group = "Lab")
+@Disabled
 public class VexMotors extends OpMode {
 //    CRServo VexLeft, VexRight;
     Servo VexLeft, VexRight;

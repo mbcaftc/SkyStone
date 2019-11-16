@@ -53,7 +53,7 @@ public class TeleOpMetalBot extends OpMode {
     @Override
     public void start() {
         Bot.dropStone();
-        Bot.HookRelease();
+        Bot.stoneGrabberUp();
 
     }
 

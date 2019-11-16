@@ -17,19 +17,48 @@ public abstract class AutoBuilding extends AutoMain {
         }
         else if (Alliance == "Blue") {
             Bot.driveBackward(midSpeed, 1);
-            Bot.strafeLeft(lowSpeed, .4);
+            Bot.strafeLeft(midSpeed, .4);
         }
 
-        Bot.strafeLeft(lowSpeed, .5);
+        Bot.strafeLeft(midSpeed, .5);
 
         Bot.HookGrab();
         sleep(1000);
 
-        Bot.strafeRight(midSpeed, 5);
+        Bot.strafeRight(midSpeed, 4.5);
 
-        Bot.HookRelease();
+        if (Alliance == "Red") {
+            Bot.gyroCorrection(gyroSPD, -23);
+            Bot.HookRelease();
+            Bot.strafeRight(midSpeed, 1.2);
 
+        }
+        else if (Alliance == "Blue"){
+            Bot.gyroCorrection(gyroSPD, 23);
+            Bot.HookRelease();
+            Bot.strafeRight(midSpeed, 1.2);
+        }
         Bot.gyroCorrection(gyroSPD, 0);
+
+    }
+
+    public void orientBuildPlateBuild (MetalBot Bot, String Alliance) {
+        if (Alliance == "Red") {
+            Bot.strafeLeft(midSpeed, 1.4);
+            Bot.HookGrab();
+            sleep(1000);
+            Bot.rotateRight(midSpeed, 2);
+            Bot.gyroCorrection(.3, -50);
+
+        }
+        else if (Alliance == "Blue") {
+            Bot.strafeLeft(midSpeed, 1.4);
+            Bot.HookGrab();
+            sleep(1000);
+            Bot.rotateLeft(midSpeed, 2);
+            Bot.gyroCorrection(gyroSPD, 50);
+        }
+
 
     }
 
@@ -123,9 +152,25 @@ public abstract class AutoBuilding extends AutoMain {
 
         }
             else if (Alliance == "Blue") {
-                Bot.driveBackward(midSpeed, 2.5);
+                Bot.driveBackward(midSpeed, 2.7);
             }
 
+    }
+
+    public void parkBuildingPlateInner (MetalBot Bot, String Alliance) {
+
+        if (Alliance == "Red") {
+            Bot.strafeRight(lowSpeed, .4);
+           Bot.driveForward(midSpeed, 2);
+           Bot.gyroCorrection(gyroSPD, -90);
+           Bot.driveForward(midSpeed, 1.8);
+        }
+        else if (Alliance == "Blue") {
+            Bot.strafeRight(lowSpeed, .35);
+            Bot.driveBackward(midSpeed, 2.7);
+            Bot.gyroCorrection(gyroSPD, 86);
+            Bot.driveBackward(midSpeed, 1.5);
+        }
     }
 
 
