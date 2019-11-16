@@ -211,7 +211,7 @@ public class MetalBot extends MecanumDrive {
     }
 
     public void stoneGrabberUp () {
-        stoneServo.setPosition(.42);
+        stoneServo.setPosition(.25);
     }
 
 
