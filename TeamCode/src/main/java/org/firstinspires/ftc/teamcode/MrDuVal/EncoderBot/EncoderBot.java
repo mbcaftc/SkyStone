@@ -6,6 +6,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -38,6 +39,8 @@ public class EncoderBot extends MecanumDriveEncoder {
 
     public double minStraightSpeed = .2 , minStrafeSpeed = .1, minTurnSpeed = .2;
     public double maxStraightSpeed = .6, maxStrafeSpeed = .6, maxTurnSpeed = .6;
+    public double medStraightSpeed = .4, medtrafeSpeed = .4, medTurnSpeed = .4;
+
 //    public double PIDcoefficient = 0;
 
     //Bot Constructor
@@ -209,6 +212,34 @@ public class EncoderBot extends MecanumDriveEncoder {
             }
         }
         return PIDcoefficient;
+    }
+
+    public void driveGyro (double targetAngle, double distance) {
+        //target = target angle
+        //distance = target distance
+        double fLspeed, fRspeed, rLspeed, rRspeed, leftSpeed, rightSpeed;
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double startPos = frontLeftMotor.getCurrentPosition();  //where is our encoder counts starting?  Could also reset encoders...
+        while (frontLeftMotor.getCurrentPosition() < distance + startPos) {
+            //update our current angle
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            leftSpeed = medStraightSpeed + ((angles.firstAngle - targetAngle) / 100);
+            rightSpeed = medStraightSpeed - ((angles.firstAngle - targetAngle) / 100);
+            leftSpeed = Range.clip(leftSpeed, -1, 1);
+            rightSpeed = Range.clip(rightSpeed, -1, 1);
+            frontLeftMotor.setPower(leftSpeed);
+            rearLeftMotor.setPower(leftSpeed);
+            frontRightMotor.setPower(rightSpeed);
+            rearLeftMotor.setPower(rightSpeed);
+            linearOp.telemetry.addData("LEFT: ", frontLeftMotor.getPower());
+            linearOp.telemetry.addData("RIGHT: ", frontRightMotor.getPower());
+            linearOp.telemetry.addData("Distance to Go:", distance +startPos - frontLeftMotor.getCurrentPosition());
+            linearOp.telemetry.addData("Current Angle:", angles.firstAngle);
+            linearOp.telemetry.update();
+            linearOp.idle();
+        }
+        stopMotors();
+        linearOp.idle();
     }
 
 }

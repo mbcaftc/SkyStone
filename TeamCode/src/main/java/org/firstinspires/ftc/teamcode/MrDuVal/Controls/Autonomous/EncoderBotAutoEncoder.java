@@ -35,6 +35,8 @@ public class EncoderBotAutoEncoder extends AutoMainEncoder {
         telemetry.addLine("dpad UP & dpad DOWN : Move forward or back");
         telemetry.addLine("dpad LEFT & dpad RIGHT : Strafe left or right ");
         telemetry.addLine("LB: Rotate gyro ccw; RB: Rotate gyro cw");
+        telemetry.addLine("A: Gyro straight @ 45 degrees");
+
         telemetry.update();
 
         waitForStart();
@@ -135,6 +137,9 @@ public class EncoderBotAutoEncoder extends AutoMainEncoder {
             targetAngle = 0;
             targetEncoders = 0;
             Bot.gyroReset();
+        }
+        if (gamepad1.a) {
+            Bot.driveGyro(45, 1500);
         }
     }
 
