@@ -79,6 +79,9 @@ public class TeleOpMetalBot extends OpMode {
 
         controlStackingArmGrabber();
 
+        //SimulateAuto();
+
+
     }
 
     // Code to run ONCE after the driver presses STOP
@@ -220,19 +223,28 @@ public class TeleOpMetalBot extends OpMode {
 
     }
 
-    public void controlStackingArmGrabber() {
-        if (gamepad2.x) {
+//    public void controlStackingArmGrabber() {
+//        if (gamepad2.x) {
+//            Bot.stackingArmGrabberClose();
+//            telemetry.addData("bot stack arm grabber open", Bot.stackingStoneGrabber.getPosition());
+//            telemetry.update();
+//
+//        }
+//        else if (gamepad2.b) {
+//            Bot.stackingArmGrabberOpen();
+//            telemetry.addData("bot stack arm grabber close", Bot.stackingStoneGrabber.getPosition());
+//            telemetry.update();
+//        }
+//
+//    }
+
+    public void controlStackingArmGrabber () {
+        if (gamepad2.right_trigger > .1) {
             Bot.stackingArmGrabberClose();
-            telemetry.addData("bot stack arm grabber open", Bot.stackingStoneGrabber.getPosition());
-            telemetry.update();
-
         }
-        else if (gamepad2.b) {
+        else {
             Bot.stackingArmGrabberOpen();
-            telemetry.addData("bot stack arm grabber close", Bot.stackingStoneGrabber.getPosition());
-            telemetry.update();
         }
-
     }
 
     public void controlStackingArm() {
@@ -247,6 +259,9 @@ public class TeleOpMetalBot extends OpMode {
             Bot.stackingArmOff();                           //added motor stop when not pushing a button
         }
     }
+
+
+
 
 
 
@@ -274,8 +289,8 @@ public class TeleOpMetalBot extends OpMode {
         }
     }
 
-    /*
 
+/*
     public void SimulateAuto () {
 
         if (gamepad1.dpad_left) {
@@ -305,9 +320,9 @@ public class TeleOpMetalBot extends OpMode {
     }
 
 
-
-
 */
+
+
 
 
 

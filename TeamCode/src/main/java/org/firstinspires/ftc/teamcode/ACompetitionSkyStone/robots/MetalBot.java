@@ -226,8 +226,8 @@ public class MetalBot extends MecanumDrive {
 
     public void intakeSpinInward () {
 
-        intakeLSpinner.setPower(1);
-        intakeRSpinner.setPower(1);
+        intakeLSpinner.setPower(.4);
+        intakeRSpinner.setPower(.4);
     }
     public void intakeSpinOutward () {
 

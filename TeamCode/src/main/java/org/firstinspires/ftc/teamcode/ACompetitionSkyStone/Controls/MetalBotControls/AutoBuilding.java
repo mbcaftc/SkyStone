@@ -47,16 +47,18 @@ public abstract class AutoBuilding extends AutoMain {
             Bot.strafeLeft(midSpeed, 1.4);
             Bot.HookGrab();
             sleep(1000);
-            Bot.rotateRight(midSpeed, 2);
-            Bot.gyroCorrection(.3, -50);
+            Bot.driveForward(midSpeed, .4);
+            Bot.rotateRight(midSpeed, 2);           //2
+            Bot.gyroCorrection(.3, -50);        //was  50
 
         }
         else if (Alliance == "Blue") {
             Bot.strafeLeft(midSpeed, 1.4);
             Bot.HookGrab();
             sleep(1000);
-            Bot.rotateLeft(midSpeed, 2);
-            Bot.gyroCorrection(gyroSPD, 50);
+            Bot.driveBackward(midSpeed, .4);
+            Bot.rotateLeft(midSpeed, 2);        // was 2
+            Bot.gyroCorrection(gyroSPD, 50);        //was 50
         }
 
 
