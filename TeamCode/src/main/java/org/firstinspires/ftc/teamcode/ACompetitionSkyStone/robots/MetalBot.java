@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorREVColorDistance;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -30,7 +31,13 @@ public class MetalBot extends MecanumDrive {
     public HardwareMap hwBot  =  null;
     public Servo HookLeft = null;
     public Servo HookRight = null;
-    public Servo stoneServo = null;
+
+
+    //public Servo stoneServo = null;
+
+    public Servo stoneRotate;
+    public Servo stoneGrabber;
+
 
 
     public double armMultiplier = .35;
@@ -53,14 +60,21 @@ public class MetalBot extends MecanumDrive {
     public final double SCALE_FACTOR = 1;
 
     //*********************
+
+    /*
     public DcMotor intakeLSpinner;
     public DcMotor intakeRSpinner;
 
     public Servo intakeLeftArm = null;
     public Servo intakeRightArm = null;
 
+    */
+
     public Servo stackingStoneGrabber = null;
     public DcMotor stackingArm;
+
+
+
 
     //********************
 
@@ -120,8 +134,14 @@ public class MetalBot extends MecanumDrive {
         // Define and Intialize Servo for skyStone grabber
 
 
-        stoneServo = hwBot.get(Servo.class, "stone_servo");
-        stoneServo.setDirection(Servo.Direction.FORWARD);
+        //stoneServo = hwBot.get(Servo.class, "stone_grabber");
+        //stoneServo.setDirection(Servo.Direction.FORWARD);
+
+        stoneRotate = hwBot.get(Servo.class, "stone_rotate");
+        stoneRotate.setDirection(Servo.Direction.FORWARD);
+
+        stoneGrabber = hwBot.get(Servo.class, "stone_grabber");
+        stoneGrabber.setDirection(Servo.Direction.FORWARD);
         //dropStone();
 
 
@@ -135,7 +155,7 @@ public class MetalBot extends MecanumDrive {
 
         // Define and Initialize Servos and Motors for intake
 
-
+        /*
         intakeLeftArm = hwBot.get(Servo.class, "intake_left_arm");
         intakeLeftArm.setDirection(Servo.Direction.REVERSE);
 
@@ -154,7 +174,7 @@ public class MetalBot extends MecanumDrive {
         intakeLSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-
+        */
         // Define and Initialize Servo and Motor for stacking arm
         stackingStoneGrabber = hwBot.servo.get("stacking_grabber");
         stackingArm = hwBot.dcMotor.get("stacking_arm");
@@ -197,21 +217,21 @@ public class MetalBot extends MecanumDrive {
 
 
     public void grabStone () {
+        stoneRotate.setPosition(.75);
+        stoneGrabber.setPosition(.5);
 
-        stoneServo.setPosition(.75);
-//        linearOp.telemetry.addData("stone GRAB pos", stoneServo.getPosition());
-//        linearOp.telemetry.update();
     }
 
 
     public void dropStone() {
-        stoneServo.setPosition(.20); // was .3
-//        linearOp.telemetry.addData("stone DROP pos", stoneServo.getPosition());
-//        linearOp.telemetry.update();
+        stoneRotate.setPosition(.20); // was .3
+        stoneGrabber.setPosition(0);
+
     }
 
-    public void stoneGrabberUp () {
-        stoneServo.setPosition(.25);
+    public void neutralStone () {
+        stoneRotate.setPosition(.25);
+        stoneGrabber.setPosition(.5);
     }
 
 
@@ -224,6 +244,7 @@ public class MetalBot extends MecanumDrive {
     }
 
 
+    /*
     public void intakeSpinInward () {
 
         intakeLSpinner.setPower(.4);
@@ -254,6 +275,8 @@ public class MetalBot extends MecanumDrive {
 
     }
 
+
+     */
 
 
     public void stackingArmGrabberClose() {
@@ -323,6 +346,49 @@ public class MetalBot extends MecanumDrive {
 
     public double checkDistance () {
         return sensorDistance.getDistance(DistanceUnit.INCH);
+    }
+
+    public void driveGyro (int encoders, double power) throws InterruptedException {
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+        double leftSideSpeed;
+        double rightSideSpeed;
+
+
+        double  target = angles.firstAngle;
+        double startPosition =  frontLeftMotor.getCurrentPosition();
+
+        while (frontLeftMotor.getCurrentPosition() < encoders + startPosition) {
+            double targetAngle = angles.firstAngle;
+
+            leftSideSpeed = power + (angles.firstAngle  - target) / 100;
+            rightSideSpeed = power + (angles.firstAngle - target) / 100;
+
+
+            leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
+            rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
+
+            frontLeftMotor.setPower(leftSideSpeed);
+            rearLeftMotor.setPower(rightSideSpeed);
+
+            frontRightMotor.setPower(rightSideSpeed);
+            frontRightMotor.setPower(rightSideSpeed);
+
+            linearOp.telemetry.addData("Left Speed",frontLeftMotor.getPower());
+            linearOp.telemetry.addData("Right Speed", frontRightMotor.getPower());
+            linearOp.telemetry.addData("Distance till destination ", encoders + startPosition - frontLeftMotor.getCurrentPosition());
+
+            // missing waiting
+            linearOp.idle();
+        }
+
+        frontLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        rearLeftMotor.setPower(0);
+        rearRightMotor.setPower(0);
+
+        linearOp.idle();
+
     }
 
 

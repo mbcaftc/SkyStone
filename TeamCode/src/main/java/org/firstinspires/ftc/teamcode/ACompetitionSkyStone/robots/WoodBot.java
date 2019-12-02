@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorREVColorDistance;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -96,8 +97,8 @@ public class WoodBot extends MecanumDrive {
         capstoneDropper = hwBot.get(Servo.class, "capstone_dropper");
         capstoneDropper.setDirection(Servo.Direction.FORWARD);
 
-        sensorColor = hwBot.get(ColorSensor.class, "sensor_color_distance");
-        sensorDistance = hwBot.get(DistanceSensor.class, "sensor_color_distance");
+        //sensorColor = hwBot.get(ColorSensor.class, "sensor_color_distance");
+        //sensorDistance = hwBot.get(DistanceSensor.class, "sensor_color_distance");
 
 
         HookRelease();
@@ -122,6 +123,7 @@ public class WoodBot extends MecanumDrive {
 
 
     // Robot Servo Methods
+
 
     public void HookRelease () {
 
@@ -207,8 +209,51 @@ public class WoodBot extends MecanumDrive {
     public double checkDistance () {
         return sensorDistance.getDistance(DistanceUnit.INCH);
     }
+    public void driveGyro (int encoders, double power) throws InterruptedException {
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+        double leftSideSpeed;
+        double rightSideSpeed;
+
+
+        double  target = angles.firstAngle;
+        double startPosition =  frontLeftMotor.getCurrentPosition();
+
+        while (frontLeftMotor.getCurrentPosition() < encoders + startPosition) {
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+            leftSideSpeed = power + (angles.firstAngle  - target) / 100;            // they need to be different
+            rightSideSpeed = power + (angles.firstAngle - target) / 100;
+
+
+            leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
+            rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
+
+            frontLeftMotor.setPower(leftSideSpeed);
+            rearLeftMotor.setPower(leftSideSpeed);
+
+            frontRightMotor.setPower(rightSideSpeed);
+            rearRightMotor.setPower(rightSideSpeed);
+
+            linearOp.telemetry.addData("Left Speed",frontLeftMotor.getPower());
+            linearOp.telemetry.addData("Right Speed", frontRightMotor.getPower());
+            linearOp.telemetry.addData("Distance till destination ", encoders + startPosition - frontLeftMotor.getCurrentPosition());
+
+            // missing waiting
+            linearOp.idle();
+        }
+
+        frontLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        rearLeftMotor.setPower(0);
+        rearRightMotor.setPower(0);
+
+        linearOp.idle();
+
+    }
 
 }
+
 
 
 

@@ -43,11 +43,11 @@ public abstract class AutoMainWood extends LinearOpMode {
         if (manipulate == "grab") {
 
 
-            Bot.grabStone();
+            //Bot.grabStone();
             sleep(1000);
         }
         if (manipulate == "release") {
-            Bot.dropStone();
+            //Bot.dropStone();
         }
         idle();
     }
