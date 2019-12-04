@@ -243,8 +243,8 @@ public class WoodBot extends MecanumDrive {
                         break;
                     case "backward":
 //                        currentPos = -frontLeftMotor.getCurrentPosition();
-                        leftSideSpeed = power + (angles.firstAngle - target) / 100;            // they need to be different
-                        rightSideSpeed = power - (angles.firstAngle - target) / 100;
+                        leftSideSpeed = power - (angles.firstAngle - target) / 100;            // they need to be different
+                        rightSideSpeed = power + (angles.firstAngle - target) / 100;
 
                         leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
                         rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
