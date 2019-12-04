@@ -166,13 +166,21 @@ public class TeleOpMetalBot extends OpMode {
             telemetry.addLine("drop control stone servo!");
             //telemetry.addData("servo ", Bot.stoneServo.getPosition());
             telemetry.update();
-            Bot.neutralStone();      //was .5
+            Bot.raiseStone();      //was .5
         }
         else if (gamepad2.left_stick_y <  -.1) {
             telemetry.addLine("grab the control stone servo");
             //telemetry.addData("servo ", Bot.stoneServo.getPosition());
             telemetry.update();
-            Bot.grabStone();      // was .77 but too low
+            Bot.dropStone();      // was .77 but too low
+        }
+        else if (gamepad2.b == true){
+            Bot.grabStone();
+
+        }
+
+        else if (gamepad2.x == true) {
+            Bot.releaseStone();
         }
     }
 

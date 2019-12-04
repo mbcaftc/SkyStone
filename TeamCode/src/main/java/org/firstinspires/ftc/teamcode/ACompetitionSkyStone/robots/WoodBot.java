@@ -209,48 +209,101 @@ public class WoodBot extends MecanumDrive {
     public double checkDistance () {
         return sensorDistance.getDistance(DistanceUnit.INCH);
     }
-    public void driveGyro (int encoders, double power) throws InterruptedException {
+    public void driveGyro (int encoders, double power, String direction) throws InterruptedException {
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
+        double currentPos = 0;
         double leftSideSpeed;
         double rightSideSpeed;
 
 
-        double  target = angles.firstAngle;
-        double startPosition =  frontLeftMotor.getCurrentPosition();
+        double target = angles.firstAngle;
+        double startPosition = frontLeftMotor.getCurrentPosition();
 
-        while (frontLeftMotor.getCurrentPosition() < encoders + startPosition) {
-            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            while (currentPos < encoders + startPosition && linearOp.opModeIsActive()) {
 
-            leftSideSpeed = power + (angles.firstAngle  - target) / 100;            // they need to be different
-            rightSideSpeed = power + (angles.firstAngle - target) / 100;
+                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
 
-            leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
-            rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
+                currentPos = Math.abs(frontLeftMotor.getCurrentPosition());
 
-            frontLeftMotor.setPower(leftSideSpeed);
-            rearLeftMotor.setPower(leftSideSpeed);
+                switch (direction) {
+                    case "forward":
+//                        currentPos = frontLeftMotor.getCurrentPosition();
+                        leftSideSpeed = power + (angles.firstAngle - target) / 100;            // they need to be different
+                        rightSideSpeed = power - (angles.firstAngle - target) / 100;
 
-            frontRightMotor.setPower(rightSideSpeed);
-            rearRightMotor.setPower(rightSideSpeed);
+                        leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
+                        rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
 
-            linearOp.telemetry.addData("Left Speed",frontLeftMotor.getPower());
-            linearOp.telemetry.addData("Right Speed", frontRightMotor.getPower());
-            linearOp.telemetry.addData("Distance till destination ", encoders + startPosition - frontLeftMotor.getCurrentPosition());
+                        frontLeftMotor.setPower(leftSideSpeed);
+                        rearLeftMotor.setPower(leftSideSpeed);
 
-            // missing waiting
+                        frontRightMotor.setPower(rightSideSpeed);
+                        rearRightMotor.setPower(rightSideSpeed);
+                        break;
+                    case "backward":
+//                        currentPos = -frontLeftMotor.getCurrentPosition();
+                        leftSideSpeed = power + (angles.firstAngle - target) / 100;            // they need to be different
+                        rightSideSpeed = power - (angles.firstAngle - target) / 100;
+
+                        leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
+                        rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
+
+                        frontLeftMotor.setPower(-leftSideSpeed);
+                        rearLeftMotor.setPower(-leftSideSpeed);
+
+                        frontRightMotor.setPower(-rightSideSpeed);
+                        rearRightMotor.setPower(-rightSideSpeed);
+                        break;
+                    case "left":
+                        leftSideSpeed = power - (angles.firstAngle - target) / 100;            // they need to be different
+                        rightSideSpeed = power + (angles.firstAngle - target) / 100;
+
+                        leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
+                        rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
+
+                        frontLeftMotor.setPower(-leftSideSpeed);
+                        rearLeftMotor.setPower(leftSideSpeed);
+
+                        frontRightMotor.setPower(rightSideSpeed);
+                        rearRightMotor.setPower(-rightSideSpeed);
+                        break;
+                    case "right":
+                        leftSideSpeed = power + (angles.firstAngle - target) / 100;            // they need to be different
+                        rightSideSpeed = power - (angles.firstAngle - target) / 100;
+
+                        leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
+                        rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
+
+                        frontLeftMotor.setPower(leftSideSpeed);
+                        rearLeftMotor.setPower(-leftSideSpeed);
+
+                        frontRightMotor.setPower(-rightSideSpeed);
+                        rearRightMotor.setPower(rightSideSpeed);
+                        break;
+                }
+
+
+
+                linearOp.telemetry.addData("Left Speed", frontLeftMotor.getPower());
+                linearOp.telemetry.addData("Right Speed", frontRightMotor.getPower());
+                linearOp.telemetry.addData("Distance till destination ", encoders + startPosition - frontLeftMotor.getCurrentPosition());
+                linearOp.telemetry.addData("Current Position", currentPos);
+                linearOp.telemetry.addData("Target Position", target);
+
+                linearOp.telemetry.update();
+                // missing waiting
+                linearOp.idle();
+            }
+
+            frontLeftMotor.setPower(0);
+            frontRightMotor.setPower(0);
+            rearLeftMotor.setPower(0);
+            rearRightMotor.setPower(0);
+
             linearOp.idle();
+
         }
-
-        frontLeftMotor.setPower(0);
-        frontRightMotor.setPower(0);
-        rearLeftMotor.setPower(0);
-        rearRightMotor.setPower(0);
-
-        linearOp.idle();
-
-    }
 
 }
 

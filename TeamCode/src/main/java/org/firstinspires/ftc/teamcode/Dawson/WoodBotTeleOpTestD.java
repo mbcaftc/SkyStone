@@ -14,14 +14,14 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
 
-@TeleOp (name = "WoodBot TeleOp")
+@TeleOp (name = "Rookie Bot TeleOp")
 @Disabled
 public class WoodBotTeleOpTestD extends OpMode {
 
 
     public ElapsedTime TeleOpTime = new ElapsedTime();
     public WoodBotTest Bot = new WoodBotTest();
-    public VuforiaWebcam Cam = new VuforiaWebcam();
+//    public VuforiaWebcam Cam = new VuforiaWebcam();
 
 
     // Variables & Constants specific to TeleLabBot
@@ -42,21 +42,22 @@ public class WoodBotTeleOpTestD extends OpMode {
     @Override
     public void init() {
         Bot.initRobot(hardwareMap);
-        Cam.initCamera(hardwareMap);
+//        Cam.initCamera(hardwareMap);
     }
 
 
     // Runs Repeatedly when driver presses INIT but before pressing PLAY
     @Override
     public void init_loop() {
-        Cam.activateTracking();
+
+//        Cam.activateTracking();
     }
 
 
     // Runs ONCE when driver presses PLAY
     @Override
     public void start() {
-        Cam.activateTracking();
+//        Cam.activateTracking();
         Bot.gyroReset();
     }
 
@@ -69,7 +70,7 @@ public class WoodBotTeleOpTestD extends OpMode {
         Bot.angles = Bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         controlHook();
         drive();
-        Cam.trackObjects();
+//        Cam.trackObjects();
         telemetryOutput();
         controlResetEncoders();
         controlResetGyro();
@@ -219,9 +220,9 @@ public class WoodBotTeleOpTestD extends OpMode {
         telemetry.addData("Right Hook Servo: ", Bot.HookRight);
         telemetry.addData("Stone Grab Servo: ", Bot.stoneServo);
 
-        telemetry.addData("Camera Visible Target", Cam.targetName);
-        telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);
-        telemetry.addData("Camera Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", Cam.targetRoll, Cam.targetPitch, Cam.targetHeading);
+//        telemetry.addData("Camera Visible Target", Cam.targetName);
+//        telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);
+//        telemetry.addData("Camera Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", Cam.targetRoll, Cam.targetPitch, Cam.targetHeading);
 
         telemetry.update();
 

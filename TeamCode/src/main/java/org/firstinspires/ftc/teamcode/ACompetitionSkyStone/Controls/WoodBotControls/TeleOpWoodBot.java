@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWeb
 
 
 @TeleOp (name = "WoodBot TeleOp")
-@Disabled
+//@Disabled
 public class TeleOpWoodBot extends OpMode {
 
 
