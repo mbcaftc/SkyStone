@@ -1,13 +1,12 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls;
+package org.firstinspires.ftc.teamcode.Emma.oldCompClasses;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
-public abstract class AutoMain extends LinearOpMode {
+public abstract class AutoMainOld extends LinearOpMode {
 
     // Variables & Constants used for MetalBot across both Building and Loading Locations on the field
 
@@ -111,7 +110,13 @@ public abstract class AutoMain extends LinearOpMode {
     }
 
     public void pushBuildPlate (MetalBot Bot, String Alliance) {
-        Bot.strafeLeft(midSpeed, 4.5);
+        if (Alliance == "Red") {
+            Bot.strafeLeft(midSpeed, 4.5);
+
+        }
+        else if (Alliance == "Blue"){
+            Bot.strafeLeft(midSpeed,4.5 );
+        }
         Bot.HookRelease();
     }
 
