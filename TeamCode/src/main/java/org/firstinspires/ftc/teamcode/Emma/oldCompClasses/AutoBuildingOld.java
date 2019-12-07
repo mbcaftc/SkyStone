@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls;
+package org.firstinspires.ftc.teamcode.Emma.oldCompClasses;
 
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoMain;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 
 
-public abstract class AutoBuilding extends AutoMain {
+public abstract class AutoBuildingOld extends AutoMain {
 
 
 
@@ -42,34 +43,26 @@ public abstract class AutoBuilding extends AutoMain {
 
     }
 
-    // new method ~ Emma 12/6
     public void orientBuildPlateBuild (MetalBot Bot, String Alliance) {
         if (Alliance == "Red") {
-            Bot.strafeLeft(midSpeed, 1.5);
-            Bot.driveForward(midSpeed, .8);
-            Bot.strafeLeft(midSpeed, 1.5);
+            Bot.strafeLeft(midSpeed, 1.4);
             Bot.HookGrab();
             sleep(1000);
-            Bot.rotateRight(midSpeed, .5);
-            Bot.gyroCorrection(.3, 30);        //value not tested
-            Bot.strafeRight(.4, 1);
-            Bot.rotateRight(midSpeed, .5);
-            Bot.gyroCorrection(gyroSPD, 90);
+            Bot.driveForward(midSpeed, .4);
+            Bot.rotateRight(midSpeed, 2);           //2
+            Bot.gyroCorrection(.3, -50);        //was  50
 
         }
         else if (Alliance == "Blue") {
-            Bot.strafeLeft(midSpeed, 1.5);
-            Bot.driveBackward(midSpeed, .8);
-            Bot.strafeLeft(midSpeed, 1.5);
+            Bot.strafeLeft(midSpeed, 1.4);
             Bot.HookGrab();
             sleep(1000);
-            Bot.rotateLeft(midSpeed, .5);
-            Bot.gyroCorrection(.3, -30);        //value not tested
-            Bot.strafeRight(.4, 1);
-            Bot.rotateLeft(midSpeed, .5);
-            Bot.gyroCorrection(gyroSPD, -90);
-
+            Bot.driveBackward(midSpeed, .4);
+            Bot.rotateLeft(midSpeed, 2);        // was 2
+            Bot.gyroCorrection(gyroSPD, 50);        //was 50
         }
+
+
     }
 
 
@@ -168,11 +161,19 @@ public abstract class AutoBuilding extends AutoMain {
     }
 
     public void parkBuildingPlateInner (MetalBot Bot, String Alliance) {
-            Bot.strafeRight(lowSpeed, .4);
-            Bot.rotateRight(midSpeed, 2);
-            Bot.gyroCorrection(gyroSPD, 179);
-            Bot.driveForward(midSpeed, 2.5);
 
+        if (Alliance == "Red") {
+            Bot.strafeRight(lowSpeed, .4);
+           Bot.driveForward(midSpeed, 2);
+           Bot.gyroCorrection(gyroSPD, -90);
+           Bot.driveForward(midSpeed, 1.8);
+        }
+        else if (Alliance == "Blue") {
+            Bot.strafeRight(lowSpeed, .35);
+            Bot.driveBackward(midSpeed, 2.7);
+            Bot.gyroCorrection(gyroSPD, 86);
+            Bot.driveBackward(midSpeed, 1.5);
+        }
     }
 
 
