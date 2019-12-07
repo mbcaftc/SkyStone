@@ -218,7 +218,9 @@ public class WoodBot extends MecanumDrive {
 
         double target = angles.firstAngle;
         double startPosition = frontLeftMotor.getCurrentPosition();
-
+        linearOp.telemetry.addData("Angle to start: ", angles.firstAngle);
+        linearOp.telemetry.update();
+        linearOp.sleep(2000);
             while (currentPos < encoders + startPosition && linearOp.opModeIsActive()) {
 
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -290,6 +292,7 @@ public class WoodBot extends MecanumDrive {
                 linearOp.telemetry.addData("Distance till destination ", encoders + startPosition - frontLeftMotor.getCurrentPosition());
                 linearOp.telemetry.addData("Current Position", currentPos);
                 linearOp.telemetry.addData("Target Position", target);
+                linearOp.telemetry.addData("Angle: ", angles.firstAngle);
 
                 linearOp.telemetry.update();
                 // missing waiting

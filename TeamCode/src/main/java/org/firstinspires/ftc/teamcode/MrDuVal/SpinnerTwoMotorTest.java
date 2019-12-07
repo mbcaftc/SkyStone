@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp (name = "Spinner Motor Intake Test- both motors", group = "Lab")
 @Disabled
-public class OneMotorTest extends OpMode {
+public class SpinnerTwoMotorTest extends OpMode {
     DcMotor spinnerIntakeL;
     DcMotor spinnerIntakeR;
     @Override

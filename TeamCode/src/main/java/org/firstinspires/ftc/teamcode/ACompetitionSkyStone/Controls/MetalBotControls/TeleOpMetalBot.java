@@ -31,7 +31,8 @@ public class TeleOpMetalBot extends OpMode {
     double powerThreshold = 0;
     double encoders;
 
-
+    double stoneRotatePos;
+    double stoneGrabberPos;
 
 
     // Runs ONCE when driver presses INIT
@@ -79,7 +80,11 @@ public class TeleOpMetalBot extends OpMode {
 
         controlStackingArmGrabber();
 
+        Bot.setServos();
+
         //SimulateAuto();
+        telemetryOutput();
+
 
 
     }
@@ -163,24 +168,28 @@ public class TeleOpMetalBot extends OpMode {
 
     public void controlStoneServo() {
         if (gamepad2.left_stick_y > 0.1) {
-            telemetry.addLine("drop control stone servo!");
+            telemetry.addLine("Lower control stone servo!");
             //telemetry.addData("servo ", Bot.stoneServo.getPosition());
             telemetry.update();
             Bot.raiseStone();      //was .5
         }
         else if (gamepad2.left_stick_y <  -.1) {
-            telemetry.addLine("grab the control stone servo");
+            telemetry.addLine("Raise the control stone servo");
             //telemetry.addData("servo ", Bot.stoneServo.getPosition());
             telemetry.update();
             Bot.dropStone();      // was .77 but too low
         }
         else if (gamepad2.b == true){
             Bot.grabStone();
+            telemetry.addLine("Grab Stone");
+            telemetry.update();
 
         }
 
         else if (gamepad2.x == true) {
             Bot.releaseStone();
+            telemetry.addLine("Release Stone");
+            telemetry.update();
         }
     }
 
@@ -338,20 +347,24 @@ public class TeleOpMetalBot extends OpMode {
 
     public void telemetryOutput() {
 
-        telemetry.addData("Gyro Heading", Bot.angles.firstAngle);
-        telemetry.addData("Gyro Roll", Bot.angles.secondAngle);
-        telemetry.addData("Gyro Pitch", Bot.angles.thirdAngle);
+//        telemetry.addData("Gyro Heading", Bot.angles.firstAngle);
+//        telemetry.addData("Gyro Roll", Bot.angles.secondAngle);
+//        telemetry.addData("Gyro Pitch", Bot.angles.thirdAngle);
+//
+//        telemetry.addData("Encoders AUTO count: ", encoders);
 
-        telemetry.addData("Encoders AUTO count: ", encoders);
-
-        telemetry.addData("Encoder Counts ", Bot.frontLeftMotor.getCurrentPosition() / Bot.TICKS_PER_ROTATION);
+//        telemetry.addData("Encoder Counts ", Bot.frontLeftMotor.getCurrentPosition() / Bot.TICKS_PER_ROTATION);
         telemetry.addData("Motor ", "Front Left: " + frontLeftSpeed);
         telemetry.addData("Motor ", "Front Right: " + frontRightSpeed);
         telemetry.addData("Motor ", "Rear Left: " + rearLeftSpeed);
         telemetry.addData("Motor ", "Rear Right: " + rearRightSpeed);
 
-        telemetry.addData("Left Hook Servo: ", Bot.HookLeft);
-        telemetry.addData("Right Hook Servo: ", Bot.HookRight);
+        telemetry.addData("Stone Grabber Servo: ", Bot.stoneGrabber.getPosition());
+        telemetry.addData("Stone Grabber Var: ", Bot.stoneGrabberPos);
+        telemetry.addData("Stone Rotater Servo: ", Bot.stoneRotate.getPosition());
+        telemetry.addData("Stone Rotater Var: ", Bot.stoneRotatePos);
+        telemetry.addData("Left Hook Servo: ", Bot.HookLeft.getPosition());
+        telemetry.addData("Right Hook Servo: ", Bot.HookRight.getPosition());
         //telemetry.addData("Stone Grab Servo: ", Bot.stoneServo);
 
 //        telemetry.addData("Camera Visible Target", Cam.targetName);
