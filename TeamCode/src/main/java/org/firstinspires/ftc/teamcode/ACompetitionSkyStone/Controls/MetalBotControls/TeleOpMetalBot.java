@@ -18,7 +18,7 @@ public class TeleOpMetalBot extends OpMode {
     public MetalBot Bot = new MetalBot();
 
 
-    // Variables & Constants specific to TeleLabBot
+    // Variables & Constants specific to TeleLabBot//
     double leftStickYVal;
     double leftStickXVal;
     double rightStickXVal;
