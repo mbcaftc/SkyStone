@@ -27,6 +27,8 @@ public class AutoBlueBuildingPlate extends AutoBuilding {
 
         while (opModeIsActive()) {
 
+            goToBuildPlate(Bot, "Blue");
+
             orientBuildPlateBuild(Bot, "Blue");
 
             pushBuildPlate(Bot, "Blue");

@@ -202,14 +202,14 @@ public class MetalBot extends MecanumDrive {
     // Mechanism Methods
 
 
-    public void HookRelease () {
+    public void HookGrab () {
 
         HookLeft.setPosition(.05);
         HookRight.setPosition(.75);
     }
 
 
-    public void HookGrab () {
+    public void HookRelease () {
 
         HookLeft.setPosition(.8);
         HookRight.setPosition(0.0);
@@ -232,7 +232,7 @@ public class MetalBot extends MecanumDrive {
 //        stoneGrabber.setPosition(0);
     }
     public void releaseStone() {
-        stoneGrabberPos = .7;
+        stoneGrabberPos = .9;
 //        stoneGrabber.setPosition(.7);
     }
     public void neutralStone () {
