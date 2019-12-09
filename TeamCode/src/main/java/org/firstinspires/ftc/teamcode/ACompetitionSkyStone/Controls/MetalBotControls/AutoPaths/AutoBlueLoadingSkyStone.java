@@ -32,6 +32,7 @@ public class AutoBlueLoadingSkyStone extends AutoLoading {
 
             Bot.strafeRight(lowSpeed, .1);
 
+            encoderAdditionDetection(Bot, "Blue");
 
             detectSkyStone (Bot, "Blue"); //drive back until detects SKyStone
             sleep(sleepTime);

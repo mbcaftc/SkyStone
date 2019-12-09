@@ -35,20 +35,24 @@ public class AutoRedLoadingSkyStone extends AutoLoading {
             detectSkyStone (Bot, "Red"); //drive back until detects SKyStone
             sleep(sleepTime);
 
+            encoderAdditionDetection(Bot, "Red");
+
             manipulateStone(Bot, "grab"); //Grabs skystone
             sleep(sleepTime);
 
             removeSkyStoneInner(Bot, "Red");
             sleep(sleepTime);
 
-            adjustToDropSkyStone(Bot, "Red");
-            sleep(sleepTime);
-
             goToFirstLocation(Bot, "Red");
             sleep(sleepTime);
 
-            parkSkyStone(Bot, "Red");
+            //parkSkyStone(Bot, "Red");
 
+            postBuildPlateMove(Bot, "Red");
+            sleep(sleepTime);
+
+            manipulateStone(Bot,"release");
+            sleep(sleepTime);
 
 
             requestOpModeStop();
