@@ -34,9 +34,10 @@ public class TeleOpWoodBot extends OpMode {
     double rearLeftSpeed;
     double rearRightSpeed;
 
+
     double powerThreshold = 0;
     double encoders;
-
+    double speedMultiply = 1;
 
 
 
@@ -76,8 +77,9 @@ public class TeleOpWoodBot extends OpMode {
         controlResetEncoders ();
         controlResetGyro();
         controlStoneServo();    //emma
-        SimulateAuto ();
+      //  SimulateAuto ();
         controlCapstone();
+        slowDrive();
 
     }
 
@@ -114,30 +116,30 @@ public class TeleOpWoodBot extends OpMode {
 
         if (frontLeftSpeed <= powerThreshold && frontLeftSpeed >= -powerThreshold) {
             frontLeftSpeed = 0;
-            Bot.frontLeftMotor.setPower(frontLeftSpeed);
+            Bot.frontLeftMotor.setPower(frontLeftSpeed * speedMultiply);
         } else {
-            Bot.frontLeftMotor.setPower(frontLeftSpeed);
+            Bot.frontLeftMotor.setPower(frontLeftSpeed * speedMultiply);
         }
 
         if (frontRightSpeed <= powerThreshold && frontRightSpeed >= -powerThreshold){
             frontRightSpeed = 0;
-            Bot.frontRightMotor.setPower(frontRightSpeed);
+            Bot.frontRightMotor.setPower(frontRightSpeed * speedMultiply);
         } else {
-            Bot.frontRightMotor.setPower(frontRightSpeed);
+            Bot.frontRightMotor.setPower(frontRightSpeed * speedMultiply);
         }
 
         if (rearLeftSpeed <= powerThreshold && rearLeftSpeed >= -powerThreshold) {
             rearLeftSpeed = 0;
-            Bot.rearLeftMotor.setPower(rearLeftSpeed);
+            Bot.rearLeftMotor.setPower(rearLeftSpeed * speedMultiply);
         } else {
-            Bot.rearLeftMotor.setPower(rearLeftSpeed);
+            Bot.rearLeftMotor.setPower(rearLeftSpeed * speedMultiply);
         }
 
         if (rearRightSpeed <= powerThreshold && rearRightSpeed >= -powerThreshold){
             rearRightSpeed = 0;
-            Bot.rearRightMotor.setPower(rearRightSpeed);
+            Bot.rearRightMotor.setPower(rearRightSpeed * speedMultiply);
         } else {
-            Bot.rearRightMotor.setPower(rearRightSpeed);
+            Bot.rearRightMotor.setPower(rearRightSpeed * speedMultiply);
         }
 
     }
@@ -161,7 +163,7 @@ public class TeleOpWoodBot extends OpMode {
 
 
 
-    public void SimulateAuto () {
+  /*  public void SimulateAuto () {
 
         if (gamepad1.dpad_left) {
             Bot.rotateLeft(.5, .5, "TeleOp");
@@ -187,7 +189,7 @@ public class TeleOpWoodBot extends OpMode {
             Bot.strafeRight(.5,.5, "TeleOp");
             encoders += .5;
         }
-    }
+    }*/
 
     public void controlHook() {
         if (gamepad2.a) {
@@ -220,6 +222,15 @@ public class TeleOpWoodBot extends OpMode {
 
         else if (gamepad2.right_bumper) {
             Bot.dropCapstone();
+        }
+    }
+
+    public void slowDrive() {
+        if (gamepad1.dpad_down) {
+            speedMultiply = 0.25;
+        }
+        else if (gamepad1.dpad_up) {
+            speedMultiply = 1;
         }
     }
 
