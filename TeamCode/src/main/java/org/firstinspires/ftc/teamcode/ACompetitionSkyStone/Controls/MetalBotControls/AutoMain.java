@@ -42,11 +42,14 @@ public abstract class AutoMain extends LinearOpMode {
         if (manipulate == "grab") {
 
 
-            Bot.grabStone();
+            Bot.dropStone();
             sleep(1000);
+            Bot.raiseStone();
         }
         if (manipulate == "release") {
-            Bot.dropStone();
+            Bot.releaseStone();
+            sleep(1000);
+            Bot.raiseStone();
         }
         idle();
     }
@@ -169,11 +172,11 @@ public abstract class AutoMain extends LinearOpMode {
             linearOp.telemetry.addData("Target Left Motor Position: ", tracker);
             linearOp.telemetry.update();
             if (Alliance == "Red") {
-                Bot.strafeLeft(.3);
+                Bot.driveForward(.3);
 
             }
             else if (Alliance == "Blue") {
-                Bot.strafeLeft(.3 );
+                Bot.driveBackward(.3 );
             }
 
         }

@@ -6,6 +6,15 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 public abstract class AutoLoading extends AutoMain {
 
 
+    public void encoderAdditionDetection (MetalBot Bot, String Alliance) {
+       if (Alliance == "Red") {
+           Bot.driveForward(midSpeed, .3);
+       }
+       else if (Alliance == "Blue") {
+           Bot.driveBackward(midSpeed, .3);
+       }
+    }
+
     public void dropSkyStone(MetalBot Bot, String Alliance) {
 
         if (Alliance == "Red") {
@@ -125,6 +134,53 @@ public abstract class AutoLoading extends AutoMain {
 
 
     }
+
+
+    // two new methods for parking and dropping stone in loading auto
+
+     public void preBuildPlateMove (MetalBot Bot, String Alliance ) {
+         if (Alliance == "Red") {
+             Bot.driveForward(midSpeed, 3);
+             Bot.rotateRight(midSpeed, 2.5);
+             Bot.gyroCorrection(gyroSPD, 90);
+             Bot.driveBackward(midSpeed, 2);
+         }
+         else if (Alliance == "Blue") {
+             Bot.driveBackward(midSpeed, 3);
+             Bot.rotateLeft(midSpeed, 2.5);
+             Bot.gyroCorrection(gyroSPD, -90);
+             Bot.driveBackward(midSpeed, 2);
+
+         }
+     }
+
+     public void postBuildPlateMove (MetalBot Bot, String Alliance) {
+
+        if (Alliance == "Red") {
+            Bot.driveForward(midSpeed, 3);
+            Bot.rotateRight(midSpeed, 2.5);
+            Bot.gyroCorrection(gyroSPD, 90);
+            Bot.strafeLeft(midSpeed, 2);
+        }
+        else if (Alliance == "Blue") {
+            Bot.driveBackward(midSpeed, 3);
+            Bot.rotateLeft(midSpeed, 2.5);
+            Bot.gyroCorrection(gyroSPD, -90);
+            Bot.strafeRight(midSpeed, 2);
+        }
+
+     }
+
+
+
+
+
+
+
+
+
+
+
 
     public void parkSkyStone (MetalBot Bot, String Alliance) {
 
