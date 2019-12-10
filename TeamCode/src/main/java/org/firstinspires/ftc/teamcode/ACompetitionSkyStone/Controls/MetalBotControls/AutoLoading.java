@@ -19,18 +19,17 @@ public abstract class AutoLoading extends AutoMain {
 
         if (Alliance == "Red") {
 
-                    Bot.strafeLeft(highSpeed, 5.5);
+                    Bot.driveForward(highSpeed, 8);
                     Bot.gyroCorrection(gyroSPD, -91);
 
 //
         } else if (Alliance == "Blue") {
 
-                    Bot.strafeLeft(highSpeed, 5.7);
+                    Bot.driveBackward(highSpeed, 8);
                     Bot.gyroCorrection(gyroSPD, 91);
 
         }
-        sleep(sleepTime);
-        Bot.dropStone();
+        sleep(sleepTime);;
     }
 
 
@@ -167,6 +166,24 @@ public abstract class AutoLoading extends AutoMain {
             Bot.rotateLeft(midSpeed, 2.5);
             Bot.gyroCorrection(gyroSPD, -90);
             Bot.strafeRight(midSpeed, 2);
+        }
+
+     }
+
+     public void postPlatePark (MetalBot Bot, String Alliance) {
+
+        if (Alliance == "Red") {
+            Bot.strafeRight(midSpeed, 1);
+            Bot.rotateRight(midSpeed, 2.5);
+            Bot.gyroCorrection(gyroSPD, 179);
+            Bot.driveForward(midSpeed, 3);
+        }
+        else if (Alliance == "Blue") {
+            Bot.strafeRight(midSpeed, 1);
+            Bot.rotateLeft(midSpeed, 2.5);
+            Bot.gyroCorrection(gyroSPD, -179);
+            Bot.driveBackward(midSpeed, 3);
+
         }
 
      }

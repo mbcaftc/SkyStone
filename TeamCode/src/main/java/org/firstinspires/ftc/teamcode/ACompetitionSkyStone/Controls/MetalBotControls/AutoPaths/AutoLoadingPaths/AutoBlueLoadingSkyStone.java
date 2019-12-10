@@ -1,16 +1,12 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths.AutoLoadingPaths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoLoading;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls.AutoLoadingWood;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Blue:Loading:Inner:Full")
-@Disabled
-public class AutoBlueLoadingInnerFull extends AutoLoading {
+@Autonomous(name = "Blue:Loading:SkyStone")
+public class AutoBlueLoadingSkyStone extends AutoLoading {
 
     public MetalBot Bot = new MetalBot();
 
@@ -19,6 +15,8 @@ public class AutoBlueLoadingInnerFull extends AutoLoading {
 
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
+        Bot.HookRelease();
+        Bot.dropStone();
 
         setLinearOp(this);
 
@@ -33,6 +31,8 @@ public class AutoBlueLoadingInnerFull extends AutoLoading {
             sleep(sleepTime);
 
             Bot.strafeRight(lowSpeed, .1);
+
+            encoderAdditionDetection(Bot, "Blue");
 
             detectSkyStone (Bot, "Blue"); //drive back until detects SKyStone
             sleep(sleepTime);
@@ -49,20 +49,14 @@ public class AutoBlueLoadingInnerFull extends AutoLoading {
             goToFirstLocation(Bot, "Blue");
             sleep(sleepTime);
 
-            dropSkyStone(Bot, "Blue");
+            postBuildPlateMove(Bot, "Blue");
             sleep(sleepTime);
 
-            alignGrabBuildPlateInner(Bot, "Blue");
+            manipulateStone(Bot,"release");
             sleep(sleepTime);
 
-            orientBuildPlate(Bot, "Blue");
-            sleep(sleepTime);
+            postPlatePark(Bot, "Blue");
 
-            pushBuildPlate(Bot, "Blue");
-            sleep(sleepTime);
-
-            parkInner(Bot, "Blue");
-            sleep(sleepTime);
 
 
             requestOpModeStop();

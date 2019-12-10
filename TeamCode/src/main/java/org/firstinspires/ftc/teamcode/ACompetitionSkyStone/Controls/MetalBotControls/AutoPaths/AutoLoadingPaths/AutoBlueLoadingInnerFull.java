@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths.AutoLoadingPaths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -8,9 +8,9 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotContr
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Red:Loading:Outer:Full")
+@Autonomous(name = "Blue:Loading:Inner:Full")
 @Disabled
-public class AutoRedLoadingOuterFull extends AutoLoading {
+public class AutoBlueLoadingInnerFull extends AutoLoading {
 
     public MetalBot Bot = new MetalBot();
 
@@ -32,36 +32,35 @@ public class AutoRedLoadingOuterFull extends AutoLoading {
             detectStoneDistance(Bot); //drives forward to find any stone
             sleep(sleepTime);
 
-            detectSkyStone (Bot, "Red"); //drive back until detects SKyStone
+            Bot.strafeRight(lowSpeed, .1);
+
+            detectSkyStone (Bot, "Blue"); //drive back until detects SKyStone
             sleep(sleepTime);
 
             manipulateStone(Bot, "grab"); //Grabs skystone
             sleep(sleepTime);
 
-            removeSkyStoneOuter(Bot, "Red");
+            removeSkyStoneInner(Bot, "Blue");
             sleep(sleepTime);
 
-            adjustToDropSkyStone(Bot, "Red");
+            adjustToDropSkyStone(Bot, "Blue");
             sleep(sleepTime);
 
-            goToFirstLocation(Bot, "Red");
+            goToFirstLocation(Bot, "Blue");
             sleep(sleepTime);
 
-            dropSkyStone(Bot, "Red");
+            dropSkyStone(Bot, "Blue");
             sleep(sleepTime);
 
-            Bot.strafeLeft(midSpeed, .5);
-
-            alignBuildPlateOuter(Bot, "Red");
+            manipulateStone(Bot,"release");
             sleep(sleepTime);
 
-            orientBuildPlate(Bot, "Red");
+            Bot.strafeLeft(lowSpeed, .5);
+
+            orientBuildPlateBuild(Bot, "Blue");
             sleep(sleepTime);
 
-            pushBuildPlate(Bot, "Red");
-            sleep(sleepTime);
-
-            parkOuter(Bot, "Red");
+            parkBuildingPlateInner(Bot, "Blue");
             sleep(sleepTime);
 
 

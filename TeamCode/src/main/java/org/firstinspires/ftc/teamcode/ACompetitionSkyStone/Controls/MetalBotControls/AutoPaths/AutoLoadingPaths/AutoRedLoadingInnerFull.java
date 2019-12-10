@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths.AutoLoadingPaths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -41,8 +41,8 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             removeSkyStoneInner(Bot, "Red");
             sleep(sleepTime);
 
-            adjustToDropSkyStone(Bot, "Red");
-            sleep(sleepTime);
+            //adjustToDropSkyStone(Bot, "Red");
+            //sleep(sleepTime);
 
             goToFirstLocation(Bot, "Red");
             sleep(sleepTime);
@@ -50,17 +50,18 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             dropSkyStone(Bot, "Red");
             sleep(sleepTime);
 
-            alignGrabBuildPlateInner(Bot, "Red");
+            manipulateStone(Bot,"release");
             sleep(sleepTime);
 
-            orientBuildPlate(Bot, "Red");
+            Bot.strafeLeft(lowSpeed, .5);
+
+            orientBuildPlateBuild(Bot, "Red");
             sleep(sleepTime);
 
-            pushBuildPlate(Bot, "Red");
+            parkBuildingPlateInner(Bot, "Red");
             sleep(sleepTime);
 
-            parkInner(Bot, "Red");
-            sleep(sleepTime);
+
 
 
             requestOpModeStop();

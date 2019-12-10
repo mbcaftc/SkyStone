@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths.AutoBuildingPaths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -7,8 +7,8 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotContr
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Blue:Building Plate:")
-public class AutoBlueBuildingPlate extends AutoBuilding {
+@Autonomous(name = "Red:Building Plate")
+public class AutoRedBuildingPlate extends AutoBuilding {
 
     public MetalBot Bot = new MetalBot();
 
@@ -27,13 +27,14 @@ public class AutoBlueBuildingPlate extends AutoBuilding {
 
         while (opModeIsActive()) {
 
-            goToBuildPlate(Bot, "Blue");
+            goToBuildPlate(Bot, "Red");
 
-            orientBuildPlateBuild(Bot, "Blue");
+            orientBuildPlateBuild(Bot, "Red");
 
-            pushBuildPlate(Bot, "Blue");
+            pushBuildPlate(Bot, "Red");
 
-            parkBuildingPlateInner(Bot, "Blue");
+            parkBuildingPlateInner(Bot, "Red");
+
 
             requestOpModeStop();
         }

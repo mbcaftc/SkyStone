@@ -1,12 +1,14 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths.AutoLoadingPaths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoLoading;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls.AutoLoadingWood;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
+import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Blue:Loading:SkyStone")
-public class AutoBlueLoadingSkyStone extends AutoLoading {
+@Autonomous(name = "Red:Loading:SkyStone")
+public class AutoRedLoadingSkyStone extends AutoLoading {
 
     public MetalBot Bot = new MetalBot();
 
@@ -30,26 +32,29 @@ public class AutoBlueLoadingSkyStone extends AutoLoading {
             detectStoneDistance(Bot); //drives forward to find any stone
             sleep(sleepTime);
 
-            Bot.strafeRight(lowSpeed, .1);
-
-            encoderAdditionDetection(Bot, "Blue");
-
-            detectSkyStone (Bot, "Blue"); //drive back until detects SKyStone
+            detectSkyStone (Bot, "Red"); //drive back until detects SKyStone
             sleep(sleepTime);
+
+            encoderAdditionDetection(Bot, "Red");
 
             manipulateStone(Bot, "grab"); //Grabs skystone
             sleep(sleepTime);
 
-            removeSkyStoneInner(Bot, "Blue");
+            removeSkyStoneInner(Bot, "Red");
             sleep(sleepTime);
 
-            adjustToDropSkyStone(Bot, "Blue");
+            goToFirstLocation(Bot, "Red");
             sleep(sleepTime);
 
-            goToFirstLocation(Bot, "Blue");
+            //parkSkyStone(Bot, "Red");
+
+            postBuildPlateMove(Bot, "Red");
             sleep(sleepTime);
 
-            parkSkyStone(Bot, "Blue");
+            manipulateStone(Bot,"release");
+            sleep(sleepTime);
+
+            postPlatePark(Bot, "Red");
 
 
 

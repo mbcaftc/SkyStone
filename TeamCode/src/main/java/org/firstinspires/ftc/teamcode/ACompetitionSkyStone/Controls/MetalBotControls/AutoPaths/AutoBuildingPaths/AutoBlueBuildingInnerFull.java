@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths.AutoBuildingPaths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -8,9 +8,9 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotContr
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Red Building:Inner:Full")
+@Autonomous(name = "Blue:Building:Inner:Full")
 @Disabled
-public class AutoRedBuildingInnerFull extends AutoBuilding {
+public class AutoBlueBuildingInnerFull extends AutoBuilding {
 
     public MetalBot Bot = new MetalBot();
 
@@ -28,17 +28,17 @@ public class AutoRedBuildingInnerFull extends AutoBuilding {
 
         while (opModeIsActive()) {
 
-            alignBuildPlate(Bot, "Red");
+            alignBuildPlate(Bot, "Blue");
             sleep(sleepTime);
 
-            goToSkystones(Bot, "Red");
+            goToSkystones(Bot, "Blue");
             sleep(sleepTime);
 
-            Bot.driveForward(midSpeed, .5);
+            Bot.driveBackward(midSpeed, .5);
 
             //detectStoneDistance(Bot);
 
-            detectSkyStone (Bot, "Red");
+            detectSkyStone (Bot, "Blue");
             sleep(sleepTime);
 
             detectStoneDistance(Bot);
@@ -46,13 +46,13 @@ public class AutoRedBuildingInnerFull extends AutoBuilding {
             manipulateStone(Bot, "grab");
             sleep(sleepTime);
 
-            removeSkyStoneInner(Bot, "Red");
+            removeSkyStoneInner(Bot, "Blue");
 
-            adjustToDropSkyStone(Bot, "Red");
+            adjustToDropSkyStone(Bot, "Blue");
 
             dropStone(Bot);
 
-            park (Bot, "Red");
+            park (Bot, "Blue");
 
             requestOpModeStop();
         }
