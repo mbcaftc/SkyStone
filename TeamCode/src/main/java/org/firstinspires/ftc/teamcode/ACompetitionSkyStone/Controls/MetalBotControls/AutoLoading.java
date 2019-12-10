@@ -188,6 +188,28 @@ public abstract class AutoLoading extends AutoMain {
 
      }
 
+    public void postPlateParkOuter (MetalBot Bot, String Alliance) {
+
+        if (Alliance == "Red") {
+            Bot.strafeRight(midSpeed, 1);
+            Bot.rotateRight(midSpeed, 2.5);
+            Bot.gyroCorrection(gyroSPD, 179);
+            Bot.driveForward(midSpeed, 1.5);
+            Bot.strafeRight(midSpeed, 3);
+            Bot.driveForward(midSpeed, 1.5);
+        }
+        else if (Alliance == "Blue") {
+            Bot.strafeRight(midSpeed, 1);
+            Bot.rotateLeft(midSpeed, 2.5);
+            Bot.gyroCorrection(gyroSPD, -179);
+            Bot.driveBackward(midSpeed, 1.5);
+            Bot.strafeRight(midSpeed, 3);
+            Bot.driveBackward(midSpeed, 1.5);
+
+        }
+
+    }
+
 
 
 
