@@ -171,6 +171,34 @@ public abstract class AutoMain extends LinearOpMode {
         }
     }
 
+    public void parkBuildingPlateOuter (MetalBot Bot, String Alliance) {
+        if (Alliance == "Red") {
+            Bot.strafeRight(lowSpeed, .4);
+            Bot.rotateRight(midSpeed, 2);
+            Bot.gyroCorrection(gyroSPD, -179);
+            Bot.driveForward(midSpeed, 2.5);
+            Bot.strafeRight(lowSpeed, 3);
+            Bot.driveForward(midSpeed, 1);
+            Bot.strafeRight(lowSpeed, .8);
+            Bot.driveForward(lowSpeed, .5);
+            Bot.gyroCorrection(gyroSPD, 179);
+        }
+
+        else if (Alliance == "Blue") {
+            Bot.strafeRight(lowSpeed, .4);
+            Bot.rotateLeft(midSpeed, 2);
+            Bot.gyroCorrection(gyroSPD, 179);
+            Bot.driveBackward(midSpeed, 1.25);
+            Bot.strafeRight(midSpeed, 3);
+            Bot.driveBackward(midSpeed, 1.25);
+            Bot.gyroCorrection(gyroSPD,-179);
+            Bot.gyroCorrection(gyroSPD, 179);
+            Bot.driveBackward(lowSpeed, 1.1);
+            Bot.gyroCorrection(gyroSPD, -179);
+            Bot.strafeRight(lowSpeed, .4);
+        }
+    }
+
 
     public void detectSkyStone (MetalBot Bot, String Alliance) {
 
