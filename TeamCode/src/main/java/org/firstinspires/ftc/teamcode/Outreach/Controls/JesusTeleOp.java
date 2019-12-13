@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.Outreach.DriveTrains.TwoWheelDrive;
 import org.firstinspires.ftc.teamcode.Outreach.Robot.JesusBot;
 
 @TeleOp(name = "Jesus Outreach Tele Op", group = "Outreach")
-@Disabled
 
 
 
@@ -25,35 +24,55 @@ public class JesusTeleOp extends OpMode {
 
     public void loop () {
 
+        drive();
+        lift();
+
+
+    }
+
+    public void lift() {
+        if (gamepad1.y) {
+
+            Bot.runLift(1);
+
+        } else if (gamepad1.a) {
+
+            Bot.runLift(-1);
+
+        } else {
+
+            Bot.runLift(0);
+
+        }
+
+
     }
 
     public void drive() {
-//            if(gamepad1.dpad_up) {      // code that works
 
         if (gamepad1.left_stick_y > .1) {
+
             Bot.driveForward(gamepad1.left_stick_y);
+
         } else if (gamepad1.left_stick_y < -.1) {
+
             Bot.driveBackward(gamepad1.left_stick_y);
+
         } else if (gamepad1.left_stick_x > .1) {
+
             Bot.rotateLeft(gamepad1.left_stick_x);
+
         } else if (gamepad1.left_stick_x < -.1) {
+
             Bot.rotateRight(gamepad1.left_stick_x);
+
+
         } else {
+
             Bot.stopMotors();
         }
-//            }
-//            else if (gamepad1.dpad_down) {              // experimental code
-        if (gamepad1.left_stick_y > .1) {                                      //------------------------------------Drive FORWARD
-            Bot.driveForward(gamepad1.left_stick_y);                          //------------------------------------Drive FORWARD
-        } else if (gamepad1.left_stick_y < -.1) {                            //------------------------------------Drive BACKWARD
-            Bot.driveBackward(gamepad1.left_stick_y);                       //------------------------------------Drive BACKWARD
-        } else if (gamepad1.left_stick_x > .1) {                           //------------------------------------Rotate LEFT
-            Bot.rotateLeft(gamepad1.left_stick_x);                        //------------------------------------Rotate LEFT
-        } else if (gamepad1.left_stick_x < -.1) {                        //------------------------------------Rotate RIGHT
-            Bot.rotateRight(gamepad1.left_stick_x);                     //------------------------------------Rotate RIGHT
-        } else {
-            Bot.stopMotors();
-        }
+
+
     }
 
 }
