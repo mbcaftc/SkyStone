@@ -49,8 +49,8 @@ import java.util.concurrent.TimeUnit;
  *
  * Displays the first pattern upon init.
  */
-@TeleOp(name="Outreach LED Tester")
-@Disabled
+@TeleOp(name="Outreach LED Tester Example", group = "Lab")
+//@Disabled
 public class LEDriverTest extends OpMode {
 
     /*

@@ -33,6 +33,7 @@ public class TeleOpMetalBot extends OpMode {
 
     double stoneRotatePos;
     double stoneGrabberPos;
+    double speedMultiply = 1;
 
 
     // Runs ONCE when driver presses INIT
@@ -82,6 +83,8 @@ public class TeleOpMetalBot extends OpMode {
 
         Bot.setServos();
 
+        slowDrive();
+
         //SimulateAuto();
         telemetryOutput();
 
@@ -124,30 +127,30 @@ public class TeleOpMetalBot extends OpMode {
 
         if (frontLeftSpeed <= powerThreshold && frontLeftSpeed >= -powerThreshold) {
             frontLeftSpeed = 0;
-            Bot.frontLeftMotor.setPower(frontLeftSpeed);
+            Bot.frontLeftMotor.setPower(frontLeftSpeed * speedMultiply);
         } else {
-            Bot.frontLeftMotor.setPower(frontLeftSpeed);
+            Bot.frontLeftMotor.setPower(frontLeftSpeed * speedMultiply);
         }
 
         if (frontRightSpeed <= powerThreshold && frontRightSpeed >= -powerThreshold){
             frontRightSpeed = 0;
-            Bot.frontRightMotor.setPower(frontRightSpeed);
+            Bot.frontRightMotor.setPower(frontRightSpeed * speedMultiply);
         } else {
-            Bot.frontRightMotor.setPower(frontRightSpeed);
+            Bot.frontRightMotor.setPower(frontRightSpeed * speedMultiply);
         }
 
         if (rearLeftSpeed <= powerThreshold && rearLeftSpeed >= -powerThreshold) {
             rearLeftSpeed = 0;
-            Bot.rearLeftMotor.setPower(rearLeftSpeed);
+            Bot.rearLeftMotor.setPower(rearLeftSpeed * speedMultiply);
         } else {
-            Bot.rearLeftMotor.setPower(rearLeftSpeed);
+            Bot.rearLeftMotor.setPower(rearLeftSpeed * speedMultiply);
         }
 
         if (rearRightSpeed <= powerThreshold && rearRightSpeed >= -powerThreshold){
             rearRightSpeed = 0;
-            Bot.rearRightMotor.setPower(rearRightSpeed);
+            Bot.rearRightMotor.setPower(rearRightSpeed * speedMultiply);
         } else {
-            Bot.rearRightMotor.setPower(rearRightSpeed);
+            Bot.rearRightMotor.setPower(rearRightSpeed * speedMultiply);
         }
 
     }
@@ -222,20 +225,26 @@ public class TeleOpMetalBot extends OpMode {
     public void controlIntakeArms() {
         if (gamepad2.dpad_down) {
             //Bot.intakeArmHold();
+            Bot.intakeDeployLower();
         }
         else if (gamepad2.dpad_up) {
             //Bot.intakeArmRelease();
+            Bot.intakeDeployRaise();
+        }
+        else {
+            Bot.intakeDeployOff();
         }
     }
 
 
+
     public void controlIntakeSpinners() {
         if (gamepad2.right_bumper) {                      //was gamepad2.left_trigger > 0.1
-            //Bot.intakeSpinInward();
-        } else if (gamepad2.left_bumper) {              //was gamepad2.right_trigger > 0.1
-            //Bot.intakeSpinOutward();
+            Bot.intakeSpinOutward();
+        } else if (gamepad2.left_bumper) {              //was gamepad2.right_trigger > 0.1 //left bumper intakes
+            Bot.intakeSpinInward();
         } else {
-            //Bot.intakeSpinOff();
+            Bot.intakeSpinOff();
         }
 
     }
@@ -274,6 +283,15 @@ public class TeleOpMetalBot extends OpMode {
         }
         else {
             Bot.stackingArmOff();                           //added motor stop when not pushing a button
+        }
+    }
+
+    public void slowDrive() {
+        if (gamepad1.dpad_down) {
+            speedMultiply = 0.25;
+        }
+        else if (gamepad1.dpad_up) {
+            speedMultiply = 1;
         }
     }
 

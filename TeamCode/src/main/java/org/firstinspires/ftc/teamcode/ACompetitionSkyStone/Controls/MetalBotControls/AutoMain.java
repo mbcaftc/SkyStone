@@ -11,7 +11,7 @@ public abstract class AutoMain extends LinearOpMode {
 
     // Variables & Constants used for MetalBot across both Building and Loading Locations on the field
 
-    public final long  sleepTime = 20;
+    public final long  sleepTime = 15;
     public final double maxSpeed = 1;
     public final double highSpeed = .6;
     public final double midSpeed = .5;
@@ -40,17 +40,35 @@ public abstract class AutoMain extends LinearOpMode {
 
     public void manipulateStone (MetalBot Bot, String manipulate) {
         if (manipulate == "grab") {
-
-
             Bot.dropStone();
             sleep(1000);
-            Bot.raiseStone();
+            Bot.grabStone();
+            Bot.setServos();
         }
         if (manipulate == "release") {
+            Bot.dropStone();
+            sleep(1000);
             Bot.releaseStone();
             sleep(1000);
-            Bot.raiseStone();
+//            Bot.raiseStone();
+            Bot.setServos();
         }
+        if (manipulate =="release rotator") {
+            Bot.raiseStone();
+            sleep(sleepTime);
+            Bot.setServos();
+        }
+        if (manipulate == "lower rotator") {
+            Bot.dropStone();
+            sleep(1000);
+            Bot.setServos();
+        }
+        if (manipulate == "release grabber") {
+            Bot.releaseStone();
+            sleep(1000);
+            Bot.setServos();
+        }
+
         idle();
     }
 
@@ -65,10 +83,10 @@ public abstract class AutoMain extends LinearOpMode {
 
     public void removeSkyStoneInner (MetalBot Bot, String Alliance) {
         if (Alliance == "Red") {
-            Bot.strafeRight(midSpeed, .7);
+            Bot.strafeRight(midSpeed, 1);
         }
         else if (Alliance == "Blue") {
-            Bot.strafeRight(midSpeed, .7);
+            Bot.strafeRight(midSpeed, 1);
         }
     }
 
@@ -248,12 +266,19 @@ public abstract class AutoMain extends LinearOpMode {
     public void goToFirstLocation (MetalBot Bot, String Alliance) {
         Bot.frontLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Bot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        if (Alliance == "Red") {
+            Bot.gyroCorrection(gyroSPD, 0);
+        }
+        else if (Alliance == "Blue") {
+            Bot.gyroCorrection(gyroSPD, 0);
+        }
         while (Math.abs(Bot.frontLeftMotor.getCurrentPosition()) < tracker && linearOp.opModeIsActive()) {
             linearOp.telemetry.addData("Current Left Motor Position: ", Math.abs(Bot.frontLeftMotor.getCurrentPosition()));
             linearOp.telemetry.addData("Target Left Motor Position: ", tracker);
             linearOp.telemetry.update();
             if (Alliance == "Red") {
                 Bot.driveForward(.3);
+
 
             }
             else if (Alliance == "Blue") {

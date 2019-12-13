@@ -30,14 +30,14 @@ public class testingDriveGyro extends LinearOpMode {
 
 
         while (opModeIsActive()) {
-            Bot.driveGyro(4000,.2, "forward");
+            Bot.driveGyro(4000,.2, "left");
             sleep(5000);
+//
+//            Bot.setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//            Bot.setMotorRunModes(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            Bot.setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            Bot.setMotorRunModes(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            Bot.driveGyro(4000, .2, "backward");
-            sleep(1000);
+//            Bot.driveGyro(4000, .2, "backward");
+//            sleep(1000);
 
 //            Bot.setMotorRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //            Bot.setMotorRunModes(DcMotor.RunMode.RUN_USING_ENCODER);

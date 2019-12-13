@@ -18,7 +18,10 @@ public class AutoRedLoadingSkyStone extends AutoLoading {
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
         Bot.HookRelease();
-        Bot.dropStone();
+        Bot.raiseStone();
+        Bot.grabStone();
+        Bot.setServos();
+
 
         setLinearOp(this);
 
@@ -28,6 +31,9 @@ public class AutoRedLoadingSkyStone extends AutoLoading {
 
         while (opModeIsActive()) {
 
+            Bot.dropStone();
+            Bot.releaseStone();
+            Bot.setServos();
 
             detectStoneDistance(Bot); //drives forward to find any stone
             sleep(sleepTime);
@@ -37,10 +43,15 @@ public class AutoRedLoadingSkyStone extends AutoLoading {
 
             encoderAdditionDetection(Bot, "Red");
 
+            Bot.strafeLeft(lowSpeed, .2);
+
             manipulateStone(Bot, "grab"); //Grabs skystone
-            sleep(sleepTime);
+            sleep(500);
 
             removeSkyStoneInner(Bot, "Red");
+            sleep(sleepTime);
+
+            manipulateStone(Bot, "release rotator");
             sleep(sleepTime);
 
             goToFirstLocation(Bot, "Red");
@@ -51,8 +62,13 @@ public class AutoRedLoadingSkyStone extends AutoLoading {
             postBuildPlateMove(Bot, "Red");
             sleep(sleepTime);
 
-            manipulateStone(Bot,"release");
+            manipulateStone(Bot,"lower rotator");
             sleep(sleepTime);
+
+            manipulateStone(Bot, "release grabber");
+            sleep(sleepTime);
+
+            manipulateStone(Bot, "release rotator");
 
             postPlatePark(Bot, "Red");
 

@@ -62,14 +62,15 @@ public class MetalBot extends MecanumDrive {
 
     //*********************
 
-    /*
+
     public DcMotor intakeLSpinner;
     public DcMotor intakeRSpinner;
+    public DcMotor intakeDeploy;
 
-    public Servo intakeLeftArm = null;
-    public Servo intakeRightArm = null;
+//    public Servo intakeLeftArm = null;
+//    public Servo intakeRightArm = null;
 
-    */
+
 
     public Servo stackingStoneGrabber = null;
     public DcMotor stackingArm;
@@ -157,13 +158,14 @@ public class MetalBot extends MecanumDrive {
         // Define and Initialize Servos and Motors for intake
 
         /*
+
         intakeLeftArm = hwBot.get(Servo.class, "intake_left_arm");
         intakeLeftArm.setDirection(Servo.Direction.REVERSE);
 
         intakeRightArm = hwBot.get(Servo.class, "intake_right_arm");
 
 
-
+        */
 
 
         intakeRSpinner = hwBot.dcMotor.get("intake_right_spinner");
@@ -174,8 +176,12 @@ public class MetalBot extends MecanumDrive {
         intakeLSpinner.setDirection(DcMotor.Direction.FORWARD);
         intakeLSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        intakeDeploy = hwBot.dcMotor.get("intake_deploy");
+        intakeDeploy.setDirection(DcMotor.Direction.FORWARD);
+        intakeDeploy.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        */
+
+
         // Define and Initialize Servo and Motor for stacking arm
         stackingStoneGrabber = hwBot.servo.get("stacking_grabber");
         stackingArm = hwBot.dcMotor.get("stacking_arm");
@@ -228,7 +234,7 @@ public class MetalBot extends MecanumDrive {
 
     }
     public void grabStone () {
-        stoneGrabberPos = 0;
+        stoneGrabberPos = 0.4;
 //        stoneGrabber.setPosition(0);
     }
     public void releaseStone() {
@@ -241,7 +247,7 @@ public class MetalBot extends MecanumDrive {
 //        stoneRotate.setPosition(.15);
         stoneRotatePos = .15;
 //        stoneGrabber.setPosition(0);
-        stoneGrabberPos = 0;
+        stoneGrabberPos = 0.4;
     }
 
 
@@ -254,23 +260,37 @@ public class MetalBot extends MecanumDrive {
     }
 
 
-    /*
+
     public void intakeSpinInward () {
 
-        intakeLSpinner.setPower(.4);
-        intakeRSpinner.setPower(.4);
+        intakeLSpinner.setPower(-0.8);
+        intakeRSpinner.setPower(-0.8);
     }
     public void intakeSpinOutward () {
 
-        intakeLSpinner.setPower(-1);
-        intakeRSpinner.setPower(-1);
+        intakeLSpinner.setPower(0.4);
+        intakeRSpinner.setPower(0.4);
     }
     public void intakeSpinOff () {
 
         intakeLSpinner.setPower(0);
         intakeRSpinner.setPower(0);
     }
+    public void intakeDeployLower () {
 
+        intakeDeploy.setPower(0.5);
+    }
+    public void intakeDeployRaise () {
+
+        intakeDeploy.setPower(-0.5);
+    }
+    public void intakeDeployOff () {
+
+        intakeDeploy.setPower(0);
+
+    }
+
+    /*
     public void intakeArmHold() {
 
         intakeLeftArm.setPosition(.4);
@@ -285,8 +305,8 @@ public class MetalBot extends MecanumDrive {
 
     }
 
+    */
 
-     */
 
 
     public void stackingArmGrabberClose() {

@@ -8,10 +8,10 @@ public abstract class AutoLoading extends AutoMain {
 
     public void encoderAdditionDetection (MetalBot Bot, String Alliance) {
        if (Alliance == "Red") {
-           Bot.driveForward(midSpeed, .3);
+           Bot.driveForward(midSpeed, .25);
        }
        else if (Alliance == "Blue") {
-           Bot.driveBackward(midSpeed, .3);
+           Bot.driveForward(midSpeed, .4);
        }
     }
 
@@ -156,16 +156,22 @@ public abstract class AutoLoading extends AutoMain {
      public void postBuildPlateMove (MetalBot Bot, String Alliance) {
 
         if (Alliance == "Red") {
-            Bot.driveForward(midSpeed, 3);
+            Bot.driveForward(midSpeed, 4.5);
             Bot.rotateRight(midSpeed, 2.5);
-            Bot.gyroCorrection(gyroSPD, 90);
-            Bot.strafeLeft(midSpeed, 2);
+            Bot.gyroCorrection(gyroSPD, -90);
+            Bot.gyroCorrection(gyroSPD, -90);
+            Bot.strafeLeft(midSpeed, 2.9);
+            Bot.gyroCorrection(gyroSPD, -90);
+            Bot.strafeLeft(midSpeed,2.7);
         }
         else if (Alliance == "Blue") {
-            Bot.driveBackward(midSpeed, 3);
+            Bot.driveBackward(midSpeed, 4.5);
             Bot.rotateLeft(midSpeed, 2.5);
-            Bot.gyroCorrection(gyroSPD, -90);
-            Bot.strafeRight(midSpeed, 2);
+            Bot.gyroCorrection(gyroSPD, 90);
+            Bot.gyroCorrection(gyroSPD, 90);
+            Bot.strafeLeft(midSpeed, 2.9);
+            Bot.gyroCorrection(gyroSPD, 90);
+            Bot.strafeLeft(midSpeed,2.7);
         }
 
      }
@@ -174,15 +180,21 @@ public abstract class AutoLoading extends AutoMain {
 
         if (Alliance == "Red") {
             Bot.strafeRight(midSpeed, 1);
-            Bot.rotateRight(midSpeed, 2.5);
-            Bot.gyroCorrection(gyroSPD, 179);
-            Bot.driveForward(midSpeed, 3);
+            Bot.rotateRight(midSpeed, 2.3);
+            Bot.gyroCorrection(gyroSPD, -179);
+            Bot.driveForward(midSpeed, 1.8);
+            Bot.strafeRight(lowSpeed, 1);
+            Bot.driveForward(midSpeed, 2);
+            //Bot.strafeLeft(lowSpeed, .5);
         }
         else if (Alliance == "Blue") {
             Bot.strafeRight(midSpeed, 1);
-            Bot.rotateLeft(midSpeed, 2.5);
-            Bot.gyroCorrection(gyroSPD, -179);
-            Bot.driveBackward(midSpeed, 3);
+            Bot.rotateLeft(midSpeed, 2.4);
+            //Bot.gyroCorrection(gyroSPD, 179);
+            Bot.driveBackward(midSpeed, 1.8);
+            Bot.strafeLeft(lowSpeed, 1);
+            Bot.driveBackward(midSpeed, 2);
+            //Bot.strafeLeft(lowSpeed, 1.5);
 
         }
 
