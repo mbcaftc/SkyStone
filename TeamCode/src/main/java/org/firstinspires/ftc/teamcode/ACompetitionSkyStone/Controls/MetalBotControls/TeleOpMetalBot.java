@@ -74,7 +74,7 @@ public class TeleOpMetalBot extends OpMode {
         //controlCapstone ();
 
         controlIntakeArms();
-
+//
         controlIntakeSpinners();
 
         controlStackingArm();
