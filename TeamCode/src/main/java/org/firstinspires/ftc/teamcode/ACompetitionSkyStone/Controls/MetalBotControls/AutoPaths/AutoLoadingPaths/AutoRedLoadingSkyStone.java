@@ -18,7 +18,7 @@ public class AutoRedLoadingSkyStone extends AutoLoading {
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
         Bot.HookRelease();
-        Bot.raiseStone();
+        Bot.autoRaiseStone();
         Bot.grabStone();
         Bot.setServos();
 

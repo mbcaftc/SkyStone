@@ -41,7 +41,7 @@ public class MetalBot extends MecanumDrive {
     public double stoneRotatePos;
     public double stoneGrabberPos;
 
-    public double armMultiplier = .35;
+    public double armMultiplier = .45;
     //public Servo intakePusher = null;
 
     public Servo capstoneDropper = null;
@@ -228,11 +228,15 @@ public class MetalBot extends MecanumDrive {
         stoneRotatePos = .55;
     }
     public void raiseStone() {
-        // stoneRotate.setPosition(.20); // was .3
-//        stoneRotate.setPosition(.15);
-        stoneRotatePos = .15;
+
+        stoneRotatePos = .22;        //.2
 
     }
+
+    public void autoRaiseStone() {
+        stoneRotatePos =.15;
+    }
+
     public void grabStone () {
         stoneGrabberPos = 0.4;
 //        stoneGrabber.setPosition(0);

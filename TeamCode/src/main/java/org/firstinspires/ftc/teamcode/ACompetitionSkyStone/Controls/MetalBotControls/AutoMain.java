@@ -54,7 +54,7 @@ public abstract class AutoMain extends LinearOpMode {
             Bot.setServos();
         }
         if (manipulate =="release rotator") {
-            Bot.raiseStone();
+            Bot.autoRaiseStone();
             sleep(sleepTime);
             Bot.setServos();
         }
