@@ -71,8 +71,6 @@ public class AutoBlueLoadingSkyStone extends AutoLoading {
             postPlatePark(Bot, "Blue");
 
 
-
-
             requestOpModeStop();
         }
         idle();

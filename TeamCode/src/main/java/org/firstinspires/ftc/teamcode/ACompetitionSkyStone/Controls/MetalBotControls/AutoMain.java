@@ -19,7 +19,7 @@ public abstract class AutoMain extends LinearOpMode {
     public LinearOpMode linearOp = null;
     public final double gyroSPD = .25;
 
-    public final int colorImage = 27;       // was 15 ... color of image is 18, 27 in MBCA BNI room  15 comp = 20
+    public final int colorImage = 20;       // was 15 ... color of image is 18, 27 in MBCA BNI room  15 comp = 20
     public final int colorYellow = 40; //40 in MBCA BNI room b  30
     public final int colorNoBackground = 35; //is 35 ... was 60 in MBCA BNI room
     public double tracker = 0;
@@ -171,7 +171,8 @@ public abstract class AutoMain extends LinearOpMode {
             Bot.driveForward(midSpeed, 1);
             Bot.strafeRight(lowSpeed, .8);
             Bot.driveForward(lowSpeed, .5);
-            Bot.gyroCorrection(gyroSPD, 179);
+            Bot.gyroCorrection(gyroSPD, -179);
+            Bot.strafeRight(lowSpeed, .5);
         }
 
         else if (Alliance == "Blue") {

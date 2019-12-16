@@ -12,6 +12,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoImpl;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorREVColorDistance;
@@ -267,8 +269,8 @@ public class MetalBot extends MecanumDrive {
 
     public void intakeSpinInward () {
 
-        intakeLSpinner.setPower(-0.8);
-        intakeRSpinner.setPower(-0.8);
+        intakeLSpinner.setPower(-0.6);
+        intakeRSpinner.setPower(-0.6);
     }
     public void intakeSpinOutward () {
 
