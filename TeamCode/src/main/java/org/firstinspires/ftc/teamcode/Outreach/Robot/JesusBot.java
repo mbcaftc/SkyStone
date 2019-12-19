@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Outreach.Robot;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Outreach.DriveTrains.OutreachDrive;
@@ -10,7 +11,7 @@ public class JesusBot extends OutreachDrive {
     public HardwareMap hwBot = null;
 
     public DcMotor JesusLift;
-
+    public DcMotor JesusLauncher;
     public JesusBot() {
 
     }
@@ -39,8 +40,8 @@ public class JesusBot extends OutreachDrive {
         setMotorRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //brakes (init)
-        frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
 
         //lift mechanism
@@ -49,6 +50,10 @@ public class JesusBot extends OutreachDrive {
         JesusLift.setDirection(DcMotor.Direction.FORWARD);
 
         JesusLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        JesusLauncher = hwBot.dcMotor.get("jesus_launcher");
+        JesusLauncher.setDirection(DcMotorSimple.Direction.FORWARD);
+        JesusLauncher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
 

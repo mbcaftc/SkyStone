@@ -209,7 +209,9 @@ public class WoodBot extends MecanumDrive {
     public double checkDistance () {
         return sensorDistance.getDistance(DistanceUnit.INCH);
     }
-    public void driveGyro (int encoders, double power, String direction) throws InterruptedException {
+
+
+    public void driveGyroStraight (int encoders, double power, String direction) throws InterruptedException {
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         double currentPos = 0;
         double leftSideSpeed;
@@ -257,32 +259,6 @@ public class WoodBot extends MecanumDrive {
                         frontRightMotor.setPower(-rightSideSpeed);
                         rearRightMotor.setPower(-rightSideSpeed);
                         break;
-                    case "left":
-                        leftSideSpeed = power - (angles.firstAngle - target) / 100;            // they need to be different
-                        rightSideSpeed = power + (angles.firstAngle - target) / 100;
-
-                        leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
-                        rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
-
-                        frontLeftMotor.setPower(-leftSideSpeed);
-                        rearLeftMotor.setPower(leftSideSpeed);
-
-                        frontRightMotor.setPower(rightSideSpeed);
-                        rearRightMotor.setPower(-rightSideSpeed);
-                        break;
-                    case "right":
-                        leftSideSpeed = power + (angles.firstAngle - target) / 100;            // they need to be different
-                        rightSideSpeed = power - (angles.firstAngle - target) / 100;
-
-                        leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
-                        rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
-
-                        frontLeftMotor.setPower(leftSideSpeed);
-                        rearLeftMotor.setPower(-leftSideSpeed);
-
-                        frontRightMotor.setPower(-rightSideSpeed);
-                        rearRightMotor.setPower(rightSideSpeed);
-                        break;
                 }
 
 
@@ -308,6 +284,87 @@ public class WoodBot extends MecanumDrive {
 
         }
 
+
+    public void driveGyroStrafe (int encoders, double power, String direction) throws InterruptedException {
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double currentPos = 0;
+        double frontLeftSpeed;
+        double frontRightSpeed;
+        double rearLeftSpeed;
+        double rearRightSpeed;
+
+
+        double target = angles.firstAngle;
+        double startPosition = frontLeftMotor.getCurrentPosition();
+        linearOp.telemetry.addData("Angle to start: ", angles.firstAngle);
+        linearOp.telemetry.update();
+        linearOp.sleep(2000);
+        while (currentPos < encoders + startPosition && linearOp.opModeIsActive()) {
+
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+
+            currentPos = Math.abs(frontLeftMotor.getCurrentPosition());
+
+            switch (direction) {
+                case "left":
+                    frontLeftSpeed = power - (angles.firstAngle - target) / 100;            // they need to be different
+                    frontRightSpeed = power - (angles.firstAngle - target) / 100;
+                    rearLeftSpeed = power + (angles.firstAngle - target) / 100;            // they need to be different
+                    rearRightSpeed = power + (angles.firstAngle - target) / 100;
+
+                    frontLeftSpeed = Range.clip(frontLeftSpeed, -1, 1);        // helps prevent out of bounds error
+                    frontRightSpeed = Range.clip(frontRightSpeed, -1, 1);
+                    rearLeftSpeed = Range.clip(rearLeftSpeed, -1, 1);        // helps prevent out of bounds error
+                    rearRightSpeed = Range.clip(rearRightSpeed, -1, 1);
+
+                    frontLeftMotor.setPower(-frontLeftSpeed);
+                    frontRightMotor.setPower(frontRightSpeed);
+
+                    rearLeftMotor.setPower(rearLeftSpeed);
+                    rearRightMotor.setPower(-rearRightSpeed);
+                    break;
+                case "right":
+                    frontLeftSpeed = power + (angles.firstAngle - target) / 100;            // they need to be different
+                    frontRightSpeed = power + (angles.firstAngle - target) / 100;
+                    rearLeftSpeed = power - (angles.firstAngle - target) / 100;            // they need to be different
+                    rearRightSpeed = power - (angles.firstAngle - target) / 100;
+
+                    frontLeftSpeed = Range.clip(frontLeftSpeed, -1, 1);        // helps prevent out of bounds error
+                    frontRightSpeed = Range.clip(frontRightSpeed, -1, 1);
+                    rearLeftSpeed = Range.clip(rearLeftSpeed, -1, 1);        // helps prevent out of bounds error
+                    rearRightSpeed = Range.clip(rearRightSpeed, -1, 1);
+
+                    frontLeftMotor.setPower(frontLeftSpeed);
+                    frontRightMotor.setPower(-frontRightSpeed);
+
+                    rearLeftMotor.setPower(-rearLeftSpeed);
+                    rearRightMotor.setPower(rearRightSpeed);
+                    break;
+            }
+
+
+
+            linearOp.telemetry.addData("Left Speed", frontLeftMotor.getPower());
+            linearOp.telemetry.addData("Right Speed", frontRightMotor.getPower());
+            linearOp.telemetry.addData("Distance till destination ", encoders + startPosition - frontLeftMotor.getCurrentPosition());
+            linearOp.telemetry.addData("Current Position", currentPos);
+            linearOp.telemetry.addData("Target Position", target);
+            linearOp.telemetry.addData("Angle: ", angles.firstAngle);
+
+            linearOp.telemetry.update();
+            // missing waiting
+            linearOp.idle();
+        }
+
+        frontLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        rearLeftMotor.setPower(0);
+        rearRightMotor.setPower(0);
+
+        linearOp.idle();
+
+    }
 }
 
 

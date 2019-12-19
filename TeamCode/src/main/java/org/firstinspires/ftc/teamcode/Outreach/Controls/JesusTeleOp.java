@@ -24,12 +24,29 @@ public class JesusTeleOp extends OpMode {
     }
 
     public void loop () {
-
+        drive();
+        if (gamepad1.right_trigger > 0.5 || gamepad1.left_trigger > 0.5) {
+            Bot.runLift(gamepad1.right_trigger);
+            Bot.runLift(-gamepad1.left_trigger);
+        }
+        else if (gamepad2.right_trigger > 0.5 || gamepad2.left_trigger > 0.5) {
+            Bot.runLift(gamepad2.right_trigger);
+            Bot.runLift(-gamepad2.left_trigger);
+        }
+        else {
+            Bot.runLift(0);
+        }
+        if (gamepad1.y || gamepad2.y) {
+            Bot.JesusLauncher.setPower(1);
+        }
+        else {
+            Bot.JesusLauncher.setPower(0);
+        }
     }
 
     public void drive() {
 //            if(gamepad1.dpad_up) {      // code that works
-
+/*  Same code duplicated!??
         if (gamepad1.left_stick_y > .1) {
             Bot.driveForward(gamepad1.left_stick_y);
         } else if (gamepad1.left_stick_y < -.1) {
@@ -41,6 +58,9 @@ public class JesusTeleOp extends OpMode {
         } else {
             Bot.stopMotors();
         }
+
+        */
+
 //            }
 //            else if (gamepad1.dpad_down) {              // experimental code
         if (gamepad1.left_stick_y > .1) {                                      //------------------------------------Drive FORWARD
@@ -55,5 +75,4 @@ public class JesusTeleOp extends OpMode {
             Bot.stopMotors();
         }
     }
-
 }
