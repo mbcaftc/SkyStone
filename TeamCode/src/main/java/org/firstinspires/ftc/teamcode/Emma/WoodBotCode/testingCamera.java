@@ -31,9 +31,6 @@ public class testingCamera extends OpMode {
     public double encoders;
 
 
-
-
-    // Runs ONCE when driver presses INIT
     @Override
     public void init() {
 
@@ -44,7 +41,6 @@ public class testingCamera extends OpMode {
     }
 
 
-    // Runs ONCE when driver presses PLAY
     @Override
     public void start() {
 
@@ -52,8 +48,6 @@ public class testingCamera extends OpMode {
 
     }
 
-
-    // RUNS Repeatedly after driver presses PLAY
     @Override
     public void loop() {
 
@@ -67,14 +61,12 @@ public class testingCamera extends OpMode {
 
     }
 
-    // Code to run ONCE after the driver presses STOP
     @Override
     public void stop() {
 
        Bot.deActivateTracking();
 
     }
-
 
 
     public void drive () {
