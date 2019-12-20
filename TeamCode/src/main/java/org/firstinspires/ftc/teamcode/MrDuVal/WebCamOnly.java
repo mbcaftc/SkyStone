@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
 @TeleOp (name = "Test WebCam Only!!!", group = "Lab")
-@Disabled
+//@Disabled
 public class WebCamOnly extends OpMode {
     public VuforiaWebcam Cam = new VuforiaWebcam();
 
