@@ -92,6 +92,26 @@ public class WoodBotEmma extends MecanumDrive {
 
         hwBot = hwMap;
 
+        // Define & Initialize Hardware
+
+        initMotorsDriveTrain();
+        initServoHooks();
+        initServoStoneGrabber();
+        initServoCaptsone();
+        initWebCam();
+        initGyro();
+
+        //Initialize Mechanism Positions
+        HookRelease();
+        dropStone();
+        raiseCapstone();
+
+    }
+
+   // Hardware Initialization Methods
+
+    public void initMotorsDriveTrain(){
+
         // Define Motors for Robot
         frontLeftMotor =  hwBot.dcMotor.get("front_left_motor");
         frontRightMotor = hwBot.dcMotor.get("front_right_motor");
@@ -114,22 +134,47 @@ public class WoodBotEmma extends MecanumDrive {
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+    }
 
-        // Define & Initialize Servos
+
+    public void initServoHooks() {
+
         HookLeft = hwBot.get(Servo.class, "hook_left");
         HookLeft.setDirection(Servo.Direction.FORWARD);
 
         HookRight = hwBot.get(Servo.class, "hook_right");
         HookRight.setDirection(Servo.Direction.FORWARD);
 
+    }
+
+    public void initServoStoneGrabber() {
+
         stoneServo = hwBot.get(Servo.class, "stone_servo");
         stoneServo.setDirection(Servo.Direction.FORWARD);
+
+    }
+
+    public void initServoCaptsone() {
 
         capstoneDropper = hwBot.get(Servo.class, "capstone_dropper");
         capstoneDropper.setDirection(Servo.Direction.FORWARD);
 
+    }
 
-        //Define and Initialize Web Camera
+    public void initGyro() {
+        BNO055IMU.Parameters parametersimu = new BNO055IMU.Parameters();
+        parametersimu.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parametersimu.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parametersimu.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        parametersimu.loggingEnabled = true;
+        parametersimu.loggingTag = "IMU";
+        parametersimu.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        imu = hwBot.get(BNO055IMU.class, "imu");
+        imu.initialize(parametersimu);
+    }
+
+    public void initWebCam() {
 
         webcamName = hwBot.get(WebcamName.class, "WebCam");
 
@@ -184,39 +229,18 @@ public class WoodBotEmma extends MecanumDrive {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
         }
 
-
-        //Define and Initialize Gyro
-
-        BNO055IMU.Parameters parametersimu = new BNO055IMU.Parameters();
-        parametersimu.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parametersimu.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parametersimu.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parametersimu.loggingEnabled = true;
-        parametersimu.loggingTag = "IMU";
-        parametersimu.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-
-        imu = hwBot.get(BNO055IMU.class, "imu");
-        imu.initialize(parametersimu);
-
-
-        //Initialize Mechanism Positions and Camera Tracking
-          //  HookRelease();
-          //  dropStone();
-         //  raiseCapstone();
-
-
     }
 
 
-    // Robot Servo Methods
 
+
+    // Robot Mechanism - Hook Methods
 
     public void HookRelease () {
 
         HookLeft.setPosition(.11);
         HookRight.setPosition(0.0);
     }
-//
 
 
     public void HookGrab () {
@@ -225,7 +249,7 @@ public class WoodBotEmma extends MecanumDrive {
     }
 
 
-    // Stone Grabber Methods
+    // Robot Mechanisms - Stone Grabber Methods
 
     public void grabStone () {
         stoneServo.setPosition(.7);
@@ -243,8 +267,7 @@ public class WoodBotEmma extends MecanumDrive {
     }
 
 
-
-    // Robot Gyro Methods
+    // Robot Mechanisms - Gyro Methods
 
     public void gyroCorrection (double speed, double angle) {
 
@@ -275,7 +298,7 @@ public class WoodBotEmma extends MecanumDrive {
 
 
 
-    // Vuforia WebCam Methods
+    // Robot Mechanisms - Vuforia WebCam Methods
 
     public void activateTracking() {
 
