@@ -95,42 +95,17 @@ public class WoodBotEmma extends MecanumDrive {
         // Define & Initialize Hardware
 
         initMotorsDriveTrain();
-        linearOp.telemetry.addLine("Drive Train Initialized");
-        linearOp.telemetry.update();
-
         initServoHooks();
-        linearOp.telemetry.addLine("Servo Hooks Initialized");
-        linearOp.telemetry.update();
-
         initServoStoneGrabber();
-        linearOp.telemetry.addLine("Stone Grabber Initialized");
-        linearOp.telemetry.update();
-
         initServoCaptsone();
-        linearOp.telemetry.addLine("Capstone Initialized");
-        linearOp.telemetry.update();
-
         initGyro();
-        linearOp.telemetry.addLine("Gyro Initialized");
-        linearOp.telemetry.update();
-
         initWebCam();
-        linearOp.telemetry.addLine("WebCam Initialized");
-        linearOp.telemetry.update();
-
 
         //Initialize Mechanism Positions
         HookRelease();
-        linearOp.telemetry.addLine("Hooks in Release Position");
-        linearOp.telemetry.update();
-
         dropStone();
-        linearOp.telemetry.addLine("Stone Grabber Dropped");
-        linearOp.telemetry.update();
-
         raiseCapstone();
-        linearOp.telemetry.addLine("Capstone Arm Raised");
-        linearOp.telemetry.update();
+
 
     }
 
@@ -160,6 +135,8 @@ public class WoodBotEmma extends MecanumDrive {
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        linearOp.telemetry.addLine("Drive Train Initialized");
+        linearOp.telemetry.update();
     }
 
 
@@ -171,6 +148,9 @@ public class WoodBotEmma extends MecanumDrive {
         HookRight = hwBot.get(Servo.class, "hook_right");
         HookRight.setDirection(Servo.Direction.FORWARD);
 
+        linearOp.telemetry.addLine("Servo Hooks Initialized");
+        linearOp.telemetry.update();
+
     }
 
     public void initServoStoneGrabber() {
@@ -178,6 +158,8 @@ public class WoodBotEmma extends MecanumDrive {
         stoneServo = hwBot.get(Servo.class, "stone_servo");
         stoneServo.setDirection(Servo.Direction.FORWARD);
 
+        linearOp.telemetry.addLine("Stone Grabber Initialized");
+        linearOp.telemetry.update();
     }
 
     public void initServoCaptsone() {
@@ -185,6 +167,8 @@ public class WoodBotEmma extends MecanumDrive {
         capstoneDropper = hwBot.get(Servo.class, "capstone_dropper");
         capstoneDropper.setDirection(Servo.Direction.FORWARD);
 
+        linearOp.telemetry.addLine("Capstone Initialized");
+        linearOp.telemetry.update();
     }
 
     public void initGyro() {
@@ -198,6 +182,9 @@ public class WoodBotEmma extends MecanumDrive {
 
         imu = hwBot.get(BNO055IMU.class, "imu");
         imu.initialize(parametersimu);
+
+        linearOp.telemetry.addLine("Gyro Initialized");
+        linearOp.telemetry.update();
     }
 
     public void initWebCam() {
@@ -255,6 +242,9 @@ public class WoodBotEmma extends MecanumDrive {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
         }
 
+        linearOp.telemetry.addLine("WebCam Initialized");
+        linearOp.telemetry.update();
+
     }
 
 
@@ -266,6 +256,8 @@ public class WoodBotEmma extends MecanumDrive {
 
         HookLeft.setPosition(.11);
         HookRight.setPosition(0.0);
+        linearOp.telemetry.addLine("Hooks in Release Position");
+        linearOp.telemetry.update();
     }
 
 
