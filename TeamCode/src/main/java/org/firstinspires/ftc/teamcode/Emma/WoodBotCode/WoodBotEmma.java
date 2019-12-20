@@ -95,16 +95,42 @@ public class WoodBotEmma extends MecanumDrive {
         // Define & Initialize Hardware
 
         initMotorsDriveTrain();
+        linearOp.telemetry.addLine("Drive Train Initialized");
+        linearOp.telemetry.update();
+
         initServoHooks();
+        linearOp.telemetry.addLine("Servo Hooks Initialized");
+        linearOp.telemetry.update();
+
         initServoStoneGrabber();
+        linearOp.telemetry.addLine("Stone Grabber Initialized");
+        linearOp.telemetry.update();
+
         initServoCaptsone();
-        initWebCam();
+        linearOp.telemetry.addLine("Capstone Initialized");
+        linearOp.telemetry.update();
+
         initGyro();
+        linearOp.telemetry.addLine("Gyro Initialized");
+        linearOp.telemetry.update();
+
+        initWebCam();
+        linearOp.telemetry.addLine("WebCam Initialized");
+        linearOp.telemetry.update();
+
 
         //Initialize Mechanism Positions
         HookRelease();
+        linearOp.telemetry.addLine("Hooks in Release Position");
+        linearOp.telemetry.update();
+
         dropStone();
+        linearOp.telemetry.addLine("Stone Grabber Dropped");
+        linearOp.telemetry.update();
+
         raiseCapstone();
+        linearOp.telemetry.addLine("Capstone Arm Raised");
+        linearOp.telemetry.update();
 
     }
 
