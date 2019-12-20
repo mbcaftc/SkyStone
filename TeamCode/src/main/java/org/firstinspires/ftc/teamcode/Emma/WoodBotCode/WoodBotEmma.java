@@ -67,7 +67,6 @@ public class WoodBotEmma extends MecanumDrive {
 
     public static final float stoneZ = 2.00f * mmPerInch;
 
-
     public boolean targetVisible = false;
     public float phoneXRotate    = 0;
     public float phoneYRotate    = 0;
@@ -82,11 +81,13 @@ public class WoodBotEmma extends MecanumDrive {
     public double targetHeading;
 
 
-    //WoodBot Constructor
+    //WoodBotEmma Constructor
 
     public WoodBotEmma() {
 
     }
+
+    // Initialize Robot Primary Method
 
     public void initRobot (HardwareMap hwMap) {
 
@@ -101,7 +102,8 @@ public class WoodBotEmma extends MecanumDrive {
         initGyro();
         initWebCam();
 
-        //Initialize Mechanism Positions
+        //Initialize Mechanism Positions and Camera
+        activateTracking();
         HookRelease();
         dropStone();
         raiseCapstone();
@@ -109,7 +111,7 @@ public class WoodBotEmma extends MecanumDrive {
 
     }
 
-   // Hardware Initialization Methods
+   // Hardware Initialization Sub Methods
 
     public void initMotorsDriveTrain(){
 

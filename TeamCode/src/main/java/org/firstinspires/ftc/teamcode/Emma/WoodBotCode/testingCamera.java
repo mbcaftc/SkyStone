@@ -40,7 +40,6 @@ public class testingCamera extends OpMode {
         //Hardware Initialization from Robot and Camera Classes
 
         Bot.initRobot(hardwareMap);
-        Bot.activateTracking();
 
     }
 
