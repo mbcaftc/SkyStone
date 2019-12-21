@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Emma.WoodBotCode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -22,6 +23,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefau
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.DriveTrains.MecanumDrive;
 
+import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +51,7 @@ public class WoodBotEmma extends MecanumDrive {
     public BNO055IMU imu;
     public Orientation angles;
     public Acceleration gravity;
+
 
     //Gyro Variables
     public final double SPEED = .3;
@@ -100,10 +103,9 @@ public class WoodBotEmma extends MecanumDrive {
         initServoStoneGrabber();
         initServoCaptsone();
         initGyro();
-        initWebCam();
+        //initWebCam();    DO NOT INCLUDE IN INIT ROBOT
 
         //Initialize Mechanism Positions and Camera
-        activateTracking();
         HookRelease();
         dropStone();
         raiseCapstone();
@@ -137,8 +139,8 @@ public class WoodBotEmma extends MecanumDrive {
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        linearOp.telemetry.addLine("Drive Train Initialized");
-        linearOp.telemetry.update();
+        //linearOp.telemetry.addLine("Drive Train Initialized");
+        //linearOp.telemetry.update();
     }
 
 
@@ -150,8 +152,8 @@ public class WoodBotEmma extends MecanumDrive {
         HookRight = hwBot.get(Servo.class, "hook_right");
         HookRight.setDirection(Servo.Direction.FORWARD);
 
-        linearOp.telemetry.addLine("Servo Hooks Initialized");
-        linearOp.telemetry.update();
+        //linearOp.telemetry.addLine("Servo Hooks Initialized");
+        //linearOp.telemetry.update();
 
     }
 
@@ -160,8 +162,8 @@ public class WoodBotEmma extends MecanumDrive {
         stoneServo = hwBot.get(Servo.class, "stone_servo");
         stoneServo.setDirection(Servo.Direction.FORWARD);
 
-        linearOp.telemetry.addLine("Stone Grabber Initialized");
-        linearOp.telemetry.update();
+        //linearOp.telemetry.addLine("Stone Grabber Initialized");
+        //linearOp.telemetry.update();
     }
 
     public void initServoCaptsone() {
@@ -169,8 +171,8 @@ public class WoodBotEmma extends MecanumDrive {
         capstoneDropper = hwBot.get(Servo.class, "capstone_dropper");
         capstoneDropper.setDirection(Servo.Direction.FORWARD);
 
-        linearOp.telemetry.addLine("Capstone Initialized");
-        linearOp.telemetry.update();
+        //linearOp.telemetry.addLine("Capstone Initialized");
+        //linearOp.telemetry.update();
     }
 
     public void initGyro() {
@@ -185,8 +187,8 @@ public class WoodBotEmma extends MecanumDrive {
         imu = hwBot.get(BNO055IMU.class, "imu");
         imu.initialize(parametersimu);
 
-        linearOp.telemetry.addLine("Gyro Initialized");
-        linearOp.telemetry.update();
+        //linearOp.telemetry.addLine("Gyro Initialized");
+        //linearOp.telemetry.update();
     }
 
     public void initWebCam() {
@@ -199,6 +201,9 @@ public class WoodBotEmma extends MecanumDrive {
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
 
         parameters.cameraName = webcamName;
+
+//        parameters.maxWebcamAspectRatio = 1000;
+//        parameters.useExtendedTracking = true;
 
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
@@ -231,9 +236,11 @@ public class WoodBotEmma extends MecanumDrive {
             phoneXRotate = 90;
         }
 
-        final float CAMERA_FORWARD_DISPLACEMENT = 4.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot-center
-        final float CAMERA_VERTICAL_DISPLACEMENT = 8.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
+        final float CAMERA_FORWARD_DISPLACEMENT = 10.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot-center
+        final float CAMERA_VERTICAL_DISPLACEMENT = 9.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
         final float CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the robot's center line
+
+
 
         OpenGLMatrix robotFromCamera = OpenGLMatrix
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
@@ -244,8 +251,8 @@ public class WoodBotEmma extends MecanumDrive {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
         }
 
-        linearOp.telemetry.addLine("WebCam Initialized");
-        linearOp.telemetry.update();
+        //linearOp.telemetry.addLine("WebCam Initialized");
+        //linearOp.telemetry.update();
 
     }
 
@@ -258,8 +265,8 @@ public class WoodBotEmma extends MecanumDrive {
 
         HookLeft.setPosition(.11);
         HookRight.setPosition(0.0);
-        linearOp.telemetry.addLine("Hooks in Release Position");
-        linearOp.telemetry.update();
+        //linearOp.telemetry.addLine("Hooks in Release Position");
+        //linearOp.telemetry.update();
     }
 
 
@@ -309,14 +316,6 @@ public class WoodBotEmma extends MecanumDrive {
 
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
     }
-
-
-    public void gyroReset () {
-        BNO055IMU.Parameters parametersimu = new BNO055IMU.Parameters();
-        imu.initialize(parametersimu);
-    }
-
-
 
     // Robot Mechanisms - Vuforia WebCam Methods
 
@@ -370,6 +369,74 @@ public class WoodBotEmma extends MecanumDrive {
             targetName = "none";
         }
     }
+
+
+    public void findSkyStone (String Alliance) {
+        trackObjects();
+        linearOp.sleep(7000);
+
+        linearOp.telemetry.addData("Target y value: ", targetY);
+        linearOp.telemetry.update();
+
+        if (Alliance == "Red") {
+            if (targetY < 1 ) {             //position 1
+
+                strafeLeft(.3, 4);
+                linearOp.sleep(100);
+
+                linearOp.telemetry.addLine(" targetY < 1 ... position 2");
+                linearOp.telemetry.update();
+
+
+
+            } else if (targetY > 1 ) {        //position 2
+                driveForward(.3, 1);
+                strafeLeft(.3, 4);
+
+                linearOp.telemetry.addLine(" target is on the far left... position 1");
+                linearOp.telemetry.update();
+
+
+            } else {                                                  // position 3
+
+                driveBackward(.3, 1);
+                strafeLeft(.3, 4);
+                linearOp.sleep(100);
+
+                linearOp.telemetry.addLine("targetY > 1... position 3");
+
+
+            }
+        }
+        else if (Alliance == "Blue") {
+            if (targetY > .5 && targetVisible) {             //position 1
+
+
+                strafeLeft(.3, 2);
+                linearOp.telemetry.addLine(" position 1");
+                linearOp.telemetry.update();
+
+
+
+            } else if (targetY < .5 && targetVisible) {        //position 2
+
+
+                linearOp.telemetry.addLine(" position 2");
+                linearOp.telemetry.update();
+
+            } else {                                                  // position 3
+
+                strafeRight(.3, 2);
+                linearOp.sleep(100);
+
+                linearOp.telemetry.addLine("position 3");
+
+
+            }
+            driveForward(.3, 1);
+        }
+    }
+
 
 }
 

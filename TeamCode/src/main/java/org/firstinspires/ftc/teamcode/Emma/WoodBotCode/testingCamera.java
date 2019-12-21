@@ -38,13 +38,16 @@ public class testingCamera extends OpMode {
 
         Bot.initRobot(hardwareMap);
 
+
     }
 
 
     @Override
     public void start() {
 
-        Bot.gyroReset();
+        Bot.initWebCam();
+        Bot.activateTracking();
+
 
     }
 
@@ -56,7 +59,6 @@ public class testingCamera extends OpMode {
         Bot.trackObjects();
         telemetryOutput();
         controlResetEncoders ();
-        controlResetGyro();
         SimulateAuto ();
 
     }
@@ -131,11 +133,6 @@ public class testingCamera extends OpMode {
         }
     }
 
-    public void controlResetGyro () {
-        if (gamepad1.x) {
-            Bot.gyroReset();
-        }
-    }
 
     public void SimulateAuto () {
 
