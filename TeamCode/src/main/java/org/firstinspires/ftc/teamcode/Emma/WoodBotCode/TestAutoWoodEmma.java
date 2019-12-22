@@ -47,6 +47,8 @@ public class TestAutoWoodEmma extends LinearOpMode {
 
             Bot.driveToSkyStone("Blue");
 
+            //Intake Skystone
+
             requestOpModeStop();
         }
         Bot.deActivateTracking(); // ????
