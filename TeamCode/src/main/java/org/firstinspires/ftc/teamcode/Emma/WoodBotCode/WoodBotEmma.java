@@ -381,8 +381,10 @@ public class WoodBotEmma extends MecanumDrive {
             trackObjects();
 
         }
-        linearOp.telemetry.addData("Target Y value: ", targetY);
-        linearOp.telemetry.addData("Target X value: ", targetX);
+        linearOp.telemetry.addData("targetY: ", targetY);
+        linearOp.telemetry.addData("targetX: ", targetX);
+        linearOp.telemetry.addData("targetVisible: ", targetVisible);
+        linearOp.telemetry.addData("targetName: ", targetName);
         linearOp.telemetry.update();
 
         deActivateTracking();
@@ -391,59 +393,55 @@ public class WoodBotEmma extends MecanumDrive {
 
     public void driveToSkyStone (String Alliance) {
 
+     // Positive target value is from the center (0) to the right
+     // Negative target value is from the center (0) to the left
+
         if (Alliance == "Red") {
-            if (targetY < 1 ) {             //position 1
 
-                strafeLeft(.3, 4);
+            if (targetY > 1 && targetVisible && targetName == "Stone Target") {                 //Position 1
+
+                strafeRight(.3, 4);
                 linearOp.sleep(100);
-
-                linearOp.telemetry.addLine(" targetY < 1 ... position 2");
+                linearOp.telemetry.addLine("Position 1");
                 linearOp.telemetry.update();
 
 
+            } else if (targetY < 1 && targetVisible && targetName == "Stone Target" ) {       // Position 2
 
-            } else if (targetY > 1 ) {        //position 2
-                driveForward(.3, 1);
-                strafeLeft(.3, 4);
-
-                linearOp.telemetry.addLine(" target is on the far left... position 1");
+                // No Need to Move
+                linearOp.telemetry.addLine("Position 2");
                 linearOp.telemetry.update();
 
+            } else {                                                                            // position 3
 
-            } else {                                                  // position 3
-
-                driveBackward(.3, 1);
                 strafeLeft(.3, 4);
                 linearOp.sleep(100);
-
                 linearOp.telemetry.addLine("targetY > 1... position 3");
-
-
+                linearOp.telemetry.update();
             }
         }
         else if (Alliance == "Blue") {
-            if (targetY > .5) {             //position 1 (far Left Position)
 
+            if (targetY < -1 && targetVisible && targetName == "Stone Target") {           //position 1
 
                 strafeLeft(.3, 2);
-                linearOp.telemetry.addLine(" position 1");
+                linearOp.telemetry.addLine(" Position 1");
                 linearOp.telemetry.update();
 
 
 
-            } else if (targetY < .5) {        //position 2
+            } else if (targetY > -1 && targetVisible && targetName == "Stone Target") {      //position 2
 
-
-                linearOp.telemetry.addLine(" position 2");
+                // No Need to Move
+                linearOp.telemetry.addLine("Position 2");
                 linearOp.telemetry.update();
 
-            } else {                                                  // position 3
+            } else {                                                                        // position 3
 
                 strafeRight(.3, 2);
                 linearOp.sleep(100);
-
-                linearOp.telemetry.addLine("position 3");
-
+                linearOp.telemetry.addLine("Position 3");
+                linearOp.telemetry.update();
 
             }
             driveForward(.3, 1);
