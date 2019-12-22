@@ -331,8 +331,6 @@ public class WoodBotEmma extends MecanumDrive {
 
     public void trackObjects (){
 
-        // check all the trackable targets to see which one (if any) is visible.
-        targetVisible = false;
         for (VuforiaTrackable trackable : allTrackables) {
             if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
                 targetName = trackable.getName();
@@ -347,7 +345,6 @@ public class WoodBotEmma extends MecanumDrive {
             }
         }
 
-        // Provide feedback as to where the robot is located (if we know).
         if (targetVisible) {
 
             // express position (translation) of robot in inches.
