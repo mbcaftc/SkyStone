@@ -371,12 +371,25 @@ public class WoodBotEmma extends MecanumDrive {
     }
 
 
-    public void findSkyStone (String Alliance) {
-        trackObjects();
-        linearOp.sleep(7000);
+    // Autonomous Methods
 
-        linearOp.telemetry.addData("Target y value: ", targetY);
+    public void detectSkyStone () {
+
+        activateTracking();
+
+        while (targetVisible != true && linearOp.opModeIsActive()) {
+            trackObjects();
+
+        }
+        linearOp.telemetry.addData("Target Y value: ", targetY);
+        linearOp.telemetry.addData("Target X value: ", targetX);
         linearOp.telemetry.update();
+
+        deActivateTracking();
+    }
+
+
+    public void driveToSkyStone (String Alliance) {
 
         if (Alliance == "Red") {
             if (targetY < 1 ) {             //position 1
@@ -409,7 +422,7 @@ public class WoodBotEmma extends MecanumDrive {
             }
         }
         else if (Alliance == "Blue") {
-            if (targetY > .5 && targetVisible) {             //position 1
+            if (targetY > .5) {             //position 1 (far Left Position)
 
 
                 strafeLeft(.3, 2);
@@ -418,7 +431,7 @@ public class WoodBotEmma extends MecanumDrive {
 
 
 
-            } else if (targetY < .5 && targetVisible) {        //position 2
+            } else if (targetY < .5) {        //position 2
 
 
                 linearOp.telemetry.addLine(" position 2");

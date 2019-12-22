@@ -38,13 +38,12 @@ public class TestAutoWoodEmma extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            Bot.activateTracking();
 
             Bot.driveForward(.2, 2.3);
 
-            Bot.findSkyStone("Blue");
+            Bot.detectSkyStone();
 
-
+            Bot.driveToSkyStone("Blue");
 
             requestOpModeStop();
         }
