@@ -103,7 +103,7 @@ public class WoodBotEmma extends MecanumDrive {
         initServoStoneGrabber();
         initServoCaptsone();
         initGyro();
-        //initWebCam();    DO NOT INCLUDE IN INIT ROBOT
+        //initWebCam();    DO NOT INCLUDE IN INIT ROBOT, CALLED in AUTONOMOUS
 
         //Initialize Mechanism Positions and Camera
         HookRelease();
@@ -139,8 +139,6 @@ public class WoodBotEmma extends MecanumDrive {
         rearRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        //linearOp.telemetry.addLine("Drive Train Initialized");
-        //linearOp.telemetry.update();
     }
 
 
@@ -152,9 +150,6 @@ public class WoodBotEmma extends MecanumDrive {
         HookRight = hwBot.get(Servo.class, "hook_right");
         HookRight.setDirection(Servo.Direction.FORWARD);
 
-        //linearOp.telemetry.addLine("Servo Hooks Initialized");
-        //linearOp.telemetry.update();
-
     }
 
     public void initServoStoneGrabber() {
@@ -162,8 +157,6 @@ public class WoodBotEmma extends MecanumDrive {
         stoneServo = hwBot.get(Servo.class, "stone_servo");
         stoneServo.setDirection(Servo.Direction.FORWARD);
 
-        //linearOp.telemetry.addLine("Stone Grabber Initialized");
-        //linearOp.telemetry.update();
     }
 
     public void initServoCaptsone() {
@@ -171,8 +164,6 @@ public class WoodBotEmma extends MecanumDrive {
         capstoneDropper = hwBot.get(Servo.class, "capstone_dropper");
         capstoneDropper.setDirection(Servo.Direction.FORWARD);
 
-        //linearOp.telemetry.addLine("Capstone Initialized");
-        //linearOp.telemetry.update();
     }
 
     public void initGyro() {
@@ -187,8 +178,6 @@ public class WoodBotEmma extends MecanumDrive {
         imu = hwBot.get(BNO055IMU.class, "imu");
         imu.initialize(parametersimu);
 
-        //linearOp.telemetry.addLine("Gyro Initialized");
-        //linearOp.telemetry.update();
     }
 
     public void initWebCam() {
@@ -202,29 +191,22 @@ public class WoodBotEmma extends MecanumDrive {
 
         parameters.cameraName = webcamName;
 
-//        parameters.maxWebcamAspectRatio = 1000;
-//        parameters.useExtendedTracking = true;
-
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
-        // Load the data sets for the trackable objects. These particular data
+
+        // Only one data set in the trackable objects arraylist .... Sky Stone
 
         targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
-
         VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
         stoneTarget.setName("Stone Target");
-
-
-        // For convenience, gather together all the trackable objects in one easily-iterable collection */
         allTrackables.addAll(targetsSkyStone);
-
-
         stoneTarget.setLocation(OpenGLMatrix
                 .translation(0, 0, stoneZ)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
 
         // We need to rotate the camera around it's long axis to bring the correct camera forward.
+
         if (CAMERA_CHOICE == BACK) {
             phoneYRotate = -90;
         } else {
@@ -236,27 +218,21 @@ public class WoodBotEmma extends MecanumDrive {
             phoneXRotate = 90;
         }
 
-        final float CAMERA_FORWARD_DISPLACEMENT = 10.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot-center
-        final float CAMERA_VERTICAL_DISPLACEMENT = 9.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
+        // Placement of the WebCam in the robot
+
+        final float CAMERA_FORWARD_DISPLACEMENT = 10.0f * mmPerInch;   // eg: Camera is 10 Inches in front of robot-center
+        final float CAMERA_VERTICAL_DISPLACEMENT = 9.0f * mmPerInch;   // eg: Camera is 9 Inches above ground
         final float CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the robot's center line
-
-
-
         OpenGLMatrix robotFromCamera = OpenGLMatrix
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate));
 
-        /**  Let all the trackable listeners know where the phone is.  */
         for (VuforiaTrackable trackable : allTrackables) {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
         }
 
-        //linearOp.telemetry.addLine("WebCam Initialized");
-        //linearOp.telemetry.update();
 
     }
-
-
 
 
     // Robot Mechanism - Hook Methods
@@ -265,8 +241,6 @@ public class WoodBotEmma extends MecanumDrive {
 
         HookLeft.setPosition(.11);
         HookRight.setPosition(0.0);
-        //linearOp.telemetry.addLine("Hooks in Release Position");
-        //linearOp.telemetry.update();
     }
 
 
@@ -372,19 +346,17 @@ public class WoodBotEmma extends MecanumDrive {
 
     public void detectSkyStone () {
 
-        activateTracking();
-
-        while (targetVisible != true && linearOp.opModeIsActive()) {
+        while (!targetVisible && linearOp.opModeIsActive()) {
             trackObjects();
 
         }
+
         linearOp.telemetry.addData("targetY: ", targetY);
         linearOp.telemetry.addData("targetX: ", targetX);
         linearOp.telemetry.addData("targetVisible: ", targetVisible);
         linearOp.telemetry.addData("targetName: ", targetName);
         linearOp.telemetry.update();
 
-        deActivateTracking();
     }
 
 
