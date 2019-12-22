@@ -323,14 +323,12 @@ public class WoodBotEmma extends MecanumDrive {
 
             // express position (translation) of robot in inches.
             VectorF translation = lastLocation.getTranslation();
-
             targetX = translation.get(0) / mmPerInch;
             targetY = translation.get(1) / mmPerInch;
             targetZ = translation.get(2) / mmPerInch;
 
             // express the rotation of the robot in degrees.
             Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-
             targetRoll = rotation.firstAngle;
             targetPitch = rotation.secondAngle;
             targetHeading = rotation.thirdAngle;
@@ -362,15 +360,13 @@ public class WoodBotEmma extends MecanumDrive {
 
     public void driveToSkyStone (String Alliance) {
 
-     // Positive target value is from the center (0) to the right
-     // Negative target value is from the center (0) to the left
-
+        // Positive target value is from the center (0) to the right
+        // Negative target value is from the center (0) to the left
         if (Alliance == "Red") {
 
             if (targetY > 1 && targetVisible && targetName == "Stone Target") {                 //Position 1
 
                 strafeRight(.3, 4);
-                linearOp.sleep(100);
                 linearOp.telemetry.addLine("Position 1");
                 linearOp.telemetry.update();
 
@@ -384,11 +380,13 @@ public class WoodBotEmma extends MecanumDrive {
             } else {                                                                            // position 3
 
                 strafeLeft(.3, 4);
-                linearOp.sleep(100);
                 linearOp.telemetry.addLine("targetY > 1... position 3");
                 linearOp.telemetry.update();
             }
         }
+
+        // Positive target value is from the center (0) to the right
+        // Negative target value is from the center (0) to the left
         else if (Alliance == "Blue") {
 
             if (targetY < -1 && targetVisible && targetName == "Stone Target") {           //position 1
@@ -408,7 +406,6 @@ public class WoodBotEmma extends MecanumDrive {
             } else {                                                                        // position 3
 
                 strafeRight(.3, 2);
-                linearOp.sleep(100);
                 linearOp.telemetry.addLine("Position 3");
                 linearOp.telemetry.update();
 
