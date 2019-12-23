@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -51,8 +53,11 @@ public class WoodBotEmma extends MecanumDrive {
     public BNO055IMU imu;
     public Orientation angles;
     public Acceleration gravity;
+    public ElapsedTime vuforiaTimer;
 
 
+    public double tracker = 0;
+    public int skyStonePosition = 1;
     //Gyro Variables
     public final double SPEED = .3;
     public final double TOLERANCE = .4;
@@ -103,6 +108,7 @@ public class WoodBotEmma extends MecanumDrive {
         initServoStoneGrabber();
         initServoCaptsone();
         initGyro();
+        initTimers();
         //initWebCam();    DO NOT INCLUDE IN INIT ROBOT, CALLED in AUTONOMOUS
 
         //Initialize Mechanism Positions and Camera
@@ -234,6 +240,10 @@ public class WoodBotEmma extends MecanumDrive {
 
     }
 
+    public void initTimers () {
+        vuforiaTimer = new ElapsedTime();
+        vuforiaTimer.reset();
+    }
 
     // Robot Mechanism - Hook Methods
 
@@ -291,6 +301,163 @@ public class WoodBotEmma extends MecanumDrive {
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
     }
 
+    // driving Methods (Straight and strafing)
+    public void driveGyroStraight (int encoders, double power, String direction) throws InterruptedException {
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double currentPos = 0;
+        double leftSideSpeed;
+        double rightSideSpeed;
+
+
+        double target = angles.firstAngle;
+        double startPosition = frontLeftMotor.getCurrentPosition();
+        linearOp.telemetry.addData("Angle to start: ", angles.firstAngle);
+        linearOp.telemetry.update();
+        linearOp.sleep(2000);
+        while (currentPos < encoders + startPosition && linearOp.opModeIsActive()) {
+
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+
+            currentPos = Math.abs(frontLeftMotor.getCurrentPosition());
+
+            switch (direction) {
+                case "forward":
+//                        currentPos = frontLeftMotor.getCurrentPosition();
+                    leftSideSpeed = power + (angles.firstAngle - target) / 100;            // they need to be different
+                    rightSideSpeed = power - (angles.firstAngle - target) / 100;
+
+                    leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
+                    rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
+
+                    frontLeftMotor.setPower(leftSideSpeed);
+                    rearLeftMotor.setPower(leftSideSpeed);
+
+                    frontRightMotor.setPower(rightSideSpeed);
+                    rearRightMotor.setPower(rightSideSpeed);
+                    break;
+                case "backward":
+//                        currentPos = -frontLeftMotor.getCurrentPosition();
+                    leftSideSpeed = power - (angles.firstAngle - target) / 100;            // they need to be different
+                    rightSideSpeed = power + (angles.firstAngle - target) / 100;
+
+                    leftSideSpeed = Range.clip(leftSideSpeed, -1, 1);        // helps prevent out of bounds error
+                    rightSideSpeed = Range.clip(rightSideSpeed, -1, 1);
+
+                    frontLeftMotor.setPower(-leftSideSpeed);
+                    rearLeftMotor.setPower(-leftSideSpeed);
+
+                    frontRightMotor.setPower(-rightSideSpeed);
+                    rearRightMotor.setPower(-rightSideSpeed);
+                    break;
+            }
+
+
+
+            linearOp.telemetry.addData("Left Speed", frontLeftMotor.getPower());
+            linearOp.telemetry.addData("Right Speed", frontRightMotor.getPower());
+            linearOp.telemetry.addData("Distance till destination ", encoders + startPosition - frontLeftMotor.getCurrentPosition());
+            linearOp.telemetry.addData("Current Position", currentPos);
+            linearOp.telemetry.addData("Target Position", target);
+            linearOp.telemetry.addData("Angle: ", angles.firstAngle);
+
+            linearOp.telemetry.update();
+            // missing waiting
+            linearOp.idle();
+        }
+
+        frontLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        rearLeftMotor.setPower(0);
+        rearRightMotor.setPower(0);
+
+        linearOp.idle();
+//
+    }
+
+
+    public void driveGyroStrafe (int encoders, double power, String direction) throws InterruptedException {
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double currentPos = 0;
+        double frontLeftSpeed;
+        double frontRightSpeed;
+        double rearLeftSpeed;
+        double rearRightSpeed;
+
+
+        double target = angles.firstAngle;
+        double startPosition = frontLeftMotor.getCurrentPosition();
+        linearOp.telemetry.addData("Angle to start: ", angles.firstAngle);
+        linearOp.telemetry.update();
+        linearOp.sleep(2000);
+        while (currentPos < encoders + startPosition && linearOp.opModeIsActive()) {
+
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+
+            currentPos = Math.abs(frontLeftMotor.getCurrentPosition());
+
+            switch (direction) {
+                case "left":
+                    frontLeftSpeed = power - (angles.firstAngle - target) / 100;            // they need to be different
+                    frontRightSpeed = power - (angles.firstAngle - target) / 100;
+                    rearLeftSpeed = power + (angles.firstAngle - target) / 100;            // they need to be different
+                    rearRightSpeed = power + (angles.firstAngle - target) / 100;
+
+                    frontLeftSpeed = Range.clip(frontLeftSpeed, -1, 1);        // helps prevent out of bounds error
+                    frontRightSpeed = Range.clip(frontRightSpeed, -1, 1);
+                    rearLeftSpeed = Range.clip(rearLeftSpeed, -1, 1);        // helps prevent out of bounds error
+                    rearRightSpeed = Range.clip(rearRightSpeed, -1, 1);
+
+                    frontLeftMotor.setPower(-frontLeftSpeed);
+                    frontRightMotor.setPower(frontRightSpeed);
+
+                    rearLeftMotor.setPower(rearLeftSpeed);
+                    rearRightMotor.setPower(-rearRightSpeed);
+                    break;
+                case "right":
+                    frontLeftSpeed = power + (angles.firstAngle - target) / 100;            // they need to be different
+                    frontRightSpeed = power + (angles.firstAngle - target) / 100;
+                    rearLeftSpeed = power - (angles.firstAngle - target) / 100;            // they need to be different
+                    rearRightSpeed = power - (angles.firstAngle - target) / 100;
+
+                    frontLeftSpeed = Range.clip(frontLeftSpeed, -1, 1);        // helps prevent out of bounds error
+                    frontRightSpeed = Range.clip(frontRightSpeed, -1, 1);
+                    rearLeftSpeed = Range.clip(rearLeftSpeed, -1, 1);        // helps prevent out of bounds error
+                    rearRightSpeed = Range.clip(rearRightSpeed, -1, 1);
+
+                    frontLeftMotor.setPower(frontLeftSpeed);
+                    frontRightMotor.setPower(-frontRightSpeed);
+
+                    rearLeftMotor.setPower(-rearLeftSpeed);
+                    rearRightMotor.setPower(rearRightSpeed);
+                    break;
+            }
+
+
+
+            linearOp.telemetry.addData("Left Speed", frontLeftMotor.getPower());
+            linearOp.telemetry.addData("Right Speed", frontRightMotor.getPower());
+            linearOp.telemetry.addData("Distance till destination ", encoders + startPosition - frontLeftMotor.getCurrentPosition());
+            linearOp.telemetry.addData("Current Position", currentPos);
+            linearOp.telemetry.addData("Target Position", target);
+            linearOp.telemetry.addData("Angle: ", angles.firstAngle);
+
+            linearOp.telemetry.update();
+            // missing waiting
+            linearOp.idle();
+        }
+
+        frontLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        rearLeftMotor.setPower(0);
+        rearRightMotor.setPower(0);
+
+        linearOp.idle();
+
+    }
+
+
     // Robot Mechanisms - Vuforia WebCam Methods
 
     public void activateTracking() {
@@ -343,8 +510,9 @@ public class WoodBotEmma extends MecanumDrive {
     // Autonomous Methods
 
     public void detectSkyStone () {
+        vuforiaTimer.reset();
 
-        while (!targetVisible && linearOp.opModeIsActive()) {
+        while (!targetVisible && linearOp.opModeIsActive() && vuforiaTimer.time() <= 3) {
             trackObjects();
 
         }
@@ -364,53 +532,150 @@ public class WoodBotEmma extends MecanumDrive {
         // Negative target value is from the center (0) to the left
         if (Alliance == "Red") {
 
-            if (targetY > 1 && targetVisible && targetName == "Stone Target") {                 //Position 1
+            if (targetY < -1 && targetVisible) {                 ////position 1 (LEFT)
 
-                strafeRight(.3, 4);
+                strafeLeft(.3, 1.2);
                 linearOp.telemetry.addLine("Position 1");
                 linearOp.telemetry.update();
+                skyStonePosition = 1;
 
 
-            } else if (targetY < 1 && targetVisible && targetName == "Stone Target" ) {       // Position 2
+            } else if (targetY > -1 && targetVisible) {       // position 2 (MIDDLE)
 
-                // No Need to Move
+                strafeLeft(.3, .1);
                 linearOp.telemetry.addLine("Position 2");
                 linearOp.telemetry.update();
+                skyStonePosition = 2;
 
             } else {                                                                            // position 3
 
-                strafeLeft(.3, 4);
-                linearOp.telemetry.addLine("targetY > 1... position 3");
+                strafeRight(.3, .8);
+                linearOp.telemetry.addLine("Position 3");
                 linearOp.telemetry.update();
+                skyStonePosition = 3;
             }
+            driveForward(.3, 1);
         }
 
         // Positive target value is from the center (0) to the right
         // Negative target value is from the center (0) to the left
         else if (Alliance == "Blue") {
 
-            if (targetY < -1 && targetVisible && targetName == "Stone Target") {           //position 1
+            if (targetY < -1 && targetVisible) {           //position 1 (LEFT) with Camera on Left Sideskirt ranges from -5.498 to -6.059
 
-                strafeLeft(.3, 2);
+                strafeLeft(.3, 1.2);
                 linearOp.telemetry.addLine(" Position 1");
                 linearOp.telemetry.update();
+                skyStonePosition = 1;
 
 
 
-            } else if (targetY > -1 && targetVisible && targetName == "Stone Target") {      //position 2
+            } else if (targetY > -1 && targetVisible) {      //position 2 (MIDDLE) with Camera on on Left Sideskirt ranges from 2.65 to 2.757
 
+                strafeLeft(.3, .1);
                 // No Need to Move
                 linearOp.telemetry.addLine("Position 2");
                 linearOp.telemetry.update();
+                skyStonePosition = 2;
 
             } else {                                                                        // position 3
 
-                strafeRight(.3, 2);
+                strafeRight(.3, .8);
                 linearOp.telemetry.addLine("Position 3");
                 linearOp.telemetry.update();
+                skyStonePosition = 3;
 
             }
             driveForward(.3, 1);
+        }
+    }
+
+    // haven't tested method
+    public void goToStone1 (String Alliance) {
+        if (Alliance == "Red") {
+            switch (skyStonePosition) {
+                case 1:
+                    break;
+                case 2:
+                    strafeRight(.3, 1);
+                    break;
+                case 3:
+                    strafeRight(.3, 2);
+                    break;
+
+            }
+        }
+        else if (Alliance == "Blue") {
+
+        }
+    }
+
+    public void driveToPlate (String Alliance) throws InterruptedException {
+        if (Alliance == "Red") {
+            gyroCorrection(.2, 0);
+            driveGyroStrafe(2800,.6,"right");
+        }
+        else if (Alliance == "Blue") {
+
+        }
+    }
+
+    public void dropOffSkyStone (String Alliance) {
+        if (Alliance == "Red") {
+            rotateLeft(.3, 4);
+            gyroCorrection(.15, 179);
+            driveBackward(.3, .5);
+        }
+        else if (Alliance == "Blue") {
+
+        }
+
+    }
+
+    // stacking arm method for dropping skystone
+
+    public void alignWithPlate (String Alliance) throws InterruptedException {
+        if (Alliance == "Red") {
+            rotateLeft(.3, 2.5);
+            gyroCorrection(.2,-90 );
+            linearOp.idle();
+            //driveGyroStrafe(1000, .3, "left");
+            strafeLeft(.3, 1);
+        }
+        else if (Alliance == "Blue") {
+
+        }
+
+    }
+
+    public void movePlate (String Alliance) throws InterruptedException  {
+        //grab build plate
+        if (Alliance == "Red") {
+            //driveGyroStrafe(1500, .3, "right");
+            strafeRight(.3, 1);
+            rotateRight(.3, 1.25);
+            gyroCorrection(.2, -135);
+
+            //driveGyroStrafe(1500, .3, "right");
+            strafeRight(.3, 1);
+            rotateRight(.3, 1.25);
+            gyroCorrection(.2, -178);
+        }
+        else if (Alliance == "Blue") {
+
+        }
+        // drop build plate
+    }
+
+    public void parkInner (String Alliance) {
+        if (Alliance == "Red") {
+            driveBackward(.4, .5);
+            rotateLeft(.4, 2.5);
+            gyroCorrection(.2, 90);
+            driveForward(.3, 2.5);
+        }
+        else if (Alliance == "Blue") {
+
         }
     }
 

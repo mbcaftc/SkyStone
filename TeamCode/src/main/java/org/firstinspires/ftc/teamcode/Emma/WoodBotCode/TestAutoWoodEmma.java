@@ -17,6 +17,7 @@ public class TestAutoWoodEmma extends LinearOpMode {
     public WoodBotEmma Bot = new WoodBotEmma();
 
     public LinearOpMode linearOp = null;
+    public long sleepTime = 50;
 
     public void setLinearOp(LinearOpMode Op) {
 
@@ -32,26 +33,45 @@ public class TestAutoWoodEmma extends LinearOpMode {
 
         setLinearOp(this);
 
-
         waitForStart();
 
         while (opModeIsActive()) {
 
             Bot.activateTracking();
 
-            Bot.driveForward(.2, 2.3);
+            Bot.driveForward(.2, 1.8);
+            sleep(sleepTime);
 
             Bot.detectSkyStone();
+            sleep(sleepTime);
 
             Bot.deActivateTracking();
+            sleep(sleepTime);
 
-            Bot.driveToSkyStone("Blue");
+            Bot.driveToSkyStone("Red");
+            sleep(sleepTime);
 
             //Intake Skystone
+            Bot.driveBackward(.2, .5);
+            sleep(sleepTime);
+
+            Bot.driveToPlate("Red");
+            sleep(sleepTime);
+
+            Bot.dropOffSkyStone("Red");
+            sleep(sleepTime);
+
+            Bot.alignWithPlate("Red");
+            sleep(sleepTime);
+
+            Bot.movePlate("Red");
+            sleep(sleepTime);
+
+            Bot.parkInner("Red");
+            sleep(sleepTime);
 
             requestOpModeStop();
         }
-        Bot.deActivateTracking(); // ????
         idle();
 
 
