@@ -6,105 +6,97 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 public abstract class AutoLoading extends AutoMain {
 
 
-    public void encoderAdditionDetection (MetalBot Bot, String Alliance) {
-       if (Alliance == "Red") {
-           Bot.driveForward(midSpeed, .25);
-       }
-       else if (Alliance == "Blue") {
-           Bot.driveForward(midSpeed, .4);
-       }
-    }
-
     public void dropSkyStone(MetalBot Bot, String Alliance) {
 
         if (Alliance == "Red") {
+            Bot.rotateLeft(.3, 4);
+            Bot.gyroCorrection(.15, 179);
+            Bot.driveBackward(.3, .5);
 
-                    Bot.driveForward(highSpeed, 8);
-                    Bot.gyroCorrection(gyroSPD, -91);
-
+            // methods for stacking arm
 //
         } else if (Alliance == "Blue") {
+            Bot.rotateRight(.3, 4);
+            Bot.gyroCorrection(.15, -179);
+            Bot.driveBackward(.3, .5);
 
-                    Bot.driveBackward(highSpeed, 8);
-                    Bot.gyroCorrection(gyroSPD, 91);
 
         }
         sleep(sleepTime);;
     }
 
-
-    public void alignBuildPlateOuter (MetalBot Bot, String Alliance) {
+    public void dropSkyStonePostPlate (MetalBot Bot, String Alliance) {
         if (Alliance == "Red") {
-            Bot.driveBackward(highSpeed, 3.7
-            );
-            Bot.strafeLeft(midSpeed, 2);
-            sleep(sleepTime);
-
+            Bot.rotateLeft(midSpeed, 1.25);
+            Bot.gyroCorrection(gyroSPD, -90);
         }
         else if (Alliance == "Blue") {
-            Bot.driveForward(highSpeed, 3.7);
-            Bot.strafeLeft(midSpeed, 2);
-            sleep(sleepTime);
-
+            Bot.rotateRight(midSpeed, 1.25);
+            Bot.gyroCorrection(gyroSPD, 90);
         }
-        Bot.HookGrab();
-        sleep(1000);
 
     }
-    public void alignGrabBuildPlateInner (MetalBot Bot, String Alliance) {
+
+    public void alignGrabPlate (MetalBot Bot, String Alliance) {
         if (Alliance == "Red") {
-            Bot.driveBackward(midSpeed, 2);
-            sleep(sleepTime);
-            Bot.strafeLeft(midSpeed, 2);
-            sleep(sleepTime);
+            Bot.rotateLeft(.3, 2.5);
+            Bot.gyroCorrection(.2,-90 );
+            linearOp.idle();
+            Bot.strafeLeft(.3, 1);
         }
         else if (Alliance == "Blue") {
-            Bot.driveForward(highSpeed, 2.5);
-            sleep(sleepTime);
-            Bot.strafeLeft(midSpeed, 2);
-            sleep(sleepTime);
+            Bot.rotateRight(.3, 2.5);
+            Bot.gyroCorrection(.2,90 );
+            linearOp.idle();
+            Bot.strafeRight(.3, 1);
         }
-        Bot.HookGrab();
-        sleep(1000);
-    }
 
+        Bot.HookGrab();
+
+    }
 
 
     public void orientBuildPlate (MetalBot Bot, String Alliance) {
         if (Alliance == "Red") {
-            Bot.strafeRight(midSpeed, .8);
-            Bot.rotateRight(midSpeed, 2);
-            Bot.gyroCorrection(.3, -135);
+            Bot.strafeRight(.3, 1);
+            Bot.rotateRight(.3, 1.25);
+            Bot.gyroCorrection(.2, -135);
+            Bot.strafeRight(.3, 1);
+            Bot.rotateRight(.3, 1.25);
+            Bot.gyroCorrection(.2, -178);
+            Bot.strafeLeft(midSpeed, 3);
 
         }
         else if (Alliance == "Blue") {
-            Bot.strafeRight(midSpeed, .8);
-            Bot.rotateLeft(midSpeed, 2);
-            Bot.gyroCorrection(gyroSPD, 135);
+            Bot.strafeLeft(.3, 1);
+            Bot.rotateLeft(.3, 1.25);
+            Bot.gyroCorrection(.2, 135);
+            Bot.strafeLeft(.3, 1);
+            Bot.rotateLeft(.3, 1.25);
+            Bot.gyroCorrection(.2, 178);
+            Bot.strafeRight(midSpeed, 3);
         }
+
+
+        Bot.HookRelease();
 
 
     }
 
 
-
     public void parkInner (MetalBot Bot, String Alliance) {
         if (Alliance  == "Red") {
-            Bot.driveForward(.8, 1.7);
-            Bot.strafeLeft(lowSpeed, .8);
-            Bot.rotateRight(lowSpeed,.8 );
-            Bot.driveForward(.8, 1.9);
-            Bot.strafeRight(lowSpeed, .2);
-            sleep(sleepTime);
+            Bot.strafeRight(.4, .5);
+            Bot.rotateRight(.4, 2.5);
+            Bot.gyroCorrection(.2, 90);
+            Bot.driveForward(.3, 2.5);
         }
         else if (Alliance == "Blue" ) {
+            Bot.strafeRight(.4, .5);
+            Bot.rotateLeft(.4, 2.5);
+            Bot.gyroCorrection(.2, -90);
+            Bot.driveForward(.3, 2.5);
 
-            Bot.driveBackward(.8, 1.7);
-            Bot.strafeLeft(lowSpeed, .8);
-            Bot.rotateLeft(lowSpeed,.8 );
-            Bot.driveBackward(.8, 1.9);
-            Bot.strafeRight(lowSpeed, .2);
-            sleep(sleepTime);
         }
 
 
@@ -112,26 +104,31 @@ public abstract class AutoLoading extends AutoMain {
 
     public void parkOuter (MetalBot Bot, String Alliance) {
         if (Alliance  == "Red") {
-            Bot.driveForward(.8, 1.7);
-            Bot.strafeLeft(lowSpeed, .8);
-            Bot.driveForward(.8, 1);
-            Bot.rotateRight(lowSpeed,.8 );
-            Bot.strafeLeft(lowSpeed, .8);
-            Bot.driveForward(1.2, 1);
 
-            sleep(sleepTime);
         }
         else if (Alliance == "Blue" ) {
 
-            Bot.driveBackward(.8, 1.7);
-            Bot.strafeLeft(lowSpeed, .8);
-            Bot.driveBackward(.8, 1);
-            Bot.rotateLeft(lowSpeed,.8 );
-            Bot.strafeLeft(lowSpeed, .8);
-            Bot.driveBackward(.8, 1);
+
         }
 
 
+    }
+
+    public void parkSkyStoneInner (MetalBot Bot) {
+        Bot.driveForward(midSpeed, 4);
+    }
+
+    public void parkSkyStoneOuter (MetalBot Bot, String Alliance) {
+        if (Alliance == "Red") {
+            Bot.driveForward(midSpeed, 3);
+            Bot.strafeLeft(midSpeed, 1.5);
+            Bot.driveForward(midSpeed, 1.5);
+        }
+        else if (Alliance == "Blue") {
+            Bot.driveForward(midSpeed, 3);
+            Bot.strafeRight(midSpeed, 1.5);
+            Bot.driveForward(midSpeed, 1.5);
+        }
     }
 
 
@@ -139,16 +136,10 @@ public abstract class AutoLoading extends AutoMain {
 
      public void preBuildPlateMove (MetalBot Bot, String Alliance ) {
          if (Alliance == "Red") {
-             Bot.driveForward(midSpeed, 3);
-             Bot.rotateRight(midSpeed, 2.5);
-             Bot.gyroCorrection(gyroSPD, 90);
-             Bot.driveBackward(midSpeed, 2);
+
          }
          else if (Alliance == "Blue") {
-             Bot.driveBackward(midSpeed, 3);
-             Bot.rotateLeft(midSpeed, 2.5);
-             Bot.gyroCorrection(gyroSPD, -90);
-             Bot.driveBackward(midSpeed, 2);
+
 
          }
      }
@@ -156,22 +147,10 @@ public abstract class AutoLoading extends AutoMain {
      public void postBuildPlateMove (MetalBot Bot, String Alliance) {
 
         if (Alliance == "Red") {
-            Bot.driveForward(midSpeed, 4.5);
-            Bot.rotateRight(midSpeed, 2.5);
-            Bot.gyroCorrection(gyroSPD, -90);
-            Bot.gyroCorrection(gyroSPD, -90);
-            Bot.strafeLeft(midSpeed, 2.9);
-            Bot.gyroCorrection(gyroSPD, -90);
-            Bot.strafeLeft(midSpeed,2.7);
+
         }
         else if (Alliance == "Blue") {
-            Bot.driveBackward(midSpeed, 4.5);
-            Bot.rotateLeft(midSpeed, 2.5);
-            Bot.gyroCorrection(gyroSPD, 90);
-            Bot.gyroCorrection(gyroSPD, 90);
-            Bot.strafeLeft(midSpeed, 2.9);
-            Bot.gyroCorrection(gyroSPD, 90);
-            Bot.strafeLeft(midSpeed,2.7);
+
         }
 
      }
@@ -179,22 +158,9 @@ public abstract class AutoLoading extends AutoMain {
      public void postPlatePark (MetalBot Bot, String Alliance) {
 
         if (Alliance == "Red") {
-            Bot.strafeRight(midSpeed, 1);
-            Bot.rotateRight(midSpeed, 2.3);
-            Bot.gyroCorrection(gyroSPD, -179);
-            Bot.driveForward(midSpeed, 1.8);
-            Bot.strafeRight(lowSpeed, 1);
-            Bot.driveForward(midSpeed, 2);
-            //Bot.strafeLeft(lowSpeed, .5);
+
         }
         else if (Alliance == "Blue") {
-            Bot.strafeRight(midSpeed, 1);
-            Bot.rotateLeft(midSpeed, 2.4);
-            //Bot.gyroCorrection(gyroSPD, 179);
-            Bot.driveBackward(midSpeed, 1.8);
-            Bot.strafeLeft(lowSpeed, 1);
-            Bot.driveBackward(midSpeed, 2);
-            //Bot.strafeLeft(lowSpeed, 1.5);
 
         }
 
@@ -203,57 +169,25 @@ public abstract class AutoLoading extends AutoMain {
     public void postPlateParkOuter (MetalBot Bot, String Alliance) {
 
         if (Alliance == "Red") {
-            Bot.strafeRight(midSpeed, 1);
-            Bot.rotateRight(midSpeed, 2.5);
-            Bot.gyroCorrection(gyroSPD, 179);
-            Bot.driveForward(midSpeed, 1.5);
-            Bot.strafeRight(midSpeed, 3);
-            Bot.driveForward(midSpeed, 1.5);
+
         }
         else if (Alliance == "Blue") {
-            Bot.strafeRight(midSpeed, 1);
-            Bot.rotateLeft(midSpeed, 2.5);
-            Bot.gyroCorrection(gyroSPD, -179);
-            Bot.driveBackward(midSpeed, 1.5);
-            Bot.strafeRight(midSpeed, 3);
-            Bot.driveBackward(midSpeed, 1.5);
+
 
         }
 
     }
 
 
-
-
-
-
-
-
-
-
-
-
     public void parkSkyStone (MetalBot Bot, String Alliance) {
 
 
         if (Alliance == "Red") {
-            Bot.strafeLeft(midSpeed, 6.8);
-            sleep(sleepTime);
 
-            Bot.dropStone();
-            sleep(1000);
-
-            Bot.strafeRight(midSpeed, 2.3);
         }
 
         else if (Alliance == "Blue") {
-            Bot.strafeLeft(midSpeed, 6.7);
-            sleep(sleepTime);
 
-            Bot.dropStone();
-            sleep(1000);
-
-            Bot.strafeRight(midSpeed, 2.3);
         }
 
 

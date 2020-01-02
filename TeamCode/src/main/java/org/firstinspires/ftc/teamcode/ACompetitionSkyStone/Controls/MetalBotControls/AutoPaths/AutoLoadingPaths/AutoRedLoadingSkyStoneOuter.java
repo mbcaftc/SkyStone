@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoLoading;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 
-@Autonomous(name = "Red:Loading:SkyStone: Outer")
+@Autonomous(name = "Red:Loading:SkyStone")
 public class AutoRedLoadingSkyStoneOuter extends AutoLoading {
 
     public MetalBot Bot = new MetalBot();
@@ -16,7 +16,10 @@ public class AutoRedLoadingSkyStoneOuter extends AutoLoading {
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
         Bot.HookRelease();
-        Bot.dropStone();
+        Bot.autoRaiseStone();
+        Bot.grabStone();
+        Bot.setServos();
+
 
         setLinearOp(this);
 
@@ -26,34 +29,45 @@ public class AutoRedLoadingSkyStoneOuter extends AutoLoading {
 
         while (opModeIsActive()) {
 
+            Bot.dropStone();
+            Bot.releaseStone();
+            Bot.setServos();
 
-            detectStoneDistance(Bot); //drives forward to find any stone
+            Bot.activateTracking();
+
+            Bot.driveForward(.2, 1.8);
             sleep(sleepTime);
 
-            detectSkyStone (Bot, "Red"); //drive back until detects SKyStone
+            Bot.detectSkyStone();
             sleep(sleepTime);
 
-            encoderAdditionDetection(Bot, "Red");
-
-            manipulateStone(Bot, "grab"); //Grabs skystone
+            Bot.deActivateTracking();
             sleep(sleepTime);
 
-            removeSkyStoneInner(Bot, "Red");
+            driveToSkyStone(Bot, "Red");
+            sleep(sleepTime);
+            // intake down
+
+            manipulateIntake(Bot,"flip down");
             sleep(sleepTime);
 
-            goToFirstLocation(Bot, "Red");
+            Bot.driveForward(midSpeed, .3);
             sleep(sleepTime);
 
-            //parkSkyStone(Bot, "Red");
-
-            postBuildPlateMove(Bot, "Red");
+            manipulateIntake(Bot,"inward");
             sleep(sleepTime);
 
-            manipulateStone(Bot,"release");
+            removeSkyStoneInner(Bot);
             sleep(sleepTime);
 
-            postPlateParkOuter(Bot, "Red");
+            driveToPlate("Red", Bot);
+            sleep(sleepTime);
 
+            Bot.driveGyroStrafe(1000,.6,"right");
+
+            dropSkyStonePostPlate(Bot, "Red");
+
+            parkSkyStoneOuter(Bot, "Red");
 
 
             requestOpModeStop();

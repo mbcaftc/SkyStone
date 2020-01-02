@@ -28,39 +28,47 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
 
         while (opModeIsActive()) {
 
+            Bot.activateTracking();
 
-            detectStoneDistance(Bot); //drives forward to find any stone
+            Bot.driveForward(.2, 1.8);
             sleep(sleepTime);
 
-            detectSkyStone (Bot, "Red"); //drive back until detects SKyStone
+            Bot.detectSkyStone();
             sleep(sleepTime);
 
-            manipulateStone(Bot, "grab"); //Grabs skystone
+            Bot.deActivateTracking();
             sleep(sleepTime);
 
-            removeSkyStoneInner(Bot, "Red");
+            driveToSkyStone(Bot, "Red");
+            sleep(sleepTime);
+            // intake down
+
+            manipulateIntake(Bot,"flip down");
             sleep(sleepTime);
 
-            //adjustToDropSkyStone(Bot, "Red");
-            //sleep(sleepTime);
+            Bot.driveForward(midSpeed, .3);
+            sleep(sleepTime);
 
-            goToFirstLocation(Bot, "Red");
+            manipulateIntake(Bot,"inward");
+            sleep(sleepTime);
+
+            removeSkyStoneInner(Bot);
+            sleep(sleepTime);
+
+            driveToPlate("Red", Bot);
             sleep(sleepTime);
 
             dropSkyStone(Bot, "Red");
             sleep(sleepTime);
 
-            manipulateStone(Bot,"release");
+            alignGrabPlate(Bot, "Red");
             sleep(sleepTime);
 
-            Bot.strafeLeft(lowSpeed, .5);
-
-            orientBuildPlateBuild(Bot, "Red");
+            orientBuildPlate(Bot, "Red");
             sleep(sleepTime);
 
-            parkBuildingPlateInner(Bot, "Red");
+            parkInner(Bot, "Red");
             sleep(sleepTime);
-
 
 
 

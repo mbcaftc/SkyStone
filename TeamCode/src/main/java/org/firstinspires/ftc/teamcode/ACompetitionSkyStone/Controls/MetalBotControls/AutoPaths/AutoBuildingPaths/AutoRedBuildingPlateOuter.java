@@ -33,7 +33,6 @@ public class AutoRedBuildingPlateOuter extends AutoBuilding {
 
             parkBuildingPlateOuter(Bot, "Red");
 
-
             requestOpModeStop();
         }
         idle();

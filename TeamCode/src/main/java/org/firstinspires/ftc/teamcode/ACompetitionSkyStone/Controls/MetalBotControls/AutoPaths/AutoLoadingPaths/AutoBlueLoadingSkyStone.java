@@ -33,43 +33,41 @@ public class AutoBlueLoadingSkyStone extends AutoLoading {
             Bot.releaseStone();
             Bot.setServos();
 
-            detectStoneDistance(Bot); //drives forward to find any stone
+            Bot.activateTracking();
+
+            Bot.driveForward(.2, 1.8);
             sleep(sleepTime);
 
-            detectSkyStone (Bot, "Blue"); //drive back until detects SKyStone
+            Bot.detectSkyStone();
             sleep(sleepTime);
 
-            encoderAdditionDetection(Bot, "Blue");
-
-            Bot.strafeLeft(lowSpeed, .2);
-
-            manipulateStone(Bot, "grab"); //Grabs skystone
-            sleep(500);
-
-            removeSkyStoneInner(Bot, "Blue");
+            Bot.deActivateTracking();
             sleep(sleepTime);
 
-            manipulateStone(Bot, "release rotator");
+            driveToSkyStone(Bot, "Blue");
+            sleep(sleepTime);
+            // intake down
+
+            manipulateIntake(Bot,"flip down");
             sleep(sleepTime);
 
-            goToFirstLocation(Bot, "Blue");
+            Bot.driveForward(midSpeed, .3);
             sleep(sleepTime);
 
-            //parkSkyStone(Bot, "Blue");
-
-            postBuildPlateMove(Bot, "Blue");
+            manipulateIntake(Bot,"inward");
             sleep(sleepTime);
 
-            manipulateStone(Bot,"lower rotator");
+            removeSkyStoneInner(Bot);
             sleep(sleepTime);
 
-            manipulateStone(Bot, "release grabber");
+            driveToPlate("Blue", Bot);
             sleep(sleepTime);
 
-            manipulateStone(Bot, "release rotator");
+            Bot.driveGyroStrafe(1000,.6,"left");
 
-            postPlatePark(Bot, "Blue");
+            dropSkyStonePostPlate(Bot, "Blue");
 
+            parkSkyStoneInner(Bot);
 
             requestOpModeStop();
         }
