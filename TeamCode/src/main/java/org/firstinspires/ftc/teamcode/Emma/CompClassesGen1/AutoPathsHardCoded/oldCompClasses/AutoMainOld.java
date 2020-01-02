@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Emma.oldCompClasses;
+package org.firstinspires.ftc.teamcode.Emma.CompClassesGen1.AutoPathsHardCoded.oldCompClasses;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;

@@ -1,13 +1,7 @@
 package org.firstinspires.ftc.teamcode.Emma.WoodBotCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
-import org.firstinspires.ftc.teamcode.Emma.AutoPathsHardCoded.AutoBuildingHardCodedHardCoded;
 
 
 @Autonomous(name = "Testing Auto: Vuforia: Emma")

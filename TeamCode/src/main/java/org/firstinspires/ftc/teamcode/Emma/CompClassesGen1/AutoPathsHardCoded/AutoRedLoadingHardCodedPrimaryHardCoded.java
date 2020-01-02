@@ -1,15 +1,14 @@
-package org.firstinspires.ftc.teamcode.Emma.AutoPathsHardCoded;
+package org.firstinspires.ftc.teamcode.Emma.CompClassesGen1.AutoPathsHardCoded;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 
-
-@Autonomous(name = "Auto:Blue Building:Primary")
+@Autonomous(name = "Auto:Red Loading:Primary")
 @Disabled
 
-public class AutoBlueBuildingHardCodedPrimaryHardCoded extends AutoBuildingHardCodedHardCoded {
+public class AutoRedLoadingHardCodedPrimaryHardCoded extends AutoLoadingHardCodedHardCoded {
 
     public MetalBot Bot = new MetalBot();
     //public VuforiaWebcam Cam = new VuforiaWebcam();
@@ -29,23 +28,30 @@ public class AutoBlueBuildingHardCodedPrimaryHardCoded extends AutoBuildingHardC
         waitForStart();
 
         while (opModeIsActive()) {
+            //Cam.trackObjects();
+            sleep(sleepTime);
 
-            alignBuildPlate(Bot, "Blue");
 
-            goToSkystones(Bot, "Blue");
 
-            hardCodeVuforia(Bot, "Blue");
-            //vuforiaStone(Bot, Cam);
+            Bot.strafeLeft(midSpeed, 1);
 
-            orientToDropStone(Bot, "Blue");
+            //vuforiaStone(Bot, Cam, "Red");
+            hardCodeVuforia(Bot, "Red");
 
-            dropStone(Bot);
+            removeSkyStoneInner(Bot,"Red");
 
-            park(Bot);
+            dropSkyStone(Bot, "Red");
+
+            alignGrabBuildPlateInner(Bot, "Red");
+
+            orientBuildPlate(Bot, "Red");
+
+            pushBuildPlate(Bot, "Red");
+
+            park(Bot, "Red");
 
             requestOpModeStop();
         }
         idle();
-
     }
 }

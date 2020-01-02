@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Emma.AutoPathsHardCoded;
+package org.firstinspires.ftc.teamcode.Emma.CompClassesGen1.AutoPathsHardCoded;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Emma.oldCompClasses;
+package org.firstinspires.ftc.teamcode.Emma.CompClassesGen1.AutoPathsHardCoded.oldCompClasses;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoMain;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;

@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Emma;
 
-import org.firstinspires.ftc.teamcode.Emma.AutoPathsHardCoded.AutoLoadingHardCodedHardCoded;
+import org.firstinspires.ftc.teamcode.Emma.CompClassesGen1.AutoPathsHardCoded.AutoLoadingHardCodedHardCoded;
 import org.firstinspires.ftc.teamcode.Emma.AckerBot.AckerBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.subsystems.VuforiaWebcam;
 
