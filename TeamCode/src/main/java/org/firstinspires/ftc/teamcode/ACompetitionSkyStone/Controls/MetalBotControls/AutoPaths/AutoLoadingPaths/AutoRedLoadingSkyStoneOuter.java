@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoLoading;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 
-@Autonomous(name = "Red:Loading:SkyStone")
+@Autonomous(name = "Red:Loading:SkyStone:Outer")
 public class AutoRedLoadingSkyStoneOuter extends AutoLoading {
 
     public MetalBot Bot = new MetalBot();
