@@ -11,7 +11,7 @@ public class TestOneMotor extends OpMode {
     DcMotor testMotor;
     @Override
     public void init() {
-        testMotor = hardwareMap.dcMotor.get("test_motor");
+        testMotor = hardwareMap.dcMotor.get("stacking_arm");
         testMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         testMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
