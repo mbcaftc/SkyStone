@@ -17,7 +17,7 @@ public class SchenckTeleOp extends OpMode {
 
     public SchenckBot Bot = new SchenckBot();
 
-    public void init(){
+    public void init()    {
         Bot.initRobot(hardwareMap);
     }
 
@@ -92,6 +92,7 @@ public class SchenckTeleOp extends OpMode {
             Bot.headOff();
         }
     }
+
 
 
 

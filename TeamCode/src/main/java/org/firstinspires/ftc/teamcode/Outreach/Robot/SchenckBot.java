@@ -53,7 +53,7 @@ public class SchenckBot extends OutreachDrive {
 
 
         //launching mechanism
-        SchenckLauncher =  hwBot.dcMotor.get("schenck_launcher");
+        //SchenckLauncher =  hwBot.dcMotor.get("schenck_launcher");
 
         launcherRSpinner = hwBot.dcMotor.get("launcher_right_spinner");
         launcherRSpinner.setDirection(DcMotor.Direction.REVERSE);
@@ -63,17 +63,20 @@ public class SchenckBot extends OutreachDrive {
         launcherLSpinner.setDirection(DcMotor.Direction.FORWARD);
         launcherLSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        windup = hwBot.servo.get("windup_servo");
+        head = hwBot.servo.get("head_servo");
+
     }
 
     public void launcherSpinInward () {
 
-        launcherLSpinner.setPower(-0.6);
-        launcherRSpinner.setPower(-0.6);
+        launcherLSpinner.setPower(-1);
+        launcherRSpinner.setPower(-1);
     }
     public void launcherSpinOutward () {
 
-        launcherLSpinner.setPower(0.4);
-        launcherRSpinner.setPower(0.4);
+        launcherLSpinner.setPower(1);
+        launcherRSpinner.setPower(1);
     }
     public void launcherSpinOff () {
 

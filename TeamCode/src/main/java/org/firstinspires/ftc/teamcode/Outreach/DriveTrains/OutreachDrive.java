@@ -9,9 +9,11 @@ public class OutreachDrive {
     public DcMotor frontLeftMotor;
     public DcMotor frontRightMotor;
     public LinearOpMode linearOp = null;
+
     public void setLinearOp(LinearOpMode linearOp) {
         this.linearOp = linearOp;
     }
+
     public final DcMotor.RunMode currentMotorRunMode = DcMotor.RunMode.RUN_WITHOUT_ENCODER;
     public static final double TICKS_PER_ROTATION = 538;
 
