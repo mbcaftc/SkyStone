@@ -18,7 +18,7 @@ public class TestTwoMotors extends OpMode {
         testMotor1.setDirection(DcMotorSimple.Direction.FORWARD);
         testMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        testMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
+        testMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
         testMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 

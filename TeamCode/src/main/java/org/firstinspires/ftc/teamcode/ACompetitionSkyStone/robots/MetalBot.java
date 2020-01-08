@@ -183,9 +183,10 @@ public class MetalBot extends MecanumDrive {
 
 
         //Define and Intialize Color and Distance Sensor
+        /*
         sensorColor = hwBot.get(ColorSensor.class, "sensor_color_distance");
         sensorDistance = hwBot.get(DistanceSensor.class, "sensor_color_distance");
-
+*/
 
 
         // Define and Intialize Servo for skyStone grabber
@@ -194,11 +195,14 @@ public class MetalBot extends MecanumDrive {
         //stoneServo = hwBot.get(Servo.class, "stone_grabber");
         //stoneServo.setDirection(Servo.Direction.FORWARD);
 
+        /*
         stoneRotate = hwBot.get(Servo.class, "stone_rotate");
         stoneRotate.setDirection(Servo.Direction.FORWARD);
 
         stoneGrabber = hwBot.get(Servo.class, "stone_grabber");
         stoneGrabber.setDirection(Servo.Direction.FORWARD);
+        */
+
         //dropStone();
 
 
@@ -230,9 +234,11 @@ public class MetalBot extends MecanumDrive {
         // Define and Initialize Servo and Motor for stacking arm
         //stackingStoneGrabber = hwBot.servo.get("stacking_grabber");
         stackingLiftLeft = hwBot.dcMotor.get("stacking_lift_left");
+        stackingLiftLeft.setDirection(DcMotor.Direction.FORWARD);
         stackingLiftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         stackingLiftRight = hwBot.dcMotor.get("stacking_lift_right");
+        stackingLiftRight.setDirection(DcMotor.Direction.REVERSE);
         stackingLiftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         clawExtender = hwBot.get(Servo.class, "claw_extender");
@@ -254,7 +260,7 @@ public class MetalBot extends MecanumDrive {
         imu.initialize(parametersimu);
 
         //init camera
-        initWebCam();
+        //initWebCam();
 
         //init timer
         initTimers ();
