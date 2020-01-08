@@ -95,6 +95,12 @@ public class MetalBot extends MecanumDrive {
     public Servo clawExtender;
     public Servo clawGrabber;
 
+    public ElapsedTime stackingArmTimer;
+
+    public int stackingArmTargetPos = -1000;
+    public double getMaxStackingArmTime = 3;
+
+
 
 
 
@@ -311,6 +317,9 @@ public class MetalBot extends MecanumDrive {
     public void initTimers () {
         vuforiaTimer = new ElapsedTime();
         vuforiaTimer.reset();
+
+        stackingArmTimer = new ElapsedTime();
+        stackingArmTimer.reset();
     }
 
 
@@ -405,10 +414,36 @@ public class MetalBot extends MecanumDrive {
         stackingLiftRight.setPower(1*armMultiplier);
     }
 
+    public void stackingArmUpEncoders () {
+        stackingArmTimer.reset();
+        while (stackingLiftRight.getCurrentPosition() > stackingArmTargetPos && linearOp.opModeIsActive()) {
+            stackingArmUp();
+            if (stackingArmTimer.time() >= getMaxStackingArmTime) {
+                break;
+            }
+            linearOp.sleep(300);
+            linearOp.idle();
+        }
+        stackingArmOff();
+    }
+
     public void stackingArmDown() {
 
         stackingLiftLeft.setPower(-1 * armMultiplier);
         stackingLiftRight.setPower(-1 * armMultiplier);
+    }
+
+    public void stackingArmDownEncoders () {
+        stackingArmTimer.reset();
+        while (stackingLiftRight.getCurrentPosition() <= 5 && linearOp.opModeIsActive()) {
+            stackingArmDown();
+            if (stackingArmTimer.time() >= getMaxStackingArmTime) {
+                break;
+            }
+            linearOp.sleep(300);
+            linearOp.idle();
+        }
+        stackingArmOff();
     }
 
     public void stackingArmOff () {

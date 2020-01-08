@@ -67,10 +67,6 @@ public class TeleOpMetalBot extends OpMode {
 
         controlHook();
 
-        //controlStoneServoButton();
-
-        //controlCapstone ();
-
         controlIntakeArms();
 
         controlIntakeSpinners();
@@ -81,7 +77,6 @@ public class TeleOpMetalBot extends OpMode {
 
         controlClawGrabber();
 
-        //controlStackingArmGrabber();
 
         Bot.setServos();
 
