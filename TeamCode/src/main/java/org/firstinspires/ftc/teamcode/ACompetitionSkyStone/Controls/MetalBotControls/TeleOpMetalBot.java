@@ -53,8 +53,7 @@ public class TeleOpMetalBot extends OpMode {
     // Runs ONCE when driver presses PLAY
     @Override
     public void start() {
-        Bot.dropStone();
-        Bot.neutralStone();
+
 
     }
 
@@ -78,7 +77,7 @@ public class TeleOpMetalBot extends OpMode {
         controlClawGrabber();
 
 
-        Bot.setServos();
+        //Bot.setServos();
 
         slowDrive();
 
@@ -236,9 +235,9 @@ public class TeleOpMetalBot extends OpMode {
         else if (gamepad2.left_trigger > .1) {
             Bot.clawExtenderRetract();
         }
-        else {
-            Bot.clawExtenderStop();
-        }
+//        else {
+//            Bot.clawExtenderStop();
+//        }
 
     }
 
@@ -355,12 +354,17 @@ public class TeleOpMetalBot extends OpMode {
         telemetry.addData("Motor ", "Rear Left: " + rearLeftSpeed);
         telemetry.addData("Motor ", "Rear Right: " + rearRightSpeed);
 
+        /*
         telemetry.addData("Stone Grabber Servo: ", Bot.stoneGrabber.getPosition());
         telemetry.addData("Stone Grabber Var: ", Bot.stoneGrabberPos);
         telemetry.addData("Stone Rotater Servo: ", Bot.stoneRotate.getPosition());
         telemetry.addData("Stone Rotater Var: ", Bot.stoneRotatePos);
+
+        */
         telemetry.addData("Left Hook Servo: ", Bot.HookLeft.getPosition());
         telemetry.addData("Right Hook Servo: ", Bot.HookRight.getPosition());
+
+        telemetry.addData("Claw Extender", Bot.clawExtender.getPosition());
         //telemetry.addData("Stone Grab Servo: ", Bot.stoneServo);
 
 //        telemetry.addData("Camera Visible Target", Cam.targetName);

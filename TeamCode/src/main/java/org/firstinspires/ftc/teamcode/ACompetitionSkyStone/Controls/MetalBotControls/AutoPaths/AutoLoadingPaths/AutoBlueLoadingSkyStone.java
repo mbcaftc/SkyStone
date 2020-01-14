@@ -18,7 +18,7 @@ public class AutoBlueLoadingSkyStone extends AutoLoading {
         Bot.HookRelease();
         Bot.autoRaiseStone();
         Bot.grabStone();
-        Bot.setServos();
+        //Bot.setServos();
 
         setLinearOp(this);
 
@@ -31,7 +31,7 @@ public class AutoBlueLoadingSkyStone extends AutoLoading {
 
             Bot.dropStone();
             Bot.releaseStone();
-            Bot.setServos();
+            //Bot.setServos();
 
             Bot.activateTracking();
 

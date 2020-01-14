@@ -54,10 +54,11 @@ public class MetalBot extends MecanumDrive {
 
 
 
-    public Servo stoneRotate;
-    public Servo stoneGrabber;
+    //public Servo stoneRotate;
+    //public Servo stoneGrabber;
+    double servoPos = .5;
 
-    public double stoneRotatePos;
+    //public double stoneRotatePos;
     public double stoneGrabberPos;
 
     public double armMultiplier = .45;
@@ -241,11 +242,13 @@ public class MetalBot extends MecanumDrive {
         stackingLiftRight.setDirection(DcMotor.Direction.REVERSE);
         stackingLiftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+
         clawExtender = hwBot.get(Servo.class, "claw_extender");
         clawExtender.setDirection(Servo.Direction.FORWARD);
 
         clawGrabber = hwBot.get(Servo.class, "claw_grabber");
         clawGrabber.setDirection(Servo.Direction.FORWARD);
+
 
         // Define and Initialize Gyro
         BNO055IMU.Parameters parametersimu = new BNO055IMU.Parameters();
@@ -347,35 +350,36 @@ public class MetalBot extends MecanumDrive {
 
 
 
+
     public void dropStone () {
 //        stoneRotate.setPosition(.55);
-        stoneRotatePos = .55;
+        //stoneRotatePos = .55;
     }
     public void raiseStone() {
 
-        stoneRotatePos = .22;        //.2
+        //stoneRotatePos = .22;        //.2
 
     }
 
     public void autoRaiseStone() {
-        stoneRotatePos =.15;
+        //stoneRotatePos =.15;
     }
 
     public void grabStone () {
-        stoneGrabberPos = 0.4;
+        //stoneGrabberPos = 0.4;
 //        stoneGrabber.setPosition(0);
     }
     public void releaseStone() {
-        stoneGrabberPos = .9;
+        //stoneGrabberPos = .9;
 //        stoneGrabber.setPosition(.7);
     }
     public void neutralStone () {
 
 
 //        stoneRotate.setPosition(.15);
-        stoneRotatePos = .15;
+        //stoneRotatePos = .15;
 //        stoneGrabber.setPosition(0);
-        stoneGrabberPos = 0.4;
+        //stoneGrabberPos = 0.4;
     }
 
 
@@ -386,6 +390,8 @@ public class MetalBot extends MecanumDrive {
     public void raiseCapstone() {
         capstoneDropper.setPosition(0);
     }
+
+
 
 
 
@@ -457,11 +463,15 @@ public class MetalBot extends MecanumDrive {
         stackingLiftRight.setPower(0);
     }
 
+
     public void clawExtenderExtend () {
-        clawExtender.setPosition(1);
+        servoPos += .01;
+        clawExtender.setPosition(servoPos);
+
     }
     public void clawExtenderRetract () {
-        clawExtender.setPosition(0);
+        servoPos -= .01;
+        clawExtender.setPosition(servoPos);
     }
     public void clawExtenderStop () {
         clawExtender.setPosition(.5);
@@ -475,10 +485,10 @@ public class MetalBot extends MecanumDrive {
         clawGrabber.setPosition(0);
     }
 
-    public void setServos () {
-        stoneRotate.setPosition(stoneRotatePos);
-        stoneGrabber.setPosition(stoneGrabberPos);
-    }
+//    public void setServos () {
+//        stoneRotate.setPosition(stoneRotatePos);
+//        stoneGrabber.setPosition(stoneGrabberPos);
+//    }
 
 
     // Robot Gyro

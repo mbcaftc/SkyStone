@@ -24,11 +24,11 @@ public class TestTwoMotors extends OpMode {
 
     @Override
     public void loop() {
-        if (gamepad2.left_stick_x > .1) {
+        if (gamepad2.left_stick_y > .1) {
             testMotor1.setPower(gamepad2.left_stick_x);
             testMotor2.setPower(gamepad2.left_stick_x);
         }
-        else if (gamepad2.left_stick_x < .1) {
+        else if (gamepad2.left_stick_y < .1) {
             testMotor1.setPower(gamepad2.left_stick_x);
             testMotor2.setPower(gamepad2.left_stick_x);
         }
