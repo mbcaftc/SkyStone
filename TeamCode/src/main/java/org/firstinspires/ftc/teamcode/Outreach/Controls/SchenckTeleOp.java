@@ -17,7 +17,7 @@ public class SchenckTeleOp extends OpMode {
 
     public SchenckBot Bot = new SchenckBot();
 
-    public void init(){
+    public void init()    {
         Bot.initRobot(hardwareMap);
     }
 
@@ -29,7 +29,7 @@ public class SchenckTeleOp extends OpMode {
 
         controlWindup();
 
-        controlHead();
+        controlArm();
 
     }
 
@@ -83,15 +83,16 @@ public class SchenckTeleOp extends OpMode {
         }
     }
 
-    public void controlHead() {
-        if (gamepad2.a) {
-            Bot.rightHead();
-        } else if (gamepad2.b) {
-            Bot.leftHead();
+    public void controlArm() {
+        if (gamepad2.x) {
+            Bot.rightArm();
+        } else if (gamepad2.y) {
+            Bot.leftArm();
         } else {
-            Bot.headOff();
+            Bot.armOff();
         }
     }
+
 
 
 

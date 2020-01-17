@@ -12,7 +12,7 @@ public class SchenckBot extends OutreachDrive {
 
     public HardwareMap hwBot = null;
     public Servo windup = null;
-    public Servo head = null;
+    public Servo arm1 = null;
 
     public DcMotor SchenckLauncher;
 
@@ -53,7 +53,7 @@ public class SchenckBot extends OutreachDrive {
 
 
         //launching mechanism
-        SchenckLauncher =  hwBot.dcMotor.get("schenck_launcher");
+        //SchenckLauncher =  hwBot.dcMotor.get("schenck_launcher");
 
         launcherRSpinner = hwBot.dcMotor.get("launcher_right_spinner");
         launcherRSpinner.setDirection(DcMotor.Direction.REVERSE);
@@ -63,17 +63,23 @@ public class SchenckBot extends OutreachDrive {
         launcherLSpinner.setDirection(DcMotor.Direction.FORWARD);
         launcherLSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        windup = hwBot.servo.get("windup_servo");
+        windup.setPosition(0);
+
+        arm1 = hwBot.servo.get("arm1_servo");
+        //arm1.setPosition(0);
+
     }
 
     public void launcherSpinInward () {
 
-        launcherLSpinner.setPower(-0.6);
-        launcherRSpinner.setPower(-0.6);
+        launcherLSpinner.setPower(-1);
+        launcherRSpinner.setPower(-1);
     }
     public void launcherSpinOutward () {
 
-        launcherLSpinner.setPower(0.4);
-        launcherRSpinner.setPower(0.4);
+        launcherLSpinner.setPower(1);
+        launcherRSpinner.setPower(1);
     }
     public void launcherSpinOff () {
 
@@ -94,14 +100,14 @@ public class SchenckBot extends OutreachDrive {
         windup.setPosition(0);
     }
 
-    public void rightHead () {
-        head.setPosition(.2);
+    public void rightArm () {
+        arm1.setPosition(.2);
     }
-    public void leftHead () {
-        head.setPosition(0.8);
+    public void leftArm () {
+        arm1.setPosition(0.2);
     }
-    public void headOff () {
-        head.setPosition(0);
+    public void armOff () {
+        arm1.setPosition(0);
     }
 }
 
