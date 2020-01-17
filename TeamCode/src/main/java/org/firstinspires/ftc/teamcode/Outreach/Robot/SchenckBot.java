@@ -12,7 +12,7 @@ public class SchenckBot extends OutreachDrive {
 
     public HardwareMap hwBot = null;
     public Servo windup = null;
-    public Servo head = null;
+    public Servo arm1 = null;
 
     public DcMotor SchenckLauncher;
 
@@ -64,7 +64,10 @@ public class SchenckBot extends OutreachDrive {
         launcherLSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         windup = hwBot.servo.get("windup_servo");
-        head = hwBot.servo.get("head_servo");
+        windup.setPosition(0);
+
+        arm1 = hwBot.servo.get("arm1_servo");
+        //arm1.setPosition(0);
 
     }
 
@@ -97,14 +100,14 @@ public class SchenckBot extends OutreachDrive {
         windup.setPosition(0);
     }
 
-    public void rightHead () {
-        head.setPosition(.2);
+    public void rightArm () {
+        arm1.setPosition(.2);
     }
-    public void leftHead () {
-        head.setPosition(0.8);
+    public void leftArm () {
+        arm1.setPosition(0.2);
     }
-    public void headOff () {
-        head.setPosition(0);
+    public void armOff () {
+        arm1.setPosition(0);
     }
 }
 
