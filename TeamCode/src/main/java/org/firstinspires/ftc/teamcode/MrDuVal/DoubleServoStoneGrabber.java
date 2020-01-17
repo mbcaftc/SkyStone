@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.MrDuVal;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 @TeleOp (name = "Stone Grabber Test", group = "lab")
+@Disabled
 public class DoubleServoStoneGrabber extends OpMode {
 
     Servo StoneGrabberHinge;

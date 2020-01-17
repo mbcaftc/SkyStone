@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
 @Autonomous(name = "Red:Loading:Inner:Full")
-@Disabled
+//@Disabled
 public class AutoRedLoadingInnerFull extends AutoLoading {
 
     public MetalBot Bot = new MetalBot();
@@ -39,18 +39,23 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             Bot.deActivateTracking();
             sleep(sleepTime);
 
+            telemetry.addLine("BEFORE STRAFING");
+            telemetry.update();
+
             driveToSkyStone(Bot, "Red");
             sleep(sleepTime);
             // intake down
 
-            manipulateIntake(Bot,"flip down");
-            sleep(sleepTime);
 
-            Bot.driveForward(midSpeed, .3);
-            sleep(sleepTime);
+            manipulateIntake(Bot,"flip down");
+            sleep(500);
 
             manipulateIntake(Bot,"inward");
-            sleep(sleepTime);
+
+            Bot.driveForward(midSpeed, 1.4);
+
+            sleep(1000);
+            manipulateIntake(Bot, "stop");
 
             removeSkyStoneInner(Bot);
             sleep(sleepTime);

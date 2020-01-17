@@ -105,6 +105,7 @@ public class MetalBot extends MecanumDrive {
 
 
 
+    public double skyStoneValue;
 
     //********************
     public OpenGLMatrix lastLocation = null;
@@ -263,7 +264,7 @@ public class MetalBot extends MecanumDrive {
         imu.initialize(parametersimu);
 
         //init camera
-        //initWebCam();
+        initWebCam();
 
         //init timer
         initTimers ();
@@ -769,6 +770,9 @@ public class MetalBot extends MecanumDrive {
             targetY = translation.get(1) / mmPerInch;
             targetZ = translation.get(2) / mmPerInch;
 
+            //BNI global variable
+            skyStoneValue = targetY;
+
             // express the rotation of the robot in degrees.
             Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
             targetRoll = rotation.firstAngle;
@@ -785,11 +789,12 @@ public class MetalBot extends MecanumDrive {
 
         while (!targetVisible && linearOp.opModeIsActive() && vuforiaTimer.time() <= 3) {
             trackObjects();
-
         }
 
+        skyStoneValue = targetY;
+
         linearOp.telemetry.addData("targetY: ", targetY);
-        linearOp.telemetry.addData("targetX: ", targetX);
+//        linearOp.telemetry.addData("targetX: ", targetX);
         linearOp.telemetry.addData("targetVisible: ", targetVisible);
         linearOp.telemetry.addData("targetName: ", targetName);
         linearOp.telemetry.update();

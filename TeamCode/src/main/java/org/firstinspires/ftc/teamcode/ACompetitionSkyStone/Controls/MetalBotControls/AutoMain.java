@@ -74,6 +74,9 @@ public abstract class AutoMain extends LinearOpMode {
         else if ( position == "outward") {
             Bot.intakeSpinOutward();
         }
+        else if (position == "stop") {
+            Bot.intakeSpinOff();
+        }
     }
 
 
@@ -89,7 +92,7 @@ public abstract class AutoMain extends LinearOpMode {
 
     public void removeSkyStoneInner(MetalBot Bot) {
 
-            Bot.driveBackward(.2, .3);
+            Bot.driveBackward(.2, 1.8);
             sleep(sleepTime);
     }
 
@@ -145,28 +148,37 @@ public abstract class AutoMain extends LinearOpMode {
         // Positive target value is from the center (0) to the right
         // Negative target value is from the center (0) to the left
         if (Alliance == "Red") {
-
-            if (targetY < -1 && targetVisible) {                 ////position 1 (LEFT)
+            telemetry.addData("target Y:", targetY);
+            telemetry.update();
+            sleep(500);
+            if (Bot.skyStoneValue < -1 ) {                 ////position 1 (LEFT)
 
                 Bot.strafeLeft(.3, 1.2);
                 linearOp.telemetry.addLine("Position 1");
+                telemetry.addData("target Y 2:", targetY);
                 linearOp.telemetry.update();
+                sleep(500);
                 skyStonePosition = 1;
 
 
-            } else if (targetY > -1 && targetVisible) {       // position 2 (MIDDLE)
-
-                Bot.strafeLeft(.3, .1);
-                linearOp.telemetry.addLine("Position 2");
-                linearOp.telemetry.update();
-                skyStonePosition = 2;
-
-            } else {                                                                            // position 3
+            }  else if (targetY == 0.0) {                                                                            // position 3
 
                 Bot.strafeRight(.3, .8);
                 linearOp.telemetry.addLine("Position 3");
                 linearOp.telemetry.update();
                 skyStonePosition = 3;
+            }
+
+            else if (Bot.skyStoneValue > -1 ) {       // position 2 (MIDDLE)
+
+                Bot.strafeLeft(.3, .3);     // was .1
+                linearOp.telemetry.addLine("Position 2");
+                telemetry.addData("target Y:", targetY);
+                linearOp.telemetry.update();
+                sleep(500);
+
+                skyStonePosition = 2;
+
             }
 
         }
@@ -184,20 +196,21 @@ public abstract class AutoMain extends LinearOpMode {
 
 
 
-            } else if (targetY > -1 && targetVisible) {      //position 2 (MIDDLE) with Camera on on Left Sideskirt ranges from 2.65 to 2.757
+            } else if (targetY == 0.0) {                                                                        // position 3
+
+                Bot.strafeRight(.3, .8);
+                linearOp.telemetry.addLine("Position 3");
+                linearOp.telemetry.update();
+                skyStonePosition = 3;
+            }
+
+            else if (targetY > -1 && targetVisible) {      //position 2 (MIDDLE) with Camera on on Left Sideskirt ranges from 2.65 to 2.757
 
                 Bot.strafeLeft(.3, .1);
                 // No Need to Move
                 linearOp.telemetry.addLine("Position 2");
                 linearOp.telemetry.update();
                 skyStonePosition = 2;
-
-            } else {                                                                        // position 3
-
-                Bot.strafeRight(.3, .8);
-                linearOp.telemetry.addLine("Position 3");
-                linearOp.telemetry.update();
-                skyStonePosition = 3;
 
             }
         }
