@@ -161,7 +161,7 @@ public abstract class AutoMain extends LinearOpMode {
                 skyStonePosition = 1;
 
 
-            }  else if (targetY == 0.0) {                                                                            // position 3
+            }  else if (targetY == 0.0) {                                                                         // position 3
 
                 Bot.strafeRight(.3, .8);
                 linearOp.telemetry.addLine("Position 3");
