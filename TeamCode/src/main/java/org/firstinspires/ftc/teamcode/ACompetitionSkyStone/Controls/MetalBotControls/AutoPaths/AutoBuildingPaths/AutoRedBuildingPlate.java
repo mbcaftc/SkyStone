@@ -18,9 +18,9 @@ public class AutoRedBuildingPlate extends AutoBuilding {
         Bot.initRobot(hardwareMap);
         Bot.setLinearOp(this);
         Bot.HookRelease();
-        Bot.autoRaiseStone();
-        Bot.grabStone();
-        Bot.setServos();
+        //Bot.autoRaiseStone();
+        //Bot.grabStone();
+        //Bot.setServos();
 
         setLinearOp(this);
 

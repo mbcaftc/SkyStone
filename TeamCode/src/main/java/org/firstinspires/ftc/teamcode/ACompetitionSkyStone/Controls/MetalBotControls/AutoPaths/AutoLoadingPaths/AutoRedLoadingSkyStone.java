@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotContr
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Red:Loading:SkyStone")
+@Autonomous(name = "Red:Loading:SkyStone:Inner")
 public class AutoRedLoadingSkyStone extends AutoLoading {
 
     public MetalBot Bot = new MetalBot();
@@ -20,7 +20,7 @@ public class AutoRedLoadingSkyStone extends AutoLoading {
         Bot.HookRelease();
         Bot.autoRaiseStone();
         Bot.grabStone();
-        Bot.setServos();
+        //Bot.setServos();
 
 
         setLinearOp(this);
@@ -33,7 +33,7 @@ public class AutoRedLoadingSkyStone extends AutoLoading {
 
             Bot.dropStone();
             Bot.releaseStone();
-            Bot.setServos();
+            //Bot.setServos();
 
             Bot.activateTracking();
 

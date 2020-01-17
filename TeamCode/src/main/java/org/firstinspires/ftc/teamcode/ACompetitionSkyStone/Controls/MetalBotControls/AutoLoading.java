@@ -14,7 +14,13 @@ public abstract class AutoLoading extends AutoMain {
             Bot.driveBackward(.3, .5);
 
             // methods for stacking arm
-//
+            Bot.clawGrabberGrab();
+            Bot.stackingArmUpEncoders();
+            Bot.clawExtenderExtend();
+            Bot.clawGrabberRelease();
+            Bot.clawExtenderRetract();
+            Bot.stackingArmDownEncoders();
+
         } else if (Alliance == "Blue") {
             Bot.rotateRight(.3, 4);
             Bot.gyroCorrection(.15, -179);
@@ -98,9 +104,8 @@ public abstract class AutoLoading extends AutoMain {
             Bot.driveForward(.3, 2.5);
 
         }
-
-
     }
+
 
     public void parkOuter (MetalBot Bot, String Alliance) {
         if (Alliance  == "Red") {
@@ -108,10 +113,7 @@ public abstract class AutoLoading extends AutoMain {
         }
         else if (Alliance == "Blue" ) {
 
-
         }
-
-
     }
 
     public void parkSkyStoneInner (MetalBot Bot) {

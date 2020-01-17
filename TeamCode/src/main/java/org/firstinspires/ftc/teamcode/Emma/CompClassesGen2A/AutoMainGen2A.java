@@ -42,7 +42,7 @@ public abstract class AutoMainGen2A extends LinearOpMode {
             Bot.dropStone();
             sleep(1000);
             Bot.grabStone();
-            Bot.setServos();
+            //Bot.setServos();
         }
         if (manipulate == "release") {
             Bot.dropStone();
@@ -50,22 +50,22 @@ public abstract class AutoMainGen2A extends LinearOpMode {
             Bot.releaseStone();
             sleep(1000);
 //            Bot.raiseStone();
-            Bot.setServos();
+            //Bot.setServos();
         }
         if (manipulate =="release rotator") {
             Bot.autoRaiseStone();
             sleep(sleepTime);
-            Bot.setServos();
+            //Bot.setServos();
         }
         if (manipulate == "lower rotator") {
             Bot.dropStone();
             sleep(1000);
-            Bot.setServos();
+            //Bot.setServos();
         }
         if (manipulate == "release grabber") {
             Bot.releaseStone();
             sleep(1000);
-            Bot.setServos();
+            //Bot.setServos();
         }
 
         idle();

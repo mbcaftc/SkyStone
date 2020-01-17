@@ -53,12 +53,12 @@ public class MetalBot extends MecanumDrive {
     public Servo HookRight = null;
 
 
-    //public Servo stoneServo = null;
 
-    public Servo stoneRotate;
-    public Servo stoneGrabber;
+    //public Servo stoneRotate;
+    //public Servo stoneGrabber;
+    double servoPos = .5;
 
-    public double stoneRotatePos;
+    //public double stoneRotatePos;
     public double stoneGrabberPos;
 
     public double armMultiplier = .45;
@@ -83,17 +83,25 @@ public class MetalBot extends MecanumDrive {
     //*********************
 
 
+    //intake
     public DcMotor intakeLSpinner;
     public DcMotor intakeRSpinner;
-    public DcMotor intakeDeploy;
 
-//    public Servo intakeLeftArm = null;
-//    public Servo intakeRightArm = null;
+    public Servo intakeDeploy;
+
+    //stacking arms
+    public DcMotor stackingLiftLeft;
+    public DcMotor stackingLiftRight;
+
+    public Servo clawExtender;
+    public Servo clawGrabber;
+
+    public ElapsedTime stackingArmTimer;
+
+    public int stackingArmTargetPos = -1000;
+    public double getMaxStackingArmTime = 3;
 
 
-
-    public Servo stackingStoneGrabber = null;
-    public DcMotor stackingArm;
 
 
 
@@ -176,9 +184,10 @@ public class MetalBot extends MecanumDrive {
 
 
         //Define and Intialize Color and Distance Sensor
+        /*
         sensorColor = hwBot.get(ColorSensor.class, "sensor_color_distance");
         sensorDistance = hwBot.get(DistanceSensor.class, "sensor_color_distance");
-
+*/
 
 
         // Define and Intialize Servo for skyStone grabber
@@ -187,11 +196,14 @@ public class MetalBot extends MecanumDrive {
         //stoneServo = hwBot.get(Servo.class, "stone_grabber");
         //stoneServo.setDirection(Servo.Direction.FORWARD);
 
+        /*
         stoneRotate = hwBot.get(Servo.class, "stone_rotate");
         stoneRotate.setDirection(Servo.Direction.FORWARD);
 
         stoneGrabber = hwBot.get(Servo.class, "stone_grabber");
         stoneGrabber.setDirection(Servo.Direction.FORWARD);
+        */
+
         //dropStone();
 
 
@@ -205,15 +217,6 @@ public class MetalBot extends MecanumDrive {
 
         // Define and Initialize Servos and Motors for intake
 
-        /*
-
-        intakeLeftArm = hwBot.get(Servo.class, "intake_left_arm");
-        intakeLeftArm.setDirection(Servo.Direction.REVERSE);
-
-        intakeRightArm = hwBot.get(Servo.class, "intake_right_arm");
-
-
-        */
 
 
         intakeRSpinner = hwBot.dcMotor.get("intake_right_spinner");
@@ -224,17 +227,27 @@ public class MetalBot extends MecanumDrive {
         intakeLSpinner.setDirection(DcMotor.Direction.FORWARD);
         intakeLSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        intakeDeploy = hwBot.dcMotor.get("intake_deploy");
-        intakeDeploy.setDirection(DcMotor.Direction.FORWARD);
-        intakeDeploy.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intakeDeploy = hwBot.get(Servo.class, "intake_deploy");
+        intakeDeploy.setDirection(Servo.Direction.FORWARD);
 
 
 
         // Define and Initialize Servo and Motor for stacking arm
-        stackingStoneGrabber = hwBot.servo.get("stacking_grabber");
-        stackingArm = hwBot.dcMotor.get("stacking_arm");
-        stackingArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //stackingStoneGrabber = hwBot.servo.get("stacking_grabber");
+        stackingLiftLeft = hwBot.dcMotor.get("stacking_lift_left");
+        stackingLiftLeft.setDirection(DcMotor.Direction.FORWARD);
+        stackingLiftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        stackingLiftRight = hwBot.dcMotor.get("stacking_lift_right");
+        stackingLiftRight.setDirection(DcMotor.Direction.REVERSE);
+        stackingLiftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+        clawExtender = hwBot.get(Servo.class, "claw_extender");
+        clawExtender.setDirection(Servo.Direction.FORWARD);
+
+        clawGrabber = hwBot.get(Servo.class, "claw_grabber");
+        clawGrabber.setDirection(Servo.Direction.FORWARD);
 
 
         // Define and Initialize Gyro
@@ -250,7 +263,7 @@ public class MetalBot extends MecanumDrive {
         imu.initialize(parametersimu);
 
         //init camera
-        initWebCam();
+        //initWebCam();
 
         //init timer
         initTimers ();
@@ -313,6 +326,9 @@ public class MetalBot extends MecanumDrive {
     public void initTimers () {
         vuforiaTimer = new ElapsedTime();
         vuforiaTimer.reset();
+
+        stackingArmTimer = new ElapsedTime();
+        stackingArmTimer.reset();
     }
 
 
@@ -334,35 +350,36 @@ public class MetalBot extends MecanumDrive {
 
 
 
+
     public void dropStone () {
 //        stoneRotate.setPosition(.55);
-        stoneRotatePos = .55;
+        //stoneRotatePos = .55;
     }
     public void raiseStone() {
 
-        stoneRotatePos = .22;        //.2
+        //stoneRotatePos = .22;        //.2
 
     }
 
     public void autoRaiseStone() {
-        stoneRotatePos =.15;
+        //stoneRotatePos =.15;
     }
 
     public void grabStone () {
-        stoneGrabberPos = 0.4;
+        //stoneGrabberPos = 0.4;
 //        stoneGrabber.setPosition(0);
     }
     public void releaseStone() {
-        stoneGrabberPos = .9;
+        //stoneGrabberPos = .9;
 //        stoneGrabber.setPosition(.7);
     }
     public void neutralStone () {
 
 
 //        stoneRotate.setPosition(.15);
-        stoneRotatePos = .15;
+        //stoneRotatePos = .15;
 //        stoneGrabber.setPosition(0);
-        stoneGrabberPos = 0.4;
+        //stoneGrabberPos = 0.4;
     }
 
 
@@ -373,6 +390,8 @@ public class MetalBot extends MecanumDrive {
     public void raiseCapstone() {
         capstoneDropper.setPosition(0);
     }
+
+
 
 
 
@@ -393,63 +412,83 @@ public class MetalBot extends MecanumDrive {
     }
     public void intakeDeployLower () {
 
-        intakeDeploy.setPower(0.5);
+        intakeDeploy.setPosition(.5);
+
     }
     public void intakeDeployRaise () {
 
-        intakeDeploy.setPower(-0.5);
-    }
-    public void intakeDeployOff () {
-
-        intakeDeploy.setPower(0);
-
-    }
-
-    /*
-    public void intakeArmHold() {
-
-        intakeLeftArm.setPosition(.4);
-        intakeRightArm.setPosition(.4);
-
-    }
-
-    public void intakeArmRelease() {
-
-        intakeLeftArm.setPosition(0);
-        intakeRightArm.setPosition(0);
-
-    }
-
-    */
-
-
-
-    public void stackingArmGrabberClose() {
-
-        stackingStoneGrabber.setPosition(0.95);
-    }
-
-    public void stackingArmGrabberOpen() {
-
-        stackingStoneGrabber.setPosition(0.88);
+        intakeDeploy.setPosition(0);
     }
 
     public void stackingArmUp() {
 
-        stackingArm.setPower(1 * armMultiplier);
+        stackingLiftLeft.setPower(1 * armMultiplier);
+        stackingLiftRight.setPower(1*armMultiplier);
+    }
+
+    public void stackingArmUpEncoders () {
+        stackingArmTimer.reset();
+        while (stackingLiftRight.getCurrentPosition() > stackingArmTargetPos && linearOp.opModeIsActive()) {
+            stackingArmUp();
+            if (stackingArmTimer.time() >= getMaxStackingArmTime) {
+                break;
+            }
+            linearOp.sleep(300);
+            linearOp.idle();
+        }
+        stackingArmOff();
     }
 
     public void stackingArmDown() {
 
-        stackingArm.setPower(-1 * armMultiplier);
+        stackingLiftLeft.setPower(-1 * armMultiplier);
+        stackingLiftRight.setPower(-1 * armMultiplier);
     }
 
-    public void stackingArmOff () { stackingArm.setPower(0); }
-
-    public void setServos () {
-        stoneRotate.setPosition(stoneRotatePos);
-        stoneGrabber.setPosition(stoneGrabberPos);
+    public void stackingArmDownEncoders () {
+        stackingArmTimer.reset();
+        while (stackingLiftRight.getCurrentPosition() <= 5 && linearOp.opModeIsActive()) {
+            stackingArmDown();
+            if (stackingArmTimer.time() >= getMaxStackingArmTime) {
+                break;
+            }
+            linearOp.sleep(300);
+            linearOp.idle();
+        }
+        stackingArmOff();
     }
+
+    public void stackingArmOff () {
+        stackingLiftLeft.setPower(0);
+        stackingLiftRight.setPower(0);
+    }
+
+
+    public void clawExtenderExtend () {
+        servoPos += .01;
+        clawExtender.setPosition(servoPos);
+
+    }
+    public void clawExtenderRetract () {
+        servoPos -= .01;
+        clawExtender.setPosition(servoPos);
+    }
+    public void clawExtenderStop () {
+        clawExtender.setPosition(.5);
+    }
+
+    public void clawGrabberGrab () {
+        clawGrabber.setPosition(.5);
+    }
+
+    public void clawGrabberRelease () {
+        clawGrabber.setPosition(0);
+    }
+
+//    public void setServos () {
+//        stoneRotate.setPosition(stoneRotatePos);
+//        stoneGrabber.setPosition(stoneGrabberPos);
+//    }
 
 
     // Robot Gyro

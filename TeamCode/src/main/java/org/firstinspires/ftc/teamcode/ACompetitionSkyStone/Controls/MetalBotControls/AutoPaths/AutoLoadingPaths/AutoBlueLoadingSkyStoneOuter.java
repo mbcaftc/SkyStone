@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoLoading;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 
-@Autonomous(name = "Blue:Loading:SkyStone:Outer")
+@Autonomous(name = "Blue:Loading:SkyStone: Outer")
 public class AutoBlueLoadingSkyStoneOuter extends AutoLoading {
 
     public MetalBot Bot = new MetalBot();
@@ -18,7 +18,7 @@ public class AutoBlueLoadingSkyStoneOuter extends AutoLoading {
         Bot.HookRelease();
         Bot.autoRaiseStone();
         Bot.grabStone();
-        Bot.setServos();
+        //Bot.setServos();
 
         setLinearOp(this);
 
@@ -31,7 +31,7 @@ public class AutoBlueLoadingSkyStoneOuter extends AutoLoading {
 
             Bot.dropStone();
             Bot.releaseStone();
-            Bot.setServos();
+            //Bot.setServos();
 
             Bot.activateTracking();
 

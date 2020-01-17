@@ -47,15 +47,13 @@ public class TeleOpMetalBot extends OpMode {
     // Runs Repeatedly when driver presses INIT but before pressing PLAY
     @Override
     public void init_loop() {
-
     }
 
 
     // Runs ONCE when driver presses PLAY
     @Override
     public void start() {
-        Bot.dropStone();
-        Bot.neutralStone();
+
 
     }
 
@@ -68,20 +66,18 @@ public class TeleOpMetalBot extends OpMode {
 
         controlHook();
 
-        //controlStoneServoButton();
-        controlStoneServo();
-
-        //controlCapstone ();
-
         controlIntakeArms();
 
         controlIntakeSpinners();
 
         controlStackingArm();
 
-        controlStackingArmGrabber();
+        controlClawExtender();
 
-        Bot.setServos();
+        controlClawGrabber();
+
+
+        //Bot.setServos();
 
         slowDrive();
 
@@ -168,35 +164,7 @@ public class TeleOpMetalBot extends OpMode {
 
     }
 
-
-    public void controlStoneServo() {
-        if (gamepad2.left_stick_y > 0.1) {
-            telemetry.addLine("Lower control stone servo!");
-            //telemetry.addData("servo ", Bot.stoneServo.getPosition());
-            telemetry.update();
-            Bot.raiseStone();      //was .5
-        }
-        else if (gamepad2.left_stick_y <  -.1) {
-            telemetry.addLine("Raise the control stone servo");
-            //telemetry.addData("servo ", Bot.stoneServo.getPosition());
-            telemetry.update();
-            Bot.dropStone();      // was .77 but too low
-        }
-        else if (gamepad2.b == true){
-            Bot.grabStone();
-            telemetry.addLine("Grab Stone");
-            telemetry.update();
-
-        }
-
-        else if (gamepad2.x == true) {
-            Bot.releaseStone();
-            telemetry.addLine("Release Stone");
-            telemetry.update();
-        }
-    }
-
-    public void controlStoneServoButton() {
+  /*  public void controlStoneServoButton() {
         if (gamepad1.x  == true) {
             //telemetry.addLine("drop control stone servo!");
             //telemetry.addData("servo ", Bot.stoneServo.getPosition());
@@ -209,18 +177,8 @@ public class TeleOpMetalBot extends OpMode {
             telemetry.update();
             Bot.grabStone();      // was .77 but too low
         }
-    }
+    }*/
 
-    public void controlCapstone () {
-        if (gamepad2.right_trigger > 0.1 ) {                //was gamepad2.left_bumper
-            Bot.raiseCapstone();
-
-        }
-
-        else if (gamepad2.left_trigger > 0.1) {           //was gamepad2.right_bumper
-            Bot.dropCapstone();
-        }
-    }
 
     public void controlIntakeArms() {
         if (gamepad2.dpad_down) {
@@ -230,9 +188,6 @@ public class TeleOpMetalBot extends OpMode {
         else if (gamepad2.dpad_up) {
             //Bot.intakeArmRelease();
             Bot.intakeDeployRaise();
-        }
-        else {
-            Bot.intakeDeployOff();
         }
     }
 
@@ -264,12 +219,34 @@ public class TeleOpMetalBot extends OpMode {
 //
 //    }
 
-    public void controlStackingArmGrabber () {
+//    public void controlStackingArmGrabber () {
+//        if (gamepad2.right_trigger > .1) {
+//            Bot.stackingArmGrabberClose();
+//        }
+//        else {
+//            Bot.stackingArmGrabberOpen();
+//        }
+//    }
+
+    public void controlClawExtender () {
         if (gamepad2.right_trigger > .1) {
-            Bot.stackingArmGrabberClose();
+            Bot.clawExtenderExtend();
         }
-        else {
-            Bot.stackingArmGrabberOpen();
+        else if (gamepad2.left_trigger > .1) {
+            Bot.clawExtenderRetract();
+        }
+//        else {
+//            Bot.clawExtenderStop();
+//        }
+
+    }
+
+    public void controlClawGrabber () {
+        if (gamepad2.x == true) {
+            Bot.clawGrabberGrab();
+        }
+        else if (gamepad2.b == true) {
+            Bot.clawGrabberRelease();
         }
     }
 
@@ -377,12 +354,17 @@ public class TeleOpMetalBot extends OpMode {
         telemetry.addData("Motor ", "Rear Left: " + rearLeftSpeed);
         telemetry.addData("Motor ", "Rear Right: " + rearRightSpeed);
 
+        /*
         telemetry.addData("Stone Grabber Servo: ", Bot.stoneGrabber.getPosition());
         telemetry.addData("Stone Grabber Var: ", Bot.stoneGrabberPos);
         telemetry.addData("Stone Rotater Servo: ", Bot.stoneRotate.getPosition());
         telemetry.addData("Stone Rotater Var: ", Bot.stoneRotatePos);
+
+        */
         telemetry.addData("Left Hook Servo: ", Bot.HookLeft.getPosition());
         telemetry.addData("Right Hook Servo: ", Bot.HookRight.getPosition());
+
+        telemetry.addData("Claw Extender", Bot.clawExtender.getPosition());
         //telemetry.addData("Stone Grab Servo: ", Bot.stoneServo);
 
 //        telemetry.addData("Camera Visible Target", Cam.targetName);
