@@ -43,15 +43,18 @@ public abstract class AutoLoading extends AutoMain {
 
         Bot.stackingArmOff();
 
-        Bot.clawExtender.setPosition(1);
-        sleep(3000);
+        Bot.clawExtender.setPower(1);
+        sleep(1000);
+        Bot.clawExtender.setPower(0);
 
         Bot.clawGrabberRelease();
         sleep(50);
 
         Bot.driveForward(lowSpeed, .5);
 
-        Bot.clawExtender.setPosition(.05);
+        Bot.clawExtender.setPower(-1);
+        sleep(1000);
+        Bot.clawExtender.setPower(0);
 
         Bot.stackingArmUp();      // This is physically down
         sleep(800);

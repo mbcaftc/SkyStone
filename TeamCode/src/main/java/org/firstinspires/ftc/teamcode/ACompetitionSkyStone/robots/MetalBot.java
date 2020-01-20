@@ -61,7 +61,7 @@ public class MetalBot extends MecanumDrive {
     //public double stoneRotatePos;
     public double stoneGrabberPos;
 
-    public double armMultiplier = .45;
+    public double armMultiplier = .50;
     //public Servo intakePusher = null;
 
     public Servo capstoneDropper = null;
@@ -93,7 +93,9 @@ public class MetalBot extends MecanumDrive {
     public DcMotor stackingLiftLeft;
     public DcMotor stackingLiftRight;
 
-    public Servo clawExtender;
+    //public Servo clawExtender;
+    public CRServo clawExtender;
+
     public Servo clawGrabber;
 
     public ElapsedTime stackingArmTimer;
@@ -244,8 +246,8 @@ public class MetalBot extends MecanumDrive {
         stackingLiftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-        clawExtender = hwBot.get(Servo.class, "claw_extender");
-        clawExtender.setDirection(Servo.Direction.FORWARD);
+        clawExtender = hwBot.get(CRServo.class, "claw_extender");
+        clawExtender.setPower(0);
 
         clawGrabber = hwBot.get(Servo.class, "claw_grabber");
         clawGrabber.setDirection(Servo.Direction.FORWARD);
@@ -398,15 +400,15 @@ public class MetalBot extends MecanumDrive {
 
 
 
+// ******   Intake Control Mechanisms
 
-
-    public void intakeSpinInward () {
+    public void intakeSpinInward () {           // Used in TeleOp
 
         intakeLSpinner.setPower(-0.85);
         intakeRSpinner.setPower(-0.85);
     }
 
-    public void intakeSpinInwardAuto () {
+    public void intakeSpinInwardAuto () {       // Used in Auto
         intakeLSpinner.setPower(-.6);
         intakeRSpinner.setPower(-.6);
     }
@@ -416,7 +418,7 @@ public class MetalBot extends MecanumDrive {
         intakeRSpinner.setPower(0.4);
     }
 
-    public void intakeSpinnerRunner () {
+    public void intakeSpinnerRunner () {        // Reverse Slowly for TeleOp (Runner Bot Button Only)
 
         intakeLSpinner.setPower(0.2);
         intakeRSpinner.setPower(0.2);
@@ -439,11 +441,27 @@ public class MetalBot extends MecanumDrive {
         intakeDeploy.setPosition(0);
     }
 
+
+    // ***** Stacking Arm Lift Mechanisms without Encoders
+
     public void stackingArmUp() {
 
-        stackingLiftLeft.setPower(1 * armMultiplier);
-        stackingLiftRight.setPower(1*armMultiplier);
+        stackingLiftLeft.setPower(1);
+        stackingLiftRight.setPower(1);
     }
+
+    public void stackingArmDown() {
+
+        stackingLiftLeft.setPower(-1 * armMultiplier);
+        stackingLiftRight.setPower(-1 * armMultiplier);
+    }
+
+    public void stackingArmOff () {
+        stackingLiftLeft.setPower(0);
+        stackingLiftRight.setPower(0);
+    }
+
+    // ***** Stacking Arm Lift Mechanisms Using Encoders
 
     public void stackingArmUpEncoders () {
         stackingArmTimer.reset();
@@ -456,12 +474,6 @@ public class MetalBot extends MecanumDrive {
             linearOp.idle();
         }
         stackingArmOff();
-    }
-
-    public void stackingArmDown() {
-
-        stackingLiftLeft.setPower(-1 * armMultiplier);
-        stackingLiftRight.setPower(-1 * armMultiplier);
     }
 
     public void stackingArmDownEncoders () {
@@ -477,28 +489,18 @@ public class MetalBot extends MecanumDrive {
         stackingArmOff();
     }
 
-    public void stackingArmOff () {
-        stackingLiftLeft.setPower(0);
-        stackingLiftRight.setPower(0);
-    }
 
+
+    // ****** Claw Extension and Grabber Mechanisms
 
     public void clawExtenderExtend () {
-//        if (servoPos <= .9) {
-//            servoPos += .15;
-//            clawExtender.setPosition(servoPos);
-//        }
-        clawExtender.setPosition(.9);
+        clawExtender.setPower(1);
     }
     public void clawExtenderRetract () {
-//        if (servoPos >= .1) {
-//            servoPos -= .15;
-//            clawExtender.setPosition(servoPos);
-//        }
-        clawExtender.setPosition(.05);
+        clawExtender.setPower(-1);
     }
     public void clawExtenderStop () {
-        clawExtender.setPosition(.5);
+        clawExtender.setPower(0);
     }
 
     public void clawGrabberGrab () {
@@ -506,13 +508,10 @@ public class MetalBot extends MecanumDrive {
     }
 
     public void clawGrabberRelease () {
-//      Claw Grabber Servo does not do anythig if set to position 0.0.
-//      Set to
+
         clawGrabber.setPosition(0.95);
     }
 
-//    Testing to troubleshoot Servo.
-//    Not being called anymore. 1/18/20
     public void clawGrabberManualControl (double increment) {
         double servoPos = clawGrabber.getPosition();
         servoPos += increment;
@@ -520,13 +519,8 @@ public class MetalBot extends MecanumDrive {
         clawGrabber.setPosition(servoPos);
     }
 
-//    public void setServos () {
-//        stoneRotate.setPosition(stoneRotatePos);
-//        stoneGrabber.setPosition(stoneGrabberPos);
-//    }
 
-
-    // Robot Gyro
+    // Robot Gyro Controls
 
     public void gyroCorrection (double speed, double angle) {
 
