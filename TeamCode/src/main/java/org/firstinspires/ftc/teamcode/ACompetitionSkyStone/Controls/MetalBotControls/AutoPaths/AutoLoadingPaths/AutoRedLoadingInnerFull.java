@@ -72,13 +72,8 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             orientBuildPlate(Bot, "Red");
             sleep(sleepTime);
 
-
             parkInner(Bot, "Red");
             sleep(sleepTime);
-
-
-
-
 
             requestOpModeStop();
         }

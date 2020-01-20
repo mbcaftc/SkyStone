@@ -75,8 +75,10 @@ public abstract class AutoLoading extends AutoMain {
 
     }
 
-    public void alignGrabPlate (MetalBot Bot, String Alliance) {
+    public void alignGrabPlate (MetalBot Bot, String Alliance){
         if (Alliance == "Red") {
+
+
             Bot.rotateLeft(lowSpeed, 2);
             Bot.gyroCorrection(gyroSPD,-90 );
             linearOp.idle();
@@ -90,21 +92,28 @@ public abstract class AutoLoading extends AutoMain {
         }
 
         Bot.HookGrab();
-        sleep(500);
+        sleep(250);                 // adjusted from 500 to save time
 
     }
 
 
-    public void orientBuildPlate (MetalBot Bot, String Alliance) {
+
+    public void orientBuildPlate (MetalBot Bot, String Alliance) throws InterruptedException {
         if (Alliance == "Red") {
-            Bot.driveForward(lowSpeed, .5);
-            Bot.strafeRight(lowSpeed, 2.5);
-            Bot.rotateRight(lowSpeed, 1);
+
+            Bot.driveGyroStrafeAngle (1000,.3,"right",-175);  // Gyro stafe at angle
+            Bot.strafeLeft(midSpeed,2);   // slam into the wall
+
+
+            //Emma's original code
+            //Bot.driveForward(lowSpeed, .5);
+            //Bot.strafeRight(lowSpeed, 2.5);
+            //Bot.rotateRight(lowSpeed, 1);
             //Bot.gyroCorrection(gyroSPD, -135);
-            Bot.strafeRight(lowSpeed, 1.5);
-            Bot.rotateRight(lowSpeed, 1.5);
+            //Bot.strafeRight(lowSpeed, 1.5);
+            //Bot.rotateRight(lowSpeed, 1.5);
             //Bot.gyroCorrection(lowSpeed, -178);
-            Bot.strafeLeft(lowSpeed, 1.5);
+            //Bot.strafeLeft(lowSpeed, 1.5);
 
         }
         else if (Alliance == "Blue") {
@@ -127,11 +136,16 @@ public abstract class AutoLoading extends AutoMain {
 
     public void parkInner (MetalBot Bot, String Alliance) {
         if (Alliance  == "Red") {
-            Bot.strafeRight(.4, .5);
-            Bot.driveBackward(highSpeed, 2);
-            Bot.rotateRight(highSpeed, 1.5);
-            Bot.gyroCorrection(.2, 90);
-            Bot.driveForward(.3, 2.5);
+            Bot.strafeRight(.4, .5);// (theory) rotate right 90 degrres, drive forward maybe 2 rotations, high speed
+            Bot.rotateRight(highSpeed,1);
+            Bot.gyroCorrection(.2,90);
+            Bot.driveForward(highSpeed,2);
+
+            //Emma's original code
+//            Bot.driveBackward(highSpeed, 2);
+//            Bot.rotateRight(highSpeed, 1.5);
+//            Bot.gyroCorrection(.2, 90);
+//            Bot.driveForward(.3, 2.5);
         }
         else if (Alliance == "Blue" ) {
             Bot.strafeRight(.4, .5);

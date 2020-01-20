@@ -616,8 +616,8 @@ public class MetalBot extends MecanumDrive {
 
         double target = angles.firstAngle;
         double startPosition = frontLeftMotor.getCurrentPosition();
-        linearOp.telemetry.addData("Angle to start: ", angles.firstAngle);
-        linearOp.telemetry.update();
+      //  linearOp.telemetry.addData("Angle to start: ", angles.firstAngle);
+      //  linearOp.telemetry.update();
         linearOp.sleep(100);
         while (currentPos < encoders + startPosition && linearOp.opModeIsActive()) {
 
@@ -658,16 +658,16 @@ public class MetalBot extends MecanumDrive {
             }
 
 
-
+/*
             linearOp.telemetry.addData("Left Speed", frontLeftMotor.getPower());
             linearOp.telemetry.addData("Right Speed", frontRightMotor.getPower());
             linearOp.telemetry.addData("Distance till destination ", encoders + startPosition - frontLeftMotor.getCurrentPosition());
             linearOp.telemetry.addData("Current Position", currentPos);
             linearOp.telemetry.addData("Target Position", target);
             linearOp.telemetry.addData("Angle: ", angles.firstAngle);
-
             linearOp.telemetry.update();
             // missing waiting
+*/
             linearOp.idle();
         }
 
@@ -692,8 +692,8 @@ public class MetalBot extends MecanumDrive {
 
         double target = angles.firstAngle;
         double startPosition = frontLeftMotor.getCurrentPosition();
-        linearOp.telemetry.addData("Angle to start: ", angles.firstAngle);
-        linearOp.telemetry.update();
+    //    linearOp.telemetry.addData("Angle to start: ", angles.firstAngle);
+    //    linearOp.telemetry.update();
         linearOp.sleep(2000);
         while (currentPos < encoders + startPosition && linearOp.opModeIsActive()) {
 
@@ -740,7 +740,7 @@ public class MetalBot extends MecanumDrive {
             }
 
 
-
+/*
             linearOp.telemetry.addData("Left Speed", frontLeftMotor.getPower());
             linearOp.telemetry.addData("Right Speed", frontRightMotor.getPower());
             linearOp.telemetry.addData("Distance till destination ", encoders + startPosition - frontLeftMotor.getCurrentPosition());
@@ -749,6 +749,7 @@ public class MetalBot extends MecanumDrive {
             linearOp.telemetry.addData("Angle: ", angles.firstAngle);
 
             linearOp.telemetry.update();
+*/
             // missing waiting
             linearOp.idle();
         }
@@ -761,6 +762,91 @@ public class MetalBot extends MecanumDrive {
         linearOp.idle();
 
     }
+
+
+
+    public void driveGyroStrafeAngle (int encoders, double power, String direction, double angle) throws InterruptedException {
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double currentPos = 0;
+        double frontLeftSpeed;
+        double frontRightSpeed;
+        double rearLeftSpeed;
+        double rearRightSpeed;
+
+
+        double target = angle;
+        double startPosition = frontLeftMotor.getCurrentPosition();
+    //    linearOp.telemetry.addData("Angle to start: ", angles.firstAngle);
+    //    linearOp.telemetry.update();
+        linearOp.sleep(2000);
+        while (currentPos < encoders + startPosition && linearOp.opModeIsActive()) {
+
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+
+            currentPos = Math.abs(frontLeftMotor.getCurrentPosition());
+
+            switch (direction) {
+                case "left":
+                    frontLeftSpeed = power - (angles.firstAngle - target) / 100;            // they need to be different
+                    frontRightSpeed = power - (angles.firstAngle - target) / 100;
+                    rearLeftSpeed = power + (angles.firstAngle - target) / 100;            // they need to be different
+                    rearRightSpeed = power + (angles.firstAngle - target) / 100;
+
+                    frontLeftSpeed = Range.clip(frontLeftSpeed, -1, 1);        // helps prevent out of bounds error
+                    frontRightSpeed = Range.clip(frontRightSpeed, -1, 1);
+                    rearLeftSpeed = Range.clip(rearLeftSpeed, -1, 1);        // helps prevent out of bounds error
+                    rearRightSpeed = Range.clip(rearRightSpeed, -1, 1);
+
+                    frontLeftMotor.setPower(-frontLeftSpeed);
+                    frontRightMotor.setPower(frontRightSpeed);
+
+                    rearLeftMotor.setPower(rearLeftSpeed);
+                    rearRightMotor.setPower(-rearRightSpeed);
+                    break;
+                case "right":
+                    frontLeftSpeed = power + (angles.firstAngle - target) / 100;            // they need to be different
+                    frontRightSpeed = power + (angles.firstAngle - target) / 100;
+                    rearLeftSpeed = power - (angles.firstAngle - target) / 100;            // they need to be different
+                    rearRightSpeed = power - (angles.firstAngle - target) / 100;
+
+                    frontLeftSpeed = Range.clip(frontLeftSpeed, -1, 1);        // helps prevent out of bounds error
+                    frontRightSpeed = Range.clip(frontRightSpeed, -1, 1);
+                    rearLeftSpeed = Range.clip(rearLeftSpeed, -1, 1);        // helps prevent out of bounds error
+                    rearRightSpeed = Range.clip(rearRightSpeed, -1, 1);
+
+                    frontLeftMotor.setPower(frontLeftSpeed);
+                    frontRightMotor.setPower(-frontRightSpeed);
+
+                    rearLeftMotor.setPower(-rearLeftSpeed);
+                    rearRightMotor.setPower(rearRightSpeed);
+                    break;
+            }
+
+
+/*
+           linearOp.telemetry.addData("Left Speed", frontLeftMotor.getPower());
+           linearOp.telemetry.addData("Right Speed", frontRightMotor.getPower());
+           linearOp.telemetry.addData("Distance till destination ", encoders + startPosition - frontLeftMotor.getCurrentPosition());
+           linearOp.telemetry.addData("Current Position", currentPos);
+           linearOp.telemetry.addData("Target Position", target);
+           linearOp.telemetry.addData("Angle: ", angles.firstAngle);
+
+           linearOp.telemetry.update();
+*/
+            // missing waiting
+            linearOp.idle();
+        }
+
+        frontLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        rearLeftMotor.setPower(0);
+        rearRightMotor.setPower(0);
+
+        linearOp.idle();
+
+    }
+
 
     // Robot Mechanisms - Vuforia WebCam Methods
 
@@ -821,11 +907,11 @@ public class MetalBot extends MecanumDrive {
 
         skyStoneValue = targetY;
 
-        linearOp.telemetry.addData("targetY: ", targetY);
+//        linearOp.telemetry.addData("targetY: ", targetY);
 //        linearOp.telemetry.addData("targetX: ", targetX);
-        linearOp.telemetry.addData("targetVisible: ", targetVisible);
-        linearOp.telemetry.addData("targetName: ", targetName);
-        linearOp.telemetry.update();
+//        linearOp.telemetry.addData("targetVisible: ", targetVisible);
+//        linearOp.telemetry.addData("targetName: ", targetName);
+//        linearOp.telemetry.update();
 
     }
 
