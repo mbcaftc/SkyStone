@@ -79,7 +79,6 @@ public class MetalBot extends MecanumDrive {
     //Stacking Arms Hardware & Variables
     public DcMotor stackingLiftLeft;
     public DcMotor stackingLiftRight;
-    public double armMultiplier = .50;
     public int stackingArmTargetPos = 100;
     public double getMaxStackingArmTime = 1;
 
@@ -405,16 +404,16 @@ public class MetalBot extends MecanumDrive {
 
     // ***** Stacking Arm Lift Mechanisms without Encoders
 
-    public void stackingArmUp() { // physically down
+    public void stackingArmUp() {                    // This is physically down
 
-        stackingLiftLeft.setPower(1); //removed multiplier, mr acker, to make it faster going up
-        stackingLiftRight.setPower(1);
+        stackingLiftLeft.setPower(0.25);            // 25% power to minimize unspooling
+        stackingLiftRight.setPower(0.25);
     }
 
-    public void stackingArmDown() { //physically up
+    public void stackingArmDown() {                 //This is physically up
 
-        stackingLiftLeft.setPower(-1 * armMultiplier); //kept multiplier to go down slow
-        stackingLiftRight.setPower(-1 * armMultiplier);
+        stackingLiftLeft.setPower(-0.5);            //50% power to mininmize uspooling
+        stackingLiftRight.setPower(-0.5);
     }
 
     public void stackingArmOff () {

@@ -39,7 +39,7 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             // intake down
 
             manipulateIntake(Bot,"flip down");
-            Bot.intakePushNeutral();                                            //intake must be moved into neutral position for brick to be moved
+            Bot.intakePushNeutral();                                            //Intake Pusher move into neutral position after
             sleep(250);
 
             manipulateIntake(Bot,"inward");
