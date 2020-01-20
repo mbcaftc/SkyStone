@@ -74,9 +74,9 @@ public class TeleOpMetalBot extends OpMode {
 
         controlClawExtender();
 
-        controlIntakePusher();
-
         controlClawGrabber();
+
+        controlIntakePusher();
 
         slowDrive();
 
@@ -176,9 +176,10 @@ public class TeleOpMetalBot extends OpMode {
 
 
     public void controlIntakeSpinners() {
-        if (gamepad2.right_bumper) {                      //was gamepad2.left_trigger > 0.1
+        if (gamepad2.right_bumper) {
             Bot.intakeSpinOutward();
-        } else if (gamepad2.left_bumper) {              //was gamepad2.right_trigger > 0.1 //left bumper intakes
+
+        } else if (gamepad2.left_bumper) {
             Bot.intakeSpinInward();
         }
         else if (gamepad2.dpad_left) {
@@ -189,6 +190,7 @@ public class TeleOpMetalBot extends OpMode {
         }
 
     }
+
 
     public void controlIntakePusher() {             //all of this is not final for button mapping
         if (gamepad1.y) {

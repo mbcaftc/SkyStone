@@ -376,14 +376,16 @@ public class MetalBot extends MecanumDrive {
     }
 
     public void intakePushIn () {
-        intakePusher.setPosition(0.8269);               // values came from servo testing
+        intakePusher.setPosition(1);               // values came from servo testing
     }
 
     public void intakePushNeutral () {
-        intakePusher.setPosition(0.4049);           // values came from servo testing
+        intakePusher.setPosition(0);                // values came from servo testing
     }
 
-   //*********** Intake Deployment Controls
+
+
+    //*********** Intake Deployment Controls
 
     public void intakeDeployLower () {
 

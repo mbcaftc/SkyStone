@@ -36,24 +36,21 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             Bot.deActivateTracking();
 
             driveToSkyStone(Bot, "Red");
-            // intake down
 
             manipulateIntake(Bot,"flip down");
-            Bot.intakePushNeutral();                                            //Intake Pusher move into neutral position after
             sleep(250);
+            //Bot.intakePushNeutral();
 
             manipulateIntake(Bot,"inward");
+            //Bot.intakePushIn();
 
             Bot.driveForward(midSpeed, 1.4);
 
             sleep(1000);
             manipulateIntake(Bot, "stop");
+            //Bot.intakePushNeutral();
 
-            Bot.intakePushIn();
             sleep(sleepTime);
-
-            Bot.intakePushNeutral();
-
 
             removeSkyStoneInner(Bot);
             sleep(sleepTime);
