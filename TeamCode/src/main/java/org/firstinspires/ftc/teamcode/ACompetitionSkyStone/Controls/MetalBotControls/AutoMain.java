@@ -22,9 +22,9 @@ public abstract class AutoMain extends LinearOpMode {
 
     public final long sleepTime = 15;
     public final double maxSpeed = 1;
-    public final double highSpeed = .6;
-    public final double midSpeed = .5;
-    public final double lowSpeed = .3;
+    public final double highSpeed = .7;
+    public final double midSpeed = .65;
+    public final double lowSpeed = .4;
     public LinearOpMode linearOp = null;
     public final double gyroSPD = .25;
 
@@ -69,7 +69,7 @@ public abstract class AutoMain extends LinearOpMode {
             Bot.intakeDeployLower();
         }
         else if (position == "inward") {
-            Bot.intakeSpinInward();
+            Bot.intakeSpinInwardAuto();
         }
         else if ( position == "outward") {
             Bot.intakeSpinOutward();
@@ -92,8 +92,10 @@ public abstract class AutoMain extends LinearOpMode {
 
     public void removeSkyStoneInner(MetalBot Bot) {
 
-            Bot.driveBackward(.2, 1.8);
-            sleep(sleepTime);
+            Bot.driveBackward(.2, 1.2);     //was working at 1.8
+            //sleep(sleepTime);
+
+
     }
 
 
@@ -110,7 +112,8 @@ public abstract class AutoMain extends LinearOpMode {
 
     public void driveToPlate (String Alliance, MetalBot Bot) throws InterruptedException {
         if (Alliance == "Red") {
-            Bot.driveGyroStrafe(2800,.6,"right");
+            //Bot.driveGyroStrafe(2800,.6,"right");
+            Bot.driveGyroStraight(4600, .7, "backward");
         }
         else if (Alliance == "Blue") {
             Bot.driveGyroStrafe(2800,.6,"left");
@@ -132,11 +135,11 @@ public abstract class AutoMain extends LinearOpMode {
             linearOp.telemetry.addData("Target Left Motor Position: ", tracker);
             linearOp.telemetry.update();
             if (Alliance == "Red") {
-                // drive at a low speed
+                Bot.strafeRight(lowSpeed);
 
 
             } else if (Alliance == "Blue") {
-                // drive at a low speed
+                Bot.strafeRight(lowSpeed);
             }
 
         }
@@ -148,73 +151,43 @@ public abstract class AutoMain extends LinearOpMode {
         // Positive target value is from the center (0) to the right
         // Negative target value is from the center (0) to the left
         if (Alliance == "Red") {
-            telemetry.addData("target Y:", targetY);
-            telemetry.update();
-            sleep(500);
-            if (Bot.skyStoneValue < -1 ) {                 ////position 1 (LEFT)
 
-                Bot.strafeLeft(.3, 1.2);
-                linearOp.telemetry.addLine("Position 1");
-                telemetry.addData("target Y 2:", targetY);
-                linearOp.telemetry.update();
-                sleep(500);
+            if (Bot.skyStoneValue < -1) {                 ////position 1 (LEFT)
+
+                Bot.strafeLeft(.3, .2);
                 skyStonePosition = 1;
+            } else if (Bot.skyStoneValue == 0.0) {                                                                         // position 3
 
-
-            }  else if (targetY == 0.0) {                                                                         // position 3
-
-                Bot.strafeRight(.3, .8);
-                linearOp.telemetry.addLine("Position 3");
-                linearOp.telemetry.update();
+                Bot.strafeRight(.3, 1.9);
                 skyStonePosition = 3;
-            }
+            } else if (Bot.skyStoneValue > -1) {       // position 2 (MIDDLE)
 
-            else if (Bot.skyStoneValue > -1 ) {       // position 2 (MIDDLE)
-
-                Bot.strafeLeft(.3, .3);     // was .1
-                linearOp.telemetry.addLine("Position 2");
-                telemetry.addData("target Y:", targetY);
-                linearOp.telemetry.update();
-                sleep(500);
-
+                Bot.strafeRight(.3, .6);     // was .1
                 skyStonePosition = 2;
-
             }
 
+            Bot.rotateLeft(lowSpeed, .3);
         }
 
         // Positive target value is from the center (0) to the right
         // Negative target value is from the center (0) to the left
         else if (Alliance == "Blue") {
 
-            if (targetY < -1 && targetVisible) {           //position 1 (LEFT) with Camera on Left Sideskirt ranges from -5.498 to -6.059
+            if (Bot.skyStoneValue < -1) {           //position 1 (LEFT) with Camera on Left Sideskirt ranges from -5.498 to -6.059
 
-                Bot.strafeLeft(.3, 1.2);
-                linearOp.telemetry.addLine(" Position 1");
-                linearOp.telemetry.update();
+                Bot.strafeLeft(.3, .2);
                 skyStonePosition = 1;
+            } else if (Bot.skyStoneValue == 0.0) {                                                                        // position 3
+                Bot.strafeRight(.3, 1.9);
 
-
-
-            } else if (targetY == 0.0) {                                                                        // position 3
-
-                Bot.strafeRight(.3, .8);
-                linearOp.telemetry.addLine("Position 3");
-                linearOp.telemetry.update();
                 skyStonePosition = 3;
-            }
+            } else if (Bot.skyStoneValue > -1) {      //position 2 (MIDDLE) with Camera on on Left Sideskirt ranges from 2.65 to 2.757
 
-            else if (targetY > -1 && targetVisible) {      //position 2 (MIDDLE) with Camera on on Left Sideskirt ranges from 2.65 to 2.757
-
-                Bot.strafeLeft(.3, .1);
-                // No Need to Move
-                linearOp.telemetry.addLine("Position 2");
-                linearOp.telemetry.update();
+                Bot.strafeLeft(.3, .6);
                 skyStonePosition = 2;
+
 
             }
         }
     }
-
-
 }

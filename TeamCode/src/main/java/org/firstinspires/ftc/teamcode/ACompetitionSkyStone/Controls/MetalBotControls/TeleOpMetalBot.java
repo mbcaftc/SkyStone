@@ -39,7 +39,7 @@ public class TeleOpMetalBot extends OpMode {
     // Runs ONCE when driver presses INIT
     @Override
     public void init() {
-        Bot.initRobot(hardwareMap);
+        Bot.initRobot(hardwareMap, "TeleOp");
 
     }
 
@@ -198,11 +198,17 @@ public class TeleOpMetalBot extends OpMode {
             Bot.intakeSpinOutward();
         } else if (gamepad2.left_bumper) {              //was gamepad2.right_trigger > 0.1 //left bumper intakes
             Bot.intakeSpinInward();
-        } else {
+        }
+        else if (gamepad2.dpad_left) {
+            Bot.intakeSpinnerRunner();
+        }
+        else {
             Bot.intakeSpinOff();
         }
 
     }
+
+
 
 //    public void controlStackingArmGrabber() {
 //        if (gamepad2.x) {
@@ -244,10 +250,22 @@ public class TeleOpMetalBot extends OpMode {
     public void controlClawGrabber () {
         if (gamepad2.x == true) {
             Bot.clawGrabberGrab();
+            telemetry.addLine("Claw Grab!");
         }
-        else if (gamepad2.b == true) {
+        if (gamepad2.b == true) {
             Bot.clawGrabberRelease();
+            telemetry.addLine("Claw Release!");
         }
+
+        //troubleshooting servo weirdness.  Commented out once resolved.  jduval - 1/18/20
+//        if (gamepad1.dpad_left) {
+//            Bot.clawGrabberManualControl(-0.005);
+//            telemetry.addLine("Release Claw Manually!");
+//        }
+//        if (gamepad1.dpad_right) {
+//            Bot.clawGrabberManualControl(0.005);
+//            telemetry.addLine("Grab Claw Manually!");
+//        }
     }
 
     public void controlStackingArm() {
@@ -365,7 +383,9 @@ public class TeleOpMetalBot extends OpMode {
         telemetry.addData("Right Hook Servo: ", Bot.HookRight.getPosition());
 
         telemetry.addData("Claw Extender", Bot.clawExtender.getPosition());
-        //telemetry.addData("Stone Grab Servo: ", Bot.stoneServo);
+        telemetry.addData("Stone Grab Servo: ", Bot.clawGrabber.getPosition());
+
+        telemetry.addData("Stacking arm encoders", Bot.stackingLiftLeft.getCurrentPosition());
 
 //        telemetry.addData("Camera Visible Target", Cam.targetName);
 //        telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);

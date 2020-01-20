@@ -98,10 +98,8 @@ public class MetalBot extends MecanumDrive {
 
     public ElapsedTime stackingArmTimer;
 
-    public int stackingArmTargetPos = -1000;
-    public double getMaxStackingArmTime = 3;
-
-
+    public int stackingArmTargetPos = 100;
+    public double getMaxStackingArmTime = 1;
 
 
 
@@ -145,9 +143,11 @@ public class MetalBot extends MecanumDrive {
 
     }
 
-    public void initRobot (HardwareMap hwMap) {
+    public void initRobot (HardwareMap hwMap, String Mode) {
+
 
         hwBot = hwMap;
+
 
         // Define Drive Train Motors for Robot
         frontLeftMotor =  hwBot.dcMotor.get("front_left_motor");
@@ -236,11 +236,11 @@ public class MetalBot extends MecanumDrive {
         // Define and Initialize Servo and Motor for stacking arm
         //stackingStoneGrabber = hwBot.servo.get("stacking_grabber");
         stackingLiftLeft = hwBot.dcMotor.get("stacking_lift_left");
-        stackingLiftLeft.setDirection(DcMotor.Direction.FORWARD);
+        stackingLiftLeft.setDirection(DcMotor.Direction.REVERSE);
         stackingLiftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         stackingLiftRight = hwBot.dcMotor.get("stacking_lift_right");
-        stackingLiftRight.setDirection(DcMotor.Direction.REVERSE);
+        stackingLiftRight.setDirection(DcMotor.Direction.FORWARD);
         stackingLiftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
@@ -263,8 +263,12 @@ public class MetalBot extends MecanumDrive {
         imu = hwBot.get(BNO055IMU.class, "imu");
         imu.initialize(parametersimu);
 
-        //init camera
-        initWebCam();
+
+        //init webcamera in autonomous
+        if (Mode == "Auto") {
+            initWebCam();
+        }
+
 
         //init timer
         initTimers ();
@@ -338,15 +342,15 @@ public class MetalBot extends MecanumDrive {
 
     public void HookGrab () {
 
-        HookLeft.setPosition(.05);
+        HookLeft.setPosition(.2);
         HookRight.setPosition(.75);
     }
 
 
     public void HookRelease () {
 
-        HookLeft.setPosition(.8);
-        HookRight.setPosition(0.0);
+        HookLeft.setPosition(.9);
+        HookRight.setPosition(0);
     }
 
 
@@ -398,14 +402,28 @@ public class MetalBot extends MecanumDrive {
 
     public void intakeSpinInward () {
 
-        intakeLSpinner.setPower(-0.6);
-        intakeRSpinner.setPower(-0.6);
+        intakeLSpinner.setPower(-0.85);
+        intakeRSpinner.setPower(-0.85);
+    }
+
+    public void intakeSpinInwardAuto () {
+        intakeLSpinner.setPower(-.6);
+        intakeRSpinner.setPower(-.6);
     }
     public void intakeSpinOutward () {
 
         intakeLSpinner.setPower(0.4);
         intakeRSpinner.setPower(0.4);
     }
+
+    public void intakeSpinnerRunner () {
+
+        intakeLSpinner.setPower(0.2);
+        intakeRSpinner.setPower(0.2);
+
+    }
+
+
     public void intakeSpinOff () {
 
         intakeLSpinner.setPower(0);
@@ -429,7 +447,7 @@ public class MetalBot extends MecanumDrive {
 
     public void stackingArmUpEncoders () {
         stackingArmTimer.reset();
-        while (stackingLiftRight.getCurrentPosition() > stackingArmTargetPos && linearOp.opModeIsActive()) {
+        while (stackingLiftLeft.getCurrentPosition() < stackingArmTargetPos && linearOp.opModeIsActive()) {
             stackingArmUp();
             if (stackingArmTimer.time() >= getMaxStackingArmTime) {
                 break;
@@ -448,7 +466,7 @@ public class MetalBot extends MecanumDrive {
 
     public void stackingArmDownEncoders () {
         stackingArmTimer.reset();
-        while (stackingLiftRight.getCurrentPosition() <= 5 && linearOp.opModeIsActive()) {
+        while (stackingLiftLeft.getCurrentPosition() >= 5 && linearOp.opModeIsActive()) {
             stackingArmDown();
             if (stackingArmTimer.time() >= getMaxStackingArmTime) {
                 break;
@@ -466,24 +484,40 @@ public class MetalBot extends MecanumDrive {
 
 
     public void clawExtenderExtend () {
-        servoPos += .01;
-        clawExtender.setPosition(servoPos);
-
+//        if (servoPos <= .9) {
+//            servoPos += .15;
+//            clawExtender.setPosition(servoPos);
+//        }
+        clawExtender.setPosition(.9);
     }
     public void clawExtenderRetract () {
-        servoPos -= .01;
-        clawExtender.setPosition(servoPos);
+//        if (servoPos >= .1) {
+//            servoPos -= .15;
+//            clawExtender.setPosition(servoPos);
+//        }
+        clawExtender.setPosition(.05);
     }
     public void clawExtenderStop () {
         clawExtender.setPosition(.5);
     }
 
     public void clawGrabberGrab () {
-        clawGrabber.setPosition(.5);
+        clawGrabber.setPosition(0.55);
     }
 
     public void clawGrabberRelease () {
-        clawGrabber.setPosition(0);
+//      Claw Grabber Servo does not do anythig if set to position 0.0.
+//      Set to
+        clawGrabber.setPosition(0.95);
+    }
+
+//    Testing to troubleshoot Servo.
+//    Not being called anymore. 1/18/20
+    public void clawGrabberManualControl (double increment) {
+        double servoPos = clawGrabber.getPosition();
+        servoPos += increment;
+        servoPos = Range.clip (servoPos,0,1);
+        clawGrabber.setPosition(servoPos);
     }
 
 //    public void setServos () {
@@ -590,7 +624,7 @@ public class MetalBot extends MecanumDrive {
         double startPosition = frontLeftMotor.getCurrentPosition();
         linearOp.telemetry.addData("Angle to start: ", angles.firstAngle);
         linearOp.telemetry.update();
-        linearOp.sleep(2000);
+        linearOp.sleep(100);
         while (currentPos < encoders + startPosition && linearOp.opModeIsActive()) {
 
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -787,7 +821,7 @@ public class MetalBot extends MecanumDrive {
     public void detectSkyStone () {
         vuforiaTimer.reset();
 
-        while (!targetVisible && linearOp.opModeIsActive() && vuforiaTimer.time() <= 3) {
+        while (!targetVisible && linearOp.opModeIsActive() && vuforiaTimer.time() <= 2) {
             trackObjects();
         }
 

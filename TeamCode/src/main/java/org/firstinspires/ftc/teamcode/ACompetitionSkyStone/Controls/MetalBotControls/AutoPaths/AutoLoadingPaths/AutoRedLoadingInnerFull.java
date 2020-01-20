@@ -17,7 +17,7 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Bot.initRobot(hardwareMap);
+        Bot.initRobot(hardwareMap, "Auto");
         Bot.setLinearOp(this);
 
         setLinearOp(this);
@@ -28,27 +28,22 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
 
         while (opModeIsActive()) {
 
+
             Bot.activateTracking();
 
-            Bot.driveForward(.2, 1.8);
-            sleep(sleepTime);
+            Bot.driveForward(lowSpeed, 1.8);
 
             Bot.detectSkyStone();
-            sleep(sleepTime);
 
             Bot.deActivateTracking();
-            sleep(sleepTime);
 
-            telemetry.addLine("BEFORE STRAFING");
-            telemetry.update();
 
             driveToSkyStone(Bot, "Red");
-            sleep(sleepTime);
             // intake down
 
 
             manipulateIntake(Bot,"flip down");
-            sleep(500);
+            sleep(1000);
 
             manipulateIntake(Bot,"inward");
 
@@ -60,11 +55,19 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             removeSkyStoneInner(Bot);
             sleep(sleepTime);
 
+            rotateToDriveDropStone(Bot, "Red");
+            sleep(sleepTime);
+
             driveToPlate("Red", Bot);
             sleep(sleepTime);
 
+
+
+
             dropSkyStone(Bot, "Red");
             sleep(sleepTime);
+
+
 
             alignGrabPlate(Bot, "Red");
             sleep(sleepTime);
@@ -72,8 +75,11 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             orientBuildPlate(Bot, "Red");
             sleep(sleepTime);
 
+
             parkInner(Bot, "Red");
             sleep(sleepTime);
+
+
 
 
 

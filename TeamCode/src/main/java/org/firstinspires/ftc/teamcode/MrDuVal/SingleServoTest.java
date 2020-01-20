@@ -9,9 +9,9 @@ public class SingleServoTest extends OpMode {
 
     Servo testServo;
 
-    double servoPos = .5;
+    double servoPos = .95;
 
-    double incVal = 0.005;
+    double incVal = 0.001;
 
 
 
@@ -38,17 +38,17 @@ public class SingleServoTest extends OpMode {
         }
 
         if (gamepad1.x) {
-            servoPos = 1;
+            servoPos = .95;
             telemetry.addLine("Set Servo to 1!");
         }
         if (gamepad1.y) {
-            servoPos = 1;
+            servoPos = 0.55;
             telemetry.addLine("Set Servo to 0!");
 
         }
         testServo.setPosition(servoPos);
         telemetry.addLine("RB: increase, LB: Decrease");
-        telemetry.addLine("x = set to 1, y = set to 0");
+        telemetry.addLine("x = set to .95, y = set to 0.55");
         telemetry.addData("TestS ervo Positiom: ", testServo.getPosition());
         telemetry.addData("Servo Variable Position: ", servoPos);
         telemetry.update();

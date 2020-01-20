@@ -13,7 +13,7 @@ public class AutoRedBuildingPlateOuter extends AutoBuilding {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Bot.initRobot(hardwareMap);
+        Bot.initRobot(hardwareMap, "Auto");
         Bot.setLinearOp(this);
         Bot.HookRelease();
 

@@ -9,15 +9,15 @@ public abstract class AutoBuilding extends AutoMain {
     public void goToBuildPlate (MetalBot Bot, String Alliance) {
         if (Alliance == "Red") {
             Bot.strafeLeft(midSpeed, 2);
-            Bot.driveForward(midSpeed, .3);
+            Bot.driveForward(midSpeed, .8);
             Bot.strafeLeft(midSpeed, 1.9);
-            Bot.strafeLeft(lowSpeed, .3);
+            Bot.strafeLeft(lowSpeed, .4);
         }
         else if (Alliance == "Blue") {
             Bot.strafeLeft(midSpeed, 2);
             Bot.driveBackward(midSpeed, .8);
             Bot.strafeLeft(midSpeed, 1.9);
-            Bot.strafeLeft(lowSpeed, .3);
+            Bot.strafeLeft(lowSpeed, .4);
         }
 
     }
@@ -61,23 +61,20 @@ public abstract class AutoBuilding extends AutoMain {
             Bot.strafeRight(lowSpeed, .8);
             Bot.driveForward(midSpeed, 1);
             Bot.strafeRight(lowSpeed, .8);
-            Bot.driveForward(lowSpeed, .5);
-            Bot.gyroCorrection(gyroSPD, -179);
-            Bot.strafeRight(lowSpeed, .5);
+            Bot.driveForward(lowSpeed, .4);
+
         }
 
         else if (Alliance == "Blue") {
             Bot.strafeRight(lowSpeed, .4);
             Bot.rotateLeft(midSpeed, 2);
-            Bot.gyroCorrection(gyroSPD, 179);
-            Bot.driveBackward(midSpeed, 1.25);
-            Bot.strafeRight(midSpeed, .3);
-            Bot.driveBackward(midSpeed, 1.25);
-            Bot.gyroCorrection(gyroSPD,-179);
-            Bot.gyroCorrection(gyroSPD, 179);
-            Bot.driveBackward(lowSpeed, 1.1);
             Bot.gyroCorrection(gyroSPD, -179);
-            Bot.strafeRight(lowSpeed, .4);
+            Bot.driveBackward(midSpeed, 2.5);
+            Bot.strafeRight(lowSpeed, .8);
+            Bot.driveBackward(midSpeed, 1);
+            Bot.strafeRight(lowSpeed, .8);
+            Bot.driveForward(lowSpeed, .4);
+
         }
     }
 

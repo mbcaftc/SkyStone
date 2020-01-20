@@ -16,7 +16,7 @@ public class AutoRedLoadingHardCodedPrimaryHardCoded extends AutoLoadingHardCode
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Bot.initRobot(hardwareMap);
+        Bot.initRobot(hardwareMap, "Auto");
         Bot.setLinearOp(this);
 
         //Cam.initCamera(hardwareMap);

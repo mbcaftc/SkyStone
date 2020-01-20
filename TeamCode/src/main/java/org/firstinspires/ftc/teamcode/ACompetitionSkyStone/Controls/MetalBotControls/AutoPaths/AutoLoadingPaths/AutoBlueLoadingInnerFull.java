@@ -17,7 +17,7 @@ public class AutoBlueLoadingInnerFull extends AutoLoading {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Bot.initRobot(hardwareMap);
+        Bot.initRobot(hardwareMap, "Auto");
         Bot.setLinearOp(this);
 
         setLinearOp(this);
@@ -45,7 +45,7 @@ public class AutoBlueLoadingInnerFull extends AutoLoading {
             // intake down
 
             manipulateIntake(Bot,"flip down");
-            sleep(sleepTime);
+            sleep(1000);
 
             Bot.driveForward(midSpeed, .3);
             sleep(sleepTime);
@@ -55,6 +55,8 @@ public class AutoBlueLoadingInnerFull extends AutoLoading {
 
             removeSkyStoneInner(Bot);
             sleep(sleepTime);
+
+
 
             driveToPlate("Blue", Bot);
             sleep(sleepTime);
