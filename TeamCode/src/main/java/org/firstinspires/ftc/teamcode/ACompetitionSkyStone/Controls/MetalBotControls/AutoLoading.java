@@ -38,8 +38,8 @@ public abstract class AutoLoading extends AutoMain {
         Bot.clawGrabberGrab();
         sleep(100);
 
-        Bot.stackingArmDown();               // This is physically up
-        sleep(300);             //reduced 800 down to 300- 11:45 jan20 boone
+        Bot.stackingArmDown();                   // This is physically up
+        sleep(300);                 //reduced 800 down to 300- 11:45 jan20 boone
 
         Bot.stackingArmOff();
 

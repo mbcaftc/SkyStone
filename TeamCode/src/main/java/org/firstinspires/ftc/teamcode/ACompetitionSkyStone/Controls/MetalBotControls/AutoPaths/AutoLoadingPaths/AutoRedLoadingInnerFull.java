@@ -22,8 +22,6 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
 
         setLinearOp(this);
 
-
-
         waitForStart();
 
         while (opModeIsActive()) {
@@ -37,12 +35,11 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
 
             Bot.deActivateTracking();
 
-
             driveToSkyStone(Bot, "Red");
             // intake down
 
-
             manipulateIntake(Bot,"flip down");
+            Bot.intakePushNeutral();                                            //intake must be moved into neutral position for brick to be moved
             sleep(250);
 
             manipulateIntake(Bot,"inward");
@@ -51,6 +48,12 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
 
             sleep(1000);
             manipulateIntake(Bot, "stop");
+
+            Bot.intakePushIn();
+            sleep(sleepTime);
+
+            Bot.intakePushNeutral();
+
 
             removeSkyStoneInner(Bot);
             sleep(sleepTime);
@@ -61,10 +64,8 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             driveToPlate("Red", Bot);
             sleep(sleepTime);
 
-
             dropSkyStone(Bot, "Red");
             sleep(sleepTime);
-
 
             alignGrabPlate(Bot, "Red");
             sleep(sleepTime);

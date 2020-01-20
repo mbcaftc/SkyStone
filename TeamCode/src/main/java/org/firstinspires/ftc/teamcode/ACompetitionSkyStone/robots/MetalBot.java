@@ -47,61 +47,49 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 public class MetalBot extends MecanumDrive {
 
     //Robot Hardware Constructors
-
     public HardwareMap hwBot  =  null;
+
+
+    // Build Plate Hook Hardware & Variables
     public Servo HookLeft = null;
     public Servo HookRight = null;
 
-
-
-    //public Servo stoneRotate;
-    //public Servo stoneGrabber;
-    double servoPos = .5;
-
-    //public double stoneRotatePos;
-    public double stoneGrabberPos;
-
-    public double armMultiplier = .50;
-    //public Servo intakePusher = null;
-
+    // Capstone Drop Servo Hardware & Variables
     public Servo capstoneDropper = null;
 
-
-    //Gyro Objects and Variables
+    //Gyro Objects,Hardware & Variables
     public BNO055IMU imu;
     public Orientation angles;
     public Acceleration gravity;
     public final double SPEED = .3;
     public final double TOLERANCE = .4;
 
+    // Color and Distance Hardware & Variables
     public ColorSensor sensorColor;
     public DistanceSensor sensorDistance;
-
     public float hsvValues[] = {0F, 0F, 0F};
     public final double SCALE_FACTOR = 1;
 
-    //*********************
-
-
-    //intake
+    //Intake Hardware
     public DcMotor intakeLSpinner;
     public DcMotor intakeRSpinner;
-
     public Servo intakeDeploy;
+    public Servo intakePusher = null;
 
-    //stacking arms
+    //Stacking Arms Hardware & Variables
     public DcMotor stackingLiftLeft;
     public DcMotor stackingLiftRight;
+    public double armMultiplier = .50;
+    public int stackingArmTargetPos = 100;
+    public double getMaxStackingArmTime = 1;
 
-    //public Servo clawExtender;
+
+    // Claw Hardware & Variables
     public CRServo clawExtender;
-
     public Servo clawGrabber;
 
     public ElapsedTime stackingArmTimer;
 
-    public int stackingArmTargetPos = 100;
-    public double getMaxStackingArmTime = 1;
 
 
 
@@ -233,6 +221,10 @@ public class MetalBot extends MecanumDrive {
         intakeDeploy = hwBot.get(Servo.class, "intake_deploy");
         intakeDeploy.setDirection(Servo.Direction.FORWARD);
 
+        intakePusher = hwBot.get(Servo.class, "intake_pusher");
+        intakePusher.setDirection(Servo.Direction.FORWARD);
+
+
 
 
         // Define and Initialize Servo and Motor for stacking arm
@@ -339,7 +331,7 @@ public class MetalBot extends MecanumDrive {
     }
 
 
-    // Mechanism Methods
+    // *********  Build Plate Hook Mechanism Methods
 
 
     public void HookGrab () {
@@ -358,48 +350,6 @@ public class MetalBot extends MecanumDrive {
 
 
 
-    public void dropStone () {
-//        stoneRotate.setPosition(.55);
-        //stoneRotatePos = .55;
-    }
-    public void raiseStone() {
-
-        //stoneRotatePos = .22;        //.2
-
-    }
-
-    public void autoRaiseStone() {
-        //stoneRotatePos =.15;
-    }
-
-    public void grabStone () {
-        //stoneGrabberPos = 0.4;
-//        stoneGrabber.setPosition(0);
-    }
-    public void releaseStone() {
-        //stoneGrabberPos = .9;
-//        stoneGrabber.setPosition(.7);
-    }
-    public void neutralStone () {
-
-
-//        stoneRotate.setPosition(.15);
-        //stoneRotatePos = .15;
-//        stoneGrabber.setPosition(0);
-        //stoneGrabberPos = 0.4;
-    }
-
-
-    public void dropCapstone() {
-        capstoneDropper.setPosition(.55);
-    }
-
-    public void raiseCapstone() {
-        capstoneDropper.setPosition(0);
-    }
-
-
-
 // ******   Intake Control Mechanisms
 
     public void intakeSpinInward () {           // Used in TeleOp
@@ -412,7 +362,7 @@ public class MetalBot extends MecanumDrive {
         intakeLSpinner.setPower(-.6);
         intakeRSpinner.setPower(-.6);
     }
-    public void intakeSpinOutward () {
+    public void intakeSpinOutward () {          // Reverse Normal
 
         intakeLSpinner.setPower(0.4);
         intakeRSpinner.setPower(0.4);
@@ -431,6 +381,17 @@ public class MetalBot extends MecanumDrive {
         intakeLSpinner.setPower(0);
         intakeRSpinner.setPower(0);
     }
+
+    public void intakePushIn () {
+        intakePusher.setPosition(0.8269);               // values came from servo testing
+    }
+
+    public void intakePushNeutral () {
+        intakePusher.setPosition(0.4049);           // values came from servo testing
+    }
+
+   //*********** Intake Deployment Controls
+
     public void intakeDeployLower () {
 
         intakeDeploy.setPosition(.5);
@@ -520,7 +481,7 @@ public class MetalBot extends MecanumDrive {
     }
 
 
-    // Robot Gyro Controls
+    // ***********  Robot Gyro Controls and Gyro Correction Methods
 
     public void gyroCorrection (double speed, double angle) {
 
@@ -549,6 +510,9 @@ public class MetalBot extends MecanumDrive {
         imu.initialize(parametersimu);
     }
 
+
+    //************  Check Color and Distance Methods
+
     public float checkColor() {
         Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
                 (int) (sensorColor.green() * SCALE_FACTOR),
@@ -563,6 +527,9 @@ public class MetalBot extends MecanumDrive {
     public double checkDistance () {
         return sensorDistance.getDistance(DistanceUnit.INCH);
     }
+
+
+    // *********** Gyro Drive and Gyro Stafing Methods
 
     public void driveGyro (int encoders, double power) throws InterruptedException {
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -915,6 +882,51 @@ public class MetalBot extends MecanumDrive {
 
     }
 
+
+// *****   Original Stone Grabber Auto Mechanism... deprecated (not used in latest generation)
+
+    public void dropStone () {
+        //stoneRotate.setPosition(.55);
+        //stoneRotatePos = .55;
+    }
+
+    public void raiseStone() {
+        //stoneRotatePos = .22;        //.2
+
+    }
+
+    public void autoRaiseStone() {
+        //stoneRotatePos =.15;
+    }
+
+    public void grabStone () {
+        //stoneGrabberPos = 0.4;
+        //stoneGrabber.setPosition(0);
+    }
+
+    public void releaseStone() {
+
+        //stoneGrabberPos = .9;
+        //stoneGrabber.setPosition(.7);
+    }
+
+    public void neutralStone () {
+
+        //stoneRotate.setPosition(.15);
+        //stoneRotatePos = .15;
+        //stoneGrabber.setPosition(0);
+        //stoneGrabberPos = 0.4;
+    }
+
+    //  ******  Original Capstone Servo Mechanism  deprecated (not used in latest generation)
+
+    public void dropCapstone() {
+        capstoneDropper.setPosition(.55);
+    }
+
+    public void raiseCapstone() {
+        capstoneDropper.setPosition(0);
+    }
 
 
 

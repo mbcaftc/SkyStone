@@ -18,7 +18,7 @@ public class TeleOpMetalBot extends OpMode {
     public MetalBot Bot = new MetalBot();
 
 
-    // Variables & Constants specific to TeleLabBot//
+    // Variables & Constants specific to TeleOp //
     double leftStickYVal;
     double leftStickXVal;
     double rightStickXVal;
@@ -74,11 +74,14 @@ public class TeleOpMetalBot extends OpMode {
 
         controlClawExtender();
 
+        controlIntakePusher();
+
         controlClawGrabber();
 
         slowDrive();
 
         telemetryOutput();
+
 
 
 
@@ -92,7 +95,7 @@ public class TeleOpMetalBot extends OpMode {
     }
 
 
-    // Teleop Drive Control Method
+    // **********  Teleop Drive Control Method
 
 
     public void drive () {
@@ -147,7 +150,7 @@ public class TeleOpMetalBot extends OpMode {
 
     }
 
-    // Teleop Mechanism Control Methods
+    // **********   Teleop Intake Control Methods
 
 
     public void controlHook() {
@@ -157,9 +160,7 @@ public class TeleOpMetalBot extends OpMode {
         else if (gamepad2.a) {
             Bot.HookGrab();
         }
-
     }
-
 
 
     public void controlIntakeArms() {
@@ -172,7 +173,6 @@ public class TeleOpMetalBot extends OpMode {
             Bot.intakeDeployRaise();
         }
     }
-
 
 
     public void controlIntakeSpinners() {
@@ -190,6 +190,17 @@ public class TeleOpMetalBot extends OpMode {
 
     }
 
+    public void controlIntakePusher() {             //all of this is not final for button mapping
+        if (gamepad1.y) {
+            Bot.intakePushIn();
+        }
+        else {
+            Bot.intakePushNeutral();
+        }
+    }
+
+
+    //***********  TeleOp Claw Extension & Grabber Control Methods
 
     public void controlClawExtender () {
         if (gamepad2.right_trigger > .1) {
@@ -217,6 +228,8 @@ public class TeleOpMetalBot extends OpMode {
     }
 
 
+    // ***********  TeleOp Stacking Arm Control Methods
+
     public void controlStackingArm() {
         if (gamepad2.right_stick_y > .1) {
             Bot.stackingArmUp();
@@ -226,9 +239,12 @@ public class TeleOpMetalBot extends OpMode {
             Bot.stackingArmDown();
         }
         else {
-            Bot.stackingArmOff();                           //added motor stop when not pushing a button
+            Bot.stackingArmOff();
         }
     }
+
+
+    // ****** TeleOp Slow Drive Mode Methods
 
     public void slowDrive() {
         if (gamepad1.dpad_down) {
@@ -238,7 +254,6 @@ public class TeleOpMetalBot extends OpMode {
             speedMultiply = 1;
         }
     }
-
 
 
 
@@ -260,10 +275,6 @@ public class TeleOpMetalBot extends OpMode {
             Bot.gyroReset();
         }
     }
-
-
-
-
 
 
 
