@@ -256,11 +256,45 @@ public class TeleOpMetalBot extends OpMode {
     }
 
 
+    // ****  TeleOp Telemetry Methods
 
+    public void telemetryOutput() {
+
+        telemetry.addData("Motor ", "Front Left: " + frontLeftSpeed);
+        telemetry.addData("Motor ", "Front Right: " + frontRightSpeed);
+        telemetry.addData("Motor ", "Rear Left: " + rearLeftSpeed);
+        telemetry.addData("Motor ", "Rear Right: " + rearRightSpeed);
+        telemetry.addData("Left Hook Servo: ", Bot.HookLeft.getPosition());
+        telemetry.addData("Right Hook Servo: ", Bot.HookRight.getPosition());
+
+        /*
+        telemetry.addData("Stone Grab Servo: ", Bot.clawGrabber.getPosition());
+        telemetry.addData("Stacking arm encoders", Bot.stackingLiftLeft.getCurrentPosition());
+        telemetry.addData("Camera Visible Target", Cam.targetName);
+        telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);
+        telemetry.addData("Camera Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", Cam.targetRoll, Cam.targetPitch, Cam.targetHeading);
+        telemetry.addData("Gyro Heading", Bot.angles.firstAngle);
+        telemetry.addData("Gyro Roll", Bot.angles.secondAngle);
+        telemetry.addData("Gyro Pitch", Bot.angles.thirdAngle);
+        telemetry.addData("Encoders AUTO count: ", encoders);
+        telemetry.addData("Encoder Counts ", Bot.frontLeftMotor.getCurrentPosition() / Bot.TICKS_PER_ROTATION);
+        telemetry.addData("Stone Grabber Servo: ", Bot.stoneGrabber.getPosition());
+        telemetry.addData("Stone Grabber Var: ", Bot.stoneGrabberPos);
+        telemetry.addData("Stone Rotater Servo: ", Bot.stoneRotate.getPosition());
+        telemetry.addData("Stone Rotater Var: ", Bot.stoneRotatePos);
+
+        */
+
+        telemetry.update();
+
+    }
 
     //*****************************
-    // Methods for testing purposes
+    // Methods for testing purposes & older TeleOp Control Methods
     //*****************************
+
+
+ /*
     public void controlResetEncoders () {
         if (gamepad1.b) {
             Bot.frontLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -279,42 +313,7 @@ public class TeleOpMetalBot extends OpMode {
 
 
 
-    public void telemetryOutput() {
-
-
-        telemetry.addData("Motor ", "Front Left: " + frontLeftSpeed);
-        telemetry.addData("Motor ", "Front Right: " + frontRightSpeed);
-        telemetry.addData("Motor ", "Rear Left: " + rearLeftSpeed);
-        telemetry.addData("Motor ", "Rear Right: " + rearRightSpeed);
-        telemetry.addData("Left Hook Servo: ", Bot.HookLeft.getPosition());
-        telemetry.addData("Right Hook Servo: ", Bot.HookRight.getPosition());
-        telemetry.addData("Stone Grab Servo: ", Bot.clawGrabber.getPosition());
-        telemetry.addData("Stacking arm encoders", Bot.stackingLiftLeft.getCurrentPosition());
-
-//        telemetry.addData("Camera Visible Target", Cam.targetName);
-//        telemetry.addData("Camera Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", Cam.targetX, Cam.targetY, Cam.targetZ);
-//        telemetry.addData("Camera Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", Cam.targetRoll, Cam.targetPitch, Cam.targetHeading);
-//        telemetry.addData("Gyro Heading", Bot.angles.firstAngle);
-//        telemetry.addData("Gyro Roll", Bot.angles.secondAngle);
-//        telemetry.addData("Gyro Pitch", Bot.angles.thirdAngle);
-//        telemetry.addData("Encoders AUTO count: ", encoders);
-//        telemetry.addData("Encoder Counts ", Bot.frontLeftMotor.getCurrentPosition() / Bot.TICKS_PER_ROTATION);
-
-            /*
-        telemetry.addData("Stone Grabber Servo: ", Bot.stoneGrabber.getPosition());
-        telemetry.addData("Stone Grabber Var: ", Bot.stoneGrabberPos);
-        telemetry.addData("Stone Rotater Servo: ", Bot.stoneRotate.getPosition());
-        telemetry.addData("Stone Rotater Var: ", Bot.stoneRotatePos);
-
-        */
-
-        telemetry.update();
-
-    }
-
-
-
-/*  public void controlStoneServoButton() {
+     public void controlStoneServoButton() {
         if (gamepad1.x  == true) {
             //telemetry.addLine("drop control stone servo!");
             //telemetry.addData("servo ", Bot.stoneServo.getPosition());
@@ -386,18 +385,6 @@ public class TeleOpMetalBot extends OpMode {
 
 
 */
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

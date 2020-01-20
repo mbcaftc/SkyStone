@@ -18,7 +18,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 
 public abstract class AutoMain extends LinearOpMode {
 
-    // Variables & Constants used for MetalBot across both Building and Loading Locations on the field
+    // Variables & Constants used for MetalBot across All Autonomous Paths
 
     public final long sleepTime = 15;
     public final double maxSpeed = 1;
@@ -28,29 +28,35 @@ public abstract class AutoMain extends LinearOpMode {
     public LinearOpMode linearOp = null;
     public final double gyroSPD = .25;
 
-    public final int colorImage = 20;       // was 15 ... color of image is 18, 27 in MBCA BNI room  15 comp = 20
-    public final int colorYellow = 40; //40 in MBCA BNI room b  30
-    public final int colorNoBackground = 35; //is 35 ... was 60 in MBCA BNI room
+    // Color Sensor Variables & Constants used across All Autonomous Paths
+
+    public final int colorImage = 20;               // was 15 ... color of image is 18, 27 in MBCA BNI room  15 comp = 20
+    public final int colorYellow = 40;              //40 in MBCA BNI room b  30
+    public final int colorNoBackground = 35;          //is 35 ... was 60 in MBCA BNI room
     public double tracker = 0;
+
+    // Elapsed Time and Sleep Time Variables and Constants used across all Autonomous Paths
 
     public double timeThreshold = 0;
     public ElapsedTime skyStoneTime = new ElapsedTime();
+
+    // SkyStone Positioning & Dynamic Encoder Drivng Variables & Constants used across All Autonomous Paths
 
     public int skyStonePosition = 1;
     public int encoderPosition1 = 4600;
     public int encoderPosition2 = 4600 - 306;
     public int encoderPosition3 = 4600 - 613;
 
+
+    // Vuforia Variables & Constants used across All Autonoumous Paths
+
     public static final float mmPerInch = 25.4f;
     public static final float mmTargetHeight = (6) * mmPerInch;          // the height of the center of the target image above the floor
-
     public static final float stoneZ = 2.00f * mmPerInch;
-
     public boolean targetVisible = false;
     public float phoneXRotate = 0;
     public float phoneYRotate = 0;
     public float phoneZRotate = 0;
-
     public String targetName = null;
     public double targetX;
     public double targetY;
@@ -179,8 +185,7 @@ public abstract class AutoMain extends LinearOpMode {
             Bot.rotateLeft(lowSpeed, .3);
         }
 
-        // Positive target value is from the center (0) to the right
-        // Negative target value is from the center (0) to the left
+
         else if (Alliance == "Blue") {
 
             if (Bot.skyStoneValue < -1) {           //position 1 (LEFT) with Camera on Left Sideskirt ranges from -5.498 to -6.059

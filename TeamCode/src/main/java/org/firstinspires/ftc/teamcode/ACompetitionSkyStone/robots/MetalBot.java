@@ -57,7 +57,7 @@ public class MetalBot extends MecanumDrive {
     // Capstone Drop Servo Hardware & Variables
     public Servo capstoneDropper = null;
 
-    //Gyro Objects,Hardware & Variables
+    //Gyro Objects, Hardware & Variables
     public BNO055IMU imu;
     public Orientation angles;
     public Acceleration gravity;
@@ -81,20 +81,18 @@ public class MetalBot extends MecanumDrive {
     public DcMotor stackingLiftRight;
     public int stackingArmTargetPos = 100;
     public double getMaxStackingArmTime = 1;
+    public ElapsedTime stackingArmTimer;
 
 
     // Claw Hardware & Variables
     public CRServo clawExtender;
     public Servo clawGrabber;
 
-    public ElapsedTime stackingArmTimer;
-
-
-
-
+    // Global Variables for Skystone Position
     public double skyStoneValue;
 
-    //********************
+
+    //Vuforia Constructors, Variables and Constants
     public OpenGLMatrix lastLocation = null;
     public VuforiaLocalizer vuforia = null;
     public WebcamName webcamName = null;
@@ -126,11 +124,14 @@ public class MetalBot extends MecanumDrive {
     public double targetPitch;
     public double targetHeading;
 
-    //MetalBot Constructor
+
+    //MetalBot Hardware Constructor
 
     public MetalBot() {
 
     }
+
+    // Hardware Initialization for Metal Bot
 
     public void initRobot (HardwareMap hwMap, String Mode) {
 
@@ -169,45 +170,33 @@ public class MetalBot extends MecanumDrive {
         HookRight = hwBot.get(Servo.class, "hook_right");
         HookRight.setDirection(Servo.Direction.FORWARD);
 
-        //HookRelease();
-
-
 
         //Define and Intialize Color and Distance Sensor
         /*
         sensorColor = hwBot.get(ColorSensor.class, "sensor_color_distance");
         sensorDistance = hwBot.get(DistanceSensor.class, "sensor_color_distance");
-*/
+        */
 
 
         // Define and Intialize Servo for skyStone grabber
-
-
-        //stoneServo = hwBot.get(Servo.class, "stone_grabber");
-        //stoneServo.setDirection(Servo.Direction.FORWARD);
-
         /*
+        stoneServo = hwBot.get(Servo.class, "stone_grabber");
+        stoneServo.setDirection(Servo.Direction.FORWARD);
         stoneRotate = hwBot.get(Servo.class, "stone_rotate");
         stoneRotate.setDirection(Servo.Direction.FORWARD);
-
         stoneGrabber = hwBot.get(Servo.class, "stone_grabber");
         stoneGrabber.setDirection(Servo.Direction.FORWARD);
         */
 
-        //dropStone();
 
-
-
-
-        // Define and Intialize Servo for capstone arm
-//        capstoneDropper = hwBot.get(Servo.class, "capstone_dropper");
-//        capstoneDropper.setDirection(Servo.Direction.FORWARD);
-//        raiseCapstone();
-
+        // Define and Intialize Servo for capstone servo arm
+        /*
+        capstoneDropper = hwBot.get(Servo.class, "capstone_dropper");
+        capstoneDropper.setDirection(Servo.Direction.FORWARD);
+        raiseCapstone();
+        */
 
         // Define and Initialize Servos and Motors for intake
-
-
 
         intakeRSpinner = hwBot.dcMotor.get("intake_right_spinner");
         intakeRSpinner.setDirection(DcMotor.Direction.REVERSE);
@@ -224,10 +213,8 @@ public class MetalBot extends MecanumDrive {
         intakePusher.setDirection(Servo.Direction.FORWARD);
 
 
-
-
         // Define and Initialize Servo and Motor for stacking arm
-        //stackingStoneGrabber = hwBot.servo.get("stacking_grabber");
+
         stackingLiftLeft = hwBot.dcMotor.get("stacking_lift_left");
         stackingLiftLeft.setDirection(DcMotor.Direction.REVERSE);
         stackingLiftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -236,6 +223,7 @@ public class MetalBot extends MecanumDrive {
         stackingLiftRight.setDirection(DcMotor.Direction.FORWARD);
         stackingLiftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        // Define & Initialize Servos for Claw Extender and Grabber
 
         clawExtender = hwBot.get(CRServo.class, "claw_extender");
         clawExtender.setPower(0);
@@ -257,17 +245,20 @@ public class MetalBot extends MecanumDrive {
         imu.initialize(parametersimu);
 
 
-        //init webcamera in autonomous
+        // Init webcamera only for autonomous
         if (Mode == "Auto") {
             initWebCam();
         }
-
 
         //init timer
         initTimers ();
 
 
     }
+
+
+    // ***********  Initialize WebCam Method used by Autonomous
+
     public void initWebCam() {
 
         webcamName = hwBot.get(WebcamName.class, "WebCam");
@@ -321,6 +312,9 @@ public class MetalBot extends MecanumDrive {
 
 
     }
+
+    // ******  Initialize Timers used by Autonomous and TeleOp
+
     public void initTimers () {
         vuforiaTimer = new ElapsedTime();
         vuforiaTimer.reset();

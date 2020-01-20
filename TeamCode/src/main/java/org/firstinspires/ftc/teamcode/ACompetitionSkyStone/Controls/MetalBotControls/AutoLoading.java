@@ -6,9 +6,11 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 public abstract class AutoLoading extends AutoMain {
 
 
+    // *********   Methods to Rotate from Loading REA to drive to Building Area
+
     public void rotateToDriveDropStone (MetalBot Bot, String Alliance) {
         if (Alliance == "Red") {
-            Bot.rotateLeft(lowSpeed, 2.3); //2.5 to 2.3 after watching video 11:38 jan 20
+            Bot.rotateLeft(lowSpeed, 2.3);      //2.5 to 2.3 after watching video 11:38 jan 20
             sleep(sleepTime);
             Bot.gyroCorrection(gyroSPD, 91);
         }
@@ -17,6 +19,10 @@ public abstract class AutoLoading extends AutoMain {
         }
 
     }
+
+
+    // ***********  Methods for Dropping the Skystone on the Build Plate
+
     public void dropSkyStone(MetalBot Bot, String Alliance) {
 
         if (Alliance == "Red") {
@@ -74,6 +80,8 @@ public abstract class AutoLoading extends AutoMain {
         }
 
     }
+
+    // ****** Methods to Align & Move the Build Plate to the corner
 
     public void alignGrabPlate (MetalBot Bot, String Alliance){
         if (Alliance == "Red") {
@@ -134,6 +142,8 @@ public abstract class AutoLoading extends AutoMain {
     }
 
 
+    // *********   Methods to Park in different locations
+
     public void parkInner (MetalBot Bot, String Alliance) {
         if (Alliance  == "Red") {
             Bot.strafeRight(.4, .5);// (theory) rotate right 90 degrres, drive forward maybe 2 rotations, high speed
@@ -184,7 +194,7 @@ public abstract class AutoLoading extends AutoMain {
     }
 
 
-    // two new methods for parking and dropping stone in loading auto
+    // Additional placeholder methods for parking and dropping stone in loading auto
 
      public void preBuildPlateMove (MetalBot Bot, String Alliance ) {
          if (Alliance == "Red") {
