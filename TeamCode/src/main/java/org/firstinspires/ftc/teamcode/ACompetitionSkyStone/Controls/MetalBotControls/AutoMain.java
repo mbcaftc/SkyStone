@@ -37,6 +37,9 @@ public abstract class AutoMain extends LinearOpMode {
     public ElapsedTime skyStoneTime = new ElapsedTime();
 
     public int skyStonePosition = 1;
+    public int encoderPosition1 = 4600;
+    public int encoderPosition2 = 4600 - 306;
+    public int encoderPosition3 = 4600 - 613;
 
     public static final float mmPerInch = 25.4f;
     public static final float mmTargetHeight = (6) * mmPerInch;          // the height of the center of the target image above the floor
@@ -92,7 +95,7 @@ public abstract class AutoMain extends LinearOpMode {
 
     public void removeSkyStoneInner(MetalBot Bot) {
 
-            Bot.driveBackward(.2, 1.2);     //was working at 1.8
+            Bot.driveBackward(.5, 1.2);     //was working at 1.8, after watching video changed spped from .2 - .5 (Boone 11:36 jan 20)
             //sleep(sleepTime);
 
 
@@ -110,10 +113,17 @@ public abstract class AutoMain extends LinearOpMode {
 
     }
 
-    public void driveToPlate (String Alliance, MetalBot Bot) throws InterruptedException {
+    public void driveToPlate (String Alliance, MetalBot Bot) throws InterruptedException { //modified by Boone for dynamic drive 11:30 jan 20
         if (Alliance == "Red") {
-            //Bot.driveGyroStrafe(2800,.6,"right");
-            Bot.driveGyroStraight(4600, .7, "backward");
+            if (skyStonePosition == 1) {
+                Bot.driveGyroStraight(encoderPosition1, .7, "backward");
+            }
+            else if (skyStonePosition == 2) {
+                Bot.driveGyroStraight(encoderPosition2, .7, "backward");
+            }
+            else if (skyStonePosition == 3) {
+                Bot.driveGyroStraight(encoderPosition3, .7, "backward");
+            }
         }
         else if (Alliance == "Blue") {
             Bot.driveGyroStrafe(2800,.6,"left");

@@ -43,7 +43,7 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
 
 
             manipulateIntake(Bot,"flip down");
-            sleep(1000);
+            sleep(250);
 
             manipulateIntake(Bot,"inward");
 
@@ -62,11 +62,8 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             sleep(sleepTime);
 
 
-
-
             dropSkyStone(Bot, "Red");
             sleep(sleepTime);
-
 
 
             alignGrabPlate(Bot, "Red");

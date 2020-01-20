@@ -444,15 +444,15 @@ public class MetalBot extends MecanumDrive {
 
     // ***** Stacking Arm Lift Mechanisms without Encoders
 
-    public void stackingArmUp() {
+    public void stackingArmUp() { // physically down
 
-        stackingLiftLeft.setPower(1);
+        stackingLiftLeft.setPower(1); //removed multiplier, mr acker, to make it faster going up
         stackingLiftRight.setPower(1);
     }
 
-    public void stackingArmDown() {
+    public void stackingArmDown() { //physically up
 
-        stackingLiftLeft.setPower(-1 * armMultiplier);
+        stackingLiftLeft.setPower(-1 * armMultiplier); //kept multiplier to go down slow
         stackingLiftRight.setPower(-1 * armMultiplier);
     }
 
@@ -463,7 +463,7 @@ public class MetalBot extends MecanumDrive {
 
     // ***** Stacking Arm Lift Mechanisms Using Encoders
 
-    public void stackingArmUpEncoders () {
+ /*   public void stackingArmUpEncoders () {
         stackingArmTimer.reset();
         while (stackingLiftLeft.getCurrentPosition() < stackingArmTargetPos && linearOp.opModeIsActive()) {
             stackingArmUp();
@@ -487,7 +487,7 @@ public class MetalBot extends MecanumDrive {
             linearOp.idle();
         }
         stackingArmOff();
-    }
+    }*/
 
 
 

@@ -8,7 +8,7 @@ public abstract class AutoLoading extends AutoMain {
 
     public void rotateToDriveDropStone (MetalBot Bot, String Alliance) {
         if (Alliance == "Red") {
-            Bot.rotateLeft(lowSpeed, 2.5);
+            Bot.rotateLeft(lowSpeed, 2.3); //2.5 to 2.3 after watching video 11:38 jan 20
             sleep(sleepTime);
             Bot.gyroCorrection(gyroSPD, 91);
         }
@@ -38,43 +38,29 @@ public abstract class AutoLoading extends AutoMain {
         Bot.clawGrabberGrab();
         sleep(100);
 
-        Bot.stackingArmDown();      // This is physically up
-        sleep(800);
+        Bot.stackingArmDown();               // This is physically up
+        sleep(300);             //reduced 800 down to 300- 11:45 jan20 boone
 
         Bot.stackingArmOff();
 
-        Bot.clawExtender.setPower(1);
-        sleep(1000);
-        Bot.clawExtender.setPower(0);
+        Bot.clawExtenderExtend();
+        sleep(2000);                //adjusted for continous rotation servo that has been geared up (should be 1 1/2 seconds)
+        Bot.clawExtenderStop();
 
         Bot.clawGrabberRelease();
         sleep(50);
 
         Bot.driveForward(lowSpeed, .5);
 
-        Bot.clawExtender.setPower(-1);
-        sleep(1000);
-        Bot.clawExtender.setPower(0);
+        Bot.clawExtenderRetract();
+        sleep(2000);                //same time as extension
+        Bot.clawExtenderStop();
 
-        Bot.stackingArmUp();      // This is physically down
+        Bot.stackingArmUp();                     // This is physically down
         sleep(800);
 
         Bot.stackingArmOff();
 
-        //Bot.clawExtenderStop();
-
-
-
-    /*
-        Bot.clawExtenderRetract();
-        sleep(50);
-        Bot.clawExtenderStop();
-        Bot.stackingArmDownEncoders();
-        sleep(50);
-        Bot.stackingArmOff();
-
-         */
-        sleep(4000);
     }
 
     public void dropSkyStonePostPlate (MetalBot Bot, String Alliance) {
