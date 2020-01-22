@@ -329,15 +329,15 @@ public class MetalBot extends MecanumDrive {
 
     public void HookGrab () {
 
-        HookLeft.setPosition(.2);
-        HookRight.setPosition(.75);
+        HookLeft.setPosition(.52799);
+        HookRight.setPosition(.8);
     }
 
 
     public void HookRelease () {
 
         HookLeft.setPosition(.9);
-        HookRight.setPosition(0);
+        HookRight.setPosition(.25);
     }
 
 
@@ -352,8 +352,8 @@ public class MetalBot extends MecanumDrive {
     }
 
     public void intakeSpinInwardAuto () {       // Used in Auto
-        intakeLSpinner.setPower(-.6);
-        intakeRSpinner.setPower(-.6);
+        intakeLSpinner.setPower(-.7);
+        intakeRSpinner.setPower(-.7);
     }
     public void intakeSpinOutward () {          // Reverse Normal
 
@@ -381,6 +381,10 @@ public class MetalBot extends MecanumDrive {
 
     public void intakePushNeutral () {
         intakePusher.setPosition(0.3335);                // values came from servo testing
+    }
+
+    public void intakePushMiddle () {
+        intakePusher.setPosition(.7);
     }
 
 
@@ -863,7 +867,7 @@ public class MetalBot extends MecanumDrive {
     public void detectSkyStone () {
         vuforiaTimer.reset();
 
-        while (!targetVisible && linearOp.opModeIsActive() && vuforiaTimer.time() <= 2) {
+        while (!targetVisible && linearOp.opModeIsActive() && vuforiaTimer.time() <= 1) {
             trackObjects();
         }
 

@@ -43,9 +43,9 @@ public abstract class AutoMain extends LinearOpMode {
     // SkyStone Positioning & Dynamic Encoder Drivng Variables & Constants used across All Autonomous Paths
 
     public int skyStonePosition = 1;
-    public int encoderPosition1 = 4600;
-    public int encoderPosition2 = 4600 - 306;
-    public int encoderPosition3 = 4600 - 613;
+    public int encoderPosition1 = 4300;
+    public int encoderPosition2 = encoderPosition1 - 306;
+    public int encoderPosition3 = encoderPosition1 - 613;
 
 
     // Vuforia Variables & Constants used across All Autonoumous Paths
@@ -76,6 +76,9 @@ public abstract class AutoMain extends LinearOpMode {
     public void manipulateIntake (MetalBot Bot, String position) {
         if (position == "flip down") {
             Bot.intakeDeployLower();
+        }
+        else if (position == "flip_up") {
+            Bot.intakeDeployRaise();
         }
         else if (position == "inward") {
             Bot.intakeSpinInwardAuto();
@@ -170,11 +173,11 @@ public abstract class AutoMain extends LinearOpMode {
 
             if (Bot.skyStoneValue < -1) {                 ////position 1 (LEFT)
 
-                Bot.strafeLeft(.3, .2);
+                Bot.strafeLeft(.3, .4);
                 skyStonePosition = 1;
             } else if (Bot.skyStoneValue == 0.0) {                                                                         // position 3
 
-                Bot.strafeRight(.3, 1.9);
+                Bot.strafeRight(.3, 1.6);       // was 1.9
                 skyStonePosition = 3;
             } else if (Bot.skyStoneValue > -1) {       // position 2 (MIDDLE)
 

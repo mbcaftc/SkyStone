@@ -18,7 +18,7 @@ public class SingleServoTest extends OpMode {
 
     @Override
     public void init() {
-        testServo = hardwareMap.servo.get("intake_pusher");
+        testServo = hardwareMap.servo.get("hook_right");
         testServo.setPosition(servoPos);
     }
 

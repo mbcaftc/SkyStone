@@ -29,6 +29,10 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
 
             Bot.activateTracking();
 
+            manipulateIntake(Bot,"flip down");
+            sleep(200);
+            Bot.intakePushNeutral();
+
             Bot.driveForward(lowSpeed, 1.8);
 
             Bot.detectSkyStone();
@@ -37,9 +41,6 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
 
             driveToSkyStone(Bot, "Red");
 
-            manipulateIntake(Bot,"flip down");
-            sleep(250);
-            Bot.intakePushNeutral();
 
             manipulateIntake(Bot,"inward");
 
@@ -49,18 +50,23 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             sleep(1000);
             manipulateIntake(Bot, "stop");
 
-            Bot.intakePushIn();
-            sleep(sleepTime);
-            Bot.intakePushNeutral();
 
             removeSkyStoneInner(Bot);
             sleep(sleepTime);
+
+            Bot.intakePushIn();
+            sleep(100);
+
+            manipulateIntake(Bot, "flip_up");
 
             rotateToDriveDropStone(Bot, "Red");
             sleep(sleepTime);
 
             driveToPlate("Red", Bot);
             sleep(sleepTime);
+
+            Bot.intakePushIn();
+            sleep(100);
 
             dropSkyStone(Bot, "Red");
             sleep(sleepTime);

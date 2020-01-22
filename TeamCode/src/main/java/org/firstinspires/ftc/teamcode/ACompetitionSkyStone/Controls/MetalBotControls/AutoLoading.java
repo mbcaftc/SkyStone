@@ -12,7 +12,7 @@ public abstract class AutoLoading extends AutoMain {
         if (Alliance == "Red") {
             Bot.rotateLeft(lowSpeed, 2.3);      //2.5 to 2.3 after watching video 11:38 jan 20
             sleep(sleepTime);
-            Bot.gyroCorrection(gyroSPD, 91);
+            Bot.gyroCorrection(gyroSPD, 92);     // was 91
         }
         else if (Alliance == "Blue") {
 
@@ -30,7 +30,7 @@ public abstract class AutoLoading extends AutoMain {
 
             Bot.rotateLeft(highSpeed, 2);
             Bot.gyroCorrection(gyroSPD, 178);
-            Bot.driveBackward(.3, .9);
+            Bot.driveBackward(.3, 1.1);
 
             // methods for stacking arm
 
@@ -41,11 +41,15 @@ public abstract class AutoLoading extends AutoMain {
 
         }
 
+        Bot.intakePushIn();
+        sleep(sleepTime);
+        Bot.intakePushNeutral();
+
         Bot.clawGrabberGrab();
         sleep(100);
 
         Bot.stackingArmDown();                   // This is physically up
-        sleep(300);                 //reduced 800 down to 300- 11:45 jan20 boone
+        sleep(400);                 //reduced 800 down to 300- 11:45 jan20 boone
 
         Bot.stackingArmOff();
 
@@ -56,10 +60,15 @@ public abstract class AutoLoading extends AutoMain {
         Bot.clawGrabberRelease();
         sleep(50);
 
+        Bot.stackingArmDown();
+        sleep(250);
+
+        Bot.stackingArmOff();
+
         Bot.driveForward(lowSpeed, .5);
 
         Bot.clawExtenderRetract();
-        sleep(2000);                //same time as extension
+        sleep(1750);                //same time as extension
         Bot.clawExtenderStop();
 
         Bot.stackingArmUp();                     // This is physically down
@@ -100,7 +109,7 @@ public abstract class AutoLoading extends AutoMain {
         }
 
         Bot.HookGrab();
-        sleep(250);                 // adjusted from 500 to save time
+        sleep(500);                 // adjusted from 500 to save time
 
     }
 
@@ -109,19 +118,17 @@ public abstract class AutoLoading extends AutoMain {
     public void orientBuildPlate (MetalBot Bot, String Alliance) throws InterruptedException {
         if (Alliance == "Red") {
 
-            Bot.driveGyroStrafeAngle (1000,.3,"right",-175);  // Gyro stafe at angle
-            Bot.strafeLeft(midSpeed,2);   // slam into the wall
+            //Bot.driveGyroStrafeAngle (1000,.3,"left",-175);  // Gyro stafe at angle
+            //Bot.strafeLeft(midSpeed,2);   // slam into the wall
 
 
             //Emma's original code
-            //Bot.driveForward(lowSpeed, .5);
-            //Bot.strafeRight(lowSpeed, 2.5);
-            //Bot.rotateRight(lowSpeed, 1);
-            //Bot.gyroCorrection(gyroSPD, -135);
-            //Bot.strafeRight(lowSpeed, 1.5);
-            //Bot.rotateRight(lowSpeed, 1.5);
-            //Bot.gyroCorrection(lowSpeed, -178);
-            //Bot.strafeLeft(lowSpeed, 1.5);
+            Bot.rotateRight(midSpeed, .4);
+            Bot.strafeRight(midSpeed, 2);
+            Bot.rotateRight(midSpeed, .6);
+            Bot.strafeRight(midSpeed, 1.5);
+            Bot.rotateRight(midSpeed, 1);
+            Bot.strafeLeft(midSpeed, 2);
 
         }
         else if (Alliance == "Blue") {
@@ -144,12 +151,16 @@ public abstract class AutoLoading extends AutoMain {
 
     // *********   Methods to Park in different locations
 
-    public void parkInner (MetalBot Bot, String Alliance) {
+    public void parkInner (MetalBot Bot, String Alliance) throws InterruptedException {
         if (Alliance  == "Red") {
-            Bot.strafeRight(.4, .5);// (theory) rotate right 90 degrres, drive forward maybe 2 rotations, high speed
-            Bot.rotateRight(highSpeed,1);
-            Bot.gyroCorrection(.2,90);
-            Bot.driveForward(highSpeed,2);
+            //Bot.strafeRight(.6, 3);// (theory) rotate right 90 degrres, drive forward maybe 2 rotations, high speed
+
+            Bot.driveBackward(.4, .4);
+            Bot.driveGyroStrafe(3000, .5, "right");
+// Bot.driveBackward(.6, .5);
+//            Bot.rotateRight(highSpeed,1);
+//            Bot.gyroCorrection(.2,90);
+//            Bot.driveForward(highSpeed,2);
 
             //Emma's original code
 //            Bot.driveBackward(highSpeed, 2);
