@@ -329,15 +329,20 @@ public class MetalBot extends MecanumDrive {
 
     public void HookGrab () {
 
-        HookLeft.setPosition(.52799);
+        HookLeft.setPosition(.457);       // was .5
         HookRight.setPosition(.8);
+    }
+
+    public void HookHalfGrab () {
+        HookLeft.setPosition(.665);
+        HookRight.setPosition(.531);
     }
 
 
     public void HookRelease () {
 
-        HookLeft.setPosition(.9);
-        HookRight.setPosition(.25);
+        HookLeft.setPosition(.858);
+        HookRight.setPosition(.3359);
     }
 
 
@@ -352,8 +357,8 @@ public class MetalBot extends MecanumDrive {
     }
 
     public void intakeSpinInwardAuto () {       // Used in Auto
-        intakeLSpinner.setPower(-.7);
-        intakeRSpinner.setPower(-.7);
+        intakeLSpinner.setPower(-.75);      // was .7
+        intakeRSpinner.setPower(-.75);      // was .7 ~  worked  sometimes but did not spin... maybe not enough torque?
     }
     public void intakeSpinOutward () {          // Reverse Normal
 
@@ -376,11 +381,11 @@ public class MetalBot extends MecanumDrive {
     }
 
     public void intakePushIn () {
-        intakePusher.setPosition(0.900);               // values came from servo testing
+        intakePusher.setPosition(0.85);               // values came from servo testing
     }
 
     public void intakePushNeutral () {
-        intakePusher.setPosition(0.3335);                // values came from servo testing
+        intakePusher.setPosition(0.29);                // values came from servo testing
     }
 
     public void intakePushMiddle () {
@@ -393,12 +398,12 @@ public class MetalBot extends MecanumDrive {
 
     public void intakeDeployLower () {
 
-        intakeDeploy.setPosition(.5);
+        intakeDeploy.setPosition(.84);
 
     }
     public void intakeDeployRaise () {
 
-        intakeDeploy.setPosition(0);
+        intakeDeploy.setPosition(.421);
     }
 
 

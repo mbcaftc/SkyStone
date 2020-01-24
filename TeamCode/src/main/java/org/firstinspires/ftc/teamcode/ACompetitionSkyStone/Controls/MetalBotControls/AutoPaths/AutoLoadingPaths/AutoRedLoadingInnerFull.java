@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotContr
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Red:Loading:Inner:Full")
+@Autonomous(name = "Red:Loading:Inner:Full USE ME")
 //@Disabled
 public class AutoRedLoadingInnerFull extends AutoLoading {
 
@@ -68,6 +68,8 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             Bot.intakePushIn();
             sleep(100);
 
+            Bot.HookRelease();
+
             dropSkyStone(Bot, "Red");
             sleep(sleepTime);
 
@@ -79,8 +81,9 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
 
             parkInner(Bot, "Red");
             sleep(sleepTime);
-
+//hello
             requestOpModeStop();
+            idle();
         }
         idle();
 

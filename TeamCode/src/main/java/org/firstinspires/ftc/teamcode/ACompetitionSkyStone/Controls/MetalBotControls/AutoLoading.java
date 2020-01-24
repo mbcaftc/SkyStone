@@ -15,7 +15,9 @@ public abstract class AutoLoading extends AutoMain {
             Bot.gyroCorrection(gyroSPD, 92);     // was 91
         }
         else if (Alliance == "Blue") {
-
+            Bot.rotateRight(lowSpeed, 2.3);      //2.5 to 2.3 after watching video 11:38 jan 20
+            sleep(sleepTime);
+            Bot.gyroCorrection(gyroSPD, -92);     // was 91
         }
 
     }
@@ -30,14 +32,14 @@ public abstract class AutoLoading extends AutoMain {
 
             Bot.rotateLeft(highSpeed, 2);
             Bot.gyroCorrection(gyroSPD, 178);
-            Bot.driveBackward(.3, 1.1);
+            Bot.driveBackward(.3, 1.2);
 
             // methods for stacking arm
 
         } else if (Alliance == "Blue") {
-            Bot.rotateRight(.3, 4);
-            Bot.gyroCorrection(gyroSPD, -179);
-            Bot.driveBackward(.3, .9);
+            Bot.rotateRight(.3, 2);
+            Bot.gyroCorrection(gyroSPD, -178);
+            Bot.driveBackward(.3, 1);
 
         }
 
@@ -54,9 +56,22 @@ public abstract class AutoLoading extends AutoMain {
         Bot.stackingArmOff();
 
         Bot.clawExtenderExtend();
-        sleep(2000);                //adjusted for continous rotation servo that has been geared up (should be 1 1/2 seconds)
+        sleep(1800);                //adjusted for continous rotation servo that has been geared up (should be 1 1/2 seconds)
         Bot.clawExtenderStop();
 
+        Bot.clawExtenderExtend();
+        sleep(300);
+        Bot.clawExtenderStop();
+        sleep(50);
+
+        Bot.clawExtenderExtend();
+        sleep(300);
+        Bot.clawExtenderStop();
+        sleep(50);
+        Bot.clawExtenderExtend();
+        sleep(300);
+        Bot.clawExtenderStop();
+        sleep(50);
         Bot.clawGrabberRelease();
         sleep(50);
 
@@ -99,13 +114,13 @@ public abstract class AutoLoading extends AutoMain {
             Bot.rotateLeft(lowSpeed, 2);
             Bot.gyroCorrection(gyroSPD,-90 );
             linearOp.idle();
-            Bot.strafeLeft(.3, 1.5);
+            Bot.strafeLeft(.3, 1);
         }
         else if (Alliance == "Blue") {
-            Bot.rotateRight(.3, 2.5);
-            Bot.gyroCorrection(.2,90 );
+            Bot.rotateLeft(.3, 2);
+            Bot.gyroCorrection(gyroSPD,-90 );
             linearOp.idle();
-            Bot.strafeRight(.3, .7);
+            Bot.strafeLeft(.3, 1);
         }
 
         Bot.HookGrab();
@@ -123,23 +138,23 @@ public abstract class AutoLoading extends AutoMain {
 
 
             //Emma's original code
+            Bot.strafeRight(midSpeed, .3);
             Bot.rotateRight(midSpeed, .4);
-            Bot.strafeRight(midSpeed, 2);
-            Bot.rotateRight(midSpeed, .6);
-            Bot.strafeRight(midSpeed, 1.5);
-            Bot.rotateRight(midSpeed, 1);
-            Bot.strafeLeft(midSpeed, 2);
+            Bot.strafeRight(midSpeed, 2);     // was 2.2
+            Bot.rotateRight(midSpeed, 1.2);     // was .6
+            Bot.strafeRight(midSpeed, 1.3);       // was 1.5
+            Bot.rotateRight(midSpeed, 1.5);     // was 1
+            Bot.strafeLeft(midSpeed, 2.9);      // was 2
 
         }
         else if (Alliance == "Blue") {
-            Bot.driveBackward(lowSpeed, .5);
-            Bot.strafeLeft(.3, 1);
-            Bot.rotateLeft(.3, 1.25);
-            Bot.gyroCorrection(.2, 135);
-            Bot.strafeLeft(.3, 1);
-            Bot.rotateLeft(.3, 1.25);
-            Bot.gyroCorrection(.2, 178);
-            Bot.strafeRight(midSpeed, 3);
+            Bot.strafeRight(midSpeed, .3);
+            Bot.rotateLeft(midSpeed, .4);
+            Bot.strafeRight(midSpeed, 2);     // was 2.2
+            Bot.rotateLeft(midSpeed, 1);     // was .6
+            Bot.strafeRight(midSpeed, 1.3);       // was 1.5
+            Bot.rotateLeft(midSpeed, .8);     // was 1
+            Bot.strafeLeft(midSpeed, 2.9);      // was 2
         }
 
 
@@ -153,26 +168,12 @@ public abstract class AutoLoading extends AutoMain {
 
     public void parkInner (MetalBot Bot, String Alliance) throws InterruptedException {
         if (Alliance  == "Red") {
-            //Bot.strafeRight(.6, 3);// (theory) rotate right 90 degrres, drive forward maybe 2 rotations, high speed
 
-            Bot.driveBackward(.4, .4);
-            Bot.driveGyroStrafe(3000, .5, "right");
-// Bot.driveBackward(.6, .5);
-//            Bot.rotateRight(highSpeed,1);
-//            Bot.gyroCorrection(.2,90);
-//            Bot.driveForward(highSpeed,2);
+            Bot.strafeRight(highSpeed, 4.8);
 
-            //Emma's original code
-//            Bot.driveBackward(highSpeed, 2);
-//            Bot.rotateRight(highSpeed, 1.5);
-//            Bot.gyroCorrection(.2, 90);
-//            Bot.driveForward(.3, 2.5);
         }
         else if (Alliance == "Blue" ) {
-            Bot.strafeRight(.4, .5);
-            Bot.rotateLeft(.4, 2.5);
-            Bot.gyroCorrection(.2, -90);
-            Bot.driveForward(.3, 2.5);
+            Bot.strafeRight(highSpeed, 4.8);
 
         }
     }

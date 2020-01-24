@@ -9,7 +9,7 @@ public class SingleServoTest extends OpMode {
 
     Servo testServo;
 
-    double servoPos = .95;
+    double servoPos = .5;
 
     double incVal = 0.001;
 
@@ -18,7 +18,7 @@ public class SingleServoTest extends OpMode {
 
     @Override
     public void init() {
-        testServo = hardwareMap.servo.get("hook_right");
+        testServo = hardwareMap.servo.get("hook_left");
         testServo.setPosition(servoPos);
     }
 
@@ -38,19 +38,23 @@ public class SingleServoTest extends OpMode {
         }
 
         if (gamepad1.x) {
-            servoPos = .95;
-            telemetry.addLine("Set Servo to 1!");
+            servoPos = .90;
+            telemetry.addLine("Set Servo to .9!");
         }
         if (gamepad1.y) {
-            servoPos = 0.55;
-            telemetry.addLine("Set Servo to 0!");
+            servoPos = .10;
+            telemetry.addLine("Set Servo to .1!");
 
         }
         testServo.setPosition(servoPos);
         telemetry.addLine("RB: increase, LB: Decrease");
-        telemetry.addLine("x = set to .95, y = set to 0.55");
+        telemetry.addLine("x = set to .90, y = set to 0.10");
         telemetry.addData("TestS ervo Positiom: ", testServo.getPosition());
         telemetry.addData("Servo Variable Position: ", servoPos);
         telemetry.update();
     }
 }
+
+
+//hook right OPEN - 0.1
+// hook right GRAB = .557

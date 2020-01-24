@@ -43,9 +43,13 @@ public abstract class AutoMain extends LinearOpMode {
     // SkyStone Positioning & Dynamic Encoder Drivng Variables & Constants used across All Autonomous Paths
 
     public int skyStonePosition = 1;
-    public int encoderPosition1 = 4300;
-    public int encoderPosition2 = encoderPosition1 - 306;
-    public int encoderPosition3 = encoderPosition1 - 613;
+    public int encoderPosition1 = 4300 + 400;
+    public int encoderPosition2 = 4300;
+    public int encoderPosition3 = 4300 - 613;
+
+    public int encoderPosition1Blue = 1250;
+    public int encoderPosition2Blue = 1450;
+    public int encoderPosition3Blue = 1550;
 
 
     // Vuforia Variables & Constants used across All Autonoumous Paths
@@ -135,7 +139,15 @@ public abstract class AutoMain extends LinearOpMode {
             }
         }
         else if (Alliance == "Blue") {
-            Bot.driveGyroStrafe(2800,.6,"left");
+            if (skyStonePosition == 1) {
+                Bot.driveGyroStraight(encoderPosition1Blue, .7, "backward");
+            }
+            else if (skyStonePosition == 2) {
+                Bot.driveGyroStraight(encoderPosition2Blue, .7, "backward");
+            }
+            else if (skyStonePosition == 3) {
+                Bot.driveGyroStraight(encoderPosition3Blue, .7, "backward");
+            }
         }
     }
 
@@ -191,21 +203,25 @@ public abstract class AutoMain extends LinearOpMode {
 
         else if (Alliance == "Blue") {
 
-            if (Bot.skyStoneValue < -1) {           //position 1 (LEFT) with Camera on Left Sideskirt ranges from -5.498 to -6.059
+            if (Bot.skyStoneValue < -1) {           //position 1 (LEFT)
 
-                Bot.strafeLeft(.3, .2);
+                Bot.strafeLeft(.3, .4);
+                Bot.rotateLeft(lowSpeed, .3);
                 skyStonePosition = 1;
             } else if (Bot.skyStoneValue == 0.0) {                                                                        // position 3
-                Bot.strafeRight(.3, 1.9);
+                Bot.strafeRight(.3, 1.6);
+                Bot.rotateLeft(lowSpeed, .3);
 
                 skyStonePosition = 3;
-            } else if (Bot.skyStoneValue > -1) {      //position 2 (MIDDLE) with Camera on on Left Sideskirt ranges from 2.65 to 2.757
+            } else if (Bot.skyStoneValue > -1) {      //position 2 (MIDDLE)
 
                 Bot.strafeLeft(.3, .6);
+                Bot.rotateLeft(lowSpeed, .3);
                 skyStonePosition = 2;
 
 
             }
+            //Bot.rotateLeft(lowSpeed, .3);
         }
     }
 }

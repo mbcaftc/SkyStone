@@ -29,45 +29,38 @@ public class AutoBlueLoadingSkyStone extends AutoLoading {
         while (opModeIsActive()) {
 
 
-            Bot.dropStone();
-            Bot.releaseStone();
-            //Bot.setServos();
-
             Bot.activateTracking();
 
-            Bot.driveForward(.2, 1.8);
-            sleep(sleepTime);
+            manipulateIntake(Bot,"flip down");
+            sleep(200);
+            Bot.intakePushNeutral();
+
+            Bot.driveForward(lowSpeed, 1.8);
 
             Bot.detectSkyStone();
-            sleep(sleepTime);
 
             Bot.deActivateTracking();
-            sleep(sleepTime);
 
             driveToSkyStone(Bot, "Blue");
-            sleep(sleepTime);
-            // intake down
-
-            manipulateIntake(Bot,"flip down");
-            sleep(sleepTime);
-
-            Bot.driveForward(midSpeed, .3);
-            sleep(sleepTime);
 
             manipulateIntake(Bot,"inward");
-            sleep(sleepTime);
+
+            Bot.driveForward(midSpeed, 1.4);
+
+            sleep(1000);
+            manipulateIntake(Bot, "stop");
 
             removeSkyStoneInner(Bot);
             sleep(sleepTime);
 
+            Bot.intakePushIn();
+            sleep(100);
+
+            manipulateIntake(Bot, "flip_up");
+
             driveToPlate("Blue", Bot);
             sleep(sleepTime);
 
-            Bot.driveGyroStrafe(1000,.6,"left");
-
-            dropSkyStonePostPlate(Bot, "Blue");
-
-            parkSkyStoneInner(Bot);
 
             requestOpModeStop();
         }
