@@ -14,10 +14,10 @@ public abstract class AutoBuilding extends AutoMain {
             Bot.strafeLeft(lowSpeed, .4);
         }
         else if (Alliance == "Blue") {
-            Bot.strafeLeft(midSpeed, 2);
-            Bot.driveBackward(midSpeed, .8);
+            Bot.strafeLeft(midSpeed, 2.4);
+            Bot.driveBackward(midSpeed, .4);
             Bot.strafeLeft(midSpeed, 1.9);
-            Bot.strafeLeft(lowSpeed, .4);
+            Bot.strafeLeft(lowSpeed, .65);
         }
 
     }
@@ -50,18 +50,20 @@ public abstract class AutoBuilding extends AutoMain {
     public void pushBuildPlate (MetalBot Bot, String Alliance) {
         Bot.strafeLeft(midSpeed, 4.5);
         Bot.HookRelease();
+        sleep(100);
     }
 
     public void parkBuildingPlateInner (MetalBot Bot, String Alliance) {
         if (Alliance == "Red") {
             Bot.strafeRight(lowSpeed, .4);
             Bot.rotateRight(midSpeed, 2);
-            Bot.gyroCorrection(gyroSPD, -179);
-            Bot.driveForward(midSpeed, 2.5);
-            Bot.strafeRight(lowSpeed, .8);
-            Bot.driveForward(midSpeed, 1);
-            Bot.strafeRight(lowSpeed, .8);
-            Bot.driveForward(lowSpeed, .4);
+            Bot.gyroCorrection(gyroSPD, -179);      // was 179
+            Bot.rotateLeft(midSpeed, .1);
+            Bot.driveForward(midSpeed, 3.6);
+
+//            Bot.strafeRight(lowSpeed, .8);
+//            Bot.driveForward(midSpeed, 1);
+//            Bot.strafeRight(lowSpeed, .8);
 
         }
 
@@ -69,11 +71,9 @@ public abstract class AutoBuilding extends AutoMain {
             Bot.strafeRight(lowSpeed, .4);
             Bot.rotateLeft(midSpeed, 2);
             Bot.gyroCorrection(gyroSPD, -179);
-            Bot.driveBackward(midSpeed, 2.5);
-            Bot.strafeRight(lowSpeed, .8);
-            Bot.driveBackward(midSpeed, 1);
-            Bot.strafeRight(lowSpeed, .8);
-            Bot.driveForward(lowSpeed, .4);
+            Bot.rotateRight(midSpeed, .1);
+            Bot.strafeRight(midSpeed, 1.3);
+            Bot.driveBackward(midSpeed, 3.5);
 
         }
     }
@@ -82,19 +82,19 @@ public abstract class AutoBuilding extends AutoMain {
 
         if (Alliance == "Red") {
             Bot.strafeRight(lowSpeed, .4);
-            Bot.rotateRight(midSpeed, 2);
+            Bot.rotateRight(midSpeed, 1.5);
             Bot.gyroCorrection(gyroSPD, -179);
             Bot.driveForward(midSpeed, 1.7);
-            Bot.strafeLeft(midSpeed, 1.5);
+            Bot.strafeLeft(midSpeed, 3);
             Bot.driveForward(midSpeed, 1.2);
         }
         else if (Alliance == "Blue") {
             Bot.strafeRight(lowSpeed, .4);
-            Bot.rotateLeft(midSpeed, 2);
+            Bot.rotateLeft(midSpeed, 1.5);
             Bot.gyroCorrection(gyroSPD, 179);
-            Bot.driveForward(midSpeed, 1.7);
-            Bot.strafeRight(midSpeed, 1.5);
-            Bot.driveForward(midSpeed, 1.2);
+            Bot.driveBackward(midSpeed, 1.7);
+            Bot.strafeLeft(midSpeed, 3);
+            Bot.driveBackward(midSpeed, 1.2);
         }
 
     }

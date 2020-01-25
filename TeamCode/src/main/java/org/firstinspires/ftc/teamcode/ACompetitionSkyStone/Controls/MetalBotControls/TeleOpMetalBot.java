@@ -82,6 +82,8 @@ public class TeleOpMetalBot extends OpMode {
 
         telemetryOutput();
 
+        controlClawGrabberCapstone();
+
 
 
 
@@ -227,6 +229,11 @@ public class TeleOpMetalBot extends OpMode {
             telemetry.addLine("Claw Release!");
         }
 
+    }
+    public void controlClawGrabberCapstone () {
+        if (gamepad1.a == true) {
+            Bot.clawGrabberGrabCapStone();
+        }
     }
 
 

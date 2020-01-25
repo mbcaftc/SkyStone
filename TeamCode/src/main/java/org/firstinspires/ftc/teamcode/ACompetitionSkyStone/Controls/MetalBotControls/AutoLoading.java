@@ -12,12 +12,12 @@ public abstract class AutoLoading extends AutoMain {
         if (Alliance == "Red") {
             Bot.rotateLeft(lowSpeed, 2.3);      //2.5 to 2.3 after watching video 11:38 jan 20
             sleep(sleepTime);
-            Bot.gyroCorrection(gyroSPD, 92);     // was 91
+            Bot.gyroCorrection(gyroSPD, 91);     // was 92
         }
         else if (Alliance == "Blue") {
             Bot.rotateRight(lowSpeed, 2.3);      //2.5 to 2.3 after watching video 11:38 jan 20
             sleep(sleepTime);
-            Bot.gyroCorrection(gyroSPD, -92);     // was 91
+            Bot.gyroCorrection(gyroSPD, -90);     // was 91
         }
 
     }
@@ -39,7 +39,7 @@ public abstract class AutoLoading extends AutoMain {
         } else if (Alliance == "Blue") {
             Bot.rotateRight(.3, 2);
             Bot.gyroCorrection(gyroSPD, -178);
-            Bot.driveBackward(.3, 1);
+            Bot.driveBackward(.3, .8);      // was .1
 
         }
 
@@ -149,10 +149,10 @@ public abstract class AutoLoading extends AutoMain {
         }
         else if (Alliance == "Blue") {
             Bot.strafeRight(midSpeed, .3);
-            Bot.rotateLeft(midSpeed, .4);
+            Bot.rotateLeft(midSpeed, .2);
             Bot.strafeRight(midSpeed, 2);     // was 2.2
-            Bot.rotateLeft(midSpeed, 1);     // was .6
-            Bot.strafeRight(midSpeed, 1.3);       // was 1.5
+            Bot.rotateLeft(midSpeed, 1.2);     // was .6
+            Bot.strafeRight(midSpeed, 1.5);       // was 1.5
             Bot.rotateLeft(midSpeed, .8);     // was 1
             Bot.strafeLeft(midSpeed, 2.9);      // was 2
         }

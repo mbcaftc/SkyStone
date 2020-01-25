@@ -15,9 +15,9 @@ public class AutoBlueBuildingPlate extends AutoBuilding {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Bot.initRobot(hardwareMap, "Auto");
+        Bot.initRobot(hardwareMap, "Build");
         Bot.setLinearOp(this);
-        Bot.HookRelease();
+        //Bot.HookRelease();
 
         setLinearOp(this);
 
@@ -26,6 +26,8 @@ public class AutoBlueBuildingPlate extends AutoBuilding {
         waitForStart();
 
         while (opModeIsActive()) {
+
+            Bot.HookRelease();
 
             goToBuildPlate(Bot, "Blue");
 

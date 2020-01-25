@@ -329,19 +329,19 @@ public class MetalBot extends MecanumDrive {
 
     public void HookGrab () {
 
-        HookLeft.setPosition(.457);       // was .5
+        HookLeft.setPosition(.2279);       // was .5
         HookRight.setPosition(.8);
     }
 
     public void HookHalfGrab () {
-        HookLeft.setPosition(.665);
+        HookLeft.setPosition(.3979);
         HookRight.setPosition(.531);
     }
 
 
     public void HookRelease () {
 
-        HookLeft.setPosition(.858);
+        HookLeft.setPosition(.5539);
         HookRight.setPosition(.3359);
     }
 
@@ -470,6 +470,10 @@ public class MetalBot extends MecanumDrive {
 
     public void clawGrabberGrab () {
         clawGrabber.setPosition(0.55);
+    }
+
+    public void clawGrabberGrabCapStone () {
+        clawGrabber.setPosition(.4);
     }
 
     public void clawGrabberRelease () {

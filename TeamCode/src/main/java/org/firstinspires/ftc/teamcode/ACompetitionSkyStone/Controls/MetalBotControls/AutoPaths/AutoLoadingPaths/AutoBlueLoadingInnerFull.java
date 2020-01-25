@@ -35,7 +35,7 @@ public class AutoBlueLoadingInnerFull extends AutoLoading {
             sleep(200);
             Bot.intakePushNeutral();
 
-            Bot.driveForward(lowSpeed, 1.8);
+            Bot.driveForward(lowSpeed, 1.7);
 
             Bot.detectSkyStone();
             sleep(1000);
@@ -48,7 +48,7 @@ public class AutoBlueLoadingInnerFull extends AutoLoading {
             manipulateIntake(Bot,"inward");
 
 
-            Bot.driveForward(midSpeed, 1.4);
+            Bot.driveForward(midSpeed, 1.5);
 
             sleep(1000);
             manipulateIntake(Bot, "stop");

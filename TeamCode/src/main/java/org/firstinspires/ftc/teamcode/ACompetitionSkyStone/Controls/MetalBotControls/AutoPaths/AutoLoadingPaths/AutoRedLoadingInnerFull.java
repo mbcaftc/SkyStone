@@ -36,6 +36,7 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             Bot.driveForward(lowSpeed, 1.8);
 
             Bot.detectSkyStone();
+            sleep(500);     // added after testing on 1/23/20
 
             Bot.deActivateTracking();
 
@@ -50,12 +51,13 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             sleep(1000);
             manipulateIntake(Bot, "stop");
 
+            Bot.intakePushIn();
+            sleep(100);
+
 
             removeSkyStoneInner(Bot);
             sleep(sleepTime);
 
-            Bot.intakePushIn();
-            sleep(100);
 
             manipulateIntake(Bot, "flip_up");
 
@@ -81,6 +83,7 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
 
             parkInner(Bot, "Red");
             sleep(sleepTime);
+
 //hello
             requestOpModeStop();
             idle();
