@@ -154,12 +154,24 @@ public class TeleOpMetalBot extends OpMode {
 
     // **********   Teleop Intake Control Methods
 
+    /*
 
-    public void controlHook() {
+    public void controlHook() {             // gamepad 2
         if (gamepad2.y) {
             Bot.HookRelease();
         }
         else if (gamepad2.a) {
+            Bot.HookGrab();
+        }
+    }
+
+     */
+
+    public void controlHook() {
+        if (gamepad1.left_bumper) {
+            Bot.HookRelease();
+        }
+        else if (gamepad1.right_bumper) {
             Bot.HookGrab();
         }
     }
@@ -194,6 +206,7 @@ public class TeleOpMetalBot extends OpMode {
     }
 
 
+    /*
     public void controlIntakePusher() {             //all of this is not final for button mapping
         if (gamepad1.y) {
             Bot.intakePushIn();
@@ -202,6 +215,18 @@ public class TeleOpMetalBot extends OpMode {
             Bot.intakePushNeutral();
         }
     }
+
+     */
+
+    public void controlIntakePusher () {
+        if (gamepad2.y) {
+            Bot.intakePushIn();
+        }
+        else {
+            Bot.intakePushNeutral();
+        }
+    }
+
 
 
     //***********  TeleOp Claw Extension & Grabber Control Methods
@@ -230,8 +255,16 @@ public class TeleOpMetalBot extends OpMode {
         }
 
     }
+    /*
     public void controlClawGrabberCapstone () {
         if (gamepad1.a == true) {
+            Bot.clawGrabberGrabCapStone();
+        }
+    }
+
+     */
+    public void controlClawGrabberCapstone () {
+        if (gamepad2.a == true) {
             Bot.clawGrabberGrabCapStone();
         }
     }
