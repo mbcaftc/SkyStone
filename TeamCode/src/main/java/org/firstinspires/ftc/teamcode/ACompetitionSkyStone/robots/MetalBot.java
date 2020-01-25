@@ -273,7 +273,7 @@ public class MetalBot extends MecanumDrive {
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
 
-        // Only one data set in the trackable objects arraylist .... Sky Stone
+        // Only one datda set in the trackable objects arraylist .... Sky Stone
 
         targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
         VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
