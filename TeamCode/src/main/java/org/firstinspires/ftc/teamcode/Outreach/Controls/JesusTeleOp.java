@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Outreach.DriveTrains.TwoWheelDrive;
 import org.firstinspires.ftc.teamcode.Outreach.Robot.JesusBot;
 
 @TeleOp(name = "Jesus Outreach Tele Op", group = "Outreach")
-//@Disabled
+@Disabled
 
 
 

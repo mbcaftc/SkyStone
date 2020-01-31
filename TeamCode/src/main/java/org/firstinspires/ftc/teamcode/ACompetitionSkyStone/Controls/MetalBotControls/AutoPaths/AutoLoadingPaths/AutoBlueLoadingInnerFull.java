@@ -86,7 +86,7 @@ public class AutoBlueLoadingInnerFull extends AutoLoading {
             parkInner(Bot, "Blue");
             sleep(sleepTime);
 
-
+            idle();
             requestOpModeStop();
         }
         idle();

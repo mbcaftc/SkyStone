@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.Emma;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp (name = "Test Two Motors = 'test_motor1' , 'test_motor2'", group = "Lab")
-//@Disabled
+@Disabled
 public class TestTwoMotors extends OpMode {
     DcMotor testMotor1;
     DcMotor testMotor2;

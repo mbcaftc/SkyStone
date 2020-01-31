@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Outreach.DriveTrains.RoverDrive;
 
 
     @TeleOp(name = "Rover Drive", group = "Outreach")
-//    @Disabled
+   @Disabled
     public class RoverTeleOp extends OpMode {
 
         RoverDrive myRover;

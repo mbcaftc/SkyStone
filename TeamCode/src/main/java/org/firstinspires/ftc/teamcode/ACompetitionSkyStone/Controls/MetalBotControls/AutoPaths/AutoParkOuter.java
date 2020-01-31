@@ -1,12 +1,12 @@
-package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths.AutoBuildingPaths;
+package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoBuilding;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 
-@Autonomous(name = "Blue:Building Plate:Outer")
-public class AutoBlueBuildingPlateOuter extends AutoBuilding {
+@Autonomous(name = "Park: Outer")
+public class AutoParkOuter extends AutoBuilding {
 
     public MetalBot Bot = new MetalBot();
 
@@ -15,7 +15,7 @@ public class AutoBlueBuildingPlateOuter extends AutoBuilding {
 
         Bot.initRobot(hardwareMap, "Build");
         Bot.setLinearOp(this);
-        Bot.HookRelease();
+        //Bot.HookRelease();
 
         setLinearOp(this);
 
@@ -25,13 +25,9 @@ public class AutoBlueBuildingPlateOuter extends AutoBuilding {
 
         while (opModeIsActive()) {
 
-            goToBuildPlate(Bot, "Blue");
+            sleep(6000);
 
-            orientBuildPlateBuild(Bot, "Blue");
-
-            pushBuildPlate(Bot, "Blue");
-
-            parkBuildingPlateOuter(Bot, "Blue");
+            Bot.driveForward(midSpeed, 2);
 
             idle();
             requestOpModeStop();

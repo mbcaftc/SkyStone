@@ -84,6 +84,9 @@ public class TeleOpMetalBot extends OpMode {
 
         controlClawGrabberCapstone();
 
+        // intake to middle
+
+
 
 
 
@@ -187,6 +190,18 @@ public class TeleOpMetalBot extends OpMode {
             Bot.intakeDeployRaise();
         }
     }
+//
+//    public void controlIntakePusher1 () {
+//        if (gamepad1.x) {
+//            Bot.intakePushHalf();
+//        }
+//        else if (gamepad1.b) {
+//            Bot.intakePushNeutral();
+//        }
+//        else {
+//
+//        }
+//    }
 
 
     public void controlIntakeSpinners() {
@@ -222,7 +237,10 @@ public class TeleOpMetalBot extends OpMode {
         if (gamepad2.y) {
             Bot.intakePushIn();
         }
-        else {
+        else if (gamepad1.x) {
+            Bot.intakePushHalf();
+        }
+        else if (gamepad1.b){
             Bot.intakePushNeutral();
         }
     }
@@ -290,7 +308,7 @@ public class TeleOpMetalBot extends OpMode {
 
     public void slowDrive() {
         if (gamepad1.dpad_down) {
-            speedMultiply = 0.45;
+            speedMultiply = 0.3;
         }
         else if (gamepad1.dpad_up) {
             speedMultiply = 1;

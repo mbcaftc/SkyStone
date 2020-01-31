@@ -37,6 +37,7 @@ public class AutoBlueBuildingPlate extends AutoBuilding {
 
             parkBuildingPlateInner(Bot, "Blue");
 
+            idle();
             requestOpModeStop();
         }
         idle();

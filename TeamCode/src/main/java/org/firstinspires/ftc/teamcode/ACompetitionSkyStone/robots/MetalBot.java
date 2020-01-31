@@ -329,13 +329,13 @@ public class MetalBot extends MecanumDrive {
 
     public void HookGrab () {
 
-        HookLeft.setPosition(.2279);       // was .5
-        HookRight.setPosition(.8);
+        HookLeft.setPosition(.19);       // was .5
+        HookRight.setPosition(.871);
     }
 
     public void HookHalfGrab () {
-        HookLeft.setPosition(.3979);
-        HookRight.setPosition(.531);
+        HookLeft.setPosition(.35);
+        HookRight.setPosition(.67);
     }
 
 
@@ -368,7 +368,7 @@ public class MetalBot extends MecanumDrive {
 
     public void intakeSpinnerRunner () {        // Reverse Slowly for TeleOp (Runner Bot Button Only)
 
-        intakeLSpinner.setPower(0.2);
+        intakeLSpinner.setPower(0.4);
         intakeRSpinner.setPower(0.2);
 
     }
@@ -386,6 +386,10 @@ public class MetalBot extends MecanumDrive {
 
     public void intakePushNeutral () {
         intakePusher.setPosition(0.29);                // values came from servo testing
+    }
+
+    public void intakePushHalf () {
+        intakePusher.setPosition(.449);
     }
 
     public void intakePushMiddle () {

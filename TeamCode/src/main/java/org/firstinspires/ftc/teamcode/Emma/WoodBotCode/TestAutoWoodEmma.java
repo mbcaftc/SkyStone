@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.Emma.WoodBotCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 
 @Autonomous(name = "Testing Auto: Vuforia: Emma")
-
+@Disabled
 public class TestAutoWoodEmma extends LinearOpMode {
 
     public WoodBotEmma Bot = new WoodBotEmma();

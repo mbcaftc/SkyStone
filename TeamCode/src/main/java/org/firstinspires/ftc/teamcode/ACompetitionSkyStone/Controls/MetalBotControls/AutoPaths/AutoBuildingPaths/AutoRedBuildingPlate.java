@@ -39,6 +39,7 @@ public class AutoRedBuildingPlate extends AutoBuilding {
             parkBuildingPlateInner(Bot, "Red");
 
 
+            idle();
             requestOpModeStop();
         }
         idle();

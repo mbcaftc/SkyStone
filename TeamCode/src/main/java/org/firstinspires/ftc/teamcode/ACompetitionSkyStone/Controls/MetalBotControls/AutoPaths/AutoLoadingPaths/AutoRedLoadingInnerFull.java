@@ -85,6 +85,7 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             sleep(sleepTime);
 
 //hello
+            idle();
             requestOpModeStop();
             idle();
         }

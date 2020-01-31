@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths.AutoLoadingPaths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoLoading;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 
 @Autonomous(name = "Red:Loading:SkyStone:Outer")
+@Disabled
 public class AutoRedLoadingSkyStoneOuter extends AutoLoading {
 
     public MetalBot Bot = new MetalBot();
@@ -66,6 +68,7 @@ public class AutoRedLoadingSkyStoneOuter extends AutoLoading {
             sleep(sleepTime);
 
 
+            idle();
             requestOpModeStop();
         }
         idle();
