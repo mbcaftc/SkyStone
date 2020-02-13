@@ -8,8 +8,8 @@ import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotContr
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "Blue:Loading:Inner:Full")
-//@Disabled
+@Autonomous(name = "zOld:Blue:Loading:Inner:Full")
+@Disabled
 public class AutoBlueLoadingInnerFull extends AutoLoading {
 
     public MetalBot Bot = new MetalBot();

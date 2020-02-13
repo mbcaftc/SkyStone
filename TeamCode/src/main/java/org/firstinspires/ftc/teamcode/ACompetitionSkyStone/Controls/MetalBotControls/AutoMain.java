@@ -45,11 +45,11 @@ public abstract class AutoMain extends LinearOpMode {
     public int skyStonePosition = 1;
     public int encoderPosition1 = 4300 + 400;
     public int encoderPosition2 = 4300;
-    public int encoderPosition3 = 4300 - 613;
+    public int encoderPosition3 = 4300 - 400;
 
-    public int encoderPosition1Blue = 1100;
-    public int encoderPosition2Blue = 1400;
-    public int encoderPosition3Blue = 1550;
+    public int encoderPosition1Blue = 1300; //1100, now 1300
+    public int encoderPosition2Blue = 1600; //1400, now 1600
+    public int encoderPosition3Blue = 1750; //1550, now 1750
 
 
     // Vuforia Variables & Constants used across All Autonoumous Paths

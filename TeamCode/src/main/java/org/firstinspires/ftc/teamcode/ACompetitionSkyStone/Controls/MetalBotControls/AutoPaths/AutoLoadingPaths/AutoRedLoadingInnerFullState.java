@@ -1,16 +1,13 @@
 package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths.AutoLoadingPaths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoLoading;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls.AutoLoadingWood;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "zOldRed:Loading:Inner:Full USE ME")
-@Disabled
-public class AutoRedLoadingInnerFull extends AutoLoading {
+@Autonomous(name = "Red:Loading:Inner:Full USE ME")
+//@Disabled
+public class AutoRedLoadingInnerFullState extends AutoLoading {
 
     public MetalBot Bot = new MetalBot();
 
@@ -41,6 +38,7 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             Bot.deActivateTracking();
 
             driveToSkyStone(Bot, "Red");
+            sleep(500);
 
 
             manipulateIntake(Bot,"inward");
@@ -70,22 +68,26 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             Bot.intakePushIn();
             sleep(100);
 
-            Bot.HookRelease();
-
             dropSkyStone(Bot, "Red");
             sleep(sleepTime);
 
-            alignGrabPlate(Bot, "Red");
-            sleep(sleepTime);
+//            dropSkyStone2(Bot, "Red");
+//            sleep(sleepTime);
+
+           // alignGrabPlate(Bot, "Red");
+           // sleep(sleepTime);
+
 
             orientBuildPlate(Bot, "Red");
             sleep(sleepTime);
+
+
 
             parkInner(Bot, "Red");
             sleep(sleepTime);
 
 //hello
-            idle();
+           // idle();
             requestOpModeStop();
             idle();
         }

@@ -86,6 +86,7 @@ public class MetalBot extends MecanumDrive {
 
     // Claw Hardware & Variables
     public CRServo clawExtender;
+    public Servo clawExtender2;
     public Servo clawGrabber;
 
     // Global Variables for Skystone Position
@@ -228,6 +229,9 @@ public class MetalBot extends MecanumDrive {
         clawExtender = hwBot.get(CRServo.class, "claw_extender");
         clawExtender.setPower(0);
 
+        clawExtender2 = hwBot.get(Servo.class, "claw_extender2");
+        clawExtender2.setDirection(Servo.Direction.FORWARD);
+
         clawGrabber = hwBot.get(Servo.class, "claw_grabber");
         clawGrabber.setDirection(Servo.Direction.FORWARD);
 
@@ -329,8 +333,8 @@ public class MetalBot extends MecanumDrive {
 
     public void HookGrab () {
 
-        HookLeft.setPosition(.19);       // was .5
-        HookRight.setPosition(.871);
+        HookLeft.setPosition(.2319);       // was .5
+        HookRight.setPosition(.842);
     }
 
     public void HookHalfGrab () {
@@ -341,8 +345,8 @@ public class MetalBot extends MecanumDrive {
 
     public void HookRelease () {
 
-        HookLeft.setPosition(.5539);
-        HookRight.setPosition(.3359);
+        HookLeft.setPosition(.93);
+        HookRight.setPosition(.1479);
     }
 
 
@@ -385,7 +389,7 @@ public class MetalBot extends MecanumDrive {
     }
 
     public void intakePushNeutral () {
-        intakePusher.setPosition(0.29);                // values came from servo testing
+        intakePusher.setPosition(0.25);                // values came from servo testing
     }
 
     public void intakePushHalf () {
@@ -415,14 +419,14 @@ public class MetalBot extends MecanumDrive {
 
     public void stackingArmUp() {                    // This is physically down
 
-        stackingLiftLeft.setPower(0.25);            // 25% power to minimize unspooling
-        stackingLiftRight.setPower(0.25);
+        stackingLiftLeft.setPower(0.50);            // 25% power to minimize unspooling
+        stackingLiftRight.setPower(0.50);
     }
 
     public void stackingArmDown() {                 //This is physically up
 
-        stackingLiftLeft.setPower(-0.5);            //50% power to mininmize uspooling
-        stackingLiftRight.setPower(-0.5);
+        stackingLiftLeft.setPower(-0.75);            //50% power to mininmize uspooling
+        stackingLiftRight.setPower(-0.75);
     }
 
     public void stackingArmOff () {
@@ -483,6 +487,14 @@ public class MetalBot extends MecanumDrive {
     public void clawGrabberRelease () {
 
         clawGrabber.setPosition(0.95);
+    }
+
+    public void clawExtenderExtend2 ()
+    {
+        clawExtender2.setPosition(1);
+    }
+    public void clawExtenderRetract2 () {
+        clawExtender2.setPosition(.41);
     }
 
     public void clawGrabberManualControl (double increment) {

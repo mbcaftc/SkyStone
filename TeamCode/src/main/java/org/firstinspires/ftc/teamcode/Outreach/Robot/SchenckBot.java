@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Outreach.Robot;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -11,13 +12,20 @@ import org.firstinspires.ftc.teamcode.Outreach.DriveTrains.OutreachDrive;
 public class SchenckBot extends OutreachDrive {
 
     public HardwareMap hwBot = null;
-    public Servo windup = null;
-    public Servo arm1 = null;
+//    public Servo windup = null;
+//    public Servo arm1 = null;
+
+    public CRServo heartSpinner = null;
 
     public DcMotor SchenckLauncher;
 
     public DcMotor launcherLSpinner;
     public DcMotor launcherRSpinner;
+
+    public DcMotor heartLSpinner;
+    public DcMotor heartRSpinner;
+
+    public DcMotor convBelt;
 
 
     public SchenckBot() {
@@ -34,6 +42,7 @@ public class SchenckBot extends OutreachDrive {
 
         frontLeftMotor =  hwBot.dcMotor.get("front_left_motor");
         frontRightMotor = hwBot.dcMotor.get("front_right_motor");
+
 
 
 
@@ -63,10 +72,24 @@ public class SchenckBot extends OutreachDrive {
         launcherLSpinner.setDirection(DcMotor.Direction.FORWARD);
         launcherLSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        windup = hwBot.servo.get("windup_servo");
-        windup.setPosition(0);
+        heartLSpinner = hwBot.dcMotor.get("left_heart");
+        heartLSpinner.setZeroPowerBehavior (DcMotor.ZeroPowerBehavior.BRAKE);
+        heartLSpinner.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        arm1 = hwBot.servo.get("arm1_servo");
+        heartRSpinner = hwBot.dcMotor.get("right_heart");
+        heartRSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        heartRSpinner.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        convBelt = hwBot.dcMotor.get("conv_belt");
+        convBelt.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        convBelt.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        heartSpinner = hwBot.crservo.get("heart_servo");
+
+//        windup = hwBot.servo.get("windup_servo");
+//        windup.setPosition(0);
+
+//        arm1 = hwBot.servo.get("arm1_servo");
         //arm1.setPosition(0);
 
     }
@@ -78,8 +101,8 @@ public class SchenckBot extends OutreachDrive {
     }
     public void launcherSpinOutward () {
 
-        launcherLSpinner.setPower(1);
-        launcherRSpinner.setPower(1);
+        launcherLSpinner.setPower(.5);
+        launcherRSpinner.setPower(.5);
     }
     public void launcherSpinOff () {
 
@@ -87,28 +110,52 @@ public class SchenckBot extends OutreachDrive {
         launcherRSpinner.setPower(0);
     }
 
+    public void heartSpinnersOn () {
+        heartRSpinner.setPower(1);
+        heartLSpinner.setPower(1);
+    }
+
+    public void heartSpinnerOff() {
+        heartRSpinner.setPower(0);
+        heartLSpinner.setPower(0);
+    }
+
+    public void convBeltForward () {
+        convBelt.setPower(1);
+    }
+
+    public void convBeltReverse () {
+        convBelt.setPower(-1);
+    }
+
+    public void convBeltOff () {
+        convBelt.setPower(0);
+    }
+
+
     //Servos
 
 
-    public void rightWindup () {
-        windup.setPosition(.2);// servo between 0 and 1
-    }
-    public void leftWindup () {
-        windup.setPosition(0.8);
-    }
-    public void WindupOff () {
-        windup.setPosition(0);
-    }
 
-    public void rightArm () {
-        arm1.setPosition(.2);
-    }
-    public void leftArm () {
-        arm1.setPosition(0.2);
-    }
-    public void armOff () {
-        arm1.setPosition(0);
-    }
+//    public void rightWindup () {
+//        windup.setPosition(.2);// servo between 0 and 1
+//    }
+//    public void leftWindup () {
+//        windup.setPosition(0.8);
+//    }
+//    public void WindupOff () {
+//        windup.setPosition(0);
+//    }
+
+//    public void rightArm () {
+//        arm1.setPosition(.2);
+//    }
+//    public void leftArm () {
+//        arm1.setPosition(0.2);
+//    }
+//    public void armOff () {
+//        arm1.setPosition(0);
+//    }
 }
 
 

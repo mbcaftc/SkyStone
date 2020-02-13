@@ -72,7 +72,9 @@ public class TeleOpMetalBot extends OpMode {
 
         controlStackingArm();
 
-        controlClawExtender();
+//        controlClawExtender();
+
+        controlClawExtender2();
 
         controlClawGrabber();
 
@@ -171,10 +173,10 @@ public class TeleOpMetalBot extends OpMode {
      */
 
     public void controlHook() {
-        if (gamepad1.left_bumper) {
+        if (gamepad1.left_trigger > .1 ) {
             Bot.HookRelease();
         }
-        else if (gamepad1.right_bumper) {
+        else if (gamepad1.right_trigger > .1) {
             Bot.HookGrab();
         }
     }
@@ -240,7 +242,7 @@ public class TeleOpMetalBot extends OpMode {
         else if (gamepad1.x) {
             Bot.intakePushHalf();
         }
-        else if (gamepad1.b){
+        else if (gamepad2.a){
             Bot.intakePushNeutral();
         }
     }
@@ -259,6 +261,17 @@ public class TeleOpMetalBot extends OpMode {
         else {
             Bot.clawExtenderStop();
         }
+
+    }
+
+    public void controlClawExtender2 () {
+        if (gamepad2.right_trigger > .1) {
+            Bot.clawExtenderExtend2();
+        }
+        else if (gamepad2.left_trigger > .1) {
+            Bot.clawExtenderRetract2();
+        }
+
 
     }
 
@@ -282,7 +295,7 @@ public class TeleOpMetalBot extends OpMode {
 
      */
     public void controlClawGrabberCapstone () {
-        if (gamepad2.a == true) {
+        if (gamepad2.dpad_right == true) {
             Bot.clawGrabberGrabCapStone();
         }
     }
@@ -307,10 +320,10 @@ public class TeleOpMetalBot extends OpMode {
     // ****** TeleOp Slow Drive Mode Methods
 
     public void slowDrive() {
-        if (gamepad1.dpad_down) {
+        if (gamepad1.left_bumper) {
             speedMultiply = 0.3;
         }
-        else if (gamepad1.dpad_up) {
+        else if (gamepad1.right_bumper) {
             speedMultiply = 1;
         }
     }

@@ -1,16 +1,13 @@
 package org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoPaths.AutoLoadingPaths;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.MetalBotControls.AutoLoading;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.Controls.WoodBotControls.AutoLoadingWood;
 import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.MetalBot;
-import org.firstinspires.ftc.teamcode.ACompetitionSkyStone.robots.WoodBot;
 
-@Autonomous(name = "zOldRed:Loading:Inner:Full USE ME")
-@Disabled
-public class AutoRedLoadingInnerFull extends AutoLoading {
+@Autonomous(name = "Blue:Loading:Inner:Full")
+//@Disabled
+public class AutoBlueLoadingInnerFullState extends AutoLoading {
 
     public MetalBot Bot = new MetalBot();
 
@@ -21,6 +18,8 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
         Bot.setLinearOp(this);
 
         setLinearOp(this);
+
+
 
         waitForStart();
 
@@ -33,61 +32,74 @@ public class AutoRedLoadingInnerFull extends AutoLoading {
             sleep(200);
             Bot.intakePushNeutral();
 
-            Bot.driveForward(lowSpeed, 1.8);
+            Bot.driveForward(lowSpeed, 1.7);
 
             Bot.detectSkyStone();
-            sleep(500);     // added after testing on 1/23/20
+            sleep(1000);
 
             Bot.deActivateTracking();
 
-            driveToSkyStone(Bot, "Red");
+            driveToSkyStone(Bot, "Blue");
 
 
             manipulateIntake(Bot,"inward");
 
 
-            Bot.driveForward(midSpeed, 1.4);
+            Bot.driveForward(midSpeed, 1.5);
 
             sleep(1000);
             manipulateIntake(Bot, "stop");
 
+
             Bot.intakePushIn();
             sleep(100);
-
 
             removeSkyStoneInner(Bot);
             sleep(sleepTime);
 
+//            Bot.intakePushIn();
+//            sleep(100);
 
             manipulateIntake(Bot, "flip_up");
 
-            rotateToDriveDropStone(Bot, "Red");
+            Bot.intakePushIn();
+            sleep(100);
+
+
+            rotateToDriveDropStone(Bot, "Blue");
             sleep(sleepTime);
 
-            driveToPlate("Red", Bot);
+            driveToPlate("Blue", Bot);
             sleep(sleepTime);
 
             Bot.intakePushIn();
             sleep(100);
 
-            Bot.HookRelease();
-
-            dropSkyStone(Bot, "Red");
+            dropSkyStone(Bot, "Blue");
             sleep(sleepTime);
 
-            alignGrabPlate(Bot, "Red");
+            // align grab plate and sleep(sleeptime)
+
+
+            //hook grab here
+
+//            dropSkyStone2(Bot, "Blue");
+//            sleep(sleepTime);
+
+//            dropSkyStone(Bot, "Blue");
+ //           sleep(sleepTime);
+
+            //align build plate was here
+
+            orientBuildPlate(Bot, "Blue"); //updated for 2.5
             sleep(sleepTime);
 
-            orientBuildPlate(Bot, "Red");
+
+            parkInner(Bot, "Blue"); //changed
             sleep(sleepTime);
 
-            parkInner(Bot, "Red");
-            sleep(sleepTime);
-
-//hello
             idle();
             requestOpModeStop();
-            idle();
         }
         idle();
 

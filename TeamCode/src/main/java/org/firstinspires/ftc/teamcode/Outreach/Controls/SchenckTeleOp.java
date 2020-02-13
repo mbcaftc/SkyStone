@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Outreach.Robot.JesusBot;
 import org.firstinspires.ftc.teamcode.Outreach.Robot.SchenckBot;
 
-@TeleOp(name = "Schenck Outreach Tele Op", group = "Outreach")
-@Disabled
+@TeleOp(name = "Schenck - Valentine Outreach Tele Op", group = "Outreach")
+//@Disabled
 
 
 
@@ -29,9 +29,14 @@ public class SchenckTeleOp extends OpMode {
 
         controlLauncherSpinners();
 
-        controlWindup();
+        sideHearts();
 
-        controlArm();
+        convBelt();
+
+        heartSpinner();
+//        controlWindup();
+
+//        controlArm();
 
     }
 
@@ -66,15 +71,50 @@ public class SchenckTeleOp extends OpMode {
     }
 
     public void controlLauncherSpinners() {             //triggers are > 0 or < 0, bumpers are == true or ==false
-        if (gamepad2.left_trigger > 0) {
+        if (gamepad1.left_trigger > 0.1) {
             Bot.launcherSpinInward();
-        } else if (gamepad2.right_trigger > 0) {
+        } else if (gamepad1.right_trigger > 0.1) {
             Bot.launcherSpinOutward();
         } else {
             Bot.launcherSpinOff();
         }
     }
 
+    public void sideHearts () {
+        if (gamepad2.a || gamepad1.a) {
+            Bot.heartSpinnersOn();
+        }
+        else {
+            Bot.heartSpinnerOff();
+        }
+    }
+
+    public void convBelt () {
+        if (gamepad1.left_trigger > .1) {
+            Bot.convBeltForward();
+        }
+        else if (gamepad1.right_trigger > .1) {
+            Bot.convBeltReverse();
+        }
+        else {
+            Bot.convBeltOff();
+        }
+    }
+
+
+    public void heartSpinner () {
+        if (gamepad1.dpad_right){
+            Bot.heartSpinner.setPower(1);
+        }
+        if (gamepad1.dpad_left) {
+            Bot.heartSpinner.setPower(0);
+        }
+        if (gamepad1.dpad_up || gamepad1.dpad_down) {
+            Bot.heartSpinner.setPower(.5);
+        }
+    }
+
+/*
     public void controlWindup() {
         if (gamepad2.a) {
             Bot.leftWindup();
@@ -94,6 +134,8 @@ public class SchenckTeleOp extends OpMode {
             Bot.armOff();
         }
     }
+
+ */
 
 
 
